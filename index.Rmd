@@ -21,7 +21,14 @@ at ZHAW.
 In the first part, we learned about the basics of probability theory,
 descriptive statistics, Bayesian statistics, and hypothesis testing.
 
-In this script, we will dive into the basics of statistical modeling.
+In this script, we will dive into the basics of statistical modeling - 
+a world of aesthetic wonder and surprises.
+
+This script is a work in progress and will be updated as we go along.
+
+Please feel free to send me suggestions for improvements or corrections.
+
+As the first one, this should be a collaborative effort.
 
 ## Books we will heavily borrow from are:
 
