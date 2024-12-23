@@ -1,6 +1,7 @@
 fig:nice-fig
 tab:nice-tab
-prerequisites
+intro0
+books-we-will-heavily-borrow-from-are
 intro
 literature
 methods
