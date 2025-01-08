@@ -28,6 +28,15 @@ Depending on the task at hand, we would use different models.
 In any case, logical reasoning and critical thinking comes first, 
 then comes the model. **It makes no sense to estimate statistical models just for the sake of it**.
 
+**All models are wrong, but some are useful**. 
+Or to quote [George Box](https://www.tandfonline.com/doi/abs/10.1080/01621459.1976.10480949):
+
+> "Since all models are wrong the scientist cannot obtain
+> a 'correct' one by excessive elaboration. On the contrary
+> following William of Occam he should seek an economical
+> description of natural phenomena. Just as the ability to
+> devise simple but evocative models is the signature of the
+> great scientist so overelaboration and overparameterization is often the mark of mediocrity."
 
 ### Explanatory vs. Predictive Models
 
@@ -38,7 +47,7 @@ and **prediction**, and each requires a different approach:
 These models aim to uncover mechanisms and answer **"why"** 
 questions. For example:
    
-   - Does smoking increase the risk of lung cancer?
+   - Does smoking increase the risk of lung cancer? **Yes**. (If you want to see what a large effect-size looks like, check out [this study](https://bmjopen.bmj.com/content/bmjopen/8/10/e021611.full.pdf).)
    - Does pain education and graded sensorimotor relearning improve disability (a question we ask in 
    our [Resolve Swiss project](https://data.snf.ch/grants/grant/220585))?
 
