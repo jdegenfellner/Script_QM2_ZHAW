@@ -2,13 +2,64 @@
 
 ## What is statistical modeling and what do we need this for?
 
-In rather broad sense a [statistical model](https://en.wikipedia.org/wiki/Statistical_model) 
-is a mathematical representation  of a real-world process or relationship between variables. 
+Typically, one simplifies the complex reality (and loses information) in order to make it better
+understandable, mathematically treatable and to make predictions. 
 
-In most cases, one simplifies the complex reality in order to make it better
-understandable, mathematically treatable and to make predictions.
+Underlying our models, there are theories which should be [falsifiable](https://en.wikipedia.org/wiki/Falsifiability)
+and testable.
+For instance, I would be really surprised if I pull up my multimeter and measure the voltage (V) and
+electric current (I) at a resistence (R) in a circuit and find that [Ohm's law](https://en.wikipedia.org/wiki/Ohm%27s_law) $V = IR$ is not true. 
+This [**law**](https://en.wikipedia.org/wiki/Scientific_law)
+can be tested over and over again and if one would find a single valid counterexample, 
+the law would be falsified. It is also true that the law is probably not 100% accularate,
+but an extremely good approximation of reality. Real-world measurements carry 
+measurement errors and when plotting the data, one would see that the data points
+might not lie exactly on a straight line. This is not a problem.
 
-Underlying our models, there are theories which should be falsifiable and testable.
-For instance, I would be really surprised if I pull up my ........
+A [statistical model](https://en.wikipedia.org/wiki/Statistical_model) 
+is a mathematical framework that represents the 
+relationships between variables, helping us understand, infer, and
+predict patterns in data. It acts as a bridge between observed data 
+and the real-world processes that generated them. In health research, 
+where variability and uncertainty are inherent, statistical models are 
+valuable tools for making sense of complex phenomena.
 
-It is a simplification of reality that allows us to make predictions and draw conclusions from data.
+Depending on the task at hand, we would use different models.
+In any case, logical reasoning and critical thinking comes first, 
+then comes the model. **It makes no sense to estimate statistical models just for the sake of it**.
+
+
+### Explanatory vs. Predictive Models
+
+Statistical models serve different purposes depending on the research question. Two primary goals are **explanation** 
+and **prediction**, and each requires a different approach:
+
+**Explanatory Models** focus on understanding causal relationships. 
+These models aim to uncover mechanisms and answer **"why"** 
+questions. For example:
+   
+   - Does smoking increase the risk of lung cancer?
+   - Does pain education and graded sensorimotor relearning improve disability (a question we ask in 
+   our [Resolve Swiss project](https://data.snf.ch/grants/grant/220585))?
+
+Explanatory models are **theory-driven**, designed to test hypotheses. Here, one wants to understand the underlying
+mechanisms and the relationships between variables and hence often uses models that are interpretable, like linear regression.
+
+**Predictive Models** prioritize forecasting future outcomes based on patterns in the data. 
+These models aim to answer **"what will happen?"** For instance:
+   
+   - Can we predict the likelihood of hospital readmission based on patient characteristics?
+   - What is the expected recovery time for a patient given her therapy and baseline health status?
+
+Predictive models are **data-driven**, often using complex algorithms to achieve high accuracy. 
+Their success is measured using metrics like RMSE, AUC, or **prediction error on new, unseen data**.
+Any amount of model complexity is allowed. One could for instance estimate a 
+[neural network](https://en.wikipedia.org/wiki/Neural_network_(machine_learning)) ("just" another statistical model) 
+with many hidden layers and neurons in order to improve prediction quality. Interpretability of the model weights is not a priority here.
+
+While explanatory and predictive goals often complement each other, 
+their differences highlight the importance of clearly defining the purpose 
+of your analysis. In applied health research, explanatory models help identify 
+causal mechanisms, while predictive models can guide real-world decisions by 
+providing actionable forecasts. Together, they enhance both our understanding 
+of phenomena and our ability to make informed decisions in complex environments.

@@ -82,7 +82,10 @@
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-statistical-modeling-and-what-do-we-need-this-for"><i class="fa fa-check"></i><b>2.1</b> What is statistical modeling and what do we need this for?</a></li>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-statistical-modeling-and-what-do-we-need-this-for"><i class="fa fa-check"></i><b>2.1</b> What is statistical modeling and what do we need this for?</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="intro.html"><a href="intro.html#explanatory-vs.-predictive-models"><i class="fa fa-check"></i><b>2.1.1</b> Explanatory vs. Predictive Models</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a>
@@ -120,14 +123,59 @@
 <h1><span class="header-section-number">Chapter 2</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="what-is-statistical-modeling-and-what-do-we-need-this-for" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> What is statistical modeling and what do we need this for?<a href="intro.html#what-is-statistical-modeling-and-what-do-we-need-this-for" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In rather broad sense a <a href="https://en.wikipedia.org/wiki/Statistical_model">statistical model</a>
-is a mathematical representation of a real-world process or relationship between variables.</p>
-<p>In most cases, one simplifies the complex reality in order to make it better
+<p>Typically, one simplifies the complex reality (and loses information) in order to make it better
 understandable, mathematically treatable and to make predictions.</p>
-<p>Underlying our models, there are theories which should be falsifiable and testable.
-For instance, I would be really surprised if I pull up my ……..</p>
-<p>It is a simplification of reality that allows us to make predictions and draw conclusions from data.</p>
+<p>Underlying our models, there are theories which should be <a href="https://en.wikipedia.org/wiki/Falsifiability">falsifiable</a>
+and testable.
+For instance, I would be really surprised if I pull up my multimeter and measure the voltage (V) and
+electric current (I) at a resistence (R) in a circuit and find that <a href="https://en.wikipedia.org/wiki/Ohm%27s_law">Ohm’s law</a> <span class="math inline">\(V = IR\)</span> is not true.
+This <a href="https://en.wikipedia.org/wiki/Scientific_law"><strong>law</strong></a>
+can be tested over and over again and if one would find a single valid counterexample,
+the law would be falsified. It is also true that the law is probably not 100% accularate,
+but an extremely good approximation of reality. Real-world measurements carry
+measurement errors and when plotting the data, one would see that the data points
+might not lie exactly on a straight line. This is not a problem.</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Statistical_model">statistical model</a>
+is a mathematical framework that represents the
+relationships between variables, helping us understand, infer, and
+predict patterns in data. It acts as a bridge between observed data
+and the real-world processes that generated them. In health research,
+where variability and uncertainty are inherent, statistical models are
+valuable tools for making sense of complex phenomena.</p>
+<p>Depending on the task at hand, we would use different models.</p>
+<div id="explanatory-vs.-predictive-models" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Explanatory vs. Predictive Models<a href="intro.html#explanatory-vs.-predictive-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Statistical models serve different purposes depending on the research question. Two primary goals are <strong>explanation</strong>
+and <strong>prediction</strong>, and each requires a different approach:</p>
+<p><strong>Explanatory Models</strong> focus on understanding causal relationships.
+These models aim to uncover mechanisms and answer <strong>“why”</strong>
+questions. For example:</p>
+<ul>
+<li>Does smoking increase the risk of lung cancer?</li>
+<li>Does pain education and graded sensorimotor relearning improve disability (a question we ask in
+our <a href="https://data.snf.ch/grants/grant/220585">Resolve Swiss project</a>)?</li>
+</ul>
+<p>Explanatory models are <strong>theory-driven</strong>, designed to test hypotheses. Here, one wants to understand the underlying
+mechanisms and the relationships between variables and hence often uses models that are interpretable, like linear regression.</p>
+<p><strong>Predictive Models</strong> prioritize forecasting future outcomes based on patterns in the data.
+These models aim to answer <strong>“what will happen?”</strong> For instance:</p>
+<ul>
+<li>Can we predict the likelihood of hospital readmission based on patient characteristics?</li>
+<li>What is the expected recovery time for a patient given her therapy and baseline health status?</li>
+</ul>
+<p>Predictive models are <strong>data-driven</strong>, often using complex algorithms to achieve high accuracy.
+Their success is measured using metrics like RMSE, AUC, or <strong>prediction error on new, unseen data</strong>.
+Any amount of model complexity is allowed. One could for instance estimate a
+<a href="https://en.wikipedia.org/wiki/Neural_network_(machine_learning)">neural network</a> (“just” another statistical model)
+with many hidden layers and neurons in order to improve prediction quality. Interpretability of the model weights is not a priority here.</p>
+<p>While explanatory and predictive goals often complement each other,
+their differences highlight the importance of clearly defining the purpose
+of your analysis. In applied health research, explanatory models help identify
+causal mechanisms, while predictive models can guide real-world decisions by
+providing actionable forecasts. Together, they enhance both our understanding
+of phenomena and our ability to make informed decisions in complex environments.</p>
 
+</div>
 </div>
 </div>
             </section>

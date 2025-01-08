@@ -2,6 +2,7 @@ intro0
 books-we-will-heavily-borrow-from-are
 intro
 what-is-statistical-modeling-and-what-do-we-need-this-for
+explanatory-vs.-predictive-models
 literature
 methods
 math-example
