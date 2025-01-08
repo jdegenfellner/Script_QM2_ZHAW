@@ -1,5 +1,3 @@
-fig:nice-fig
-tab:nice-tab
 intro0
 books-we-will-heavily-borrow-from-are
 intro

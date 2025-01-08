@@ -28,7 +28,12 @@ This script is a work in progress and will be updated as we go along.
 
 Please feel free to send me suggestions for improvements or corrections.
 
-As the first one, this should be a collaborative effort.
+As the first one, this **should be a collaborative effort** and will (hopefully) 
+never be finished as our insight grows over time.
+
+For the working setup with R, please 
+see [this](https://jdegenfellner.github.io/Script_QM1_ZHAW/index.html#section) 
+and the following sections in the first script.
 
 ## Books we will heavily borrow from are:
 
