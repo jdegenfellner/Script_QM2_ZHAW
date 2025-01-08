@@ -22,7 +22,8 @@ relationships between variables, helping us understand, infer, and
 predict patterns in data. It acts as a bridge between observed data 
 and the real-world processes that generated them. In health research, 
 where variability and uncertainty are inherent, statistical models are 
-valuable tools for making sense of complex phenomena.
+valuable tools for making sense of complex phenomena. 
+You can watch [this](https://www.youtube.com/watch?v=3d5ivs_8amQ&ab_channel=VeryNormal) as short intro.
 
 Depending on the task at hand, we would use different models.
 In any case, logical reasoning and critical thinking comes first, 
@@ -75,3 +76,32 @@ of your analysis. In applied health research, explanatory models help identify
 causal mechanisms, while predictive models can guide real-world decisions by 
 providing actionable forecasts. Together, they enhance both our understanding 
 of phenomena and our ability to make informed decisions in complex environments.
+
+Another important distinction is between **individual vs. population** prediction.
+In the smoking example above, we can be very sure about the mean effects of smoking has on lung cancer.
+On an individual level, it is [harder to predict the outcome](https://www.liebertpub.com/doi/10.1089/rej.2019.2298). 
+Nevertheless, individual predictions will be (notably) better than random guessing. We will discuss this in greater detail.
+
+### Using Statistical Models in Physiotherapy Research
+
+Physiotherapy research often involves answering diverse and complex questions, from understanding treatment 
+effectiveness to exploring patient perceptions. Statistical models are essential tools in this field because they enable researchers to systematically analyze data, uncover patterns, and make informed decisions grounded in evidence. 
+
+In evidence-based physiotherapy, statistical models support several key areas:
+- **Evaluating Treatment Effectiveness**: For instance, a randomised controlled trial (RCT) might use a statistical
+ model to compare the effectiveness of two interventions, such as manual therapy versus exercise, for managing low back pain.
+- **Understanding Prognostic Factors**: Cohort studies use models to identify variables that predict recovery times or functional 
+improvements in patients with musculoskeletal conditions.
+- **Diagnosing and Validating Tests**: Cross-sectional studies frequently apply statistical models to assess the diagnostic 
+accuracy of tools like physical examination techniques or imaging modalities.
+- **Exploring Patient Experiences**: Mixed-method studies may incorporate models to quantify trends while integrating 
+qualitative insights for deeper understanding.
+
+These models help bridge the gap between raw data and clinical practice, allowing physiotherapists to:
+1. Test hypotheses (e.g., does adding manual therapy to standard care improve recovery rates?).
+2. Explore relationships (e.g., is age or comorbidity a stronger predictor of delayed recovery?).
+3. Make predictions (e.g., which patients are most likely to benefit from a specific intervention?).
+
+By integrating statistical models into research, physiotherapists can better interpret study results and apply 
+them in clinical decision-making. This aligns with the principles of evidence-based practice, ensuring that 
+interventions are both effective and tailored to individual patient needs.

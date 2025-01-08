@@ -3,6 +3,7 @@ books-we-will-heavily-borrow-from-are
 intro
 what-is-statistical-modeling-and-what-do-we-need-this-for
 explanatory-vs.-predictive-models
+using-statistical-models-in-physiotherapy-research
 literature
 methods
 math-example
