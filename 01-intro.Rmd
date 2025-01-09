@@ -39,6 +39,8 @@ Or to quote [George Box](https://www.tandfonline.com/doi/abs/10.1080/01621459.19
 > devise simple but evocative models is the signature of the
 > great scientist so overelaboration and overparameterization is often the mark of mediocrity."
 
+In my opinion, statistical model is an art form: difficult and beautiful.
+
 ### Explanatory vs. Predictive Models
 
 I can recommend [this](https://projecteuclid.org/journals/statistical-science/volume-25/issue-3/To-Explain-or-to-Predict/10.1214/10-STS330.full) 
