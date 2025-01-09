@@ -85,7 +85,7 @@
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-statistical-modeling-and-what-do-we-need-this-for"><i class="fa fa-check"></i><b>2.1</b> What is statistical modeling and what do we need this for?</a>
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="intro.html"><a href="intro.html#explanatory-vs.-predictive-models"><i class="fa fa-check"></i><b>2.1.1</b> Explanatory vs. Predictive Models</a></li>
-<li class="chapter" data-level="2.1.2" data-path="intro.html"><a href="intro.html#using-statistical-models-in-physiotherapy-research"><i class="fa fa-check"></i><b>2.1.2</b> Using Statistical Models in Physiotherapy Research</a></li>
+<li class="chapter" data-level="2.1.2" data-path="intro.html"><a href="intro.html#individual-vs.-population-prediction"><i class="fa fa-check"></i><b>2.1.2</b> Individual vs. Population Prediction</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
@@ -158,9 +158,15 @@ devise simple but evocative models is the signature of the
 great scientist so overelaboration and overparameterization is often the mark of mediocrity.”</p>
 </blockquote>
 <p>In my opinion, statistical model is an art form: difficult and beautiful.</p>
+<p><strong>One goal of this course</strong> is to improve interpretation and limitations of statistical models.
+They are not magical turning data into truth. Firstly ,the rule gargabe in, garbage out (GABA) applies.
+Secondly, statistical models are based on data and their variability and have intrinsict limitations
+one cannot overcome even with the most sophisticated models. This is expressed for instance
+in the so-called <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance trade-off</a>.
+You can’t have it all.</p>
 <div id="explanatory-vs.-predictive-models" class="section level3 hasAnchor" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Explanatory vs. Predictive Models<a href="intro.html#explanatory-vs.-predictive-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>I can recommend <a href="https://projecteuclid.org/journals/statistical-science/volume-25/issue-3/To-Explain-or-to-Predict/10.1214/10-STS330.full">this</a>
+<p>I can recommend reading <a href="https://projecteuclid.org/journals/statistical-science/volume-25/issue-3/To-Explain-or-to-Predict/10.1214/10-STS330.full">this</a>
 article by Shmueli et al. (2010) on this topic.</p>
 <p>Statistical models serve different purposes depending on the research question. Two primary goals are <strong>explanation</strong>
 and <strong>prediction</strong>, and each requires a different approach:</p>
@@ -169,19 +175,23 @@ These models aim to uncover mechanisms and answer <strong>“why”</strong>
 questions. For example:</p>
 <ul>
 <li>Does smoking increase the risk of lung cancer? <strong>Yes</strong>. (If you want to see what a large effect-size looks like, check out <a href="https://bmjopen.bmj.com/content/bmjopen/8/10/e021611.full.pdf">this study</a>.)</li>
+<li>How large is the “effect” of smoking on lung cancer? <strong>Large</strong>.</li>
 <li>Does pain education and graded sensorimotor relearning improve disability (a question we ask in
 our <a href="https://data.snf.ch/grants/grant/220585">Resolve Swiss project</a>)?</li>
 </ul>
 <p>Explanatory models are <strong>theory-driven</strong>, designed to test hypotheses. Here, one wants to understand the underlying
-mechanisms and the relationships between variables and hence often uses models that are interpretable, like linear regression.</p>
+mechanisms and the relationships between variables and hence often uses (parsimonious) models that are more interpretable,
+like linear regression.</p>
 <p><strong>Predictive Models</strong> prioritize forecasting future outcomes based on patterns in the data.
 These models aim to answer <strong>“what will happen?”</strong> For instance:</p>
 <ul>
-<li>Can we predict the likelihood of hospital readmission based on patient characteristics?</li>
-<li>What is the expected recovery time for a patient given her therapy and baseline health status?</li>
+<li><a href="https://www.tandfonline.com/doi/abs/10.1080/03091902.2020.1822940">Gait analysis</a> using Machine Learning (ML)?</li>
+<li><a href="https://jamanetwork.com/journals/jamadermatology/fullarticle/2756346">Skin cancer detection</a> using neural networks?</li>
 </ul>
 <p>Predictive models are <strong>data-driven</strong>, often using complex algorithms to achieve high accuracy.
-Their success is measured using metrics like RMSE, AUC, or <strong>prediction error on new, unseen data</strong>.
+Their success is measured using metrics like <a href="https://computersciencewiki.org/index.php/Root-mean-square_error_(RMSE)">Root Means Square Error</a>
+(RMSE), <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic#:~:text=The%20area%20under%20the%20curve,ranks%20higher%20than%20&#39;negative&#39;">Area Unter the Curve</a>
+(AUC), or <strong>prediction error on new, unseen data</strong>.
 Any amount of model complexity is allowed. One could for instance estimate a
 <a href="https://en.wikipedia.org/wiki/Neural_network_(machine_learning)">neural network</a> (“just” another statistical model)
 with many hidden layers and neurons in order to improve prediction quality. Interpretability of the model weights is not a priority here.</p>
@@ -191,35 +201,14 @@ of your analysis. In applied health research, explanatory models help identify
 causal mechanisms, while predictive models can guide real-world decisions by
 providing actionable forecasts. Together, they enhance both our understanding
 of phenomena and our ability to make informed decisions in complex environments.</p>
+</div>
+<div id="individual-vs.-population-prediction" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Individual vs. Population Prediction<a href="intro.html#individual-vs.-population-prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Another important distinction is between <strong>individual vs. population</strong> prediction.
-In the smoking example above, we can be very sure about the mean effects of smoking has on lung cancer.
+In the smoking example above, we can be very sure about the mean effects that smoking has on lung cancer.
 On an individual level, it is <a href="https://www.liebertpub.com/doi/10.1089/rej.2019.2298">harder to predict the outcome</a>.
 Nevertheless, individual predictions will be (notably) better than random guessing. We will discuss this in greater detail.</p>
-</div>
-<div id="using-statistical-models-in-physiotherapy-research" class="section level3 hasAnchor" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Using Statistical Models in Physiotherapy Research<a href="intro.html#using-statistical-models-in-physiotherapy-research" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Physiotherapy research often involves answering diverse and complex questions, from understanding treatment
-effectiveness to exploring patient perceptions. Statistical models are essential tools in this field because they enable researchers to systematically analyze data, uncover patterns, and make informed decisions grounded in evidence.</p>
-<p>In evidence-based physiotherapy, statistical models support several key areas:</p>
-<ul>
-<li><p><strong>Evaluating Treatment Effectiveness</strong>: For instance, a randomised controlled trial (RCT) might use a statistical
-model to compare the effectiveness of two interventions, such as manual therapy versus exercise, for managing low back pain.</p></li>
-<li><p><strong>Understanding Prognostic Factors</strong>: Cohort studies use models to identify variables that predict recovery times or functional
-improvements in patients with musculoskeletal conditions.</p></li>
-<li><p><strong>Diagnosing and Validating Tests</strong>: Cross-sectional studies frequently apply statistical models to assess the diagnostic
-accuracy of tools like physical examination techniques or imaging modalities.</p></li>
-<li><p><strong>Exploring Patient Experiences</strong>: Mixed-method studies may incorporate models to quantify trends while integrating
-qualitative insights for deeper understanding.</p></li>
-</ul>
-<p>These models help bridge the gap between raw data and clinical practice, allowing physiotherapists to:</p>
-<ul>
-<li>Test hypotheses (e.g., does adding manual therapy to standard care improve recovery rates?).</li>
-<li>Explore relationships (e.g., is age or comorbidity a stronger predictor of delayed recovery?).</li>
-<li>Make predictions (e.g., which patients are most likely to benefit from a specific intervention?).</li>
-</ul>
-<p>By integrating statistical models into research, physiotherapists can better interpret study results and apply
-them in clinical decision-making. This aligns with the principles of evidence-based practice, ensuring that
-interventions are both effective and tailored to individual patient needs.</p>
+<p>In my optinion, we should never be afraid to test als statistical models (as honestly as possible) against reality.</p>
 
 </div>
 </div>
