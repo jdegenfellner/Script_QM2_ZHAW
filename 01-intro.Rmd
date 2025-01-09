@@ -97,4 +97,24 @@ In the smoking example above, we can be very sure about the mean effects that sm
 On an individual level, it is [harder to predict the outcome](https://www.liebertpub.com/doi/10.1089/rej.2019.2298). 
 Nevertheless, individual predictions will be (notably) better than random guessing. We will discuss this in greater detail.
 
-In my optinion, we should never be afraid to test als statistical models (as honestly as possible) against reality.
+### Practical Use of Statistical Models
+
+In my optinion, we should never be afraid to test our statistical models (as honestly as possible) against reality.
+We could for instance ask ourselves: 
+
+- "How much better does this model classify than the arithmetic mean? 
+  (i.e., the linear model with just an intercept)"
+
+- "How much better does this model classify than random guessing?"
+
+- Is it worth the effort to collect data and estimate this model by using hundreds of hours of our time?
+
+In some cases, these questions can be answered straightforwardly. 
+
+- In advertising (Google, Facebook, ...), a couple of percentage points in prediction quality might make a differences of millions 
+of dollars in revenue offsetting the statistitians salary. 
+
+- Increased forecasts of a few percentage points in the stock market or just being [slightly better](https://en.wikipedia.org/wiki/Jim_Simons) 
+than the average, will make you faboulously rich.
+
+- Increased cancer forecasting might save lives, money and pain and is not only measured in money.
