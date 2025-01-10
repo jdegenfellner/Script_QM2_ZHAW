@@ -5,6 +5,7 @@ what-is-statistical-modeling-and-what-do-we-need-this-for
 explanatory-vs.-predictive-models
 individual-vs.-population-prediction
 practical-use-of-statistical-models
+start-at-the-beginning
 literature
 methods
 math-example

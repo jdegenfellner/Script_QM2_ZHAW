@@ -118,3 +118,27 @@ of dollars in revenue offsetting the statistitians salary.
 than the average, will make you faboulously rich.
 
 - Increased cancer forecasting might save lives, money and pain and is not only measured in money.
+
+### Start at the beginning
+
+What do we actually want to do in general? Very broadly speaking we want to:
+**describe** the association of variables to each other which are attached to variability. 
+
+So we are looking for a function $f$ such that
+
+$$ Y = f(X) $$
+
+where $Y$ is the "outcome", $X$ are the "predictors". Since this relationship is not deterministic, we have to account for variability.
+$X$ can be a single Variable $x$ or many variables $x_1, x_2, \ldots, x_p$.
+
+The simplest statistical model would be the mean model. Let's use the example in 
+[Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
+starting on page 78.
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+library(rethinking)
+data("Howell1")
+d <- Howell1
+str(d)
+```
+
