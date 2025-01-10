@@ -297,11 +297,21 @@ than the average, will make you faboulously rich.</p></li>
 <div id="start-at-the-beginning" class="section level3 hasAnchor" number="2.1.4">
 <h3><span class="header-section-number">2.1.4</span> Start at the beginning<a href="intro.html#start-at-the-beginning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What do we actually want to do in general? Very broadly speaking we want to:
-<strong>describe</strong> the association of variables to each other which are attached to variability.</p>
+<strong>describe</strong> the association of variables to each other that carry variability.
+Hence, the relationship is not deterministic like <span class="math display">\[y = 2x + 3\]</span> but rather we need
+to “loosen up” the relationship to account for variability.
+So, the values <span class="math inline">\(2\)</span> and <span class="math inline">\(3\)</span> are not fixed but aflicted with uncertainty.
+Depending on your philosophical view, you might say you want to find
+the “true” but unknown relationship between variables.
+This is what we do in simulation studies all the time: We know the true relationship,
+simulate data with variability and then try to estimate the true relationship we assumed in the first place.
+For some practical applications, we can get a really nice and complete answer to our question
+(for instance sample size for proportions).</p>
 <p>So we are looking for a function <span class="math inline">\(f\)</span> such that</p>
 <p><span class="math display">\[ Y = f(X) \]</span></p>
 <p>where <span class="math inline">\(Y\)</span> is the “outcome”, <span class="math inline">\(X\)</span> are the “predictors”. Since this relationship is not deterministic, we have to account for variability.
 <span class="math inline">\(X\)</span> can be a single Variable <span class="math inline">\(x\)</span> or many variables <span class="math inline">\(x_1, x_2, \ldots, x_p\)</span>.</p>
+<p>Elaborate on X, Y and F, independent, depenent…….</p>
 <p>The simplest statistical model would be the mean model. Let’s use the example in
 <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical rethinking</a>
 starting on page 78.</p>

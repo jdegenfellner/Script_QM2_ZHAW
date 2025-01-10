@@ -122,7 +122,16 @@ than the average, will make you faboulously rich.
 ### Start at the beginning
 
 What do we actually want to do in general? Very broadly speaking we want to:
-**describe** the association of variables to each other which are attached to variability. 
+**describe** the association of variables to each other that carry variability. 
+Hence, the relationship is not deterministic like $$y = 2x + 3$$ but rather we need
+to "loosen up" the relationship to account for variability.
+So, the values $2$ and $3$ are not fixed but aflicted with uncertainty.
+Depending on your philosophical view, you might say you want to find
+the "true" but unknown relationship between variables.
+This is what we do in simulation studies all the time: We know the true relationship, 
+simulate data with variability and then try to estimate the true relationship we assumed in the first place.
+For some practical applications, we can get a really nice and complete answer to our question
+(for instance sample size for proportions).
 
 So we are looking for a function $f$ such that
 
@@ -130,6 +139,8 @@ $$ Y = f(X) $$
 
 where $Y$ is the "outcome", $X$ are the "predictors". Since this relationship is not deterministic, we have to account for variability.
 $X$ can be a single Variable $x$ or many variables $x_1, x_2, \ldots, x_p$.
+
+Elaborate on X, Y and F, independent, depenent.......
 
 The simplest statistical model would be the mean model. Let's use the example in 
 [Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
