@@ -24,12 +24,16 @@ descriptive statistics, Bayesian statistics, and hypothesis testing.
 In this script, we will dive into the basics of statistical modeling - 
 a world of aesthetic wonder and surprises.
 
-This script is a work in progress and will be updated as we go along.
+This script is a first draft as you are the first group to be working with it.
 
 Please feel free to send me suggestions for improvements or corrections.
 
-As the first one, this **should be a collaborative effort** and will (hopefully) 
+This **should be a collaborative effort** and will (hopefully) 
 never be finished as our insight grows over time.
+
+The script can also be seen as a pointer to great sources which are
+fit to deepen your understanding of the topics. Knowledge is decentralized,
+and there are many great ressources out there.
 
 For the working setup with R, please 
 see [this](https://jdegenfellner.github.io/Script_QM1_ZHAW/index.html#section) 

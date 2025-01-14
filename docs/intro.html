@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-01-10" />
+<meta name="date" content="2025-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -153,6 +153,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.3" data-path="intro.html"><a href="intro.html#practical-use-of-statistical-models"><i class="fa fa-check"></i><b>2.1.3</b> Practical Use of Statistical Models</a></li>
 <li class="chapter" data-level="2.1.4" data-path="intro.html"><a href="intro.html#start-at-the-beginning"><i class="fa fa-check"></i><b>2.1.4</b> Start at the beginning</a></li>
 </ul></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#exercises"><i class="fa fa-check"></i><b>2.2</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="intro.html"><a href="intro.html#exercise1_Intro"><i class="fa fa-check"></i><b>2.2.1</b> [E] Exercise 1</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a>
@@ -223,10 +227,10 @@ description of natural phenomena. Just as the ability to
 devise simple but evocative models is the signature of the
 great scientist so overelaboration and overparameterization is often the mark of mediocrity.”</p>
 </blockquote>
-<p>In my opinion, statistical model is an art form: difficult and beautiful.</p>
+<p>In my opinion, statistical modeling is an art form: difficult and beautiful.</p>
 <p><strong>One goal of this course</strong> is to improve interpretation and limitations of statistical models.
-They are not magical turning data into truth. Firstly ,the rule gargabe in, garbage out (GABA) applies.
-Secondly, statistical models are based on data and their variability and have intrinsict limitations
+They are not magical turning data into truth. Firstly, the rule gargabe in, garbage out (GABA) applies.
+Secondly, statistical models are based on data and their variability and have inherent limitations
 one cannot overcome even with the most sophisticated models. This is expressed for instance
 in the so-called <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance trade-off</a>.
 You can’t have it all.</p>
@@ -287,11 +291,11 @@ We could for instance ask ourselves:</p>
 </ul>
 <p>In some cases, these questions can be answered straightforwardly.</p>
 <ul>
-<li><p>In advertising (Google, Facebook, …), a couple of percentage points in prediction quality might make a differences of millions
+<li><p>In advertising (Google, Facebook, …), a couple of percentage points in prediction quality might make a difference of millions
 of dollars in revenue offsetting the statistitians salary.</p></li>
-<li><p>Increased forecasts of a few percentage points in the stock market or just being <a href="https://en.wikipedia.org/wiki/Jim_Simons">slightly better</a>
+<li><p>Improved forecasts of a few percentage points in the stock market or just being <a href="https://en.wikipedia.org/wiki/Jim_Simons">slightly better</a>
 than the average, will make you faboulously rich.</p></li>
-<li><p>Increased cancer forecasting might save lives, money and pain and is not only measured in money.</p></li>
+<li><p>Improved cancer forecasting might save lives, money and pain and is not only measured in money.</p></li>
 </ul>
 </div>
 <div id="start-at-the-beginning" class="section level3 hasAnchor" number="2.1.4">
@@ -299,22 +303,38 @@ than the average, will make you faboulously rich.</p></li>
 <p>What do we actually want to do in general? Very broadly speaking we want to:
 <strong>describe</strong> the association of variables to each other that carry variability.
 Hence, the relationship is not deterministic like <span class="math display">\[y = 2x + 3\]</span> but rather we need
-to “loosen up” the relationship to account for variability.
+to “loosen up” the relationship to account for variability (in <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>).
 So, the values <span class="math inline">\(2\)</span> and <span class="math inline">\(3\)</span> are not fixed but aflicted with uncertainty.
 Depending on your philosophical view, you might say you want to find
 the “true” but unknown relationship between variables.
 This is what we do in simulation studies all the time: We know the true relationship,
-simulate data with variability and then try to estimate the true relationship we assumed in the first place.
+simulate data by adding variability and then try to estimate the true relationship we assumed in the first place.
 For some practical applications, we can get a really nice and complete answer to our question
 (for instance sample size for proportions).</p>
 <p>So we are looking for a function <span class="math inline">\(f\)</span> such that</p>
 <p><span class="math display">\[ Y = f(X) \]</span></p>
-<p>where <span class="math inline">\(Y\)</span> is the “outcome”, <span class="math inline">\(X\)</span> are the “predictors”. Since this relationship is not deterministic, we have to account for variability.
-<span class="math inline">\(X\)</span> can be a single Variable <span class="math inline">\(x\)</span> or many variables <span class="math inline">\(x_1, x_2, \ldots, x_p\)</span>.</p>
-<p>Elaborate on X, Y and F, independent, depenent…….</p>
-<p>The simplest statistical model would be the mean model. Let’s use the example in
+<p>where</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> is the “outcome”, “dependent variable” or “response”.</li>
+<li><span class="math inline">\(X\)</span> are the “predictors”. <span class="math inline">\(X\)</span> can be a single Variable <span class="math inline">\(x\)</span> or many
+variables <span class="math inline">\(x_1, x_2, \ldots, x_p\)</span>.</li>
+</ul>
+<p>It is important to be aware of the notation here:
+“Predict” does <strong>not necessarily</strong> mean that we can predict the value in
+the future. It merely means we estimate the value (or mean) of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>This can be done at the same time points, known as <strong>cross-sectional</strong> analysis (“What is the maximum jumping height
+of a person given their age at a certain point in time, whereas both variables are measured at the same time?”);</li>
+<li>or at different time points, known as <strong>longitudinal analysis</strong> (“What is the maximum jumping height of a person 10 years later (<span class="math inline">\(t_2\)</span>)
+given their baseline health status at time <span class="math inline">\(t_1\)</span>?”).</li>
+</ul>
+<p>The <strong>simplest statistical model</strong> would be the mean model where <span class="math inline">\(Y\)</span> is “predicted” by a
+constant: <span class="math inline">\(Y = c\)</span> which (at least in the classical linear regression) turns out to be <span class="math inline">\(c = \bar{x}\)</span>.
+This simple model is often surprisingly good, or, to put it in other words, models with more complexity
+are often not that much better with regards to multiple metrics.</p>
+<p>Let’s use the example in
 <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical rethinking</a>
-starting on page 78.</p>
+using data from the <a href="https://en.wikipedia.org/wiki/%C7%83Kung_people">!Kun San</a> starting on page 79.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
 <span id="cb1-2"><a href="intro.html#cb1-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Howell1&quot;</span>)</span>
 <span id="cb1-3"><a href="intro.html#cb1-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
@@ -324,6 +344,52 @@ starting on page 78.</p>
 ##  $ weight: num  47.8 36.5 31.9 53 41.3 ...
 ##  $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
 ##  $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>,] <span class="co"># only adults</span></span></code></pre></div>
+<p>We want to model the adult height of the !Kun San people.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="intro.html#cb4-2" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> height)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Since we already have domain knowledge in this area, we can say that heights are usually normally distributed,
+or at least a mixture of normal distrubutions (female/male).
+We assume the following model:
+<span class="math display">\[h_i \sim \text{Normal}(\mu, \sigma)\]</span></p>
+<p>As in QM1, we want to start with a Bayesian model and hence, we need some priors.
+Since we are in Switzerland and just for fun, we use the <a href="https://www.bfs.admin.ch/asset/de/30305714">Swiss body heights</a>
+as prior for the mean. According to the linke (Bundesamt für Statistik),
+the mean height of <span class="math inline">\(n=7,182,252\)</span> people in the Swiss sample is
+<span class="math inline">\(\bar{h_i}=171.1\)</span></p>
+<p><span class="math display">\[
+h_i \sim \text{Normal}(\mu, \sigma)
+\]</span>
+<span class="math display">\[
+\mu \sim \text{Normal}(171.1, 20)
+\]</span>
+<span class="math display">\[
+\sigma \sim \text{Uniform}(0, 50)
+\]</span></p>
+<p>Of course we would not need the prior here due to the large sample size, but for enough for demonstration.
+We are not completely uninformed about body heights and express our knowledge with the prior for <span class="math inline">\(\mu\)</span>.$
+The <span class="math inline">\(20\)</span> in the prior for the mean expresses our range of possible true mean values and aknowledge
+that there are a variety of different subpopulations with different means.</p>
+<p>Using the Swiss data in the link one could estimate that the standard deviation of the heights
+from <span class="math inline">\(21,873\)</span> Swiss people is around is <span class="math inline">\(25.6553\)</span> cm (<a href="intro.html#exercise1_Intro">Exercise 1</a>).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="dv">178</span>, <span class="dv">20</span>), <span class="at">from =</span> <span class="dv">100</span>, <span class="at">to =</span> <span class="dv">250</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The prior for <span class="math inline">\(\sigma\)</span> is uniform between <span class="math inline">\(0\)</span> and <span class="math inline">\(50\)</span> cm. This is a very wide prior and
+just constrains the values to be positive and below <span class="math inline">\(50\)</span> cm.
+This could be stronger of course.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dunif</span>(x, <span class="dv">0</span>, <span class="dv">50</span>), <span class="at">from =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">to =</span> <span class="dv">60</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exercises" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Exercises<a href="intro.html#exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercise1_Intro" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> [E] Exercise 1<a href="intro.html#exercise1_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Use the <a href="https://www.bfs.admin.ch/asset/de/30305714">Swiss body heights</a> data to
+determine
+- the 95% “Vertrauensintervall” for <span class="math inline">\(\mu\)</span> and
+- calculate the standard deviation of the heights from <span class="math inline">\(21,873\)</span> Swiss people.</p>
 
 </div>
 </div>

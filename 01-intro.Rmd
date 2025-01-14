@@ -39,11 +39,11 @@ Or to quote [George Box](https://www.tandfonline.com/doi/abs/10.1080/01621459.19
 > devise simple but evocative models is the signature of the
 > great scientist so overelaboration and overparameterization is often the mark of mediocrity."
 
-In my opinion, statistical model is an art form: difficult and beautiful.
+In my opinion, statistical modeling is an art form: difficult and beautiful.
 
 **One goal of this course** is to improve interpretation and limitations of statistical models.
-They are not magical turning data into truth. Firstly ,the rule gargabe in, garbage out (GABA) applies.
-Secondly, statistical models are based on data and their variability and have intrinsict limitations
+They are not magical turning data into truth. Firstly, the rule gargabe in, garbage out (GABA) applies.
+Secondly, statistical models are based on data and their variability and have inherent limitations
 one cannot overcome even with the most sophisticated models. This is expressed for instance 
 in the so-called [bias-variance trade-off](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff).
 You can't have it all.
@@ -111,25 +111,25 @@ We could for instance ask ourselves:
 
 In some cases, these questions can be answered straightforwardly. 
 
-- In advertising (Google, Facebook, ...), a couple of percentage points in prediction quality might make a differences of millions 
+- In advertising (Google, Facebook, ...), a couple of percentage points in prediction quality might make a difference of millions 
 of dollars in revenue offsetting the statistitians salary. 
 
-- Increased forecasts of a few percentage points in the stock market or just being [slightly better](https://en.wikipedia.org/wiki/Jim_Simons) 
+- Improved forecasts of a few percentage points in the stock market or just being [slightly better](https://en.wikipedia.org/wiki/Jim_Simons) 
 than the average, will make you faboulously rich.
 
-- Increased cancer forecasting might save lives, money and pain and is not only measured in money.
+- Improved cancer forecasting might save lives, money and pain and is not only measured in money.
 
 ### Start at the beginning
 
 What do we actually want to do in general? Very broadly speaking we want to:
 **describe** the association of variables to each other that carry variability. 
 Hence, the relationship is not deterministic like $$y = 2x + 3$$ but rather we need
-to "loosen up" the relationship to account for variability.
+to "loosen up" the relationship to account for variability (in $x$ and $y$).
 So, the values $2$ and $3$ are not fixed but aflicted with uncertainty.
 Depending on your philosophical view, you might say you want to find
 the "true" but unknown relationship between variables.
 This is what we do in simulation studies all the time: We know the true relationship, 
-simulate data with variability and then try to estimate the true relationship we assumed in the first place.
+simulate data by adding variability and then try to estimate the true relationship we assumed in the first place.
 For some practical applications, we can get a really nice and complete answer to our question
 (for instance sample size for proportions).
 
@@ -137,19 +137,91 @@ So we are looking for a function $f$ such that
 
 $$ Y = f(X) $$
 
-where $Y$ is the "outcome", $X$ are the "predictors". Since this relationship is not deterministic, we have to account for variability.
-$X$ can be a single Variable $x$ or many variables $x_1, x_2, \ldots, x_p$.
+where 
 
-Elaborate on X, Y and F, independent, depenent.......
+- $Y$ is the "outcome", "dependent variable" or "response". 
+- $X$ are the "predictors". $X$ can be a single Variable $x$ or many 
+variables $x_1, x_2, \ldots, x_p$.
 
-The simplest statistical model would be the mean model. Let's use the example in 
+It is important to be aware of the notation here:
+"Predict" does **not necessarily** mean that we can predict the value in 
+the future. It merely means we estimate the value (or mean) of $Y$ given $X$.
+
+- This can be done at the same time points, known as **cross-sectional** analysis ("What is the maximum jumping height 
+of a person given their age at a certain point in time, whereas both variables are measured at the same time?");
+- or at different time points, known as **longitudinal analysis** ("What is the maximum jumping height of a person 10 years later ($t_2$)
+ given their baseline health status at time $t_1$?").
+
+The **simplest statistical model** would be the mean model where $Y$ is "predicted" by a 
+constant: $Y = c$ which (at least in the classical linear regression) turns out to be $c = \bar{x}$. 
+This simple model is often surprisingly good, or, to put it in other words, models with more complexity
+are often not that much better with regards to multiple metrics.
+
+Let's use the example in 
 [Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
-starting on page 78.
+using data from the [!Kun San](https://en.wikipedia.org/wiki/%C7%83Kung_people) starting on page 79.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 library(rethinking)
 data("Howell1")
 d <- Howell1
 str(d)
+d2 <- d[d$age >= 18,] # only adults
+```
+We want to model the adult height of the !Kun San people.
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+library(tidyverse)
+d2 %>% ggplot(aes(x = height)) + geom_histogram()
 ```
 
+Since we already have domain knowledge in this area, we can say that heights are usually normally distributed,
+or at least a mixture of normal distrubutions (female/male).
+We assume the following model:
+$$h_i \sim \text{Normal}(\mu, \sigma)$$
+
+As in QM1, we want to start with a Bayesian model and hence, we need some priors.
+Since we are in Switzerland and just for fun, we use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) 
+as prior for the mean. According to the linke (Bundesamt für Statistik), 
+the mean height of $n=7,182,252$ people in the Swiss sample is
+$\bar{h_i}=171.1$ 
+
+\[
+h_i \sim \text{Normal}(\mu, \sigma)
+\]
+\[
+\mu \sim \text{Normal}(171.1, 20)
+\]
+\[
+\sigma \sim \text{Uniform}(0, 50)
+\]
+
+Of course we would not need the prior here due to the large sample size, but for enough for demonstration.
+We are not completely uninformed about body heights and express our knowledge with the prior for $\mu$.$
+The $20$ in the prior for the mean expresses our range of possible true mean values and aknowledge
+that there are a variety of different subpopulations with different means.
+
+Using the Swiss data in the link one could estimate that the standard deviation of the heights 
+from $21,873$ Swiss people is around is $25.6553$ cm ([Exercise 1](#exercise1_Intro)).
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+curve(dnorm(x, 178, 20), from = 100, to = 250)
+```
+
+The prior for $\sigma$ is uniform between $0$ and $50$ cm. This is a very wide prior and
+just constrains the values to be positive and below $50$ cm. 
+This could be stronger of course.
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+curve(dunif(x, 0, 50), from = -10, to = 60)
+```
+
+
+## Exercises
+
+### [E] Exercise 1 {#exercise1_Intro}
+
+Use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) data to 
+determine 
+- the 95% "Vertrauensintervall" for $\mu$ and
+- calculate the standard deviation of the heights from $21,873$ Swiss people.
