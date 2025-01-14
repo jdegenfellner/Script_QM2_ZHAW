@@ -39,6 +39,9 @@ For the working setup with R, please
 see [this](https://jdegenfellner.github.io/Script_QM1_ZHAW/index.html#section) 
 and the following sections in the first script.
 
+The complete code for this script can be found 
+[here](https://github.com/jdegenfellner/Script_QM2_ZHAW).
+
 ## Books we will heavily borrow from are:
 
 - (Free) [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf), YouTube-Playlist: [Statistical Rethinking 2023](https://youtu.be/FdnMWdICdRs?si=q2py5QVY_L299hEa)

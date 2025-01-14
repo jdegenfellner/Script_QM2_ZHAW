@@ -170,7 +170,8 @@ We want to **start building our first model** right away.
 
 Let's begin with the example in 
 [Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
-using data from the [!Kung San](https://en.wikipedia.org/wiki/%C7%83Kung_people) starting on page 79.
+using data from the [!Kung San](https://en.wikipedia.org/wiki/%C7%83Kung_people) 
+people starting on page 79.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 library(rethinking)
@@ -179,7 +180,8 @@ d <- Howell1
 str(d)
 d2 <- d[d$age >= 18, ] # only adults
 ```
-We want to model the adult height of the !Kun San people.
+We want to model the adult height of the !Kun San people 
+using prior knowledge (about the Swiss population) and data.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -191,11 +193,19 @@ or at least a mixture of normal distrubutions (female/male).
 We assume the following model:
 $$h_i \sim \text{Normal}(\mu, \sigma)$$
 
-As in QM1, we want to start with a Bayesian model and hence, we need some priors.
-Since we are in Switzerland and just for fun, we use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) 
-as **prior for the mean**. According to the linke (Bundesamt für Statistik), 
-the mean height of $n=7,182,252$ people in the Swiss sample is
-$\bar{h_i}=171.1$ 
+As in [QM1](https://jdegenfellner.github.io/Script_QM1_ZHAW/), 
+we want to start with a Bayesian model and hence, we need some priors.
+
+Since we are in Switzerland and just for fun, we use the mean of
+[Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) 
+as **prior for the mean**. 
+According to the link (Bundesamt für Statistik), 
+the mean height of $n=21,873$ people in the Swiss sample is
+$\bar{h_i}=171.1$. We choose the same $\sigma$ for the prior of the normal
+as in the book not to deviate too much from the example at hand.
+
+Next comes our **model definition in the Bayesian framework**, which
+I often find more intuitive than the frequentist approach:
 
 \[
 h_i \sim \text{Normal}(\mu, \sigma)
@@ -207,13 +217,48 @@ h_i \sim \text{Normal}(\mu, \sigma)
 \sigma \sim \text{Uniform}(0, 50)
 \]
 
-Of course we would not need the prior here due to the large sample size, but for enough for demonstration.
-We are not completely uninformed about body heights and express our knowledge with the prior for $\mu$.$
-The $20$ in the prior for the mean expresses our range of possible true mean values and aknowledge
+**Description of the model definition**: The heights are normally distributed with unknown mean and 
+standard deviation. As our current knowledge about the mean height, we use 
+a prior distribution for the mean (we do not know but want to estimate) by 
+assuming the mean of a population we know and a standard deviation of $20$ cm which
+allows are rather large range of possible values for $\mu$.
+$\sigma$ is also unknown and a priori we restrict ourselves to values 
+between $0$ and $50$ cm, whereas we assign equal plausibility to all 
+values in this range (which can and should be critically discussed).
+
+**Vizualisation of the model structure**:
+```{r, echo=FALSE, , message=FALSE, warning=FALSE}
+library(DiagrammeR)
+grViz("
+digraph BayesianModel {
+  graph [layout = dot]
+  
+  h_i [label = 'h[i]\\n~ Normal(μ, σ)', shape = oval]
+  μ [label = 'μ\\n~ Normal(171.1, 20)', shape = oval]
+  σ [label = 'σ\\n~ Uniform(0, 50)', shape = oval]
+
+  μ -> h_i
+  σ -> h_i
+}
+")
+```
+
+
+Of course we would not need the prior here due to the large sample size, 
+but for enough for demonstration.
+We are not completely uninformed about body heights and express our 
+knowledge with the prior for $\mu$$.
+The $20$ in the prior for the mean expresses our range of possible true 
+mean values and aknowledge
 that there are a variety of different subpopulations with different means.
 
 Using the Swiss data in the link one could estimate that the standard deviation of the heights 
 from $21,873$ Swiss people is around is $25.6553$ cm ([Exercise 1](#exercise1_Intro)).
+
+Remember, in the Baysian world, there is no **fixed but unknown**
+parameter, but instead we define a distribution over the unobserved parameter.
+
+We **visualize the prior for $\mu$**.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 curve(dnorm(x, 171.1, 20), from = 100, to = 250)
@@ -222,6 +267,8 @@ curve(dnorm(x, 171.1, 20), from = 100, to = 250)
 The **prior for $\sigma$** is uniform between $0$ and $50$ cm. This is a very wide prior and
 just constrains the values to be positive and below $50$ cm. 
 This could be stronger of course.
+
+**Visualization of the prior for $\sigma$**:
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 curve(dunif(x, 0, 50), from = -10, to = 60)
@@ -234,6 +281,8 @@ prior distribution of individual heights.
 (model) for heights would predict.
 So, we simply draw $\mu$ and $\sigma$ from the priors and then draw heights 
 from the normal distribution using the drawn parameters.
+
+**Vizualisation of the prior for heights**:
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 sample_mu <- rnorm(10^4, 171.1, 20)
@@ -257,12 +306,11 @@ chain Monte Carlo (MCMC) sampling to get the posterior.
 [Pages 39 and the following](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
 explain the 3 concepts grida approximation, quadratic approximation and MCMC.
 
-In short, quadratic approximation assumes that our posterior distribution 
+In short, **quadratic approximation** assumes that our posterior distribution 
 of body heights can be approximated well by a normal distribution, 
 at least near the peak.
 
 Using the library `rethinking` we can estimate the model using quadratic approximation.
-
 First, we define the model in the `rethinking` syntax (see R code 4.25 in the book).
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
@@ -296,7 +344,9 @@ dens(post$mu)
 dens(post$sigma)
 ```
 
-Note, that these samples come from a multi-dimensional distribution.
+Note, that **these samples come from a multi-dimensional distribution**.
+In our case, we approximated the posterior with a 
+[bivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution).
 They are not necessarily independent from each other, but in this case they are.
 We know this from the model definition above. $\mu$ and $\sigma$ are both
 defined as normal respectively uniform distributions and by definition do not
@@ -349,6 +399,13 @@ plot_ly(
   )
 ```
 
+**How beautiful ist that?**
+
+We see in the 3D plot, that the "mountain" is not rotated, indicating 
+graphically that the parameters are independent from each other.
+
+We also see in the correlation matrix, the correlation of the parameters is $~0$.
+In the context of normal distributions, this means that the parameters are independent.
 
 
 
