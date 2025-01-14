@@ -157,16 +157,27 @@ constant: $Y = c$ which (at least in the classical linear regression) turns out 
 This simple model is often surprisingly good, or, to put it in other words, models with more complexity
 are often not that much better with regards to multiple metrics.
 
-Let's use the example in 
+## A (simple) model for adult body heights in the Bayesian framework
+
+As repetition, read the parts about [Bayes statistics from QM1](https://jdegenfellner.github.io/Script_QM1_ZHAW/bayes_statistics.html) 
+again to refresh your memory about the Bayesian framework.
+
+It's recommendable to read the beginning of the book [Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
+up until page 39 as well. We are not completely new to the topic of Bayes due 
+to QM1.
+
+We want to **start building our first model** right away.
+
+Let's begin with the example in 
 [Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
-using data from the [!Kun San](https://en.wikipedia.org/wiki/%C7%83Kung_people) starting on page 79.
+using data from the [!Kung San](https://en.wikipedia.org/wiki/%C7%83Kung_people) starting on page 79.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 library(rethinking)
 data("Howell1")
 d <- Howell1
 str(d)
-d2 <- d[d$age >= 18,] # only adults
+d2 <- d[d$age >= 18, ] # only adults
 ```
 We want to model the adult height of the !Kun San people.
 
@@ -182,7 +193,7 @@ $$h_i \sim \text{Normal}(\mu, \sigma)$$
 
 As in QM1, we want to start with a Bayesian model and hence, we need some priors.
 Since we are in Switzerland and just for fun, we use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) 
-as prior for the mean. According to the linke (Bundesamt für Statistik), 
+as **prior for the mean**. According to the linke (Bundesamt für Statistik), 
 the mean height of $n=7,182,252$ people in the Swiss sample is
 $\bar{h_i}=171.1$ 
 
@@ -205,16 +216,140 @@ Using the Swiss data in the link one could estimate that the standard deviation 
 from $21,873$ Swiss people is around is $25.6553$ cm ([Exercise 1](#exercise1_Intro)).
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
-curve(dnorm(x, 178, 20), from = 100, to = 250)
+curve(dnorm(x, 171.1, 20), from = 100, to = 250)
 ```
 
-The prior for $\sigma$ is uniform between $0$ and $50$ cm. This is a very wide prior and
+The **prior for $\sigma$** is uniform between $0$ and $50$ cm. This is a very wide prior and
 just constrains the values to be positive and below $50$ cm. 
 This could be stronger of course.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 curve(dunif(x, 0, 50), from = -10, to = 60)
 ```
+Note, we didn’t specify a prior probability distribution of heights
+directly, but once we’ve chosen priors for $\mu$ and $\sigma$, these imply a 
+prior distribution of individual heights. 
+
+**Without** even having seen the **new data**, we can check what our prior
+(model) for heights would predict.
+So, we simply draw $\mu$ and $\sigma$ from the priors and then draw heights 
+from the normal distribution using the drawn parameters.
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+sample_mu <- rnorm(10^4, 171.1, 20)
+sample_sigma <- runif(10^4, 0, 50)
+prior_h <- rnorm(10^4, sample_mu, sample_sigma)
+length(prior_h)
+dens(prior_h)
+```
+
+The prior is not itself a Gaussian distribution, but a distribution of
+relative plausibilities of different heights, before seeing the data.
+
+Now, there are a couple of different ways to estimtate the model incorporating 
+the new data. For didactic reasons, grid approximation is often used (as in the book).
+For many parameters, grid approximation becomes more and more infeasible (due to combinatorial explosion). 
+
+We will skip that for now and use quadratic approximation instead which
+works well for many common procedures in applied statistics (like linear regression).
+Later, you'll probably use (or the software in the background) mostly Markov 
+chain Monte Carlo (MCMC) sampling to get the posterior. 
+[Pages 39 and the following](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
+explain the 3 concepts grida approximation, quadratic approximation and MCMC.
+
+In short, quadratic approximation assumes that our posterior distribution 
+of body heights can be approximated well by a normal distribution, 
+at least near the peak.
+
+Using the library `rethinking` we can estimate the model using quadratic approximation.
+
+First, we define the model in the `rethinking` syntax (see R code 4.25 in the book).
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+library(rethinking)
+flist <- alist(
+  height ~ dnorm(mu, sigma),
+  mu ~ dnorm(171.1, 20),
+  sigma ~ dunif(0, 50)
+)
+```
+Then we estimate/fit the model using quadratic approximation.
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+m_heights <- rethinking::map(flist, data = d2)
+```
+
+Now let's take a look at the fit *maximum a posteriori* model:
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+precis(m_heights)
+```
+Above, we see the mean of the posterior for $\mu$ **and** $\sigma$;
+and a 89% credible interval for those parameters.
+
+We can now plot the posterior distribution of the mean and the standard deviation.
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+post <- extract.samples(m_heights, n = 10^4)
+head(post)
+dens(post$mu)
+dens(post$sigma)
+```
+
+Note, that these samples come from a multi-dimensional distribution.
+They are not necessarily independent from each other, but in this case they are.
+We know this from the model definition above. $\mu$ and $\sigma$ are both
+defined as normal respectively uniform distributions and by definition do not
+influence each other.
+
+Let's verify this:
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+vcov(m_heights)
+```
+gives you the variance-covariance matrix of the parameters of the posterior
+distribution. In the diagonal you see the variance of the parameters.
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+diag(vcov(m_heights))
+```
+And we can compute the correlation matrix easily:
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+cov2cor(vcov(m_heights))
+```
+
+Let's plot the posterior in 3D, because we **can**:
+
+```{r posterior-3d-correct, echo=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(MASS)  # For kernel density estimation
+
+# Extract posterior samples
+posterior_samples <- extract.samples(m_heights)
+
+# Calculate bivariate density using kde2d
+density_est <- kde2d(posterior_samples$mu, posterior_samples$sigma, n = 100)
+
+# Create a 3D surface plot
+plot_ly(
+  x = density_est$x,
+  y = density_est$y,
+  z = density_est$z,
+  type = "surface",
+  colorscale = "Viridis"
+) %>%
+  layout(
+    title = "3D Posterior Density of μ and σ",
+    scene = list(
+      xaxis = list(title = "μ (mu)"),
+      yaxis = list(title = "σ (sigma)"),
+      zaxis = list(title = "Density")
+    )
+  )
+```
+
+
 
 
 ## Exercises

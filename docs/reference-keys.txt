@@ -6,6 +6,7 @@ explanatory-vs.-predictive-models
 individual-vs.-population-prediction
 practical-use-of-statistical-models
 start-at-the-beginning
+a-simple-model-for-adult-body-heights-in-the-bayesian-framework
 exercises
 exercise1_Intro
 literature
