@@ -198,10 +198,10 @@ we want to start with a Bayesian model and hence, we need some priors.
 
 Since we are in Switzerland and just for fun, we use the mean of
 [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) 
-as **prior for the mean**. 
+as expected value for the **prior for the mean**. 
 According to the link (Bundesamt für Statistik), 
 the mean height of $n=21,873$ people in the Swiss sample is
-$\bar{h_i}=171.1$. We choose the same $\sigma$ for the prior of the normal
+$171.1$ cm. We choose the same $\sigma$ for the prior of the normal
 as in the book not to deviate too much from the example at hand.
 
 Next comes our **model definition in the Bayesian framework**, which
@@ -245,9 +245,9 @@ digraph BayesianModel {
 
 
 Of course we would not need the prior here due to the large sample size, 
-but for enough for demonstration.
+but let's do it anyways for demonstration purposes.
 We are not completely uninformed about body heights and express our 
-knowledge with the prior for $\mu$$.
+knowledge with the prior for $\mu$.
 The $20$ in the prior for the mean expresses our range of possible true 
 mean values and aknowledge
 that there are a variety of different subpopulations with different means.
@@ -273,12 +273,15 @@ This could be stronger of course.
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 curve(dunif(x, 0, 50), from = -10, to = 60)
 ```
+
 Note, we didn’t specify a prior probability distribution of heights
 directly, but once we’ve chosen priors for $\mu$ and $\sigma$, these imply a 
 prior distribution of individual heights. 
 
 **Without** even having seen the **new data**, we can check what our prior
-(model) for heights would predict.
+(model) for heights would predict. This is important. If the prior already 
+predicts impossible values, we should reconsider our priors and/or model.
+
 So, we simply draw $\mu$ and $\sigma$ from the priors and then draw heights 
 from the normal distribution using the drawn parameters.
 
@@ -304,7 +307,7 @@ works well for many common procedures in applied statistics (like linear regress
 Later, you'll probably use (or the software in the background) mostly Markov 
 chain Monte Carlo (MCMC) sampling to get the posterior. 
 [Pages 39 and the following](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
-explain the 3 concepts grida approximation, quadratic approximation and MCMC.
+explain the 3 concepts grid approximation, quadratic approximation and MCMC.
 
 In short, **quadratic approximation** assumes that our posterior distribution 
 of body heights can be approximated well by a normal distribution, 
@@ -321,6 +324,7 @@ flist <- alist(
   sigma ~ dunif(0, 50)
 )
 ```
+
 Then we estimate/fit the model using quadratic approximation.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
@@ -344,15 +348,18 @@ dens(post$mu)
 dens(post$sigma)
 ```
 
-Note, that **these samples come from a multi-dimensional distribution**.
+Note, that **these samples come from a multi-dimensional posterior distribution**.
 In our case, we approximated the posterior with a 
 [bivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution).
 They are not necessarily independent from each other, but in this case they are.
 We know this from the model definition above. $\mu$ and $\sigma$ are both
 defined as normal respectively uniform distributions and by definition do not
-influence each other.
+influence each other. This is also visible in the vizualisation of the model structure: 
+There is no confounding variable or connection between those priors. One could
+think of a common variable $Z$ that influences both $\mu$ and $\sigma$. This could
+be genetic similarity which could influence both $\mu$ and $\sigma$.
 
-Let's verify this:
+Let's verify that $\mu$ and $\sigma$ are uncorrelated:
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 vcov(m_heights)
@@ -404,8 +411,9 @@ plot_ly(
 We see in the 3D plot, that the "mountain" is not rotated, indicating 
 graphically that the parameters are independent from each other.
 
-We also see in the correlation matrix, the correlation of the parameters is $~0$.
-In the context of normal distributions, this means that the parameters are independent.
+We also see in the correlation matrix, the correlation of the parameters is $\sim 0$.
+In the [context of a joint normal distribution](https://en.wikipedia.org/wiki/Correlation#Correlation_and_independence), 
+this means that the parameters are independent.
 
 
 
