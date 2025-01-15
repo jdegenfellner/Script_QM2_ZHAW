@@ -243,6 +243,10 @@ digraph BayesianModel {
 ")
 ```
 
+Mind that there is a conceptual difference between the normal distribution of the heights 
+and the normal prior distribution of the mean. The latter expresses our prior knowledge/insecurity
+about the unobserved mean. The normal distribution says we expect the heights to be normally distributed
+but we do not know the parameters ($\mu$ and $\sigma$) yet.
 
 Of course we would not need the prior here due to the large sample size, 
 but let's do it anyways for demonstration purposes.
