@@ -10,6 +10,7 @@ a-simple-model-for-adult-body-heights-in-the-bayesian-framework
 classical-approach-for-the-simplest-model
 exercises
 exercise1_Intro
+exercise2_Intro
 addendum
 bivariate_normal
 literature

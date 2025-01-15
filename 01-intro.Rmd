@@ -447,7 +447,7 @@ These are on average zero and have a constant standard deviation of $\sigma$.
 So, we assume there is a fixed, but unknown, constant $c$ that we want to estimate and we 
 assume that there is a special sort of error in our model that is normally distributed.
 Sometimes there is a large deviation from the true $c$, sometimes there is a small deviation.
-On average, the deviations are zero and the **errors should also be are independent from each other**:
+On average, the deviations are zero and the **errors should also be independent from each other**:
 $$ \varepsilon_i \perp \varepsilon_j \text{ for } i \neq j$$
 This means that just because I have just observed a large deviation from the true $c$
 does not mean, that the probability of a large deviation in the next observation is higher/lower.
@@ -515,22 +515,53 @@ command in R we ask the software to do the least squares estimation for us.
 
 Let's look at the **R-output** of the model estimation:
 
-- 'lm(formula = height ~ 1, data = d2)': This is the model we estimated.
-- 'Residuals': The difference between the actual height and the estimated height: 
+- `lm(formula = height ~ 1, data = d2)`: This is the model we estimated.
+- `Residuals`: The difference between the actual height and the estimated height: 
 $r_i = height_i - \hat{c}$. A univariate 5-point summary is given.
-- 'Coefficients': The estimated coefficients of the model. In this case, there is just the intercept.
+- `Coefficients`: The estimated coefficients of the model. In this case, there is just the intercept.
    We get the 
-  - 'Std. Error' of the estimate, i.e. the [standard error](https://en.wikipedia.org/wiki/Standard_error) of the mean, 
+  - `Std. Error` of the estimate, i.e. the [standard error](https://en.wikipedia.org/wiki/Standard_error) of the mean, 
     which is (according to the Central Limit Theorem) 
     $$\frac{\sigma}{\sqrt{n}}$$ and can be estimated by the sample 
     standard deviation divided by the square root of the sample size.
-  - the 't value' and the 'Pr(>|t|)' which is the $p$-value of the (Wald-)test of 
+  - the `t value` and the 'Pr(>|t|)' which is the $p$-value of the (Wald-)test of 
     the null hypothesis that the 
-    coefficient is zero ($H_0: \text{intercept}=0$).
-- 'Residual standard error': The standard deviation of the residuals. In this case identical with the standard error 
-    of heights. $351$ degrees of freedom. There are $352$ observations and 
+    coefficient is zero ($H_0: \text{intercept}=0$). 
+    This is a perfect example of an absolutely useless $t$-test. 
+    Why? Because obviously ([exercise 2](#exercise2_Intro)) the population mean of body heights is not zero.
+- `Residual standard error`: The standard deviation of the residuals $r_i = height_i - \hat{c}$.
+    In this case identical with the standard error 
+    of heights ([exercise 3](#exercise3_Intro)). $351$ degrees of freedom. There are $352$ observations and 
     $1$ parameter estimated (intercept/mean). Hence, there are $352-1=351$ 
     freely movable variables in the statistic of the sample standard deviation.
+
+Let's look at the situation graphically:
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+library(rethinking)
+library(tidyverse)
+data("Howell1")
+d <- Howell1
+str(d)
+d2 <- d[ d$age >= 18 , ]
+
+data.frame(height_i = 1:nrow(d2), height = d2$height) %>%
+  ggplot(aes(x = height_i, y = height)) +
+  geom_point() + 
+  geom_hline(yintercept = mean(d2$height), color = "red") + 
+  ggtitle("Simple mean model estimation using Least Squares") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+Above, the heights are plotted against the index of the observation.
+The variability of heights around the regression line (constant in this case) seems to 
+stay constant, which is a good sign. We will call this **homoscedasticity** later.
+
+Peter Westfall explains in his excellent book a conditional distribution 
+approach to regression. I highly recommend reading the first chapters.
+
+What does this mean in this context?
+
 
 ## Exercises
 
@@ -541,6 +572,12 @@ determine
 - the 95% "Vertrauensintervall" for $\mu$ and
 - calculate the standard deviation of the heights from $21,873$ Swiss people.
 
+### [E] Exercise 2 {#exercise2_Intro}
+Why do we not need a hypothesis test to know that the population mean of body heights is not zero?
+Give 2 reasons.
+
+### [M] Exercise 3 {#exercise2_Intro}
+Verify analytically that the `Residual standard error` is identical with the standard error of the heights.
 
 ## Addendum
 
