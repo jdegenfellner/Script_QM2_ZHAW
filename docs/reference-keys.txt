@@ -9,6 +9,8 @@ start-at-the-beginning
 a-simple-model-for-adult-body-heights-in-the-bayesian-framework
 exercises
 exercise1_Intro
+addendum
+bivariate_normal
 literature
 methods
 math-example

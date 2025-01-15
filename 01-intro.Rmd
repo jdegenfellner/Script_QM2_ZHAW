@@ -315,7 +315,10 @@ explain the 3 concepts grid approximation, quadratic approximation and MCMC.
 
 In short, **quadratic approximation** assumes that our posterior distribution 
 of body heights can be approximated well by a normal distribution, 
-at least near the peak.
+at least near the peak. 
+
+Please read the [addendum](#bivariate_normal) to get a clearer picture of 
+what a bivariate normal distribution is.
 
 Using the library `rethinking` we can estimate the model using quadratic approximation.
 First, we define the model in the `rethinking` syntax (see R code 4.25 in the book).
@@ -417,7 +420,10 @@ graphically that the parameters are independent from each other.
 
 We also see in the correlation matrix, the correlation of the parameters is $\sim 0$.
 In the [context of a joint normal distribution](https://en.wikipedia.org/wiki/Correlation#Correlation_and_independence), 
-this means that the parameters are independent.
+this means that the parameters are independent. 
+
+And, it is not an accident that the posterior looks like this. Using quadratic approximation,
+we used the bivariate normal distribution to **approximate** the posterior.
 
 
 
@@ -429,3 +435,79 @@ Use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) data to
 determine 
 - the 95% "Vertrauensintervall" for $\mu$ and
 - calculate the standard deviation of the heights from $21,873$ Swiss people.
+
+
+## Addendum
+
+### The bivariate normal distribution {#bivariate_normal}
+
+As a refresher, you can look into the old QM1 script and read the 
+chapter "4.7 Gemeinsame Verteilungen". 
+Maybe [this video](https://www.youtube.com/watch?v=SP2GKq8xJ5I&ab_channel=StatisticsNinja) 
+also helps.
+
+The bivariate normal distribution is a generalization of the normal distribution to two dimensions.
+Now, we look at the distribution of two random variables $X$ and $Y$ **at the same time**.
+
+Instead of one Gaussian bell curve, we have a 
+[3D bell curve](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#/media/File:Multivariate_Gaussian.png).
+This curve defines how plausible different combinations of $X$ and $Y$ are.
+
+Single points (like (3,6)) still have probability zero, because now the **volume** over a single point
+($x$, $y$) is zero. The probability of a certain area is now the **volume** under the 
+curve compared to the **area** under the density curve in the one-dimensional case.
+
+**Example**: The following plot shows the density of a  bivariate normal distribution of 
+two variables $X$ and $Y$
+with $\mu_X = 0$, $\mu_Y = 0$, $\sigma_X = 1$, $\sigma_Y = 1$ and $\rho = \frac{2}{3}$.
+
+Below is the correlation matrix of the bivariate normal distribution.
+
+```{r, echo=FALSE, , message=FALSE, warning=FALSE}
+library(MASS)    # For mvrnorm
+library(plotly)  # For 3D plotting
+
+# Define the parameters of the bivariate normal distribution
+mu <- c(0, 0)                       # Mean
+sigma <- matrix(c(0.75, 0.5, 0.5, 0.75), ncol = 2) # Covariance matrix
+
+cov2cor(sigma)  # Convert covariance matrix to correlation matrix
+
+# Generate a grid of x and y values
+x <- seq(-3, 3, length.out = 100)
+y <- seq(-3, 3, length.out = 100)
+grid <- expand.grid(x = x, y = y)
+
+# Compute the density of the bivariate normal
+z <- matrix(dmvnorm(grid, mean = mu, sigma = sigma), nrow = length(x), ncol = length(y))
+
+# Define the square for highlighting the probability volume
+highlight_x <- c(0.5, 2)
+highlight_y <- c(0.5, 2)
+
+# Highlighted volume: Set values outside the square to NA
+z_highlight <- z
+z_highlight[grid$x < highlight_x[1] | grid$x > highlight_x[2] | 
+              grid$y < highlight_y[1] | grid$y > highlight_y[2]] <- NA
+
+# Create a 3D plot
+fig <- plot_ly() %>%
+  add_surface(x = x, y = y, z = z, showscale = FALSE, opacity = 0.6) %>%
+  add_surface(x = x, y = y, z = z_highlight, colorscale = "Viridis", opacity = 0.9) %>%
+  layout(scene = list(
+    xaxis = list(title = "X"),
+    yaxis = list(title = "Y"),
+    zaxis = list(title = "Density")
+  ))
+
+fig
+```
+
+If you move the plot around with your mouse, you see that there is a positive 
+correlation between $X$ and $Y$ ($\rho = \frac{2}{3}$). This means that if $X$ is
+above its mean, $Y$ is also more likely to be above its mean.
+The variances of $X$ and $Y$ are both $1$. That means, that if you cut
+through the plot in $X=0$ or $Y=0$, you see the same form of normal distribution.
+If you look at if from above, we have hihglighted the section on the surface
+over the area $X \in [0.5, 2]$ and $Y \in [0.5, 2]$. The volume over this area
+under the density curve is the probability of this area: $P(X \in [0.5, 2] \text{ and } Y \in [0.5, 2])$
