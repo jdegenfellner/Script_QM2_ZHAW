@@ -125,7 +125,7 @@
 
 \title{Quantitive Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-01-14}
+\date{2025-01-15}
 
 \begin{document}
 \maketitle
@@ -146,16 +146,23 @@ descriptive statistics, Bayesian statistics, and hypothesis testing.
 In this script, we will dive into the basics of statistical modeling -
 a world of aesthetic wonder and surprises.
 
-This script is a work in progress and will be updated as we go along.
+This script is a first draft as you are the first group to be working with it.
 
 Please feel free to send me suggestions for improvements or corrections.
 
-As the first one, this \textbf{should be a collaborative effort} and will (hopefully)
+This \textbf{should be a collaborative effort} and will (hopefully)
 never be finished as our insight grows over time.
+
+The script can also be seen as a pointer to great sources which are
+fit to deepen your understanding of the topics. Knowledge is decentralized,
+and there are many great ressources out there.
 
 For the working setup with R, please
 see \href{https://jdegenfellner.github.io/Script_QM1_ZHAW/index.html\#section}{this}
 and the following sections in the first script.
+
+The complete code for this script can be found
+\href{https://github.com/jdegenfellner/Script_QM2_ZHAW}{here}.
 
 \section{Books we will heavily borrow from are:}\label{books-we-will-heavily-borrow-from-are}
 
@@ -214,11 +221,11 @@ devise simple but evocative models is the signature of the
 great scientist so overelaboration and overparameterization is often the mark of mediocrity.''
 \end{quote}
 
-In my opinion, statistical model is an art form: difficult and beautiful.
+In my opinion, statistical modeling is an art form: difficult and beautiful.
 
 \textbf{One goal of this course} is to improve interpretation and limitations of statistical models.
-They are not magical turning data into truth. Firstly ,the rule gargabe in, garbage out (GABA) applies.
-Secondly, statistical models are based on data and their variability and have intrinsict limitations
+They are not magical turning data into truth. Firstly, the rule gargabe in, garbage out (GABA) applies.
+Secondly, statistical models are based on data and their variability and have inherent limitations
 one cannot overcome even with the most sophisticated models. This is expressed for instance
 in the so-called \href{https://en.wikipedia.org/wiki/Bias\%E2\%80\%93variance_tradeoff}{bias-variance trade-off}.
 You can't have it all.
@@ -302,13 +309,13 @@ In some cases, these questions can be answered straightforwardly.
 
 \begin{itemize}
 \item
-  In advertising (Google, Facebook, \ldots), a couple of percentage points in prediction quality might make a differences of millions
+  In advertising (Google, Facebook, \ldots), a couple of percentage points in prediction quality might make a difference of millions
   of dollars in revenue offsetting the statistitians salary.
 \item
-  Increased forecasts of a few percentage points in the stock market or just being \href{https://en.wikipedia.org/wiki/Jim_Simons}{slightly better}
+  Improved forecasts of a few percentage points in the stock market or just being \href{https://en.wikipedia.org/wiki/Jim_Simons}{slightly better}
   than the average, will make you faboulously rich.
 \item
-  Increased cancer forecasting might save lives, money and pain and is not only measured in money.
+  Improved cancer forecasting might save lives, money and pain and is not only measured in money.
 \end{itemize}
 
 \subsection{Start at the beginning}\label{start-at-the-beginning}
@@ -316,12 +323,12 @@ In some cases, these questions can be answered straightforwardly.
 What do we actually want to do in general? Very broadly speaking we want to:
 \textbf{describe} the association of variables to each other that carry variability.
 Hence, the relationship is not deterministic like \[y = 2x + 3\] but rather we need
-to ``loosen up'' the relationship to account for variability.
+to ``loosen up'' the relationship to account for variability (in \(x\) and \(y\)).
 So, the values \(2\) and \(3\) are not fixed but aflicted with uncertainty.
 Depending on your philosophical view, you might say you want to find
 the ``true'' but unknown relationship between variables.
 This is what we do in simulation studies all the time: We know the true relationship,
-simulate data with variability and then try to estimate the true relationship we assumed in the first place.
+simulate data by adding variability and then try to estimate the true relationship we assumed in the first place.
 For some practical applications, we can get a really nice and complete answer to our question
 (for instance sample size for proportions).
 
@@ -329,14 +336,51 @@ So we are looking for a function \(f\) such that
 
 \[ Y = f(X) \]
 
-where \(Y\) is the ``outcome'', \(X\) are the ``predictors''. Since this relationship is not deterministic, we have to account for variability.
-\(X\) can be a single Variable \(x\) or many variables \(x_1, x_2, \ldots, x_p\).
+where
 
-Elaborate on X, Y and F, independent, depenent\ldots\ldots.
+\begin{itemize}
+\tightlist
+\item
+  \(Y\) is the ``outcome'', ``dependent variable'' or ``response''.
+\item
+  \(X\) are the ``predictors''. \(X\) can be a single Variable \(x\) or many
+  variables \(x_1, x_2, \ldots, x_p\).
+\end{itemize}
 
-The simplest statistical model would be the mean model. Let's use the example in
+It is important to be aware of the notation here:
+``Predict'' does \textbf{not necessarily} mean that we can predict the value in
+the future. It merely means we estimate the value (or mean) of \(Y\) given \(X\).
+
+\begin{itemize}
+\tightlist
+\item
+  This can be done at the same time points, known as \textbf{cross-sectional} analysis (``What is the maximum jumping height
+  of a person given their age at a certain point in time, whereas both variables are measured at the same time?'');
+\item
+  or at different time points, known as \textbf{longitudinal analysis} (``What is the maximum jumping height of a person 10 years later (\(t_2\))
+  given their baseline health status at time \(t_1\)?'').
+\end{itemize}
+
+The \textbf{simplest statistical model} would be the mean model where \(Y\) is ``predicted'' by a
+constant: \(Y = c\) which (at least in the classical linear regression) turns out to be \(c = \bar{x}\).
+This simple model is often surprisingly good, or, to put it in other words, models with more complexity
+are often not that much better with regards to multiple metrics.
+
+\section{A (simple) model for adult body heights in the Bayesian framework}\label{a-simple-model-for-adult-body-heights-in-the-bayesian-framework}
+
+As repetition, read the parts about \href{https://jdegenfellner.github.io/Script_QM1_ZHAW/bayes_statistics.html}{Bayes statistics from QM1}
+again to refresh your memory about the Bayesian framework.
+
+It's recommendable to read the beginning of the book \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical rethinking}
+up until page 39 as well. We are not completely new to the topic of Bayes due
+to QM1.
+
+We want to \textbf{start building our first model} right away.
+
+Let's begin with the example in
 \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical rethinking}
-starting on page 78.
+using data from the \href{https://en.wikipedia.org/wiki/\%C7\%83Kung_people}{!Kung San}
+people starting on page 79.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -354,6 +398,358 @@ starting on page 78.
 ##  $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
 ##  $ male  : int  1 0 0 1 0 1 0 1 0 1 ...
 \end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d2 }\OtherTok{\textless{}{-}}\NormalTok{ d[d}\SpecialCharTok{$}\NormalTok{age }\SpecialCharTok{\textgreater{}=} \DecValTok{18}\NormalTok{, ] }\CommentTok{\# only adults}
+\end{Highlighting}
+\end{Shaded}
+
+We want to model the adult height of the !Kun San people
+using prior knowledge (about the Swiss population) and data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{d2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ height)) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-2-1.pdf}}
+
+Since we already have domain knowledge in this area, we can say that heights are usually normally distributed,
+or at least a mixture of normal distrubutions (female/male).
+We assume the following model:
+\[h_i \sim \text{Normal}(\mu, \sigma)\]
+
+As in \href{https://jdegenfellner.github.io/Script_QM1_ZHAW/}{QM1},
+we want to start with a Bayesian model and hence, we need some priors.
+
+Since we are in Switzerland and just for fun, we use the mean of
+\href{https://www.bfs.admin.ch/asset/de/30305714}{Swiss body heights}
+as expected value for the \textbf{prior for the mean}.
+According to the link (Bundesamt für Statistik),
+the mean height of \(n=21,873\) people in the Swiss sample is
+\(171.1\) cm. We choose the same \(\sigma\) for the prior of the normal
+as in the book not to deviate too much from the example at hand.
+
+Next comes our \textbf{model definition in the Bayesian framework}, which
+I often find more intuitive than the frequentist approach:
+
+\[
+h_i \sim \text{Normal}(\mu, \sigma)
+\]
+\[
+\mu \sim \text{Normal}(171.1, 20)
+\]
+\[
+\sigma \sim \text{Uniform}(0, 50)
+\]
+
+\textbf{Description of the model definition}: The heights are normally distributed with unknown mean and
+standard deviation. As our current knowledge about the mean height, we use
+a prior distribution for the mean (we do not know but want to estimate) by
+assuming the mean of a population we know and a standard deviation of \(20\) cm which
+allows are rather large range of possible values for \(\mu\).
+\(\sigma\) is also unknown and a priori we restrict ourselves to values
+between \(0\) and \(50\) cm, whereas we assign equal plausibility to all
+values in this range (which can and should be critically discussed).
+
+\textbf{Vizualisation of the model structure}:
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+Mind that there is a conceptual difference between the normal distribution of the heights
+and the normal prior distribution of the mean. The latter expresses our prior knowledge/insecurity
+about the unobserved mean. The normal distribution says we expect the heights to be normally distributed
+but we do not know the parameters (\(\mu\) and \(\sigma\)) yet.
+
+Of course we would not need the prior here due to the large sample size,
+but let's do it anyways for demonstration purposes.
+We are not completely uninformed about body heights and express our
+knowledge with the prior for \(\mu\).
+The \(20\) in the prior for the mean expresses our range of possible true
+mean values and aknowledge
+that there are a variety of different subpopulations with different means.
+
+Using the Swiss data in the link one could estimate that the standard deviation of the heights
+from \(21,873\) Swiss people is around is \(25.6553\) cm (\hyperref[exercise1_Intro]{Exercise 1}).
+
+Remember, in the Baysian world, there is no \textbf{fixed but unknown}
+parameter, but instead we define a distribution over the unobserved parameter.
+
+We \textbf{visualize the prior for \(\mu\)}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dnorm}\NormalTok{(x, }\FloatTok{171.1}\NormalTok{, }\DecValTok{20}\NormalTok{), }\AttributeTok{from =} \DecValTok{100}\NormalTok{, }\AttributeTok{to =} \DecValTok{250}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+The \textbf{prior for \(\sigma\)} is uniform between \(0\) and \(50\) cm. This is a very wide prior and
+just constrains the values to be positive and below \(50\) cm.
+This could be stronger of course.
+
+\textbf{Visualization of the prior for \(\sigma\)}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{curve}\NormalTok{(}\FunctionTok{dunif}\NormalTok{(x, }\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{), }\AttributeTok{from =} \SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\AttributeTok{to =} \DecValTok{60}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+Note, we didn't specify a prior probability distribution of heights
+directly, but once we've chosen priors for \(\mu\) and \(\sigma\), these imply a
+prior distribution of individual heights.
+
+\textbf{Without} even having seen the \textbf{new data}, we can check what our prior
+(model) for heights would predict. This is important. If the prior already
+predicts impossible values, we should reconsider our priors and/or model.
+
+So, we simply draw \(\mu\) and \(\sigma\) from the priors and then draw heights
+from the normal distribution using the drawn parameters.
+
+\textbf{Vizualisation of the prior for heights}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_mu }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{, }\FloatTok{171.1}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\NormalTok{sample\_sigma }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\NormalTok{prior\_h }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{, sample\_mu, sample\_sigma)}
+\FunctionTok{length}\NormalTok{(prior\_h)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dens}\NormalTok{(prior\_h)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-6-1.pdf}}
+
+The prior is not itself a Gaussian distribution, but a distribution of
+relative plausibilities of different heights, before seeing the data.
+
+Now, there are a couple of different ways to estimtate the model incorporating
+the new data. For didactic reasons, grid approximation is often used (as in the book).
+For many parameters, grid approximation becomes more and more infeasible (due to combinatorial explosion).
+
+We will skip that for now and use quadratic approximation instead which
+works well for many common procedures in applied statistics (like linear regression).
+Later, you'll probably use (or the software in the background) mostly Markov
+chain Monte Carlo (MCMC) sampling to get the posterior.
+\href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Pages 39 and the following}
+explain the 3 concepts grid approximation, quadratic approximation and MCMC.
+
+In short, \textbf{quadratic approximation} assumes that our posterior distribution
+of body heights can be approximated well by a normal distribution,
+at least near the peak.
+
+Please read the \hyperref[bivariate_normal]{addendum} to get a clearer picture of
+what a bivariate normal distribution is.
+
+Using the library \texttt{rethinking} we can estimate the model using quadratic approximation.
+First, we define the model in the \texttt{rethinking} syntax (see R code 4.25 in the book).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\NormalTok{flist }\OtherTok{\textless{}{-}} \FunctionTok{alist}\NormalTok{(}
+\NormalTok{  height }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma),}
+\NormalTok{  mu }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\FloatTok{171.1}\NormalTok{, }\DecValTok{20}\NormalTok{),}
+\NormalTok{  sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Then we estimate/fit the model using quadratic approximation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m\_heights }\OtherTok{\textless{}{-}}\NormalTok{ rethinking}\SpecialCharTok{::}\FunctionTok{map}\NormalTok{(flist, }\AttributeTok{data =}\NormalTok{ d2)}
+\end{Highlighting}
+\end{Shaded}
+
+Now let's take a look at the fit \emph{maximum a posteriori} model:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{precis}\NormalTok{(m\_heights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             mean        sd       5.5%      94.5%
+## mu    154.604128 0.4119929 153.945684 155.262572
+## sigma   7.731307 0.2913835   7.265619   8.196994
+\end{verbatim}
+
+Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
+and a 89\% credible interval for those parameters.
+
+We can now plot the posterior distribution of the mean and the standard deviation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{post }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m\_heights, }\AttributeTok{n =} \DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{4}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(post)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         mu    sigma
+## 1 154.3276 7.719313
+## 2 154.1342 7.740430
+## 3 154.7665 7.716517
+## 4 154.8177 7.389127
+## 5 154.1811 7.526809
+## 6 154.3403 7.971658
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dens}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{mu)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-10-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dens}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{sigma)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-10-2.pdf}}
+
+Note, that \textbf{these samples come from a multi-dimensional posterior distribution}.
+In our case, we approximated the posterior with a
+\href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution}{bivariate normal distribution}.
+They are not necessarily independent from each other, but in this case they are.
+We know this from the model definition above. \(\mu\) and \(\sigma\) are both
+defined as normal respectively uniform distributions and by definition do not
+influence each other. This is also visible in the vizualisation of the model structure:
+There is no confounding variable or connection between those priors. One could
+think of a common variable \(Z\) that influences both \(\mu\) and \(\sigma\). This could
+be genetic similarity which could influence both \(\mu\) and \(\sigma\).
+
+Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{vcov}\NormalTok{(m\_heights)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 mu        sigma
+## mu    0.1697381561 0.0001544557
+## sigma 0.0001544557 0.0849043302
+\end{verbatim}
+
+gives you the variance-covariance matrix of the parameters of the posterior
+distribution. In the diagonal you see the variance of the parameters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{diag}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(m\_heights))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         mu      sigma 
+## 0.16973816 0.08490433
+\end{verbatim}
+
+And we can compute the correlation matrix easily:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cov2cor}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(m\_heights))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                mu       sigma
+## mu    1.000000000 0.001286617
+## sigma 0.001286617 1.000000000
+\end{verbatim}
+
+Let's plot the posterior in 3D, because we \textbf{can}:
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/posterior-3d-correct-1.pdf}}
+
+\textbf{How beautiful ist that?}
+
+We see in the 3D plot, that the ``mountain'' is not rotated, indicating
+graphically that the parameters are independent from each other.
+
+We also see in the correlation matrix, the correlation of the parameters is \(\sim 0\).
+In the \href{https://en.wikipedia.org/wiki/Correlation\#Correlation_and_independence}{context of a joint normal distribution},
+this means that the parameters are independent.
+
+And, it is not an accident that the posterior looks like this. Using quadratic approximation,
+we used the bivariate normal distribution to \textbf{approximate} the posterior.
+
+\section{Exercises}\label{exercises}
+
+\subsection{{[}E{]} Exercise 1}\label{exercise1_Intro}
+
+Use the \href{https://www.bfs.admin.ch/asset/de/30305714}{Swiss body heights} data to
+determine
+- the 95\% ``Vertrauensintervall'' for \(\mu\) and
+- calculate the standard deviation of the heights from \(21,873\) Swiss people.
+
+\section{Addendum}\label{addendum}
+
+\subsection{The bivariate normal distribution}\label{bivariate_normal}
+
+As a refresher, you can look into the old QM1 script and read the
+chapter ``4.7 Gemeinsame Verteilungen''.
+Maybe \href{https://www.youtube.com/watch?v=SP2GKq8xJ5I&ab_channel=StatisticsNinja}{this video}
+also helps.
+
+The bivariate normal distribution is a generalization of the normal distribution to two dimensions.
+Now, we look at the distribution of two random variables \(X\) and \(Y\) \textbf{at the same time}.
+
+Instead of one Gaussian bell curve, we have a
+\href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution\#/media/File:Multivariate_Gaussian.png}{3D bell curve}.
+This curve defines how plausible different combinations of \(X\) and \(Y\) are.
+
+Single points (like (3,6)) still have probability zero, because now the \textbf{volume} over a single point
+(\(x\), \(y\)) is zero. The probability of a certain area is now the \textbf{volume} under the
+curve compared to the \textbf{area} under the density curve in the one-dimensional case.
+
+\textbf{Example}: The following plot shows the density of a bivariate normal distribution of
+two variables \(X\) and \(Y\)
+with \(\mu_X = 0\), \(\mu_Y = 0\), \(\sigma_X = 1\), \(\sigma_Y = 1\) and \(\rho = \frac{2}{3}\).
+
+Below is the correlation matrix of the bivariate normal distribution.
+
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 1.0000000 0.6666667
+## [2,] 0.6666667 1.0000000
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-14-1.pdf}}
+
+If you move the plot around with your mouse, you see that there is a positive
+correlation between \(X\) and \(Y\) (\(\rho = \frac{2}{3}\)). This means that if \(X\) is
+above its mean, \(Y\) is also more likely to be above its mean.
+The variances of \(X\) and \(Y\) are both \(1\). That means, that if you cut
+through the plot in \(X=0\) or \(Y=0\), you see the same form of normal distribution.
+If you look at if from above, we have hihglighted the section on the surface
+over the area \(X \in [0.5, 2]\) and \(Y \in [0.5, 2]\). The volume over this area
+under the density curve is the probability of this area: \(P(X \in [0.5, 2] \text{ and } Y \in [0.5, 2])\)
 
 \chapter{Literature}\label{literature}
 
