@@ -425,7 +425,112 @@ this means that the parameters are independent.
 And, it is not an accident that the posterior looks like this. Using quadratic approximation,
 we used the bivariate normal distribution to **approximate** the posterior.
 
+## Classical approach for the simplest model
 
+We have seen, how we could use domain and prior knowledge to fit a very simple model
+for body heights of a population (!Kung San) in the Bayesian framework.
+
+Now, let's start at the same point in the classical framework.
+Here, we do not use any prior knowledge, at least not that explicitely.
+
+The classical approach to fit a regression line is the so-called 
+**[least squares method](https://en.wikipedia.org/wiki/Least_squares)**.
+
+The **(simple mean-) model** is:
+
+$$ Y_i = height_i = c + \varepsilon_i $$
+
+- for some $c \in \mathbb{R}$ and
+- normally distributed errors $\varepsilon_i \sim \text{Normal}(0, \sigma)$.
+
+These are on average zero and have a constant standard deviation of $\sigma$.
+So, we assume there is a fixed, but unknown, constant $c$ that we want to estimate and we 
+assume that there is a special sort of error in our model that is normally distributed.
+Sometimes there is a large deviation from the true $c$, sometimes there is a small deviation.
+On average, the deviations are zero and the **errors should also be are independent from each other**:
+$$ \varepsilon_i \perp \varepsilon_j \text{ for } i \neq j$$
+This means that just because I have just observed a large deviation from the true $c$
+does not mean, that the probability of a large deviation in the next observation is higher/lower.
+Note, that we cannot readily define different types of errors in the classical framework.
+
+But what is $c$? We determine the shape of the model 
+ourselves (constant model, or mean model) and then estimate the parameter $c$.
+By defining the shape of the model ourselves and imposing a distribution where we want to 
+estimate the parameter of said distribution, we are in **parametric statistics**.
+
+We choose the $c$ which minimizes the sum of squared errors from the actual heights.
+This has the advantage that deviations upper and lower from the actual height are
+equally weighted. The larger the deviation the (quadratically) larger the penalty.
+
+**Why do we do that?** Because, if the model assumptions (more on that later) 
+are correct, the least squares
+estimator is a really good estimator. How good? Later...
+
+We want to miminize the following function:
+
+$$ SSE \text{ (Sum of Squared Errors) }(c) = (height_1 - c)^2 + (height_2 - c)^2 + 
+\ldots + (height_n - c)^2 =$$
+$$ = \sum_{i=1}^{n} (height_i - c)^2$$
+
+The SSE is a function of $c$ and we want to find the $c$ that minimizes the function.
+Since it is a quadratic function, we can always find the minimum.
+We have learnt in school how to do this (hopefully): Take the derivative of the function
+and set it to zero. Solve for $c$ and you have the minimum. Let's do that:
+
+$$ \frac{d}{dc} SSE(c) =  2(height_1 - c)(-1) + 2(height_2 - c)(-1) + 
+\ldots + 2(height_n - c)(-1) =$$
+$$ = -2 \sum_{i=1}^{n} (height_i - c)$$
+
+This should be zero for the minimum:
+$$ -2 \sum_{i=1}^{n} (height_i - c) = 0$$
+$$ \sum_{i=1}^{n} (height_i - c) = 0$$
+$$ \sum_{i=1}^{n} (height_i - c) = 0$$
+$$ \sum_{i=1}^{n} height_i - n \cdot c = 0$$
+$$ \hat{c} = \frac{1}{n} \sum_{i=1}^{n} height_i = \overline{height_i}$$
+
+The hat over the $c$ indicates that this is the estimated value of $c$.
+Everytime we estimate a parameter, we put a hat over it.
+
+And voilà, we have estimated the parameter $c$ of the model, which is just the 
+sample mean of all the heights. In contrast to before, we did not put 
+in a lot of prior knowledge, but just estimated the parameter from the data.
+
+In R, we can do this easily:
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+mod <- lm(height ~ 1, data = d2)
+summary(mod)
+dim(d2)
+mean(d2$height) # same as the intercept
+sd(d2$height) / sqrt(nrow(d2)) # standard error of the estimator
+# test-statistic for the intercept:
+mean(d2$height)/ (sd(d2$height) / sqrt(nrow(d2)))
+# residual standard error:
+sqrt(sum(mod$residuals^2) / (nrow(d2) - 1))
+```
+
+the "~1" means that there is just a so-called **intercept** in the model.
+There are **no covariates**, just the constant $c$.
+This is the simplest we can do. 'lm' stands for linear model and with this base 
+command in R we ask the software to do the least squares estimation for us.
+
+Let's look at the **R-output** of the model estimation:
+
+- 'lm(formula = height ~ 1, data = d2)': This is the model we estimated.
+- 'Residuals': The difference between the actual height and the estimated height: 
+$r_i = height_i - \hat{c}$. A univariate 5-point summary is given.
+- 'Coefficients': The estimated coefficients of the model. In this case, there is just the intercept.
+   We get the 
+  - 'Std. Error' of the estimate, i.e. the [standard error](https://en.wikipedia.org/wiki/Standard_error) of the mean, 
+    which is (according to the Central Limit Theorem) 
+    $$\frac{\sigma}{\sqrt{n}}$$ and can be estimated by the sample 
+    standard deviation divided by the square root of the sample size.
+  - the 't value' and the 'Pr(>|t|)' which is the $p$-value of the (Wald-)test of 
+    the null hypothesis that the 
+    coefficient is zero ($H_0: \text{intercept}=0$).
+- 'Residual standard error': The standard deviation of the residuals. In this case identical with the standard error 
+    of heights. $351$ degrees of freedom. There are $352$ observations and 
+    $1$ parameter estimated (intercept/mean). Hence, there are $352-1=351$ 
+    freely movable variables in the statistic of the sample standard deviation.
 
 ## Exercises
 

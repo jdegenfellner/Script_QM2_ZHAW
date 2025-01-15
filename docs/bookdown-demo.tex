@@ -588,8 +588,8 @@ Now let's take a look at the fit \emph{maximum a posteriori} model:
 
 \begin{verbatim}
 ##             mean        sd       5.5%      94.5%
-## mu    154.604128 0.4119929 153.945684 155.262572
-## sigma   7.731307 0.2913835   7.265619   8.196994
+## mu    154.604101 0.4119941 153.945655 155.262548
+## sigma   7.731329 0.2913856   7.265638   8.197019
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -606,12 +606,12 @@ We can now plot the posterior distribution of the mean and the standard deviatio
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.3276 7.719313
-## 2 154.1342 7.740430
-## 3 154.7665 7.716517
-## 4 154.8177 7.389127
-## 5 154.1811 7.526809
-## 6 154.3403 7.971658
+## 1 153.8285 7.662522
+## 2 154.6729 7.813708
+## 3 154.2961 7.237938
+## 4 154.2593 6.768533
+## 5 155.0438 7.594867
+## 6 154.4195 7.442121
 \end{verbatim}
 
 \begin{Shaded}
@@ -651,8 +651,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697381561 0.0001544557
-## sigma 0.0001544557 0.0849043302
+## mu    0.1697391350 0.0001538681
+## sigma 0.0001538681 0.0849055527
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -666,7 +666,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973816 0.08490433
+## 0.16973913 0.08490555
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -679,8 +679,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001286617
-## sigma 0.001286617 1.000000000
+## mu    1.000000000 0.001281709
+## sigma 0.001281709 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -698,6 +698,28 @@ this means that the parameters are independent.
 
 And, it is not an accident that the posterior looks like this. Using quadratic approximation,
 we used the bivariate normal distribution to \textbf{approximate} the posterior.
+
+\section{Classical approach for the simplest model}\label{classical-approach-for-the-simplest-model}
+
+We have seen, how we could use domain and prior knowledge to fit a very simple model
+for body heights of a population (!Kung San) in the Bayesian framework.
+
+Now, let's start at the same point in the classical framework.
+Here, we do not use any prior knowledge, at least not that explicitely.
+
+The classical approach to fit a regression line is the so-calle least squares method.
+
+The model is:
+
+\[ Y_i = height_i = c \]
+for some \(c \in \mathbb{R}\). But what is \(c\)? We determine the shape of the model
+ourselves (constant model, or mean model) and then estimate the parameter \(c\).
+
+We choose the \(c\) which minimizes the sum of squared errors from the actual heights.
+This has the advantage that deviations upper and lower from the actual height are
+equally weighted. The larger the deviation the (quadratically) larger the penalty.
+
+\[ SSE \text{ (Sum of Squared Errors) } = (height_1 - c)^2 + (height_2 - c)^2 + \ldots + (height_n - c)^2 \]
 
 \section{Exercises}\label{exercises}
 
