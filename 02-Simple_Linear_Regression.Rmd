@@ -251,7 +251,7 @@ for (i in 1:100) {
 }
 ```
 
-With the `link` function fixes the weight at the values in `weight.seq` and
+The `link` function fixes the weight at the values in `weight.seq` and
 draws samples from the posterior distribution of the parameters. We will do 
 the analog thing in the frequentist framework.
 
@@ -460,9 +460,9 @@ If you are interested in the details, check out [this](https://en.wikipedia.org/
 [This video](https://www.youtube.com/watch?v=NxRTs7sXKAQ&ab_channel=365DataScience) 
 explains the concept nicely.
 
-Let's visualize this with our regression result:
+Let's visualize our regression result:
 
-```{r}
+```{r, echo=FALSE}
 library(rethinking)
 library(tidyverse)
 data(Howell1)
@@ -484,40 +484,43 @@ highlight_point <- d2[10, ]
 ggplot(d2, aes(x = weight, y = height)) +
   # Scatterplot of all points
   geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", se = FALSE, color = "blue", size = 1) +
-  geom_point(data = highlight_point, aes(x = weight, y = height), color = "red", size = 3) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue", linewidth = 1) +
+  geom_point(data = highlight_point, aes(x = weight, y = height),
+            color = "red", size = 3) +
   
   # Vertical difference: Point and mean height (offset slightly left)
   geom_segment(data = highlight_point,
-               aes(x = weight - 0.5, xend = weight - 0.5, 
-                   y = height, yend = mean_height, color = "Point-to-Mean"), 
+               aes(x = weight - 0.5, xend = weight - 0.5,
+                   y = height, yend = mean_height, color = "Point-to-Mean"),
                linetype = "dashed") +
   
   # Vertical difference: Point and regression line (no offset)
   geom_segment(data = highlight_point,
-               aes(x = weight, xend = weight, 
-                   y = height, yend = predicted_height, color = "Point-to-Line"), 
+               aes(x = weight, xend = weight,
+                   y = height, yend = predicted_height,
+                   color = "Point-to-Line"),
                linetype = "dashed") +
   
   # Vertical difference: Regression line and mean height (offset slightly right)
   geom_segment(data = highlight_point,
-               aes(x = weight + 0.5, xend = weight + 0.5, 
-                   y = predicted_height, yend = mean_height, color = "Line-to-Mean"), 
+               aes(x = weight + 0.5, xend = weight + 0.5,
+                   y = predicted_height,
+                   yend = mean_height, color = "Line-to-Mean"),
                linetype = "dashed") +
   
   # Add horizontal line for the mean height
-  geom_hline(yintercept = mean(d2$height), color = "darkgreen", linetype = "dashed") +
-  
+  geom_hline(yintercept = mean(d2$height), 
+             color = "darkgreen", linetype = "dashed") +
   # Labels
   labs(title = "Scatterplot with Regression Line and Differences",
-       x = "Weight", 
+       x = "Weight",
        y = "Height",
        color = "Distance Type") +
-  
   # Style
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 16),  # Center and adjust title size
+    plot.title = element_text(hjust = 0.5,
+                              size = 16),  # Center and adjust title size
     legend.position = "top"  # Place legend at the top
   )
 ```
@@ -525,6 +528,7 @@ ggplot(d2, aes(x = weight, y = height)) +
 
 
 ....... **TODOS**
+
 - Conditional distribution approach
 - Not the same to predict X with Y or vice versa.
 - Analysis of Variance, R^2
