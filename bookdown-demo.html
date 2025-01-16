@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Introduction | Quantitive Methods 2, ZHAW</title>
+  <title>Quantitive Methods 2, ZHAW</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown #bookdown:version# and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Introduction | Quantitive Methods 2, ZHAW" />
+  <meta property="og:title" content="Quantitive Methods 2, ZHAW" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Introduction | Quantitive Methods 2, ZHAW" />
+  <meta name="twitter:title" content="Quantitive Methods 2, ZHAW" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="literature.html"/>
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -41,14 +41,14 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
@@ -142,59 +142,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Quantitive Methods 2, ZHAW</h1>
+<p class="author"><em>Jürgen Degenfellner</em></p>
+<p class="date"><em>2025-01-16</em></p>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
     <div class="book-summary">
       <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">Quantitative Methods 2</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<!--bookdown:toc2:start-->
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#books-we-will-heavily-borrow-from-are"><i class="fa fa-check"></i><b>1.1</b> Books we will heavily borrow from are:</a></li>
+<li><a href="#intro0" id="toc-intro0"><span class="toc-section-number">1</span> Introduction</a>
+<ul>
+<li><a href="#books-we-will-heavily-borrow-from-are" id="toc-books-we-will-heavily-borrow-from-are"><span class="toc-section-number">1.1</span> Books we will heavily borrow from are:</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<li><a href="#intro" id="toc-intro"><span class="toc-section-number">2</span> Introduction</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-statistical-modeling-and-what-do-we-need-this-for"><i class="fa fa-check"></i><b>2.1</b> What is statistical modeling and what do we need this for?</a>
+<li><a href="#what-is-statistical-modeling-and-what-do-we-need-this-for" id="toc-what-is-statistical-modeling-and-what-do-we-need-this-for"><span class="toc-section-number">2.1</span> What is statistical modeling and what do we need this for?</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="intro.html"><a href="intro.html#explanatory-vs.-predictive-models"><i class="fa fa-check"></i><b>2.1.1</b> Explanatory vs. Predictive Models</a></li>
-<li class="chapter" data-level="2.1.2" data-path="intro.html"><a href="intro.html#individual-vs.-population-prediction"><i class="fa fa-check"></i><b>2.1.2</b> Individual vs. Population Prediction</a></li>
-<li class="chapter" data-level="2.1.3" data-path="intro.html"><a href="intro.html#practical-use-of-statistical-models"><i class="fa fa-check"></i><b>2.1.3</b> Practical Use of Statistical Models</a></li>
-<li class="chapter" data-level="2.1.4" data-path="intro.html"><a href="intro.html#start-at-the-beginning"><i class="fa fa-check"></i><b>2.1.4</b> Start at the beginning</a></li>
+<li><a href="#explanatory-vs.-predictive-models" id="toc-explanatory-vs.-predictive-models"><span class="toc-section-number">2.1.1</span> Explanatory vs. Predictive Models</a></li>
+<li><a href="#individual-vs.-population-prediction" id="toc-individual-vs.-population-prediction"><span class="toc-section-number">2.1.2</span> Individual vs. Population Prediction</a></li>
+<li><a href="#practical-use-of-statistical-models" id="toc-practical-use-of-statistical-models"><span class="toc-section-number">2.1.3</span> Practical Use of Statistical Models</a></li>
+<li><a href="#start-at-the-beginning" id="toc-start-at-the-beginning"><span class="toc-section-number">2.1.4</span> Start at the beginning</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#a-simple-model-for-adult-body-heights-in-the-bayesian-framework"><i class="fa fa-check"></i><b>2.2</b> A (simple) model for adult body heights in the Bayesian framework</a></li>
-<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#classical-approach-for-the-simplest-model"><i class="fa fa-check"></i><b>2.3</b> Classical approach for the simplest model</a></li>
-<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a>
+<li><a href="#a-simple-model-for-adult-body-heights-in-the-bayesian-framework" id="toc-a-simple-model-for-adult-body-heights-in-the-bayesian-framework"><span class="toc-section-number">2.2</span> A (simple) model for adult body heights in the Bayesian framework</a></li>
+<li><a href="#classical-approach-for-the-simplest-model" id="toc-classical-approach-for-the-simplest-model"><span class="toc-section-number">2.3</span> Classical approach for the simplest model</a></li>
+<li><a href="#exercises" id="toc-exercises"><span class="toc-section-number">2.4</span> Exercises</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="intro.html"><a href="intro.html#exercise1_Intro"><i class="fa fa-check"></i><b>2.4.1</b> [E] Exercise 1</a></li>
-<li class="chapter" data-level="2.4.2" data-path="intro.html"><a href="intro.html#exercise2_Intro"><i class="fa fa-check"></i><b>2.4.2</b> [E] Exercise 2</a></li>
-<li class="chapter" data-level="2.4.3" data-path="intro.html"><a href="intro.html#exercise2_Intro"><i class="fa fa-check"></i><b>2.4.3</b> [M] Exercise 3</a></li>
-<li class="chapter" data-level="2.4.4" data-path="intro.html"><a href="intro.html#exercise4_Intro"><i class="fa fa-check"></i><b>2.4.4</b> [M] Exercise 4</a></li>
+<li><a href="#exercise1_Intro" id="toc-exercise1_Intro"><span class="toc-section-number">2.4.1</span> [E] Exercise 1</a></li>
+<li><a href="#exercise2_Intro" id="toc-exercise2_Intro"><span class="toc-section-number">2.4.2</span> [E] Exercise 2</a></li>
+<li><a href="#exercise2_Intro" id="toc-exercise2_Intro"><span class="toc-section-number">2.4.3</span> [M] Exercise 3</a></li>
+<li><a href="#exercise4_Intro" id="toc-exercise4_Intro"><span class="toc-section-number">2.4.4</span> [M] Exercise 4</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#addendum"><i class="fa fa-check"></i><b>2.5</b> Addendum</a>
+<li><a href="#addendum" id="toc-addendum"><span class="toc-section-number">2.5</span> Addendum</a>
 <ul>
-<li class="chapter" data-level="2.5.1" data-path="intro.html"><a href="intro.html#bivariate_normal"><i class="fa fa-check"></i><b>2.5.1</b> The bivariate normal distribution</a></li>
+<li><a href="#bivariate_normal" id="toc-bivariate_normal"><span class="toc-section-number">2.5.1</span> The bivariate normal distribution</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a>
+<li><a href="#literature" id="toc-literature"><span class="toc-section-number">3</span> Literature</a></li>
+<li><a href="#methods" id="toc-methods"><span class="toc-section-number">4</span> Methods</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>4.1</b> math example</a></li>
+<li><a href="#math-example" id="toc-math-example"><span class="toc-section-number">4.1</span> math example</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<li><a href="#applications" id="toc-applications"><span class="toc-section-number">5</span> Applications</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li><a href="#example-one" id="toc-example-one"><span class="toc-section-number">5.1</span> Example one</a></li>
+<li><a href="#example-two" id="toc-example-two"><span class="toc-section-number">5.2</span> Example two</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
+<li><a href="#final-words" id="toc-final-words"><span class="toc-section-number">6</span> Final Words</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
-
+<!--bookdown:toc2:end-->
       </nav>
     </div>
 
@@ -210,10 +213,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
+<!--bookdown:toc:end-->
+<!--bookdown:body:start-->
+<div id="intro0" class="section level1 hasAnchor" number="1">
+<h1 class="hasAnchor"><span class="header-section-number">1</span> Introduction<a href="#intro0" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This script is a continuation of
+<a href="https://jdegenfellner.github.io/Script_QM1_ZHAW/">the first one</a> for Quantitative Methods 1
+at ZHAW.</p>
+<p>In the first part, we learned about the basics of probability theory,
+descriptive statistics, Bayesian statistics, and hypothesis testing.</p>
+<p>In this script, we will dive into the basics of statistical modeling -
+a world of aesthetic wonder and surprises.</p>
+<p>This script is a first draft as you are the first group to be working with it.</p>
+<p>Please feel free to send me suggestions for improvements or corrections.</p>
+<p>This <strong>should be a collaborative effort</strong> and will (hopefully)
+never be finished as our insight grows over time.</p>
+<p>The script can also be seen as a pointer to great sources which are
+fit to deepen your understanding of the topics. Knowledge is decentralized,
+and there are many great ressources out there.</p>
+<p>For the working setup with R, please
+see <a href="https://jdegenfellner.github.io/Script_QM1_ZHAW/index.html#section">this</a>
+and the following sections in the first script.</p>
+<p>The complete code for this script can be found
+<a href="https://github.com/jdegenfellner/Script_QM2_ZHAW">here</a>.</p>
+<div id="books-we-will-heavily-borrow-from-are" class="section level2 hasAnchor" number="1.1">
+<h2 class="hasAnchor"><span class="header-section-number">1.1</span> Books we will heavily borrow from are:<a href="#books-we-will-heavily-borrow-from-are" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>(Free) <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking</a>, YouTube-Playlist: <a href="https://youtu.be/FdnMWdICdRs?si=q2py5QVY_L299hEa">Statistical Rethinking 2023</a></li>
+<li>(Free) <a href="https://vdoc.pub/documents/understanding-regression-analysis-a-conditional-distribution-approach-84oqjr8sqva0">Understanding Regression Analysis: A Conditional Distribution Approach</a></li>
+<li><a href="http://www.stat.columbia.edu/~gelman/arm/">Data Analysis Using Regression and Multilevel/Hierarchical Models</a></li>
+<li>(Free) <a href="https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf">Doing Bayesian Data Analysis</a></li>
+</ul>
+<!--chapter:end:index.Rmd-->
+</div>
+</div>
 <div id="intro" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1 class="hasAnchor"><span class="header-section-number">2</span> Introduction<a href="#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="what-is-statistical-modeling-and-what-do-we-need-this-for" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> What is statistical modeling and what do we need this for?<a href="intro.html#what-is-statistical-modeling-and-what-do-we-need-this-for" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2 class="hasAnchor"><span class="header-section-number">2.1</span> What is statistical modeling and what do we need this for?<a href="#what-is-statistical-modeling-and-what-do-we-need-this-for" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Typically, one simplifies the complex reality (and loses information) in order to make it better
 understandable, mathematically treatable and to make predictions.</p>
 <p>Underlying our models, there are theories which should be <a href="https://en.wikipedia.org/wiki/Falsifiability">falsifiable</a>
@@ -255,7 +292,7 @@ one cannot overcome even with the most sophisticated models. This is expressed f
 in the so-called <a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">bias-variance trade-off</a>.
 You can’t have it all.</p>
 <div id="explanatory-vs.-predictive-models" class="section level3 hasAnchor" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Explanatory vs. Predictive Models<a href="intro.html#explanatory-vs.-predictive-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.1.1</span> Explanatory vs. Predictive Models<a href="#explanatory-vs.-predictive-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>I can recommend reading <a href="https://projecteuclid.org/journals/statistical-science/volume-25/issue-3/To-Explain-or-to-Predict/10.1214/10-STS330.full">this</a>
 article by Shmueli et al. (2010) on this topic.</p>
 <p>Statistical models serve different purposes depending on the research question. Two primary goals are <strong>explanation</strong>
@@ -293,14 +330,14 @@ providing actionable forecasts. Together, they enhance both our understanding
 of phenomena and our ability to make informed decisions in complex environments.</p>
 </div>
 <div id="individual-vs.-population-prediction" class="section level3 hasAnchor" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Individual vs. Population Prediction<a href="intro.html#individual-vs.-population-prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.1.2</span> Individual vs. Population Prediction<a href="#individual-vs.-population-prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Another important distinction is between <strong>individual vs. population</strong> prediction.
 In the smoking example above, we can be very sure about the mean effects that smoking has on lung cancer.
 On an individual level, it is <a href="https://www.liebertpub.com/doi/10.1089/rej.2019.2298">harder to predict the outcome</a>.
 Nevertheless, individual predictions will be (notably) better than random guessing. We will discuss this in greater detail.</p>
 </div>
 <div id="practical-use-of-statistical-models" class="section level3 hasAnchor" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Practical Use of Statistical Models<a href="intro.html#practical-use-of-statistical-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.1.3</span> Practical Use of Statistical Models<a href="#practical-use-of-statistical-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In my optinion, we should never be afraid to test our statistical models (as honestly as possible) against reality.
 We could for instance ask ourselves:</p>
 <ul>
@@ -319,7 +356,7 @@ than the average, will make you faboulously rich.</p></li>
 </ul>
 </div>
 <div id="start-at-the-beginning" class="section level3 hasAnchor" number="2.1.4">
-<h3><span class="header-section-number">2.1.4</span> Start at the beginning<a href="intro.html#start-at-the-beginning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.1.4</span> Start at the beginning<a href="#start-at-the-beginning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>What do we actually want to do in general? Very broadly speaking we want to:
 <strong>describe</strong> the association of variables to each other that carry variability.
 Hence, the relationship is not deterministic like <span class="math display">\[y = 2x + 3\]</span> but rather we need
@@ -355,7 +392,7 @@ are often not that much better with regards to multiple metrics.</p>
 </div>
 </div>
 <div id="a-simple-model-for-adult-body-heights-in-the-bayesian-framework" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> A (simple) model for adult body heights in the Bayesian framework<a href="intro.html#a-simple-model-for-adult-body-heights-in-the-bayesian-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2 class="hasAnchor"><span class="header-section-number">2.2</span> A (simple) model for adult body heights in the Bayesian framework<a href="#a-simple-model-for-adult-body-heights-in-the-bayesian-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As repetition, read the parts about <a href="https://jdegenfellner.github.io/Script_QM1_ZHAW/bayes_statistics.html">Bayes statistics from QM1</a>
 again to refresh your memory about the Bayesian framework.</p>
 <p>It’s recommendable to read the beginning of the book <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical rethinking</a>
@@ -366,20 +403,20 @@ to QM1.</p>
 <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical rethinking</a>
 using data from the <a href="https://en.wikipedia.org/wiki/%C7%83Kung_people">!Kung San</a>
 people starting on page 79.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb1-2"><a href="intro.html#cb1-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Howell1&quot;</span>)</span>
-<span id="cb1-3"><a href="intro.html#cb1-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
-<span id="cb1-4"><a href="intro.html#cb1-4" tabindex="-1"></a><span class="fu">str</span>(d)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Howell1&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">str</span>(d)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    544 obs. of  4 variables:
 ##  $ height: num  152 140 137 157 145 ...
 ##  $ weight: num  47.8 36.5 31.9 53 41.3 ...
 ##  $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
 ##  $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ] <span class="co"># only adults</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ] <span class="co"># only adults</span></span></code></pre></div>
 <p>We want to model the adult height of the !Kun San people
 using prior knowledge (about the Swiss population) and data.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb4-2"><a href="intro.html#cb4-2" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> height)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>d2 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> height)) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>Since we already have domain knowledge in this area, we can say that heights are usually normally distributed,
 or at least a mixture of normal distrubutions (female/male).
@@ -428,17 +465,17 @@ The <span class="math inline">\(20\)</span> in the prior for the mean expresses 
 mean values and aknowledge
 that there are a variety of different subpopulations with different means.</p>
 <p>Using the Swiss data in the link one could estimate that the standard deviation of the heights
-from <span class="math inline">\(21,873\)</span> Swiss people is around is <span class="math inline">\(25.6553\)</span> cm (<a href="intro.html#exercise1_Intro">Exercise 1</a>).</p>
+from <span class="math inline">\(21,873\)</span> Swiss people is around is <span class="math inline">\(25.6553\)</span> cm (<a href="#exercise1_Intro">Exercise 1</a>).</p>
 <p>Remember, in the Baysian world, there is no <strong>fixed but unknown</strong>
 parameter, but instead we define a distribution over the unobserved parameter.</p>
 <p>We <strong>visualize the prior for <span class="math inline">\(\mu\)</span></strong>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="fl">171.1</span>, <span class="dv">20</span>), <span class="at">from =</span> <span class="dv">100</span>, <span class="at">to =</span> <span class="dv">250</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="fl">171.1</span>, <span class="dv">20</span>), <span class="at">from =</span> <span class="dv">100</span>, <span class="at">to =</span> <span class="dv">250</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>The <strong>prior for <span class="math inline">\(\sigma\)</span></strong> is uniform between <span class="math inline">\(0\)</span> and <span class="math inline">\(50\)</span> cm. This is a very wide prior and
 just constrains the values to be positive and below <span class="math inline">\(50\)</span> cm.
 This could be stronger of course.</p>
 <p><strong>Visualization of the prior for <span class="math inline">\(\sigma\)</span></strong>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dunif</span>(x, <span class="dv">0</span>, <span class="dv">50</span>), <span class="at">from =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">to =</span> <span class="dv">60</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dunif</span>(x, <span class="dv">0</span>, <span class="dv">50</span>), <span class="at">from =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="at">to =</span> <span class="dv">60</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Note, we didn’t specify a prior probability distribution of heights
 directly, but once we’ve chosen priors for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, these imply a
@@ -449,12 +486,12 @@ predicts impossible values, we should reconsider our priors and/or model.</p>
 <p>So, we simply draw <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> from the priors and then draw heights
 from the normal distribution using the drawn parameters.</p>
 <p><strong>Vizualisation of the prior for heights</strong>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1" tabindex="-1"></a>sample_mu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>, <span class="fl">171.1</span>, <span class="dv">20</span>)</span>
-<span id="cb7-2"><a href="intro.html#cb7-2" tabindex="-1"></a>sample_sigma <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb7-3"><a href="intro.html#cb7-3" tabindex="-1"></a>prior_h <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>, sample_mu, sample_sigma)</span>
-<span id="cb7-4"><a href="intro.html#cb7-4" tabindex="-1"></a><span class="fu">length</span>(prior_h)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>sample_mu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>, <span class="fl">171.1</span>, <span class="dv">20</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>sample_sigma <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>prior_h <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>, sample_mu, sample_sigma)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">length</span>(prior_h)</span></code></pre></div>
 <pre><code>## [1] 10000</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1" tabindex="-1"></a><span class="fu">dens</span>(prior_h)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">dens</span>(prior_h)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>The prior is not itself a Gaussian distribution, but a distribution of
 relative plausibilities of different heights, before seeing the data.</p>
@@ -470,28 +507,28 @@ explain the 3 concepts grid approximation, quadratic approximation and MCMC.</p>
 <p>In short, <strong>quadratic approximation</strong> assumes that our posterior distribution
 of body heights can be approximated well by a normal distribution,
 at least near the peak.</p>
-<p>Please read the <a href="intro.html#bivariate_normal">addendum</a> to get a clearer picture of
+<p>Please read the <a href="#bivariate_normal">addendum</a> to get a clearer picture of
 what a bivariate normal distribution is.</p>
 <p>Using the library <code>rethinking</code> we can estimate the model using quadratic approximation.
 First, we define the model in the <code>rethinking</code> syntax (see R code 4.25 in the book).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb10-2"><a href="intro.html#cb10-2" tabindex="-1"></a>flist <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
-<span id="cb10-3"><a href="intro.html#cb10-3" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb10-4"><a href="intro.html#cb10-4" tabindex="-1"></a>  mu <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="fl">171.1</span>, <span class="dv">20</span>),</span>
-<span id="cb10-5"><a href="intro.html#cb10-5" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb10-6"><a href="intro.html#cb10-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>flist <span class="ot">&lt;-</span> <span class="fu">alist</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  mu <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="fl">171.1</span>, <span class="dv">20</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>)</span></code></pre></div>
 <p>Then we estimate/fit the model using quadratic approximation.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" tabindex="-1"></a>m_heights <span class="ot">&lt;-</span> rethinking<span class="sc">::</span><span class="fu">map</span>(flist, <span class="at">data =</span> d2)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>m_heights <span class="ot">&lt;-</span> rethinking<span class="sc">::</span><span class="fu">map</span>(flist, <span class="at">data =</span> d2)</span></code></pre></div>
 <p>Now let’s take a look at the fit <em>maximum a posteriori</em> model:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1" tabindex="-1"></a><span class="fu">precis</span>(m_heights)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">precis</span>(m_heights)</span></code></pre></div>
 <pre><code>##             mean        sd       5.5%     94.5%
 ## mu    154.604296 0.4120469 153.945766 155.26283
 ## sigma   7.732321 0.2914790   7.266481   8.19816</code></pre>
 <p>Above, we see the mean of the posterior for <span class="math inline">\(\mu\)</span> <strong>and</strong> <span class="math inline">\(\sigma\)</span>;
 and a 89% credible interval for those parameters.</p>
 <p>We can now plot the posterior distribution of the mean and the standard deviation.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="intro.html#cb14-1" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m_heights, <span class="at">n =</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
-<span id="cb14-2"><a href="intro.html#cb14-2" tabindex="-1"></a><span class="fu">head</span>(post)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m_heights, <span class="at">n =</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">head</span>(post)</span></code></pre></div>
 <pre><code>##         mu    sigma
 ## 1 154.3820 7.594201
 ## 2 154.9080 7.776098
@@ -499,9 +536,9 @@ and a 89% credible interval for those parameters.</p>
 ## 4 154.7341 7.655554
 ## 5 155.0919 7.378861
 ## 6 154.7068 7.846110</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="intro.html#cb16-1" tabindex="-1"></a><span class="fu">dens</span>(post<span class="sc">$</span>mu)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">dens</span>(post<span class="sc">$</span>mu)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="intro.html#cb17-1" tabindex="-1"></a><span class="fu">dens</span>(post<span class="sc">$</span>sigma)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">dens</span>(post<span class="sc">$</span>sigma)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
 <p>Note, that <strong>these samples come from a multi-dimensional posterior distribution</strong>.
 In our case, we approximated the posterior with a
@@ -514,17 +551,17 @@ There is no confounding variable or connection between those priors. One could
 think of a common variable <span class="math inline">\(Z\)</span> that influences both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. This could
 be genetic similarity which could influence both <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
 <p>Let’s verify that <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> are uncorrelated:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="intro.html#cb18-1" tabindex="-1"></a><span class="fu">vcov</span>(m_heights)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">vcov</span>(m_heights)</span></code></pre></div>
 <pre><code>##                 mu        sigma
 ## mu    0.1697826421 0.0001582204
 ## sigma 0.0001582204 0.0849600222</code></pre>
 <p>gives you the variance-covariance matrix of the parameters of the posterior
 distribution. In the diagonal you see the variance of the parameters.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="intro.html#cb20-1" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">vcov</span>(m_heights))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">vcov</span>(m_heights))</span></code></pre></div>
 <pre><code>##         mu      sigma 
 ## 0.16978264 0.08496002</code></pre>
 <p>And we can compute the correlation matrix easily:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="intro.html#cb22-1" tabindex="-1"></a><span class="fu">cov2cor</span>(<span class="fu">vcov</span>(m_heights))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">cov2cor</span>(<span class="fu">vcov</span>(m_heights))</span></code></pre></div>
 <pre><code>##                mu       sigma
 ## mu    1.000000000 0.001317372
 ## sigma 0.001317372 1.000000000</code></pre>
@@ -541,7 +578,7 @@ this means that the parameters are independent.</p>
 we used the bivariate normal distribution to <strong>approximate</strong> the posterior.</p>
 </div>
 <div id="classical-approach-for-the-simplest-model" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Classical approach for the simplest model<a href="intro.html#classical-approach-for-the-simplest-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2 class="hasAnchor"><span class="header-section-number">2.3</span> Classical approach for the simplest model<a href="#classical-approach-for-the-simplest-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We have seen, how we could use domain and prior knowledge to fit a very simple model
 for body heights of a population (!Kung San) in the Bayesian framework.</p>
 <p>Now, let’s start at the same point in the classical framework.
@@ -597,8 +634,8 @@ Everytime we estimate a parameter, we put a hat over it.</p>
 sample mean of all the heights. In contrast to before, we did not put
 in a lot of prior knowledge, but just estimated the parameter from the data.</p>
 <p>In R, we can do this easily:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="intro.html#cb24-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> d2)</span>
-<span id="cb24-2"><a href="intro.html#cb24-2" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> d2)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = height ~ 1, data = d2)
@@ -614,17 +651,17 @@ in a lot of prior knowledge, but just estimated the parameter from the data.</p>
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 7.742 on 351 degrees of freedom</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="intro.html#cb26-1" tabindex="-1"></a><span class="fu">dim</span>(d2)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">dim</span>(d2)</span></code></pre></div>
 <pre><code>## [1] 352   4</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="intro.html#cb28-1" tabindex="-1"></a><span class="fu">mean</span>(d2<span class="sc">$</span>height) <span class="co"># same as the intercept</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">mean</span>(d2<span class="sc">$</span>height) <span class="co"># same as the intercept</span></span></code></pre></div>
 <pre><code>## [1] 154.5971</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="intro.html#cb30-1" tabindex="-1"></a><span class="fu">sd</span>(d2<span class="sc">$</span>height) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(d2)) <span class="co"># standard error of the estimator</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">sd</span>(d2<span class="sc">$</span>height) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(d2)) <span class="co"># standard error of the estimator</span></span></code></pre></div>
 <pre><code>## [1] 0.4126677</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="intro.html#cb32-1" tabindex="-1"></a><span class="co"># test-statistic for the intercept:</span></span>
-<span id="cb32-2"><a href="intro.html#cb32-2" tabindex="-1"></a><span class="fu">mean</span>(d2<span class="sc">$</span>height) <span class="sc">/</span> (<span class="fu">sd</span>(d2<span class="sc">$</span>height) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(d2)))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="co"># test-statistic for the intercept:</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">mean</span>(d2<span class="sc">$</span>height) <span class="sc">/</span> (<span class="fu">sd</span>(d2<span class="sc">$</span>height) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(d2)))</span></code></pre></div>
 <pre><code>## [1] 374.6285</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="intro.html#cb34-1" tabindex="-1"></a><span class="co"># residual standard error:</span></span>
-<span id="cb34-2"><a href="intro.html#cb34-2" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">nrow</span>(d2) <span class="sc">-</span> <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="co"># residual standard error:</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(mod<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">nrow</span>(d2) <span class="sc">-</span> <span class="dv">1</span>))</span></code></pre></div>
 <pre><code>## [1] 7.742332</code></pre>
 <p>the <code>~1</code> means that there is just a so-called <strong>intercept</strong> in the model.
 There are <strong>no covariates</strong>, just the constant <span class="math inline">\(c\)</span>.
@@ -646,7 +683,7 @@ standard deviation divided by the square root of the sample size.</li>
 the null hypothesis that the
 coefficient is zero (<span class="math inline">\(H_0: \text{intercept}=0\)</span>).
 This is a perfect example of an absolutely useless <span class="math inline">\(t\)</span>-test.
-Why? Because obviously (<a href="intro.html#exercise2_Intro">exercise 2</a>) the population mean of body heights is not zero.</li>
+Why? Because obviously (<a href="#exercise2_Intro">exercise 2</a>) the population mean of body heights is not zero.</li>
 </ul></li>
 <li><code>Residual standard error</code>: The standard deviation of the residuals <span class="math inline">\(r_i = height_i - \hat{c}\)</span>.
 In this case identical with the sample standard deviation
@@ -667,26 +704,26 @@ approach to regression. I highly recommend reading the first chapters.</p>
 <p>What does this mean in this context?</p>
 </div>
 <div id="exercises" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Exercises<a href="intro.html#exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2 class="hasAnchor"><span class="header-section-number">2.4</span> Exercises<a href="#exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="exercise1_Intro" class="section level3 hasAnchor" number="2.4.1">
-<h3><span class="header-section-number">2.4.1</span> [E] Exercise 1<a href="intro.html#exercise1_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.4.1</span> [E] Exercise 1<a href="#exercise1_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Use the <a href="https://www.bfs.admin.ch/asset/de/30305714">Swiss body heights</a> data to
 determine
 - the 95% “Vertrauensintervall” for <span class="math inline">\(\mu\)</span> and
 - calculate the standard deviation of the heights from <span class="math inline">\(21,873\)</span> Swiss people.</p>
 </div>
 <div id="exercise2_Intro" class="section level3 hasAnchor" number="2.4.2">
-<h3><span class="header-section-number">2.4.2</span> [E] Exercise 2<a href="intro.html#exercise2_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.4.2</span> [E] Exercise 2<a href="#exercise2_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Why do we not need a hypothesis test to know that the population mean of body heights is not zero?
 Give 2 reasons.</p>
 </div>
 <div id="exercise2_Intro" class="section level3 hasAnchor" number="2.4.3">
-<h3><span class="header-section-number">2.4.3</span> [M] Exercise 3<a href="intro.html#exercise2_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.4.3</span> [M] Exercise 3<a href="#exercise2_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Verify analytically that the <code>Residual standard error</code> is identical with
 the sample standard deviation of the heights.</p>
 </div>
 <div id="exercise4_Intro" class="section level3 hasAnchor" number="2.4.4">
-<h3><span class="header-section-number">2.4.4</span> [M] Exercise 4<a href="intro.html#exercise4_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.4.4</span> [M] Exercise 4<a href="#exercise4_Intro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Repeat the estimation of the simple model using a different data set about
 <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html">chicken weights</a>,
 which is included in R.</p>
@@ -698,9 +735,9 @@ your a priori knowledge about chicken weights.</li>
 </div>
 </div>
 <div id="addendum" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Addendum<a href="intro.html#addendum" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2 class="hasAnchor"><span class="header-section-number">2.5</span> Addendum<a href="#addendum" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="bivariate_normal" class="section level3 hasAnchor" number="2.5.1">
-<h3><span class="header-section-number">2.5.1</span> The bivariate normal distribution<a href="intro.html#bivariate_normal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3 class="hasAnchor"><span class="header-section-number">2.5.1</span> The bivariate normal distribution<a href="#bivariate_normal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As a refresher, you can look into the old QM1 script and read the
 chapter “4.7 Gemeinsame Verteilungen”.
 Maybe <a href="https://www.youtube.com/watch?v=SP2GKq8xJ5I&amp;ab_channel=StatisticsNinja">this video</a>
@@ -730,69 +767,71 @@ through the plot in <span class="math inline">\(X=0\)</span> or <span class="mat
 If you look at if from above, we have hihglighted the section on the surface
 over the area <span class="math inline">\(X \in [0.5, 2]\)</span> and <span class="math inline">\(Y \in [0.5, 2]\)</span>. The volume over this area
 under the density curve is the probability of this area: <span class="math inline">\(P(X \in [0.5, 2] \text{ and } Y \in [0.5, 2])\)</span></p>
-
+<!--chapter:end:01-intro.Rmd-->
 </div>
 </div>
 </div>
+<div id="literature" class="section level1 hasAnchor" number="3">
+<h1 class="hasAnchor"><span class="header-section-number">3</span> Literature<a href="#literature" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Here is a review of existing methods.</p>
+<!--chapter:end:02-literature.Rmd-->
+</div>
+<div id="methods" class="section level1 hasAnchor" number="4">
+<h1 class="hasAnchor"><span class="header-section-number">4</span> Methods<a href="#methods" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We describe our methods in this chapter.</p>
+<p>Math can be added in body using usual syntax like this</p>
+<div id="math-example" class="section level2 hasAnchor" number="4.1">
+<h2 class="hasAnchor"><span class="header-section-number">4.1</span> math example<a href="#math-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math inline">\(p\)</span> is unknown but expected to be around 1/3. Standard error will be approximated</p>
+<p><span class="math display">\[
+SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{1/3 (1 - 1/3)} {300}} = 0.027
+\]</span></p>
+<p>You can also use math in footnotes like this<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<p>We will approximate standard error to 0.027<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<!--chapter:end:03-method.Rmd-->
+</div>
+</div>
+<div id="applications" class="section level1 hasAnchor" number="5">
+<h1 class="hasAnchor"><span class="header-section-number">5</span> Applications<a href="#applications" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
+<div id="example-one" class="section level2 hasAnchor" number="5.1">
+<h2 class="hasAnchor"><span class="header-section-number">5.1</span> Example one<a href="#example-one" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="example-two" class="section level2 hasAnchor" number="5.2">
+<h2 class="hasAnchor"><span class="header-section-number">5.2</span> Example two<a href="#example-two" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<!--chapter:end:04-application.Rmd-->
+</div>
+</div>
+<div id="final-words" class="section level1 hasAnchor" number="6">
+<h1 class="hasAnchor"><span class="header-section-number">6</span> Final Words<a href="#final-words" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We have finished a nice book.</p>
+<!--chapter:end:05-summary.Rmd-->
+</div>
+<div id="references" class="section level1 unnumbered hasAnchor">
+<h1 class="unnumbered hasAnchor">References<a href="#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!--chapter:end:06-references.Rmd-->
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>where we mention <span class="math inline">\(p = \frac{a}{b}\)</span><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><span class="math inline">\(p\)</span> is unknown but expected to be around 1/3. Standard error will be approximated</p>
+<p><span class="math display">\[
+SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{1/3 (1 - 1/3)} {300}} = 0.027
+\]</span><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+<!--bookdown:body:end-->
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="literature.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
     </div>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
+<!--bookdown:config-->
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

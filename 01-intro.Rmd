@@ -532,32 +532,53 @@ $r_i = height_i - \hat{c}$. A univariate 5-point summary is given.
     This is a perfect example of an absolutely useless $t$-test. 
     Why? Because obviously ([exercise 2](#exercise2_Intro)) the population mean of body heights is not zero.
 - `Residual standard error`: The standard deviation of the residuals $r_i = height_i - \hat{c}$.
-    In this case identical with the standard error 
+    In this case identical with the sample standard deviation 
     of heights ([exercise 3](#exercise3_Intro)). $351$ degrees of freedom. There are $352$ observations and 
     $1$ parameter estimated (intercept/mean). Hence, there are $352-1=351$ 
     freely movable variables in the statistic of the sample standard deviation.
 
 Let's look at the situation graphically:
 
-```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+```{r, echo=FALSE, , message=FALSE, warning=FALSE}
 library(rethinking)
 library(tidyverse)
 data("Howell1")
 d <- Howell1
-str(d)
 d2 <- d[d$age >= 18, ]
 
-data.frame(height_i = 1:nrow(d2), height = d2$height) %>%
+# Select a few points to show vertical deviations
+selected_points <- c(10, 50, 100)
+
+mean_height <- mean(d2$height)
+
+data.frame(height_i = 1:nrow(d2), height = d2$height) %>% # nolint: seq_linter.
   ggplot(aes(x = height_i, y = height)) +
   geom_point() +
-  geom_hline(yintercept = mean(d2$height), color = "red") +
+  geom_hline(yintercept = mean_height, color = "red") +
+  annotate("text", x = max(1:nrow(d2)) + 10, # nolint: seq_linter.
+           y = mean_height,
+           label = expression(hat(height[i])),
+           color = "red", hjust = 0.6, vjust = 1.5) +
+  geom_segment(data = data.frame(
+    height_i = selected_points,
+    height = d2$height[selected_points],
+    mean_height = mean_height
+  ),
+  aes(x = height_i, xend = height_i,
+      y = mean_height, yend = height),
+  color = "red", linetype = "dotted") +
   ggtitle("Simple mean model estimation using Least Squares") +
+  ylab("height estimated by model") +
   theme(plot.title = element_text(hjust = 0.5))
+
 ```
 
 Above, the heights are plotted against the index of the observation.
 The variability of heights around the regression line (constant in this case) seems to 
 stay constant, which is a good sign. We will call this **homoscedasticity** later.
+The dashed vertical red lines show two residuals, the difference between the actual height
+and the estimated height. The model-estimated heights ($\widehat{heights_i}$) 
+are all identical and nothing but the mean of all heights.
 
 Peter Westfall explains in his excellent book a conditional distribution 
 approach to regression. I highly recommend reading the first chapters.
@@ -579,7 +600,17 @@ Why do we not need a hypothesis test to know that the population mean of body he
 Give 2 reasons.
 
 ### [M] Exercise 3 {#exercise2_Intro}
-Verify analytically that the `Residual standard error` is identical with the standard error of the heights.
+Verify analytically that the `Residual standard error` is identical with 
+the sample standard deviation of the heights.
+
+### [M] Exercise 4 {#exercise4_Intro}
+Repeat the estimation of the simple model using a different data set about 
+[chicken weights](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html),
+which is included in R.
+
+- Set useful priors for the mean and standard deviation of the model 
+  for the Baysian and the frequentist version considering 
+  your a priori knowledge about chicken weights.
 
 ## Addendum
 

@@ -11,6 +11,7 @@ classical-approach-for-the-simplest-model
 exercises
 exercise1_Intro
 exercise2_Intro
+exercise4_Intro
 addendum
 bivariate_normal
 literature
