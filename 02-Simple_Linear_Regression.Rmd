@@ -1,3 +1,357 @@
 # Simple Linear Regression
 
-Here is a review of existing methods.
+## Simple Linear Regression in the Bayesian Framework
+
+We will now add one covariate/explanatory variable to the model. 
+Refer to [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
+"4.4 Linear prediction" or "4.4 Adding a predictor" as it's called in the online version of the book.
+
+So far, our "regression" did not do much to be honest. The mean of a list of values
+was already calculated in the [descriptive statistics section](https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html) 
+before and we have mentioned how great this statistic is as measure of location and where its weaknesses are.
+
+Now, we want to model how body height and weight are related.
+Formally, one wants to *predict* body heights from body weights.
+
+Here and in the frequentist framework, we will see that it is **not the same**
+problem (and therefore results in a different statistical model) 
+**to predict body weights from body heights or vice versa**.
+
+The word "predictor" is important here. It is a technical term
+and describes a variable that we know (in our case weight) and with 
+which we want to "guess as good as possible" the value of the 
+dependent variable (in our case height).
+
+We **always** visualize the data first to improve our understanding.
+
+```{r}
+plot(d2$height ~ d2$weight)
+```
+
+The scatterplot indicates a linear relationship between the two variables.
+The higher the weight, the higher the height; with some deviations of course.
+This relationsip is neither causal, not deterministic.
+
+- It is not causal since an increase in weight does not 
+  necessarily lead to an increase in height, especially in grown-ups.
+- It is not deterministic since there are deviations from the line. 
+  It if was deterministic, we would not need statistical modeling. 
+
+For simpler notation, we will call `d2$weight` $x$. $\bar{x}$
+is the mean of $x$.
+
+### Model definition
+
+Let's write down our **model** (again with the Swiss population prior mean):
+
+\begin{eqnarray*}
+h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
+\mu_i &\sim& \alpha + \beta (x_i - \bar{x})\\
+\alpha &\sim& \text{Normal}(171.1, 20)\\
+\beta &\sim& \text{Normal}(0, 10)\\
+\sigma &\sim& \text{Uniform}(0, 50)
+\end{eqnarray*}
+
+Visualization of the **model structure**:
+
+```{r, echo=FALSE}
+library(DiagrammeR)
+
+grViz("
+digraph model {
+  graph [layout = dot, rankdir = TB]
+
+  # Nodes for variables
+  node [shape = ellipse, style = filled, fillcolor = lightblue]
+  alpha [label = 'α ~ Normal(171.1, 20)']
+  beta [label = 'β ~ Normal(0, 10)']
+  sigma [label = 'σ ~ Uniform(0, 50)']
+  mu [label = 'μ_i = α + β(x_i - x̄)']
+  h_i [label = 'h[i] ~ Normal(μ_i, σ)']
+
+  # Connections
+  alpha -> mu
+  beta -> mu
+  mu -> h_i
+  sigma -> h_i
+}
+")
+```
+
+There are now additional lines for the priors of $\alpha$ and $\beta$.
+The model structure also shows the way to simulate from the prior.
+One starts at the top and ends up with the heights.
+
+- $h_i$ is the height of the $i$-th person and we assume it is normally distributed.
+- $\mu_i$ is the mean of the height of the $i$-th person and we 
+  assume it is normally distributed. Compared to the intercept model, 
+  a different mean is assumed for each person. **The mean $\mu_i$ is linearly
+  dependent on the weight** of the $i$-th person (second line). 
+- $\alpha$ is the intercept and we use the same prior as before.
+- $\beta$ is the slope of the line and we use the normal distribution as prior for it,
+  hence it can be positive or negative and how plausible each value is, is
+  determined by that specific normal distribution. Note, that we could 
+  easily adapt the distribtion to any distribution we like.
+- The prior for $\sigma$ is unchanged.
+- $x_i - \bar{x}$ is the deviation of the weight from the mean weight, thereby **we
+  center** the weight variable. This is a common practice in regression analysis.
+
+The linear model is quite popular in applied statistics and one
+reason is probably the rather straightforward interpretation of the coefficients.
+
+### Priors
+
+We want to plot our priors to get a feeling what 
+the model would predict without seeing the data.
+This is a kind of "sanity check" to see if the priors are reasonable.
+
+```{r}
+set.seed(2971)
+N <- 100  # 100 lines
+a <- rnorm(N, 171.1, 20)
+b <- rnorm(N, 0, 10)
+
+# Assume d2$weight is defined, e.g., using some dataset or simulation
+xbar <- mean(d2$weight)
+
+plot(NULL, xlim = range(d2$weight), ylim = c(-100, 400),
+     xlab = "weight", ylab = "height")
+abline(h = 0, lty = 2)  # horizontal line at 0
+abline(h = 272, lty = 1, lwd = 0.5)  # horizontal line at 272
+mtext("b ~ dnorm(0, 10)")
+
+# Overlay the 100 lines
+for (i in 1:N) {
+  curve(a[i] + b[i] * (x - xbar),
+        from = min(d2$weight), to = max(d2$weight),
+        add = TRUE, col = col.alpha("black", 0.2))
+}
+```
+
+This relationship seems rather non-restrictive. According to our priors,
+one could see very steeply rising or falling lines. We could at least make 
+the priors for the slope ($\beta$) non-negative. One possibility to do this 
+is to use a [log-normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) 
+for the prior of $\beta$ which can only take non-negative values.
+
+$$ \beta \sim \text{Log-Normal}(0, 1) $$
+
+Lets plot the priors again.
+
+```{r}
+set.seed(2971)
+N <- 100  # 100 lines
+a <- rnorm(N, 171.1, 20)
+b <- rlnorm(N, 0, 1)
+
+# Assume d2$weight is defined, e.g., using some dataset or simulation
+xbar <- mean(d2$weight)
+
+plot(NULL, xlim = range(d2$weight), ylim = c(-100, 400),
+     xlab = "weight", ylab = "height")
+abline(h = 0, lty = 2)  # horizontal line at 0
+abline(h = 272, lty = 1, lwd = 0.5)  # horizontal line at 272
+mtext("b ~ dlnorm(0, 1)")
+
+# Overlay the 100 lines
+for (i in 1:N) {
+  curve(a[i] + b[i] * (x - xbar),
+        from = min(d2$weight), to = max(d2$weight),
+        add = TRUE, col = col.alpha("black", 0.2))
+}
+```
+
+This seems definitely more realistic.
+
+### Fit model
+
+Now, let's **estimate the posterior/fit the model** as before:
+
+```{r}
+# load data again, since it's a long way back
+library(rethinking)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
+xbar <- mean(d2$weight)
+# fit model
+mod <- quap(
+    alist(
+        height ~ dnorm(mu, sigma),
+        mu <- a + b * (weight - xbar),
+        a ~ dnorm(171.1, 100),
+        b ~ dnorm(0, 10),
+        sigma ~ dunif(0, 50)
+    ) ,
+data = d2)
+```
+
+Let's look at the **marginal distributions** of the parameters:
+
+```{r}
+precis(mod)
+```
+
+The analysis yields estimates for all our parameters of the model: $\alpha$,
+$\beta$ and $\sigma$. The estimates are the mean of the posterior distribution.
+
+See [exercise 2](#exercise2_simpl_lin_reg).
+
+**Interpretation of $\beta$**:
+The mean of the posterior distribution of $\beta$ is 0.9. A person with a weight
+of 1 kg more weight can be expected to be 0.9 cm taller. A 96% credible interval
+for this estimate is $[0.83, 0.97]$. We can be quite sure that the slope is 
+positive. 
+
+It might also be interesting to insept the variance-covariance matrix, 
+respectively the correlation between the parameters as we did before
+in the intercept model.
+
+```{r}
+diag(vcov(mod))
+cov2cor(vcov(mod))
+```
+
+As we can see the correlations are near zero. Compare to the graphical
+display of the model structure. There is no connection.
+
+### Result
+
+**Graphical end result** of fitting the model:
+
+```{r}
+plot(d2$height ~ d2$weight, col = rangi2)
+post <- extract.samples(mod)
+a_quap <- mean(post$a)
+b_quap <- mean(post$b)
+curve(a_quap + b_quap * (x - xbar), add = TRUE)
+```
+
+### Confidence bands
+
+We could draw again and again from the posterior distribution
+and calculate the means like above. Plotting the regression lines
+with the respective parameters $\alpha$, $\beta$ would indicate
+the variability of the estimates.
+
+```{r}
+# Define a sequence of weights for predictions
+weight.seq <- seq(from = 25, to = 70, by = 1)
+
+# Use the model to compute mu for each weight
+mu <- link(mod, data = data.frame(weight = weight.seq))
+str(mu)
+
+# Visualize the distribution of mu values
+plot(height ~ weight, d2, type = "n")  # Hide raw data with type = "n"
+
+# Loop over samples and plot each mu value
+for (i in 1:100) {
+  points(weight.seq, mu[i, ], pch = 16, col = col.alpha(rangi2, 0.1))
+}
+```
+
+With the `link` function fixes the weight at the values in `weight.seq` and
+draws samples from the posterior distribution of the parameters. We will do 
+the analog thing in the frequentist framework.
+
+We can also draw a nice shade for the regression line:
+
+```{r}
+# Summarize the distribution of mu
+mu.mean <- apply(mu, 2, mean)
+mu.PI <- apply(mu, 2, PI, prob = 0.89)
+plot(height ~ weight, d2, col = col.alpha(rangi2, 0.5))
+lines(weight.seq, mu.mean)
+shade(mu.PI, weight.seq)
+```
+
+As we can see, we are pretty sure about the mean of height which 
+we wanted to model in the first place.
+Mean modeling is one thing, individual prediction is another.
+Given a certain weight of a person, what is the height of the same person?
+The first line in the model definition ($height_i \sim Normal(\mu_i, \sigma)$)
+tells us that a person's weight is distributed *around* the mean
+(which linearly depends on weight) and is not necessary the mean itself.
+
+To get to an **individual prediction**, we need to consider the uncertainty 
+of the parameter estimation *and* the uncertainty from the Gaussian distribution
+around the mean (at a certain weight). We do this with `sim`.
+
+```{r}
+# Simulate heights from the posterior
+sim.height <- sim(mod, data = list(weight = weight.seq))
+str(sim.height)
+
+# Compute the 89% prediction interval for simulated heights
+height.PI <- apply(sim.height, 2, PI, prob = 0.89)
+
+# Plot the raw data
+plot(height ~ weight, d2, col = col.alpha(rangi2, 0.5))
+
+# Draw MAP (mean a posteriori) line
+lines(weight.seq, mu.mean)
+
+# Draw HPDI (highest posterior density interval) region for mu
+shade(mu.PI, weight.seq)
+
+# Draw PI (prediction interval) region for simulated heights
+shade(height.PI, weight.seq)
+```
+
+The lighter and wider shaded region is where the model expects to find 89%
+of the heights of a person with a certain weight. 
+
+This part is sometimes a bit desillusioning when seen for the first time:
+Draw a horizontal line at 150 cm and see how many weights (according to 
+the individual prediction) are compatible with this height. Weights 
+from 30 to 50 kg are compatible with this height according to the 
+89% prediction interval. The higher the credibility, the wider the interval,
+the wider the range of compatible weights (more than 60% of the weight-range).
+
+```{r}
+(50 - 30) / (range(d2$weight)[2] - range(d2$weight)[1])
+```
+
+### Summary
+
+- We have added a covariate (weight) to the model to predict height.
+- We have centered the weight variable.
+- We have defined and refined priors for the intercept and slope.
+- We have estimated the posterior distribution of the parameters.
+- We have visualized the result.
+- We have created credible confidence bands for mean and individual predictions.
+
+
+## Simple Linear Regression in the Frequentist Framework
+
+
+- Conditional distribution approach
+- Not the same to predict X with Y or vice versa.
+- Analysis of Variance, R^2
+
+
+
+## Exercises
+
+### Exercise 1 {#exercise1_simpl_lin_reg}
+
+In the model from above:
+
+\begin{eqnarray*}
+h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
+\mu_i &\sim& \alpha + \beta (x_i - \bar{x})\\
+\alpha &\sim& \text{Normal}(171.1, 20)\\
+\beta &\sim& \text{Normal}(0, 10)\\
+\sigma &\sim& \text{Uniform}(0, 50)
+\end{eqnarray*}
+
+- What ist the expected height when $x_i = \bar{x}$?
+- What is the expected height when $x_i$ changes by 1 unit?
+
+### Exercise 2 {#exercise2_simpl_lin_reg}
+
+Look at the marginal distrubutions of the parameters in the Bayesian model.
+
+- Plot the posterior distribution of all 3 parameters.
+- Include in the plot a 99% credible interval (HDI).

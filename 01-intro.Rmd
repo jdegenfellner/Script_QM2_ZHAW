@@ -600,7 +600,7 @@ determine
 Why do we not need a hypothesis test to know that the population mean of body heights is not zero?
 Give 2 reasons.
 
-### [M] Exercise 3 {#exercise2_Intro}
+### [M] Exercise 3 {#exercise3_Intro}
 Verify analytically that the `Residual standard error` is identical with 
 the sample standard deviation of the heights.
 
