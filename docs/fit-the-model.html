@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Quantitive Methods 2, ZHAW</title>
+  <title>Chapter 4 Fit the model | Quantitive Methods 2, ZHAW</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Quantitive Methods 2, ZHAW" />
+  <meta property="og:title" content="Chapter 4 Fit the model | Quantitive Methods 2, ZHAW" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Quantitive Methods 2, ZHAW" />
+  <meta name="twitter:title" content="Chapter 4 Fit the model | Quantitive Methods 2, ZHAW" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="simple-linear-regression.html"/>
 
-<link rel="next" href="intro.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -192,13 +192,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-in-the-frequentist-framework"><i class="fa fa-check"></i><b>3.2</b> Simple Linear Regression in the Frequentist Framework</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#model-definition-1"><i class="fa fa-check"></i><b>3.2.1</b> Model definition</a></li>
-<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#fit-the-model"><i class="fa fa-check"></i><b>3.2.2</b> Fit the model</a></li>
-<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#anova-analysis-of-variance"><i class="fa fa-check"></i><b>3.2.3</b> ANOVA (Analysis of Variance)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
+</ul></li>
+<li class="chapter" data-level="4" data-path="fit-the-model.html"><a href="fit-the-model.html"><i class="fa fa-check"></i><b>4</b> Fit the model</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise1_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.1</b> Exercise 1</a></li>
-<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise2_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="4.1" data-path="fit-the-model.html"><a href="fit-the-model.html#exercises-1"><i class="fa fa-check"></i><b>4.1</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="fit-the-model.html"><a href="fit-the-model.html#exercise1_simpl_lin_reg"><i class="fa fa-check"></i><b>4.1.1</b> Exercise 1</a></li>
+<li class="chapter" data-level="4.1.2" data-path="fit-the-model.html"><a href="fit-the-model.html#exercise2_simpl_lin_reg"><i class="fa fa-check"></i><b>4.1.2</b> Exercise 2</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -221,41 +222,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Quantitive Methods 2, ZHAW</h1>
-<p class="author"><em>Jürgen Degenfellner</em></p>
-<p class="date"><em>2025-01-16</em></p>
-</div>
-<div id="intro0" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="index.html#intro0" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This script is a continuation of
-<a href="https://jdegenfellner.github.io/Script_QM1_ZHAW/">the first one</a> for Quantitative Methods 1
-at ZHAW.</p>
-<p>In the first part, we learned about the basics of probability theory,
-descriptive statistics, Bayesian statistics, and hypothesis testing.</p>
-<p>In this script, we will dive into the basics of statistical modeling -
-a world of aesthetic wonder and surprises.</p>
-<p>This script is a first draft as you are the first group to be working with it.</p>
-<p>Please feel free to send me suggestions for improvements or corrections.</p>
-<p>This <strong>should be a collaborative effort</strong> and will (hopefully)
-never be finished as our insight grows over time.</p>
-<p>The script can also be seen as a pointer to great sources which are
-fit to deepen your understanding of the topics. Knowledge is decentralized,
-and there are many great ressources out there.</p>
-<p>For the working setup with R, please
-see <a href="https://jdegenfellner.github.io/Script_QM1_ZHAW/index.html#section">this</a>
-and the following sections in the first script.</p>
-<p>The complete code for this script can be found
-<a href="https://github.com/jdegenfellner/Script_QM2_ZHAW">here</a>.</p>
-<div id="books-we-will-heavily-borrow-from-are" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Books we will heavily borrow from are:<a href="index.html#books-we-will-heavily-borrow-from-are" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="fit-the-model" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Fit the model<a href="fit-the-model.html#fit-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Again, we fit the model using the least squares method.
+One has to minimize the sum of squared differences between the true heights and
+the model-predicted heights in order to find <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<p><span class="math display">\[ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 \]</span></p>
+<p>……. <strong>TODOS</strong>
+- Conditional distribution approach
+- Not the same to predict X with Y or vice versa.
+- Analysis of Variance, R^2
+- random X vs fixed X
+- separability interpretration using R^2</p>
+<div id="exercises-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Exercises<a href="fit-the-model.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercise1_simpl_lin_reg" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Exercise 1<a href="fit-the-model.html#exercise1_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the model from above:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
+\mu_i &amp;\sim&amp; \alpha + \beta (x_i - \bar{x})\\
+\alpha &amp;\sim&amp; \text{Normal}(171.1, 20)\\
+\beta &amp;\sim&amp; \text{Normal}(0, 10)\\
+\sigma &amp;\sim&amp; \text{Uniform}(0, 50)
+\end{eqnarray*}\]</span></p>
 <ul>
-<li>(Free) <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking</a>, YouTube-Playlist: <a href="https://youtu.be/FdnMWdICdRs?si=q2py5QVY_L299hEa">Statistical Rethinking 2023</a></li>
-<li>(Free) <a href="https://vdoc.pub/documents/understanding-regression-analysis-a-conditional-distribution-approach-84oqjr8sqva0">Understanding Regression Analysis: A Conditional Distribution Approach</a></li>
-<li><a href="http://www.stat.columbia.edu/~gelman/arm/">Data Analysis Using Regression and Multilevel/Hierarchical Models</a></li>
-<li>(Free) <a href="https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf">Doing Bayesian Data Analysis</a></li>
+<li>What ist the expected height when <span class="math inline">\(x_i = \bar{x}\)</span>?</li>
+<li>What is the expected height when <span class="math inline">\(x_i\)</span> changes by 1 unit?</li>
+</ul>
+</div>
+<div id="exercise2_simpl_lin_reg" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Exercise 2<a href="fit-the-model.html#exercise2_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Look at the marginal distrubutions of the parameters in the Bayesian model.</p>
+<ul>
+<li>Plot the posterior distribution of all 3 parameters.</li>
+<li>Include in the plot a 99% credible interval (HDI).</li>
 </ul>
 
+</div>
 </div>
 </div>
             </section>
@@ -263,8 +267,8 @@ and the following sections in the first script.</p>
           </div>
         </div>
       </div>
+<a href="simple-linear-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -295,7 +299,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-Simple_Linear_Regression.Rmd",
 "text": "Edit"
 },
 "history": {

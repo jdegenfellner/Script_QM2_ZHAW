@@ -227,7 +227,7 @@ b_quap <- mean(post$b)
 curve(a_quap + b_quap * (x - xbar), add = TRUE)
 ```
 
-### Confidence bands
+### Credible bands
 
 We could draw again and again from the posterior distribution
 and calculate the means like above. Plotting the regression lines
@@ -315,20 +315,222 @@ the wider the range of compatible weights (more than 60% of the weight-range).
 
 ### Summary
 
-- We have added a covariate (weight) to the model to predict height.
+- We have added a covariate (weight) to the simple mean model to predict height.
 - We have centered the weight variable.
 - We have defined and refined priors for the intercept and slope.
-- We have estimated the posterior distribution of the parameters.
+- We have estimated the posterior distribution of the parameters using quadratic approximation with `quap`.
 - We have visualized the result.
-- We have created credible confidence bands for mean and individual predictions.
+- We have created credible bands for mean and individual predictions.
 
 
 ## Simple Linear Regression in the Frequentist Framework
 
+We will now do the same analysis in the frequentist framework while introducing
+some foundational theory along the way.
+I recommend reading the first couple of chapters from [Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4).
 
+### Model definition
+
+Our linear model is defined as:
+
+$$ h_i = \beta_0 + \beta_1 x_i + \varepsilon_i $$
+
+where
+
+- $\varepsilon_i$ is the error term with $\varepsilon_i \sim N(0, \sigma), \forall i$
+- $\beta_0$ is the unknown but fixed intercept
+- $\beta_1$ is the unknown but fixed slope
+
+#### Model Assumptions of the Classical Regression Model ([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), 1.7):
+
+The first and **most important assumption** is that the data are produced  
+probabilistically, which is specifically stated as
+$$ Y|X = x \sim p(y|x)$$
+
+What does this mean? 
+
+- $Y|X = x$ is the random variable Y **conditional** on X being equal to x, i.e. the 
+   distribution of $Y$ if we know the value of $X$ (in our example the weight in kg).
+   [This](https://blogs.sas.com/content/iml/files/2015/09/GLM_normal_identity.png) is a nice image of what is meant here.
+- $p(y|x)$ is the distribution of potentially observable $Y$ given $X = x$. 
+  In our case above this was the normal distribution with mean $\mu_i$ and variance $\sigma$.
+
+One always things about the so-called data 
+[generating process](https://en.wikipedia.org/wiki/Data_generating_process) 
+([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), 1.2).
+How did the data come about? There is a process behind it and this process
+is attempted to be modeled.
+
+Further assumptions:
+
+- Correct functional specification: The conditional mean function $f(x) = \mathbb{E}(Y|X=x)$.
+  In the case of the linear model, the assumption is $\mathbb{E}(Y|X=x) = \alpha + \beta x$. 
+  The expectation of $Y$ (height) depends linearly on $x$ (weight).
+
+- The errors are homoscedastic (constant variance $\sigma$). This means the
+variances of all conditional distributions $p(y|x)$ are constant ($=\sigma^2$).
+
+- Normality. For the classical linear regression model all the conditional
+  distributions $p(y|x)$ are normal distributions.
+
+- The errors are independent of each other. 
+  The potentially observable $\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})$
+  is uncorrelated with $\varepsilon_j = Y_j - f(\mathbf{x_j}, \mathbf{\beta})$ for 
+  $i \neq j$.
+
+These assumptions become clearer as we go along and should be checked 
+for every model we fit. They are not connected, they can all be true or false.
+The question is not "Are the assumptions met?" since they never are exactly met.
+The question is **how** "badly" the assumptions are violated?
+
+Remember, **all models are wrong, but some are useful**.
+
+In full, the classical linear regression model can be written as:
+
+$$ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)$$
+for $i = 1, \dots, n$.
+
+### Fit the model
+
+Again, we fit the model using the least squares method. 
+One has to minimize the sum of squared differences between the true heights and 
+the model-predicted heights in order to find $\beta_0$ and $\beta_1$.
+
+$$ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 $$
+
+We omit the technical details and give the results for $\beta_0$ and $\beta_1$:
+
+\[
+\hat{\beta_0} = \bar{y} - (\hat{\beta_1} \bar{x}),
+\]
+\[
+\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+\]
+
+Let's use R again to solve the problem:
+
+```{r}
+library(rethinking)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
+mod <- lm(height ~ weight, data = d2)
+summary(mod)
+```
+
+**Interpretation of R-output**:
+
+- `Call`: The model that was fitted.
+- `Residuals`: $r_i = height_i - \widehat{height}_i$. 
+   Difference between true heights and model-predicted heights.
+- `Coefficients`: The estimated $\beta_0$ and $\beta_1$.
+   - `Estimate`: The (least squares) estimated value of the coefficient.
+   - `Std. Error`: The standard error of the estimate.
+   - `t value`: The value of the $t$-statistic for the (Wald-) hypothesis test
+        $H_0: \beta_i = 0$.
+   - `Pr(>|t|)`: The $p$-value of the hypothesis test. 
+- `Residual standard error`: The estimate of $\sigma$ 
+   which is also a model parameter (as in the Bayesian framework).
+- `Multiple R-squared`: The proportion of the variance explained by the 
+   model (we will explain this below).
+- `Adjusted R-squared`: A corrected version of the $R^2$ which takes into account
+   the number of predictors in the model.
+- `F-statistic`: The value of the $F$-statistic for the hypothesis test: 
+    $H_0: \beta_1 = \beta_2 = \dots = \beta_k = 0$. Note, the alternative 
+    hypotheses to this test is that *any* of the $\beta_i$ is not zero. If that Is
+    the case, the model explains more than the mean model with just $\beta_0$.
+
+### ANOVA (Analysis of Variance)
+
+A non-obvious and very useful finding is that the total variability in the data can be
+**decomposed** (or [analysed](https://en.wiktionary.org/wiki/analysis)) 
+into two parts:
+
+- The variability explained by the model (the regression line)
+- The variability not explained by the model (the residuals)
+
+$$ \text{Total sum of squares} = \text{Regression sum of squares} + \text{Residual sum of squares} $$
+
+$$ SST = SSR + SSE $$
+
+$$ \sum (y_i - \bar{y})^2 = \sum (\hat{y}_i - \bar{y})^2 + \sum (y_i - \hat{y}_i)^2 $$
+
+If you are interested in the details, check out [this](https://en.wikipedia.org/wiki/Explained_sum_of_squares#Partitioning_in_the_general_ordinary_least_squares_model).
+
+[This video](https://www.youtube.com/watch?v=NxRTs7sXKAQ&ab_channel=365DataScience) 
+explains the concept nicely.
+
+Let's visualize this with our regression result:
+
+```{r}
+library(rethinking)
+library(tidyverse)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
+
+# Fit linear model
+mod <- lm(height ~ weight, data = d2)
+
+# Calculate predicted heights for the regression line
+d2 <- d2 %>%
+  mutate(predicted_height = predict(mod, newdata = d2),
+         mean_height = mean(height))
+
+# Select one point to highlight the differences
+highlight_point <- d2[10, ]
+
+# Create the plot
+ggplot(d2, aes(x = weight, y = height)) +
+  # Scatterplot of all points
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue", size = 1) +
+  geom_point(data = highlight_point, aes(x = weight, y = height), color = "red", size = 3) +
+  
+  # Vertical difference: Point and mean height (offset slightly left)
+  geom_segment(data = highlight_point,
+               aes(x = weight - 0.5, xend = weight - 0.5, 
+                   y = height, yend = mean_height, color = "Point-to-Mean"), 
+               linetype = "dashed") +
+  
+  # Vertical difference: Point and regression line (no offset)
+  geom_segment(data = highlight_point,
+               aes(x = weight, xend = weight, 
+                   y = height, yend = predicted_height, color = "Point-to-Line"), 
+               linetype = "dashed") +
+  
+  # Vertical difference: Regression line and mean height (offset slightly right)
+  geom_segment(data = highlight_point,
+               aes(x = weight + 0.5, xend = weight + 0.5, 
+                   y = predicted_height, yend = mean_height, color = "Line-to-Mean"), 
+               linetype = "dashed") +
+  
+  # Add horizontal line for the mean height
+  geom_hline(yintercept = mean(d2$height), color = "darkgreen", linetype = "dashed") +
+  
+  # Labels
+  labs(title = "Scatterplot with Regression Line and Differences",
+       x = "Weight", 
+       y = "Height",
+       color = "Distance Type") +
+  
+  # Style
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16),  # Center and adjust title size
+    legend.position = "top"  # Place legend at the top
+  )
+```
+
+
+
+....... **TODOS**
 - Conditional distribution approach
 - Not the same to predict X with Y or vice versa.
 - Analysis of Variance, R^2
+- random X vs fixed X
+- separability interpretration using R^2
+
 
 
 

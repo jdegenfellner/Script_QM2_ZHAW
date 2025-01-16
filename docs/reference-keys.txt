@@ -21,9 +21,13 @@ model-definition
 priors
 fit-model
 result
-confidence-bands
+credible-bands
 summary
 simple-linear-regression-in-the-frequentist-framework
+model-definition-1
+model-assumptions-of-the-classical-regression-model-westfall-1.7
+fit-the-model
+anova-analysis-of-variance
 exercises-1
 exercise1_simpl_lin_reg
 exercise2_simpl_lin_reg
