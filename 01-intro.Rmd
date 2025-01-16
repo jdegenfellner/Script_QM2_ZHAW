@@ -475,7 +475,9 @@ $$ = \sum_{i=1}^{n} (height_i - c)^2$$
 The SSE is a function of $c$ and we want to find the $c$ that minimizes the function.
 Since it is a quadratic function, we can always find the minimum.
 We have learnt in school how to do this (hopefully): Take the derivative of the function
-and set it to zero. Solve for $c$ and you have the minimum. Let's do that:
+and set it to zero. Solve for $c$ and you have the $c$ which yields the minimum of SSE(c).
+
+Let's do that:
 
 $$ \frac{d}{dc} SSE(c) =  2(height_1 - c)(-1) + 2(height_2 - c)(-1) + 
 \ldots + 2(height_n - c)(-1) =$$
@@ -503,14 +505,14 @@ dim(d2)
 mean(d2$height) # same as the intercept
 sd(d2$height) / sqrt(nrow(d2)) # standard error of the estimator
 # test-statistic for the intercept:
-mean(d2$height)/ (sd(d2$height) / sqrt(nrow(d2)))
+mean(d2$height) / (sd(d2$height) / sqrt(nrow(d2)))
 # residual standard error:
 sqrt(sum(mod$residuals^2) / (nrow(d2) - 1))
 ```
 
-the "~1" means that there is just a so-called **intercept** in the model.
+the `~1` means that there is just a so-called **intercept** in the model.
 There are **no covariates**, just the constant $c$.
-This is the simplest we can do. 'lm' stands for linear model and with this base 
+This is the simplest we can do. `lm` stands for linear model and with this base 
 command in R we ask the software to do the least squares estimation for us.
 
 Let's look at the **R-output** of the model estimation:
@@ -524,7 +526,7 @@ $r_i = height_i - \hat{c}$. A univariate 5-point summary is given.
     which is (according to the Central Limit Theorem) 
     $$\frac{\sigma}{\sqrt{n}}$$ and can be estimated by the sample 
     standard deviation divided by the square root of the sample size.
-  - the `t value` and the 'Pr(>|t|)' which is the $p$-value of the (Wald-)test of 
+  - the `t value` and the `Pr(>|t|)` which is the $p$-value of the (Wald-)test of 
     the null hypothesis that the 
     coefficient is zero ($H_0: \text{intercept}=0$). 
     This is a perfect example of an absolutely useless $t$-test. 
@@ -543,12 +545,12 @@ library(tidyverse)
 data("Howell1")
 d <- Howell1
 str(d)
-d2 <- d[ d$age >= 18 , ]
+d2 <- d[d$age >= 18, ]
 
 data.frame(height_i = 1:nrow(d2), height = d2$height) %>%
   ggplot(aes(x = height_i, y = height)) +
-  geom_point() + 
-  geom_hline(yintercept = mean(d2$height), color = "red") + 
+  geom_point() +
+  geom_hline(yintercept = mean(d2$height), color = "red") +
   ggtitle("Simple mean model estimation using Least Squares") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
@@ -621,7 +623,8 @@ y <- seq(-3, 3, length.out = 100)
 grid <- expand.grid(x = x, y = y)
 
 # Compute the density of the bivariate normal
-z <- matrix(dmvnorm(grid, mean = mu, sigma = sigma), nrow = length(x), ncol = length(y))
+z <- matrix(dmvnorm(grid, mean = mu, sigma = sigma),
+            nrow = length(x), ncol = length(y))
 
 # Define the square for highlighting the probability volume
 highlight_x <- c(0.5, 2)
@@ -629,13 +632,14 @@ highlight_y <- c(0.5, 2)
 
 # Highlighted volume: Set values outside the square to NA
 z_highlight <- z
-z_highlight[grid$x < highlight_x[1] | grid$x > highlight_x[2] | 
+z_highlight[grid$x < highlight_x[1] | grid$x > highlight_x[2] |
               grid$y < highlight_y[1] | grid$y > highlight_y[2]] <- NA
 
 # Create a 3D plot
 fig <- plot_ly() %>%
   add_surface(x = x, y = y, z = z, showscale = FALSE, opacity = 0.6) %>%
-  add_surface(x = x, y = y, z = z_highlight, colorscale = "Viridis", opacity = 0.9) %>%
+  add_surface(x = x, y = y, z = z_highlight,
+              colorscale = "Viridis", opacity = 0.9) %>%
   layout(scene = list(
     xaxis = list(title = "X"),
     yaxis = list(title = "Y"),
