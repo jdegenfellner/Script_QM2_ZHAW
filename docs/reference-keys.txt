@@ -14,10 +14,4 @@ exercise2_Intro
 exercise4_Intro
 addendum
 bivariate_normal
-literature
-methods
-math-example
-applications
-example-one
-example-two
-final-words
+simple-linear-regression
