@@ -452,6 +452,65 @@ summary(mod)
     hypotheses to this test is that *any* of the $\beta_i$ is not zero. If that Is
     the case, the model explains more than the mean model with just $\beta_0$.
 
+We could also **solve the problem graphically**: We want to find the 
+values of $\beta_0$ and $\beta_1$ that minimize the sum of squared differences
+which can be plotted as 3D function. All we have to do is to ask R which of 
+the coordinates minimizes the sum of squared errors. The result confirmes
+the results from the `lm` function.The dot in red marks the spot (Code is in the git repository):
+
+**---COMPILE CODE AT DEOPLOYMENT---**
+
+```{r, echo=FALSE, eval=FALSE}
+library(pacman)
+p_load(plotly, tidyverse, rethinking)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
+
+d2$x <- d2$weight
+d2$y <- d2$height
+
+mod <- lm(y ~ x, data = d2)
+#summary(mod)
+cat("Intercept beta_0: ", coef(mod)[1], "\n")
+cat("Slope beta_1: ", coef(mod)[2], "\n")
+
+sse <- function(beta_0, beta_1, data) {
+  predicted <- beta_0 + beta_1 * data$x
+  sum((data$y - predicted)^2)
+}
+
+beta_0_values <- seq(100, 126, length.out = 1000) # adapt to your data
+beta_1_values <- seq(-1, 3, length.out = 1000) # adapt to your data
+sse_values <- outer(beta_0_values, beta_1_values, Vectorize(function(a, b) sse(a, b, d2)))
+fig <- plot_ly(x = ~beta_0_values, y = ~beta_1_values, z = ~sse_values, type = "surface") %>%
+  layout(title = "Sum of squared errors depending on beta_0 and beta_1")
+#fig
+
+# Highlight min of this paraboloid (fig)----
+min_sse_index <- which(sse_values == min(sse_values), arr.ind = TRUE) # Find indices where error is smallest.
+min_beta_0 <- beta_0_values[min_sse_index[1]]
+min_beta_1 <- beta_1_values[min_sse_index[2]]
+min_sse <- min(sse_values)
+
+# check
+#min_beta_0 # (= Intercept)
+#min_beta_1
+#coef(mod) # match
+
+fig <- fig %>% add_trace(
+  x = min_beta_0, 
+  y = min_beta_1, 
+  z = min_sse, 
+  type = 'scatter3d', 
+  mode = 'markers',
+  marker = list(color = 'red', size = 7)
+)
+
+fig
+
+```
+
 
 ### ANOVA (Analysis of Variance)
 

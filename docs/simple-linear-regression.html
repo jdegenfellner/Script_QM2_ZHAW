@@ -268,8 +268,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-b5b5177cba23ab494c79" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-b5b5177cba23ab494c79">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-0b46609362a7b7664e49" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0b46609362a7b7664e49">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -617,6 +617,12 @@ the number of predictors in the model.</li>
 hypotheses to this test is that <em>any</em> of the <span class="math inline">\(\beta_i\)</span> is not zero. If that Is
 the case, the model explains more than the mean model with just <span class="math inline">\(\beta_0\)</span>.</li>
 </ul>
+<p>We could also <strong>solve the problem graphically</strong>: We want to find the
+values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> that minimize the sum of squared differences
+which can be plotted as 3D function. All we have to do is to ask R which of
+the coordinates minimizes the sum of squared errors. The result confirmes
+the results from the <code>lm</code> function.The dot in red marks the spot (Code is in the git repository):</p>
+<p><strong>—COMPILE CODE AT DEOPLOYMENT—</strong></p>
 </div>
 <div id="anova-analysis-of-variance" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> ANOVA (Analysis of Variance)<a href="simple-linear-regression.html#anova-analysis-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -635,7 +641,7 @@ into two parts:</p>
 explains the concept nicely.</p>
 <p>Let’s visualize our regression result:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </div>
 <div id="r2" class="section level3 hasAnchor" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> <span class="math inline">\(R^2\)</span>?<a href="simple-linear-regression.html#r2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
