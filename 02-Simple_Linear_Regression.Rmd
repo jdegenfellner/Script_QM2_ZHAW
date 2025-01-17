@@ -358,8 +358,8 @@ What does this mean?
 You can play with [this shiny app](https://psychmeth.shinyapps.io/Regression-NVFehler/) to improve your understanding.
 It offers the option "Bedingte Verteilung anzeigen".
 
-One always things about the so-called data 
-[generating process](https://en.wikipedia.org/wiki/Data_generating_process) 
+One always things about the so-called
+[data generating process](https://en.wikipedia.org/wiki/Data_generating_process) 
 ([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), 1.2).
 How did the data come about? There is a process behind it and this process
 is attempted to be modeled.
@@ -512,7 +512,7 @@ fig
 ```
 
 
-### ANOVA (Analysis of Variance)
+### ANOVA (Analysis of Variance) {#analysis_of_variance}
 
 A non-obvious and very useful finding is that the total variability in the data can be
 **decomposed** (or [analysed](https://en.wiktionary.org/wiki/analysis)) 
@@ -521,7 +521,7 @@ into two parts:
 - The variability explained by the model (the regression line)
 - The variability not explained by the model (the residuals)
 
-$$ \text{Total sum of squares} = \text{Regression sum of squares} + \text{Residual sum of squares} $$
+$$ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} $$
 
 $$ SST = SSR + SSE $$
 
@@ -597,21 +597,187 @@ ggplot(d2, aes(x = weight, y = height)) +
   )
 ```
 
-### $R^2$?
-It is the proportion of the variance explained by the model.
+### $R^2$ - Coefficient of Determination
+[$R^2$](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+is the **amount of variance explained by the model**. 
+You can also read [Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4) 8.1.
+
+As you can see 
+[above](#analysis_of_variance), the total variance (SST) of our outcome (height) 
+can be decomposed into two parts: the variance explained by the model (SSR)
+and the variance not explained by the model (SSE).
+
+Maybe the most intuitive definition of $R^2$ is:
+
+$$ R^2 = \frac{SSR}{SST} = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}$$
+
+The value is between 0 and 1. The higher the value, the more variance is explained.
+But be cautious. Depending on the context, a really high $R^2$ is not 
+necessarily a good thing. With the data we are working with,
+it could easily hint towards an error. If we are near 1,
+all points in the simple linear regression model are on the line.
+If we are near 0, the model does not explain much of the variance 
+and we would see "noise with no slope" in the scatterplot ([exercise 4](#exercise4_simpl_lin_reg)).
+The normal $R^2$ can be found in the R output under `Multiple R-squared`.
+
+If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
+$R^2$. We will verify this when we have more than 2 explanatory variables. 
+As a non-formal explanation for this: In the Sum of Squares Errors (SSE),
+if you add more covariates ($\beta_2, \beta_3$), you have more freedom
+to choose values that minimize the number that will be squared. Simple regression
+is just a special case of multiple (more than one predictor) regression with $\beta_2=\beta_3=\dots=0$.
+Hence, you will definitely not be worse off with regards to SSE when using more covariates.
+A smaller SSE implies a larger SSR (sum constraint) and hence a larger $R^2$. SST remains constant.
+
+Although not perfect, one way to mitigate the influence of "too many" variables
+on $R^2$ is to use the adjusted $R^2$, which an also be found in the R output (`Adjusted R-squared`).
 
 **Seperating property of regression due to $R^2$**:
-..........
+[Peter Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4)
+explains (in Figure 8.1 of the book) how $R^2$ influences the separation of distributions in our simple regression model.
+
+In our regression of height on weight (order is correct, that's how you say it), 
+the $R^2$ is $0.5696$. The following plot shows how well one can predict
+height if we use the 10% and 90% quantile of the weights (x_low and x_high).
+In both, you see the conditional distribution of height given the weight $X = x_{low}$ or $X = x_{high}$.
+Scenario 1 is the original model, scenario 2 is the same data with added noise,
+which reduces $R^2$ to $0.13$, much lower. In the right plot, the distributions have a large
+overlap and it is hard to distinguish between heights when knowing even very low (10% quantile)
+or very high (90% quantile) weights.
+
+```{r, echo=FALSE}
+library(pacman)
+p_load(plotly, tidyverse, rethinking, patchwork)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
+
+mod <- lm(height ~ weight, data = d2)
+#summary(mod)
+
+#plot(d2$weight, d2$height)
+
+# lets use the 10% and the 90% quantile 
+# of height
+
+x_low_high <- quantile(d2$weight, probs = c(0.1, 0.9))
+
+# Scenario 1
+# original
+#coef(mod)
+# Conditional distribution of height is: N(113.8793936  + 0.9050291 *weight, 5.086)
+
+# Draw to distributions for weights = x_low_high into one diagram
+# 1) N(113.8793936  + 0.9050291 *x_low_high[1], 5.086)
+# 2) N(113.8793936  + 0.9050291 *x_low_high[2], 5.086)
+
+# Parameters for the two normal distributions
+mean1 <- 113.8793936 + 0.9050291 * x_low_high[1]
+mean2 <- 113.8793936 + 0.9050291 * x_low_high[2]
+sd <- 5.086  # Standard deviation for both distributions
+
+# Create a data frame for plotting
+x_seq <- seq(mean1 - 4 * sd, mean2 + 4 * sd, length.out = 1000)
+data <- data.frame(
+  x = rep(x_seq, 2),
+  density = c(dnorm(x_seq, mean = mean1, sd = sd),
+              dnorm(x_seq, mean = mean2, sd = sd)),
+  group = rep(c(paste0("x_low = ", x_low_high[1]),
+                paste0("x_high = ", x_low_high[2])), each = length(x_seq))
+)
+
+# Scenario 2
+# more variability to get a worse R^2
+set.seed(123)
+d2$height_added_noise <- d2$height + rnorm(nrow(d2), mean = 0, sd = 15)
+
+mod_noise <- lm(height_added_noise ~ weight, data = d2)
+#summary(mod_noise)
+
+# Extract the new coefficients
+coef_noise <- coef(mod_noise)
+
+# Conditional distribution of height with noise
+# N(coef_noise[1] + coef_noise[2] * weight, Residual SD)
+residual_sd <- sigma(mod_noise)
+
+# Parameters for the two normal distributions
+mean1_noise <- coef_noise[1] + coef_noise[2] * x_low_high[1]
+mean2_noise <- coef_noise[1] + coef_noise[2] * x_low_high[2]
+
+# Create a data frame for plotting (with added noise)
+x_seq_noise <- seq(mean1_noise - 4 * residual_sd, mean2_noise + 4 * residual_sd, length.out = 1000)
+data_noise <- data.frame(
+  x = rep(x_seq_noise, 2),
+  density = c(dnorm(x_seq_noise, mean = mean1_noise, sd = residual_sd),
+              dnorm(x_seq_noise, mean = mean2_noise, sd = residual_sd)),
+  group = rep(c(paste0("x_low = ", x_low_high[1]),
+                paste0("x_high = ", x_low_high[2])), each = length(x_seq_noise))
+)
+
+# Plot for Scenario 1
+plot1 <- ggplot(data, aes(x = x, y = density, color = group)) +
+  geom_line(linewidth = 1.2) +
+  labs(
+    title = "Scenario 1",
+    x = "Height",
+    y = "Density",
+    color = "Weight"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("blue", "red")) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14),
+    legend.position = "bottom"
+  )
+
+# Plot for Scenario 2
+plot2 <- ggplot(data_noise, aes(x = x, y = density, color = group)) +
+  geom_line(linewidth = 1.2) +
+  labs(
+    title = "Scenario 2",
+    x = "Height",
+    y = "Density",
+    color = "Weight"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("blue", "red")) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14),
+    legend.position = "bottom"
+  )
+
+# Combine the two plots side by side with a shared legend
+combined_plot <- plot1 + plot2 +
+  plot_layout(guides = "collect") &  # Collect the legend
+  theme(
+    legend.position = "bottom",
+    plot.title = element_text(hjust = 0.5, size = 16)
+  )
+
+# Add a single title to the combined plot
+combined_plot <- combined_plot +
+  plot_annotation(
+    title = "Normal Distributions for Two Scenarios",
+    theme = theme(plot.title = element_text(size = 18, hjust = 0.5))
+  )
+
+# Display the combined plot
+combined_plot
+```
+
 
 ### Check regression assumptions
-
+..........
 
 
 
 ....... **TODOS**
 
 - random X vs fixed X
-- interpret alpha and beta maybe using simulation
+- If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
+$R^2$. We will verify this when we have more than 2 explanatory variables. 
+
 
 
 
@@ -650,4 +816,8 @@ in the classical framework.
 - Change your input parameters and see how the estimates change.
 - Does this make sense with respect to the estimates given, specifically with respect
 to $\beta_1$?
+
+### [M] Exercise 4 {#exercise4_simpl_lin_reg}
+
+Verify the statement above in the text for high and low values of $R^2$.
 

@@ -193,8 +193,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#model-definition-1"><i class="fa fa-check"></i><b>3.2.1</b> Model definition</a></li>
 <li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#fit_model_simple_lin_reg_classic"><i class="fa fa-check"></i><b>3.2.2</b> Fit the model</a></li>
-<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#anova-analysis-of-variance"><i class="fa fa-check"></i><b>3.2.3</b> ANOVA (Analysis of Variance)</a></li>
-<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2"><i class="fa fa-check"></i><b>3.2.4</b> <span class="math inline">\(R^2\)</span>?</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analysis_of_variance"><i class="fa fa-check"></i><b>3.2.3</b> ANOVA (Analysis of Variance)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2---coefficient-of-determination"><i class="fa fa-check"></i><b>3.2.4</b> <span class="math inline">\(R^2\)</span> - Coefficient of Determination</a></li>
 <li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.5</b> Check regression assumptions</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
@@ -202,6 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise1_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.1</b> [E] Exercise 1</a></li>
 <li class="chapter" data-level="3.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise2_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.2</b> [E] Exercise 2</a></li>
 <li class="chapter" data-level="3.3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise3_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.3</b> [M] Exercise 3</a></li>
+<li class="chapter" data-level="3.3.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise4_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.4</b> [M] Exercise 4</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -268,8 +269,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-0b46609362a7b7664e49" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-0b46609362a7b7664e49">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-ede9346421f632ba4317" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-ede9346421f632ba4317">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -518,8 +519,8 @@ In our case above this was the normal distribution with mean <span class="math i
 </ul>
 <p>You can play with <a href="https://psychmeth.shinyapps.io/Regression-NVFehler/">this shiny app</a> to improve your understanding.
 It offers the option “Bedingte Verteilung anzeigen”.</p>
-<p>One always things about the so-called data
-<a href="https://en.wikipedia.org/wiki/Data_generating_process">generating process</a>
+<p>One always things about the so-called
+<a href="https://en.wikipedia.org/wiki/Data_generating_process">data generating process</a>
 (<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a>, 1.2).
 How did the data come about? There is a process behind it and this process
 is attempted to be modeled.</p>
@@ -624,8 +625,8 @@ the coordinates minimizes the sum of squared errors. The result confirmes
 the results from the <code>lm</code> function.The dot in red marks the spot (Code is in the git repository):</p>
 <p><strong>—COMPILE CODE AT DEOPLOYMENT—</strong></p>
 </div>
-<div id="anova-analysis-of-variance" class="section level3 hasAnchor" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> ANOVA (Analysis of Variance)<a href="simple-linear-regression.html#anova-analysis-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="analysis_of_variance" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> ANOVA (Analysis of Variance)<a href="simple-linear-regression.html#analysis_of_variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A non-obvious and very useful finding is that the total variability in the data can be
 <strong>decomposed</strong> (or <a href="https://en.wiktionary.org/wiki/analysis">analysed</a>)
 into two parts:</p>
@@ -633,7 +634,7 @@ into two parts:</p>
 <li>The variability explained by the model (the regression line)</li>
 <li>The variability not explained by the model (the residuals)</li>
 </ul>
-<p><span class="math display">\[ \text{Total sum of squares} = \text{Regression sum of squares} + \text{Residual sum of squares} \]</span></p>
+<p><span class="math display">\[ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} \]</span></p>
 <p><span class="math display">\[ SST = SSR + SSE \]</span></p>
 <p><span class="math display">\[ \sum (y_i - \bar{y})^2 = \sum (\hat{y}_i - \bar{y})^2 + \sum (y_i - \hat{y}_i)^2 \]</span></p>
 <p>If you are interested in the details, check out <a href="https://en.wikipedia.org/wiki/Explained_sum_of_squares#Partitioning_in_the_general_ordinary_least_squares_model">this</a>.</p>
@@ -643,18 +644,56 @@ explains the concept nicely.</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 </div>
-<div id="r2" class="section level3 hasAnchor" number="3.2.4">
-<h3><span class="header-section-number">3.2.4</span> <span class="math inline">\(R^2\)</span>?<a href="simple-linear-regression.html#r2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>It is the proportion of the variance explained by the model.</p>
+<div id="r2---coefficient-of-determination" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> <span class="math inline">\(R^2\)</span> - Coefficient of Determination<a href="simple-linear-regression.html#r2---coefficient-of-determination" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://en.wikipedia.org/wiki/Coefficient_of_determination"><span class="math inline">\(R^2\)</span></a>
+is the <strong>amount of variance explained by the model</strong>.
+You can also read <a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a> 8.1.</p>
+<p>As you can see
+<a href="simple-linear-regression.html#analysis_of_variance">above</a>, the total variance (SST) of our outcome (height)
+can be decomposed into two parts: the variance explained by the model (SSR)
+and the variance not explained by the model (SSE).</p>
+<p>Maybe the most intuitive definition of <span class="math inline">\(R^2\)</span> is:</p>
+<p><span class="math display">\[ R^2 = \frac{SSR}{SST} = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}\]</span></p>
+<p>The value is between 0 and 1. The higher the value, the more variance is explained.
+But be cautious. Depending on the context, a really high <span class="math inline">\(R^2\)</span> is not
+necessarily a good thing. With the data we are working with,
+it could easily hint towards an error. If we are near 1,
+all points in the simple linear regression model are on the line.
+If we are near 0, the model does not explain much of the variance
+and we would see “noise with no slope” in the scatterplot (<a href="simple-linear-regression.html#exercise4_simpl_lin_reg">exercise 4</a>).
+The normal <span class="math inline">\(R^2\)</span> can be found in the R output under <code>Multiple R-squared</code>.</p>
+<p>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)
+<span class="math inline">\(R^2\)</span>. We will verify this when we have more than 2 explanatory variables.
+As a non-formal explanation for this: In the Sum of Squares Errors (SSE),
+if you add more covariates (<span class="math inline">\(\beta_2, \beta_3\)</span>), you have more freedom
+to choose values that minimize the number that will be squared. Simple regression
+is just a special case of multiple (more than one predictor) regression with <span class="math inline">\(\beta_2=\beta_3=\dots=0\)</span>.
+Hence, you will definitely not be worse off with regards to SSE when using more covariates.
+A smaller SSE implies a larger SSR (sum constraint) and hence a larger <span class="math inline">\(R^2\)</span>. SST remains constant.</p>
+<p>Although not perfect, one way to mitigate the influence of “too many” variables
+on <span class="math inline">\(R^2\)</span> is to use the adjusted <span class="math inline">\(R^2\)</span>, which an also be found in the R output (<code>Adjusted R-squared</code>).</p>
 <p><strong>Seperating property of regression due to <span class="math inline">\(R^2\)</span></strong>:
-……….</p>
+<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Peter Westfall</a>
+explains (in Figure 8.1 of the book) how <span class="math inline">\(R^2\)</span> influences the separation of distributions in our simple regression model.</p>
+<p>In our regression of height on weight (order is correct, that’s how you say it),
+the <span class="math inline">\(R^2\)</span> is <span class="math inline">\(0.5696\)</span>. The following plot shows how well one can predict
+height if we use the 10% and 90% quantile of the weights (x_low and x_high).
+In both, you see the conditional distribution of height given the weight <span class="math inline">\(X = x_{low}\)</span> or <span class="math inline">\(X = x_{high}\)</span>.
+Scenario 1 is the original model, scenario 2 is the same data with added noise,
+which reduces <span class="math inline">\(R^2\)</span> to <span class="math inline">\(0.13\)</span>, much lower. In the right plot, the distributions have a large
+overlap and it is hard to distinguish between heights when knowing even very low (10% quantile)
+or very high (90% quantile) weights.</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 </div>
 <div id="check-regression-assumptions" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Check regression assumptions<a href="simple-linear-regression.html#check-regression-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>……….</p>
 <p>……. <strong>TODOS</strong></p>
 <ul>
 <li>random X vs fixed X</li>
-<li>interpret alpha and beta maybe using simulation</li>
+<li>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)
+<span class="math inline">\(R^2\)</span>. We will verify this when we have more than 2 explanatory variables.</li>
 </ul>
 </div>
 </div>
@@ -694,6 +733,10 @@ in the classical framework.</p>
 <li>Does this make sense with respect to the estimates given, specifically with respect
 to <span class="math inline">\(\beta_1\)</span>?</li>
 </ul>
+</div>
+<div id="exercise4_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> [M] Exercise 4<a href="simple-linear-regression.html#exercise4_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Verify the statement above in the text for high and low values of <span class="math inline">\(R^2\)</span>.</p>
 
 </div>
 </div>
