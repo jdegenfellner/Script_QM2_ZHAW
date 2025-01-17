@@ -355,6 +355,9 @@ What does this mean?
 - $p(y|x)$ is the distribution of potentially observable $Y$ given $X = x$. 
   In our case above this was the normal distribution with mean $\mu_i$ and variance $\sigma$.
 
+You can play with [this shiny app](https://psychmeth.shinyapps.io/Regression-NVFehler/) to improve your understanding.
+It offers the option "Bedingte Verteilung anzeigen".
+
 One always things about the so-called data 
 [generating process](https://en.wikipedia.org/wiki/Data_generating_process) 
 ([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), 1.2).
@@ -390,7 +393,7 @@ In full, the classical linear regression model can be written as:
 $$ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)$$
 for $i = 1, \dots, n$.
 
-### Fit the model
+### Fit the model {#fit_model_simple_lin_reg_classic}
 
 Again, we fit the model using the least squares method. 
 One has to minimize the sum of squared differences between the true heights and 
@@ -404,8 +407,17 @@ We omit the technical details and give the results for $\beta_0$ and $\beta_1$:
 \hat{\beta_0} = \bar{y} - (\hat{\beta_1} \bar{x}),
 \]
 \[
-\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} =
+ \frac{s_{x,y}}{s_x^2} = r_{xy} \frac{s_y}{s_x}.
 \]
+
+where:
+
+- \(r_{xy}\) is the [sample correlation coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) between \(x\) and \(y\)
+- \(s_x\) and \(s_y\) are the [uncorrected sample standard deviations](https://en.wikipedia.org/wiki/Standard_deviation) of \(x\) and \(y\)
+- \(s_x^2\) and \(s_{xy}\) are the [sample variance](https://en.wikipedia.org/wiki/Variance) and [sample covariance](https://en.wikipedia.org/wiki/Covariance), respectively
+
+Interpretation of $\hat{\beta}_0$ and $\hat{\beta}_1$: see [exercise 3](#exercise3_simpl_lin_reg).
 
 Let's use R again to solve the problem:
 
@@ -439,6 +451,7 @@ summary(mod)
     $H_0: \beta_1 = \beta_2 = \dots = \beta_k = 0$. Note, the alternative 
     hypotheses to this test is that *any* of the $\beta_i$ is not zero. If that Is
     the case, the model explains more than the mean model with just $\beta_0$.
+
 
 ### ANOVA (Analysis of Variance)
 
@@ -525,16 +538,20 @@ ggplot(d2, aes(x = weight, y = height)) +
   )
 ```
 
+### $R^2$?
+It is the proportion of the variance explained by the model.
+
+**Seperating property of regression due to $R^2$**:
+..........
+
+### Check regression assumptions
+
+
 
 
 ....... **TODOS**
 
-- Conditional distribution approach
-- Not the same to predict X with Y or vice versa.
-- Analysis of Variance, R^2
 - random X vs fixed X
-- separability interpretration using R^2
-- check assumptions of model
 - interpret alpha and beta maybe using simulation
 
 
@@ -542,7 +559,7 @@ ggplot(d2, aes(x = weight, y = height)) +
 
 ## Exercises
 
-### Exercise 1 {#exercise1_simpl_lin_reg}
+### [E] Exercise 1 {#exercise1_simpl_lin_reg}
 
 In the model from above:
 
@@ -557,9 +574,21 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 - What ist the expected height when $x_i = \bar{x}$?
 - What is the expected height when $x_i$ changes by 1 unit?
 
-### Exercise 2 {#exercise2_simpl_lin_reg}
+### [E] Exercise 2 {#exercise2_simpl_lin_reg}
 
 Look at the marginal distrubutions of the parameters in the Bayesian model.
 
 - Plot the posterior distribution of all 3 parameters.
 - Include in the plot a 99% credible interval (HDI).
+
+### [M] Exercise 3 {#exercise3_simpl_lin_reg}
+
+Go to the coefficient estimates in the simple linear regression setting 
+above ([Fit the model](#fit_model_simple_lin_reg_classic))
+in the classical framework.
+
+- Create an R file to simulate the simple linear regression model.
+- Change your input parameters and see how the estimates change.
+- Does this make sense with respect to the estimates given, specifically with respect
+to $\beta_1$?
+

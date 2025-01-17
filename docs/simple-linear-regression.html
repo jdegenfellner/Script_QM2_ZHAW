@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-01-16" />
+<meta name="date" content="2025-01-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -192,13 +192,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-in-the-frequentist-framework"><i class="fa fa-check"></i><b>3.2</b> Simple Linear Regression in the Frequentist Framework</a>
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#model-definition-1"><i class="fa fa-check"></i><b>3.2.1</b> Model definition</a></li>
-<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#fit-the-model"><i class="fa fa-check"></i><b>3.2.2</b> Fit the model</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#fit_model_simple_lin_reg_classic"><i class="fa fa-check"></i><b>3.2.2</b> Fit the model</a></li>
 <li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#anova-analysis-of-variance"><i class="fa fa-check"></i><b>3.2.3</b> ANOVA (Analysis of Variance)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2"><i class="fa fa-check"></i><b>3.2.4</b> <span class="math inline">\(R^2\)</span>?</a></li>
+<li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.5</b> Check regression assumptions</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise1_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.1</b> Exercise 1</a></li>
-<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise2_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.2</b> Exercise 2</a></li>
+<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise1_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.1</b> [E] Exercise 1</a></li>
+<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise2_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.2</b> [E] Exercise 2</a></li>
+<li class="chapter" data-level="3.3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise3_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.3</b> [M] Exercise 3</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -265,8 +268,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-2a0131ab93a031866fa2" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-2a0131ab93a031866fa2">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-b5b5177cba23ab494c79" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-b5b5177cba23ab494c79">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -513,6 +516,8 @@ distribution of <span class="math inline">\(Y\)</span> if we know the value of <
 <li><span class="math inline">\(p(y|x)\)</span> is the distribution of potentially observable <span class="math inline">\(Y\)</span> given <span class="math inline">\(X = x\)</span>.
 In our case above this was the normal distribution with mean <span class="math inline">\(\mu_i\)</span> and variance <span class="math inline">\(\sigma\)</span>.</li>
 </ul>
+<p>You can play with <a href="https://psychmeth.shinyapps.io/Regression-NVFehler/">this shiny app</a> to improve your understanding.
+It offers the option “Bedingte Verteilung anzeigen”.</p>
 <p>One always things about the so-called data
 <a href="https://en.wikipedia.org/wiki/Data_generating_process">generating process</a>
 (<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a>, 1.2).
@@ -542,8 +547,8 @@ The question is <strong>how</strong> “badly” the assumptions are violated?</
 for <span class="math inline">\(i = 1, \dots, n\)</span>.</p>
 </div>
 </div>
-<div id="fit-the-model" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Fit the model<a href="simple-linear-regression.html#fit-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="fit_model_simple_lin_reg_classic" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Fit the model<a href="simple-linear-regression.html#fit_model_simple_lin_reg_classic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Again, we fit the model using the least squares method.
 One has to minimize the sum of squared differences between the true heights and
 the model-predicted heights in order to find <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
@@ -553,8 +558,16 @@ the model-predicted heights in order to find <span class="math inline">\(\beta_0
 \hat{\beta_0} = \bar{y} - (\hat{\beta_1} \bar{x}),
 \]</span>
 <span class="math display">\[
-\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} =
+\frac{s_{x,y}}{s_x^2} = r_{xy} \frac{s_y}{s_x}.
 \]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(r_{xy}\)</span> is the <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">sample correlation coefficient</a> between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span></li>
+<li><span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are the <a href="https://en.wikipedia.org/wiki/Standard_deviation">uncorrected sample standard deviations</a> of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span></li>
+<li><span class="math inline">\(s_x^2\)</span> and <span class="math inline">\(s_{xy}\)</span> are the <a href="https://en.wikipedia.org/wiki/Variance">sample variance</a> and <a href="https://en.wikipedia.org/wiki/Covariance">sample covariance</a>, respectively</li>
+</ul>
+<p>Interpretation of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>: see <a href="simple-linear-regression.html#exercise3_simpl_lin_reg">exercise 3</a>.</p>
 <p>Let’s use R again to solve the problem:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="simple-linear-regression.html#cb57-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
 <span id="cb57-2"><a href="simple-linear-regression.html#cb57-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
@@ -623,20 +636,26 @@ explains the concept nicely.</p>
 <p>Let’s visualize our regression result:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+</div>
+<div id="r2" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> <span class="math inline">\(R^2\)</span>?<a href="simple-linear-regression.html#r2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It is the proportion of the variance explained by the model.</p>
+<p><strong>Seperating property of regression due to <span class="math inline">\(R^2\)</span></strong>:
+……….</p>
+</div>
+<div id="check-regression-assumptions" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> Check regression assumptions<a href="simple-linear-regression.html#check-regression-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>……. <strong>TODOS</strong></p>
 <ul>
-<li>Conditional distribution approach</li>
-<li>Not the same to predict X with Y or vice versa.</li>
-<li>Analysis of Variance, R^2</li>
 <li>random X vs fixed X</li>
-<li>separability interpretration using R^2</li>
+<li>interpret alpha and beta maybe using simulation</li>
 </ul>
 </div>
 </div>
 <div id="exercises-1" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Exercises<a href="simple-linear-regression.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="exercise1_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Exercise 1<a href="simple-linear-regression.html#exercise1_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.3.1</span> [E] Exercise 1<a href="simple-linear-regression.html#exercise1_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the model from above:</p>
 <p><span class="math display">\[\begin{eqnarray*}
 h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
@@ -651,11 +670,23 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 </ul>
 </div>
 <div id="exercise2_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.2">
-<h3><span class="header-section-number">3.3.2</span> Exercise 2<a href="simple-linear-regression.html#exercise2_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.3.2</span> [E] Exercise 2<a href="simple-linear-regression.html#exercise2_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Look at the marginal distrubutions of the parameters in the Bayesian model.</p>
 <ul>
 <li>Plot the posterior distribution of all 3 parameters.</li>
 <li>Include in the plot a 99% credible interval (HDI).</li>
+</ul>
+</div>
+<div id="exercise3_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> [M] Exercise 3<a href="simple-linear-regression.html#exercise3_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Go to the coefficient estimates in the simple linear regression setting
+above (<a href="simple-linear-regression.html#fit_model_simple_lin_reg_classic">Fit the model</a>)
+in the classical framework.</p>
+<ul>
+<li>Create an R file to simulate the simple linear regression model.</li>
+<li>Change your input parameters and see how the estimates change.</li>
+<li>Does this make sense with respect to the estimates given, specifically with respect
+to <span class="math inline">\(\beta_1\)</span>?</li>
 </ul>
 
 </div>
