@@ -534,6 +534,8 @@ ggplot(d2, aes(x = weight, y = height)) +
 - Analysis of Variance, R^2
 - random X vs fixed X
 - separability interpretration using R^2
+- check assumptions of model
+- interpret alpha and beta maybe using simulation
 
 
 
