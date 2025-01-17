@@ -632,7 +632,7 @@ A smaller SSE implies a larger SSR (sum constraint) and hence a larger $R^2$. SS
 Although not perfect, one way to mitigate the influence of "too many" variables
 on $R^2$ is to use the adjusted $R^2$, which an also be found in the R output (`Adjusted R-squared`).
 
-**Seperating property of regression due to $R^2$**:
+#### Seperating property of regression due to $R^2$:
 [Peter Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4)
 explains (in Figure 8.1 of the book) how $R^2$ influences the separation of distributions in our simple regression model.
 
@@ -640,7 +640,7 @@ In our regression of height on weight (order is correct, that's how you say it),
 the $R^2$ is $0.5696$. The following plot shows how well one can predict
 height if we use the 10% and 90% quantile of the weights (x_low and x_high).
 In both, you see the conditional distribution of height given the weight $X = x_{low}$ or $X = x_{high}$.
-Scenario 1 is the original model, scenario 2 is the same data with added noise,
+Scenario 1 is the original model, scenario 2 is the same data with added noise (in Y-direction),
 which reduces $R^2$ to $0.13$, much lower. In the right plot, the distributions have a large
 overlap and it is hard to distinguish between heights when knowing even very low (10% quantile)
 or very high (90% quantile) weights.
