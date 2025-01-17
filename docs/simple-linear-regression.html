@@ -203,6 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise2_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.2</b> [E] Exercise 2</a></li>
 <li class="chapter" data-level="3.3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise3_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.3</b> [M] Exercise 3</a></li>
 <li class="chapter" data-level="3.3.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise4_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.4</b> [M] Exercise 4</a></li>
+<li class="chapter" data-level="3.3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise5_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.5</b> [M] Exercise 5</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -269,8 +270,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-7bf786ad0ab9fe615256" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7bf786ad0ab9fe615256">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-d9cffaab0d8bae2b45d6" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-d9cffaab0d8bae2b45d6">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -381,7 +382,7 @@ The mean of the posterior distribution of <span class="math inline">\(\beta\)</s
 of 1 kg more weight can be expected to be 0.9 cm taller. A 96% credible interval
 for this estimate is <span class="math inline">\([0.83, 0.97]\)</span>. We can be quite sure that the slope is
 positive.</p>
-<p>It might also be interesting to insept the variance-covariance matrix,
+<p>It might also be interesting to inspect the variance-covariance matrix,
 respectively the correlation between the parameters as we did before
 in the intercept model.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="simple-linear-regression.html#cb43-1" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">vcov</span>(mod))</span></code></pre></div>
@@ -686,6 +687,7 @@ which reduces <span class="math inline">\(R^2\)</span> to <span class="math inli
 overlap and it is hard to distinguish between heights when knowing even very low (10% quantile)
 or very high (90% quantile) weights.</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>See also <a href="simple-linear-regression.html#exercise5_simpl_lin_reg">exercise 5</a>.</p>
 </div>
 </div>
 <div id="check-regression-assumptions" class="section level3 hasAnchor" number="3.2.5">
@@ -739,6 +741,11 @@ to <span class="math inline">\(\beta_1\)</span>?</li>
 <div id="exercise4_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.4">
 <h3><span class="header-section-number">3.3.4</span> [M] Exercise 4<a href="simple-linear-regression.html#exercise4_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Verify the statement above in the text for high and low values of <span class="math inline">\(R^2\)</span>.</p>
+</div>
+<div id="exercise5_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> [M] Exercise 5<a href="simple-linear-regression.html#exercise5_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Verify with simulation in R that the separation of the distributions in the simple linear regression model
+improves if the true (but usually unknown) slope increases.</p>
 
 </div>
 </div>

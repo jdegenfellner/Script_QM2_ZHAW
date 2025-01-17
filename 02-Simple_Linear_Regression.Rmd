@@ -203,7 +203,7 @@ of 1 kg more weight can be expected to be 0.9 cm taller. A 96% credible interval
 for this estimate is $[0.83, 0.97]$. We can be quite sure that the slope is 
 positive. 
 
-It might also be interesting to insept the variance-covariance matrix, 
+It might also be interesting to inspect the variance-covariance matrix, 
 respectively the correlation between the parameters as we did before
 in the intercept model.
 
@@ -766,6 +766,7 @@ combined_plot <- combined_plot +
 combined_plot
 ```
 
+See also [exercise 5](#exercise5_simpl_lin_reg).
 
 ### Check regression assumptions
 ..........
@@ -821,3 +822,7 @@ to $\beta_1$?
 
 Verify the statement above in the text for high and low values of $R^2$.
 
+### [M] Exercise 5 {#exercise5_simpl_lin_reg}
+
+Verify with simulation in R that the separation of the distributions in the simple linear regression model
+improves if the true (but usually unknown) slope increases.

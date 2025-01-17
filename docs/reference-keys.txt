@@ -36,3 +36,4 @@ exercise1_simpl_lin_reg
 exercise2_simpl_lin_reg
 exercise3_simpl_lin_reg
 exercise4_simpl_lin_reg
+exercise5_simpl_lin_reg
