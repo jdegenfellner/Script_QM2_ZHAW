@@ -395,7 +395,8 @@ for $i = 1, \dots, n$.
 
 ### Fit the model {#fit_model_simple_lin_reg_classic}
 
-Again, we fit the model using the least squares method. 
+Again, we fit the model using the least squares method. For a neat animated explanation, 
+visit [this video](https://www.youtube.com/watch?v=jEEJNz0RK4Q&ab_channel=COCCmath).
 One has to minimize the sum of squared differences between the true heights and 
 the model-predicted heights in order to find $\beta_0$ and $\beta_1$.
 
