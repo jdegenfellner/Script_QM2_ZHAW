@@ -1,5 +1,6 @@
 intro0
 books-we-will-heavily-borrow-from-are
+if-you-need-a-good-reason-to-buy-good-books
 intro
 what-is-statistical-modeling-and-what-do-we-need-this-for
 explanatory-vs.-predictive-models

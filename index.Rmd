@@ -50,3 +50,12 @@ The complete code for this script can be found
 - (Free) [Doing Bayesian Data Analysis](https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf)
 
 
+## If you need a good reason to buy good books...
+
+Think of the total costs of your education. You want to extract maximum 
+benefit from it. In the US, an education costs [a lot](https://www.finaid.ucsb.edu/docs/default-source/default-document-library/2024-2025-undergrad-coa.pdf?sfvrsn=fb791f8a_4).
+In beautiful Switzerland, the [tuition fees](https://www.zhaw.ch/de/sml/studium/master/kosten) (if applicable) are nowhere near these figures.
+Costs you could consider are opportunity costs of not working.
+A comparison with both, a foreign education or opportunity costs,
+justifies the investment in good books.
+Or: The costs of all the good books of your education combined are probably less than an iPhone Pro.

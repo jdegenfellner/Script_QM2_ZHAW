@@ -478,6 +478,11 @@ for $i = 1, \dots, n$.
 
 Again, we fit the model using the least squares method. For a neat animated explanation, 
 visit [this video](https://www.youtube.com/watch?v=jEEJNz0RK4Q&ab_channel=COCCmath).
+There are literally hundreds of videos on the topic. Choose wisely. Not all are good.
+If in doubt, use our recommended books as reading materials. This is the most reliable source.
+A hint along the way: Be very sceptical if you ask GPT about information, 
+although for this special case one has a good chance of getting a good answer due to 
+the vast amount of training data. 
 One has to minimize the sum of squared differences between the true heights and 
 the model-predicted heights in order to find $\beta_0$ and $\beta_1$.
 

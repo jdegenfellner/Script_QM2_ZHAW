@@ -154,6 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#books-we-will-heavily-borrow-from-are"><i class="fa fa-check"></i><b>1.1</b> Books we will heavily borrow from are:</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#if-you-need-a-good-reason-to-buy-good-books"><i class="fa fa-check"></i><b>1.2</b> If you need a good reason to buy good books…</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
 <ul>
@@ -282,8 +283,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-cd024cfab443b631f0f2" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-cd024cfab443b631f0f2">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-a137591a117951e89641" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-a137591a117951e89641">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -595,6 +596,11 @@ for <span class="math inline">\(i = 1, \dots, n\)</span>.</p>
 <h3><span class="header-section-number">3.2.2</span> Fit the model<a href="simple-linear-regression.html#fit_model_simple_lin_reg_classic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Again, we fit the model using the least squares method. For a neat animated explanation,
 visit <a href="https://www.youtube.com/watch?v=jEEJNz0RK4Q&amp;ab_channel=COCCmath">this video</a>.
+There are literally hundreds of videos on the topic. Choose wisely. Not all are good.
+If in doubt, use our recommended books as reading materials. This is the most reliable source.
+A hint along the way: Be very sceptical if you ask GPT about information,
+although for this special case one has a good chance of getting a good answer due to
+the vast amount of training data.
 One has to minimize the sum of squared differences between the true heights and
 the model-predicted heights in order to find <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <p><span class="math display">\[ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 \]</span></p>
