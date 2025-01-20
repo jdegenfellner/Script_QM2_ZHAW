@@ -483,12 +483,13 @@ If in doubt, use our recommended books as reading materials. This is the most re
 A hint along the way: Be very sceptical if you ask GPT about information, 
 although for this special case one has a good chance of getting a good answer due to 
 the vast amount of training data. 
+
 One has to minimize the sum of squared differences between the true heights and 
 the model-predicted heights in order to find $\beta_0$ and $\beta_1$.
 
 $$ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 $$
 
-We omit the technical details and give the results for $\beta_0$ and $\beta_1$:
+We omit the technical details (set derivative to zero and solve the system) and give the results for $\beta_0$ and $\beta_1$:
 
 \[
 \hat{\beta_0} = \bar{y} - (\hat{\beta_1} \bar{x}),
@@ -506,7 +507,7 @@ where:
 
 Interpretation of $\hat{\beta}_0$ and $\hat{\beta}_1$: see [exercise 3](#exercise3_simpl_lin_reg).
 
-Let's use R again to solve the problem:
+Let's **use R again to solve the problem**:
 
 ```{r}
 library(rethinking)
@@ -521,8 +522,8 @@ summary(mod)
 
 - `Call`: The model that was fitted.
 - `Residuals`: $r_i = height_i - \widehat{height}_i$. 
-   Difference between true heights and model-predicted heights.
-- `Coefficients`: The estimated $\beta_0$ and $\beta_1$.
+   Differences between true heights and model-predicted heights.
+- `Coefficients`: Estimated for $\beta_0$ and $\beta_1$. We call them $\hat{\beta}_0$ and $\hat{\beta}_1$.
    - `Estimate`: The (least squares) estimated value of the coefficient.
    - `Std. Error`: The standard error of the estimate.
    - `t value`: The value of the $t$-statistic for the (Wald-) hypothesis test
@@ -536,10 +537,10 @@ summary(mod)
    the number of predictors in the model.
 - `F-statistic`: The value of the $F$-statistic for the hypothesis test: 
     $H_0: \beta_1 = \beta_2 = \dots = \beta_k = 0$. Note, the alternative 
-    hypotheses to this test is that *any* of the $\beta_i$ is not zero. If that Is
+    hypotheses to this test is that *any* of the $\beta_i$ is not zero. If that is
     the case, the model explains more than the mean model with just $\beta_0$.
 
-We could also **solve the problem graphically**: We want to find the 
+We could also **solve the least squares problem graphically**: We want to find the 
 values of $\beta_0$ and $\beta_1$ that minimize the sum of squared differences
 which can be plotted as 3D function. All we have to do is to ask R which of 
 the coordinates minimizes the sum of squared errors. The result confirmes
@@ -601,7 +602,7 @@ fig
 
 ### ANOVA (Analysis of Variance) {#analysis_of_variance}
 
-A non-obvious and very useful finding is that the total variability in the data can be
+A non-obvious and very useful finding is that the total variability in the data (our heights) can be
 **decomposed** (or [analysed](https://en.wiktionary.org/wiki/analysis)) 
 into two parts:
 
@@ -612,7 +613,7 @@ $$ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \tex
 
 $$ SST = SSR + SSE $$
 
-$$ \sum (y_i - \bar{y})^2 = \sum (\hat{y}_i - \bar{y})^2 + \sum (y_i - \hat{y}_i)^2 $$
+$$ \sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
 
 If you are interested in the details, check out [this](https://en.wikipedia.org/wiki/Explained_sum_of_squares#Partitioning_in_the_general_ordinary_least_squares_model).
 
@@ -684,6 +685,14 @@ ggplot(d2, aes(x = weight, y = height)) +
   )
 ```
 
+The plot is rather self-explanatory. The blue dotted line is the distance from
+the mean to the point (total variance), the red dotted line is the distance from
+the mean to the regression line (explained variance) and the green dotted line
+is the distance from the regression line to the point (unexplained variance).
+One sees that it adds up. I find this fact quite fascinating.
+One finds additivity by considering not determinisic values, but variances.
+Thank you [Ronald Fisher](https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.).
+
 ### $R^2$ - Coefficient of Determination
 [$R^2$](https://en.wikipedia.org/wiki/Coefficient_of_determination)
 is the **amount of variance explained by the model**. 
@@ -729,8 +738,9 @@ height if we use the 10% and 90% quantile of the weights (x_low and x_high).
 In both, you see the conditional distribution of height given the weight $X = x_{low}$ or $X = x_{high}$.
 Scenario 1 is the original model, scenario 2 is the same data with added noise (in Y-direction),
 which reduces $R^2$ to $0.13$, much lower. In the right plot, the distributions have a large
-overlap and it is hard to distinguish between heights when knowing even very low (10% quantile)
-or very high (90% quantile) weights.
+overlap and it is hard to distinguish between weights when seeing the height.
+With a very low $R^2$, the height prediction does not really change and we could just as well
+use the mean model.
 
 ```{r, echo=FALSE}
 library(pacman)
@@ -852,6 +862,18 @@ combined_plot <- combined_plot +
 # Display the combined plot
 combined_plot
 ```
+
+In the left plot, given $X = x_{low}$ gives as a rather shifted normal distribution of
+potentially observable heights for this weight compared to $X=x_{high}$.
+We would have a lower missclassification error when trying to distinguish weights
+of very light and very heavy people in the sample just by seeing the height. 
+You can think of an even more extreme separation of these distributions,
+which would happen, when $R^2$ is very high or the true slope is much higher.
+Then it would be trivial to distinguish between the two groups (light versus heavy people).
+We could then just introduce a cutoff value and classify people accordingly.
+Every person above the cutoff value for height (maybe 160 cm) would be classified 
+as "heavy" (top 10% weight) and every person below as "light" (bottom 10% weight).
+
 
 See also [exercise 5](#exercise5_simpl_lin_reg).
 

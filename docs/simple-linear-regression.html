@@ -283,8 +283,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-a137591a117951e89641" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-a137591a117951e89641">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-1b86cd11efa55e2de933" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-1b86cd11efa55e2de933">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -600,11 +600,11 @@ There are literally hundreds of videos on the topic. Choose wisely. Not all are 
 If in doubt, use our recommended books as reading materials. This is the most reliable source.
 A hint along the way: Be very sceptical if you ask GPT about information,
 although for this special case one has a good chance of getting a good answer due to
-the vast amount of training data.
-One has to minimize the sum of squared differences between the true heights and
+the vast amount of training data.</p>
+<p>One has to minimize the sum of squared differences between the true heights and
 the model-predicted heights in order to find <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <p><span class="math display">\[ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 \]</span></p>
-<p>We omit the technical details and give the results for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>:</p>
+<p>We omit the technical details (set derivative to zero and solve the system) and give the results for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>:</p>
 <p><span class="math display">\[
 \hat{\beta_0} = \bar{y} - (\hat{\beta_1} \bar{x}),
 \]</span>
@@ -619,7 +619,7 @@ the model-predicted heights in order to find <span class="math inline">\(\beta_0
 <li><span class="math inline">\(s_x^2\)</span> and <span class="math inline">\(s_{xy}\)</span> are the <a href="https://en.wikipedia.org/wiki/Variance">sample variance</a> and <a href="https://en.wikipedia.org/wiki/Covariance">sample covariance</a>, respectively</li>
 </ul>
 <p>Interpretation of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>: see <a href="simple-linear-regression.html#exercise3_simpl_lin_reg">exercise 3</a>.</p>
-<p>Let’s use R again to solve the problem:</p>
+<p>Let’s <strong>use R again to solve the problem</strong>:</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simple-linear-regression.html#cb63-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
 <span id="cb63-2"><a href="simple-linear-regression.html#cb63-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
 <span id="cb63-3"><a href="simple-linear-regression.html#cb63-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
@@ -648,8 +648,8 @@ the model-predicted heights in order to find <span class="math inline">\(\beta_0
 <ul>
 <li><code>Call</code>: The model that was fitted.</li>
 <li><code>Residuals</code>: <span class="math inline">\(r_i = height_i - \widehat{height}_i\)</span>.
-Difference between true heights and model-predicted heights.</li>
-<li><code>Coefficients</code>: The estimated <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.
+Differences between true heights and model-predicted heights.</li>
+<li><code>Coefficients</code>: Estimated for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. We call them <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>.
 <ul>
 <li><code>Estimate</code>: The (least squares) estimated value of the coefficient.</li>
 <li><code>Std. Error</code>: The standard error of the estimate.</li>
@@ -665,10 +665,10 @@ model (we will explain this below).</li>
 the number of predictors in the model.</li>
 <li><code>F-statistic</code>: The value of the <span class="math inline">\(F\)</span>-statistic for the hypothesis test:
 <span class="math inline">\(H_0: \beta_1 = \beta_2 = \dots = \beta_k = 0\)</span>. Note, the alternative
-hypotheses to this test is that <em>any</em> of the <span class="math inline">\(\beta_i\)</span> is not zero. If that Is
+hypotheses to this test is that <em>any</em> of the <span class="math inline">\(\beta_i\)</span> is not zero. If that is
 the case, the model explains more than the mean model with just <span class="math inline">\(\beta_0\)</span>.</li>
 </ul>
-<p>We could also <strong>solve the problem graphically</strong>: We want to find the
+<p>We could also <strong>solve the least squares problem graphically</strong>: We want to find the
 values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> that minimize the sum of squared differences
 which can be plotted as 3D function. All we have to do is to ask R which of
 the coordinates minimizes the sum of squared errors. The result confirmes
@@ -677,7 +677,7 @@ the results from the <code>lm</code> function.The dot in red marks the spot (Cod
 </div>
 <div id="analysis_of_variance" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> ANOVA (Analysis of Variance)<a href="simple-linear-regression.html#analysis_of_variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A non-obvious and very useful finding is that the total variability in the data can be
+<p>A non-obvious and very useful finding is that the total variability in the data (our heights) can be
 <strong>decomposed</strong> (or <a href="https://en.wiktionary.org/wiki/analysis">analysed</a>)
 into two parts:</p>
 <ul>
@@ -686,13 +686,20 @@ into two parts:</p>
 </ul>
 <p><span class="math display">\[ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} \]</span></p>
 <p><span class="math display">\[ SST = SSR + SSE \]</span></p>
-<p><span class="math display">\[ \sum (y_i - \bar{y})^2 = \sum (\hat{y}_i - \bar{y})^2 + \sum (y_i - \hat{y}_i)^2 \]</span></p>
+<p><span class="math display">\[ \sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]</span></p>
 <p>If you are interested in the details, check out <a href="https://en.wikipedia.org/wiki/Explained_sum_of_squares#Partitioning_in_the_general_ordinary_least_squares_model">this</a>.</p>
 <p><a href="https://www.youtube.com/watch?v=NxRTs7sXKAQ&amp;ab_channel=365DataScience">This video</a>
 explains the concept nicely.</p>
 <p>Let’s visualize our regression result:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>The plot is rather self-explanatory. The blue dotted line is the distance from
+the mean to the point (total variance), the red dotted line is the distance from
+the mean to the regression line (explained variance) and the green dotted line
+is the distance from the regression line to the point (unexplained variance).
+One sees that it adds up. I find this fact quite fascinating.
+One finds additivity by considering not determinisic values, but variances.
+Thank you <a href="https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.">Ronald Fisher</a>.</p>
 </div>
 <div id="r2---coefficient-of-determination" class="section level3 hasAnchor" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> <span class="math inline">\(R^2\)</span> - Coefficient of Determination<a href="simple-linear-regression.html#r2---coefficient-of-determination" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -733,9 +740,20 @@ height if we use the 10% and 90% quantile of the weights (x_low and x_high).
 In both, you see the conditional distribution of height given the weight <span class="math inline">\(X = x_{low}\)</span> or <span class="math inline">\(X = x_{high}\)</span>.
 Scenario 1 is the original model, scenario 2 is the same data with added noise (in Y-direction),
 which reduces <span class="math inline">\(R^2\)</span> to <span class="math inline">\(0.13\)</span>, much lower. In the right plot, the distributions have a large
-overlap and it is hard to distinguish between heights when knowing even very low (10% quantile)
-or very high (90% quantile) weights.</p>
+overlap and it is hard to distinguish between weights when seeing the height.
+With a very low <span class="math inline">\(R^2\)</span>, the height prediction does not really change and we could just as well
+use the mean model.</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p>In the left plot, given <span class="math inline">\(X = x_{low}\)</span> gives as a rather shifted normal distribution of
+potentially observable heights for this weight compared to <span class="math inline">\(X=x_{high}\)</span>.
+We would have a lower missclassification error when trying to distinguish weights
+of very light and very heavy people in the sample just by seeing the height.
+You can think of an even more extreme separation of these distributions,
+which would happen, when <span class="math inline">\(R^2\)</span> is very high or the true slope is much higher.
+Then it would be trivial to distinguish between the two groups (light versus heavy people).
+We could then just introduce a cutoff value and classify people accordingly.
+Every person above the cutoff value for height (maybe 160 cm) would be classified
+as “heavy” (top 10% weight) and every person below as “light” (bottom 10% weight).</p>
 <p>See also <a href="simple-linear-regression.html#exercise5_simpl_lin_reg">exercise 5</a>.</p>
 </div>
 </div>
