@@ -469,6 +469,12 @@ Here, we do not use any prior knowledge, at least not that explicitely.
 The classical approach to fit a regression line is the so-called 
 **[least squares method](https://en.wikipedia.org/wiki/Least_squares)**.
 
+There are hundreds of [videos online](https://www.youtube.com/results?search_query=linear+regression) 
+explaining this method in great detail
+with animations. Maybe watch these videos, when we add a predictor to the mean model,
+since most of instructional videos start at the simple linear regression using 
+two parameters (intercept ($\beta_0$ or $\alpha$) and slope ($\beta_1$)).
+
 The **(simple mean-) model** is:
 
 $$ Y_i = height_i = c + \varepsilon_i $$
@@ -476,7 +482,7 @@ $$ Y_i = height_i = c + \varepsilon_i $$
 - for some $c \in \mathbb{R}$ and
 - normally distributed errors $\varepsilon_i \sim \text{Normal}(0, \sigma)$.
 
-These are on average zero and have a constant standard deviation of $\sigma$.
+The errors $\varepsilon_i$ are on average zero and have a constant standard deviation of $\sigma$.
 So, we assume there is a fixed, but unknown, constant $c$ that we want to estimate and we 
 assume that there is a special sort of error in our model that is normally distributed.
 Sometimes there is a large deviation from the true $c$, sometimes there is a small deviation.
@@ -519,7 +525,6 @@ $$ = -2 \sum_{i=1}^{n} (height_i - c)$$
 This should be zero for the minimum:
 $$ -2 \sum_{i=1}^{n} (height_i - c) = 0$$
 $$ \sum_{i=1}^{n} (height_i - c) = 0$$
-$$ \sum_{i=1}^{n} (height_i - c) = 0$$
 $$ \sum_{i=1}^{n} height_i - n \cdot c = 0$$
 $$ \hat{c} = \frac{1}{n} \sum_{i=1}^{n} height_i = \overline{height_i}$$
 
@@ -543,7 +548,7 @@ mean(d2$height) / (sd(d2$height) / sqrt(nrow(d2)))
 sqrt(sum(mod$residuals^2) / (nrow(d2) - 1))
 ```
 
-the `~1` means that there is just a so-called **intercept** in the model.
+The `~1` means that there is just a so-called **intercept** in the model.
 There are **no covariates**, just the constant $c$.
 This is the simplest we can do. `lm` stands for linear model and with this base 
 command in R we ask the software to do the least squares estimation for us.
@@ -606,17 +611,28 @@ data.frame(height_i = 1:nrow(d2), height = d2$height) %>% # nolint: seq_linter.
 
 ```
 
-Above, the heights are plotted against the index of the observation.
+Above, the heights are plotted against the index of the observation (the order does not matter).
 The variability of heights around the regression line (constant in this case) seems to 
-stay constant, which is a good sign. We will call this **homoscedasticity** later.
-The dashed vertical red lines show two residuals, the difference between the actual height
+stay constant, which is a good sign. We will call this 
+[**homoscedasticity**](https://en.wikipedia.org/wiki/Homoscedasticity_and_heteroscedasticity) later.
+The dashed vertical red lines show two residuals (one $>0$, the other $<0$), the difference between the actual height
 and the estimated height. The model-estimated heights ($\widehat{heights_i}$) 
 are all identical and nothing but the mean of all heights.
 
 Peter Westfall explains in his excellent book a conditional distribution 
 approach to regression. I highly recommend reading the first chapters.
 
-What does this mean in this context?
+**What does this mean in this context?**
+This means, that for every fixed value of the predictor (which we formally do not have),
+the distribution of the response is normal with mean $\hat{c}$ and standard deviation $\sigma$.
+Since, we do not have a predictor, we can say, that the distribution of the heights is normal with mean $\hat{c}$
+and standard deviation $\sigma$. This is what we assumed in the model. It can also directly seen
+in the formula:
+
+$$ height_i = c + \varepsilon_i $$
+
+If you add a normally distributed random variable ($\varepsilon_i$) to a constant ($c$), 
+the result is a normally distributed. No surprise here.
 
 
 ## Exercises
@@ -625,11 +641,14 @@ What does this mean in this context?
 
 Use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) data to 
 determine 
+
 - the 95% "Vertrauensintervall" for $\mu$ and
 - calculate the standard deviation of the heights from $21,873$ Swiss people.
+- Read the definition of the confidence interval in the footer of the table and
+  explain why this is correct.
 
 ### [E] Exercise 2 {#exercise2_Intro}
-Why do we not need a hypothesis test to know that the population mean of body heights is not zero?
+Why do we **not** need a hypothesis test to know that the population mean of body heights is not zero?
 Give 2 reasons.
 
 ### [M] Exercise 3 {#exercise3_Intro}
@@ -637,7 +656,7 @@ Verify analytically that the `Residual standard error` is identical with
 the sample standard deviation of the heights.
 
 ### [M] Exercise 4 {#exercise4_Intro}
-Repeat the estimation of the simple model using a different data set about 
+Repeat the Bayesian and frequentist estimation of the simple model using a different data set about 
 [chicken weights](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html),
 which is included in R.
 
@@ -657,8 +676,8 @@ also helps.
 The bivariate normal distribution is a generalization of the normal distribution to two dimensions.
 Now, we look at the distribution of two random variables $X$ and $Y$ **at the same time**.
 
-Instead of one Gaussian bell curve, we have a 
-[3D bell curve](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#/media/File:Multivariate_Gaussian.png).
+Instead of one Gaussian curve, we have a 
+[3D curve](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#/media/File:Multivariate_Gaussian.png).
 This curve defines how plausible different combinations of $X$ and $Y$ are.
 
 Single points (like (3,6)) still have probability zero, because now the **volume** over a single point
@@ -721,3 +740,58 @@ through the plot in $X=0$ or $Y=0$, you see the same form of normal distribution
 If you look at if from above, we have hihglighted the section on the surface
 over the area $X \in [0.5, 2]$ and $Y \in [0.5, 2]$. The volume over this area
 under the density curve is the probability of this area: $P(X \in [0.5, 2] \text{ and } Y \in [0.5, 2])$
+
+Calculate with R this probability with R:
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+# Load the mvtnorm package
+library(mvtnorm)
+
+# Define the parameters of the bivariate normal distribution
+mu <- c(0, 0)                       # Mean
+sigma <- matrix(c(0.75, 0.5, 0.5, 0.75), ncol = 2) # Covariance matrix
+
+# Define the bounds of the square
+highlight_x <- c(0.5, 2)
+highlight_y <- c(0.5, 2)
+# Calculate the probability using pmvnorm
+pmvnorm(
+  lower = c(highlight_x[1], highlight_y[1]),
+  upper = c(highlight_x[2], highlight_y[2]),
+  mean = mu,
+  sigma = sigma
+)
+```
+
+Since we do not believe everything we are told, we rather check via simulation,
+if $0.1526$ is a plausible value for the probability:
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+# Load necessary library
+library(MASS)
+
+# Define the parameters of the bivariate normal distribution
+mu <- c(0, 0)                       # Mean
+sigma <- matrix(c(0.75, 0.5, 0.5, 0.75), ncol = 2) # Covariance matrix
+
+# Define the bounds of the square
+highlight_x <- c(0.5, 2)
+highlight_y <- c(0.5, 2)
+
+# Number of simulations
+n_sim <- 10^3
+
+# Simulate bivariate normal samples
+samples <- mvrnorm(n = n_sim, mu = mu, Sigma = sigma)
+
+# Count how many samples fall within the square
+inside_square <- sum(
+  samples[, 1] >= highlight_x[1] & samples[, 1] <= highlight_x[2] &
+  samples[, 2] >= highlight_y[1] & samples[, 2] <= highlight_y[2]
+)
+
+# Estimate the probability
+inside_square / n_sim
+```
+
+Looks good.
