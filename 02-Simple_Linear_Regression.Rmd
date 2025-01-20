@@ -10,7 +10,7 @@ So far, our "regression" did not do much to be honest. The mean of a list of val
 was already calculated in the [descriptive statistics section](https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html) 
 before and we have mentioned how great this statistic is as measure of location and where its weaknesses are.
 
-Now, we want to model how body height and weight are related.
+Now, we want to model **how** body height and weight are **related**.
 Formally, one wants to *predict* body heights from body weights.
 
 Here and in the frequentist framework, we will see that it is **not the same**
@@ -20,7 +20,16 @@ problem (and therefore results in a different statistical model)
 The word "predictor" is important here. It is a technical term
 and describes a variable that we know (in our case weight) and with 
 which we want to "guess as good as possible" the value of the 
-dependent variable (in our case height).
+dependent variable (in our case height). "As good as possible"
+means that we put a penalty on an error. The farer our prediction
+is aways from the true value ($y_i$), the higher the penalty.
+And not only that, but if you are twice as far away from the true value,
+you should be penalized four times as much. This is the idea behind
+the squared error [loss function](https://en.wikipedia.org/wiki/Loss_function) 
+and the core of the least squares method.
+What if we would punish differently you ask?
+There are many loss functions one could use, maybe we will see some
+later. For now, we punish quadratically.
 
 We **always** visualize the data first to improve our understanding.
 
@@ -28,8 +37,10 @@ We **always** visualize the data first to improve our understanding.
 plot(d2$height ~ d2$weight)
 ```
 
+It's not often, that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
-The higher the weight, the higher the height; with some deviations of course.
+The higher the weight, the higher the height; with some deviations of course and
+we decide that normally distributed errors are a good idea.
 This relationsip is neither causal, not deterministic.
 
 - It is not causal since an increase in weight does not 
@@ -84,9 +95,9 @@ One starts at the top and ends up with the heights.
 
 - $h_i$ is the height of the $i$-th person and we assume it is normally distributed.
 - $\mu_i$ is the mean of the height of the $i$-th person and we 
-  assume it is normally distributed. Compared to the intercept model, 
-  a different mean is assumed for each person. **The mean $\mu_i$ is linearly
-  dependent on the weight** of the $i$-th person (second line). 
+  assume it is linearly dependent on the difference $x_i-\bar{x}$. 
+  Compared to the intercept model, a different mean is assumed for each person
+  depending on his/her weight. 
 - $\alpha$ is the intercept and we use the same prior as before.
 - $\beta$ is the slope of the line and we use the normal distribution as prior for it,
   hence it can be positive or negative and how plausible each value is, is
