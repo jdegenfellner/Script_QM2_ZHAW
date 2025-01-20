@@ -204,6 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise3_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.3</b> [M] Exercise 3</a></li>
 <li class="chapter" data-level="3.3.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise4_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.4</b> [M] Exercise 4</a></li>
 <li class="chapter" data-level="3.3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise5_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.5</b> [M] Exercise 5</a></li>
+<li class="chapter" data-level="3.3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise6_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.6</b> [H] #Exercise 6</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -281,8 +282,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-aaf4be02e766ebeeecc2" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-aaf4be02e766ebeeecc2">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-cd024cfab443b631f0f2" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-cd024cfab443b631f0f2">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -306,9 +307,12 @@ reason is probably the rather straightforward interpretation of the coefficients
 </div>
 <div id="priors" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> Priors<a href="simple-linear-regression.html#priors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We want to plot our priors to get a feeling what
-the model would predict without seeing the data.
-This is a kind of “sanity check” to see if the priors are reasonable.</p>
+<p>We want to plot our priors to get a feeling <strong>what
+the model would predict without seeing the data</strong>.
+This is a kind of “sanity check” to see if the priors are reasonable.
+Again, we just draw from the assumed distributions for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
+100 times and draw the corresponding lines. Just as the model
+definition says.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="simple-linear-regression.html#cb42-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2971</span>)</span>
 <span id="cb42-2"><a href="simple-linear-regression.html#cb42-2" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># 100 lines</span></span>
 <span id="cb42-3"><a href="simple-linear-regression.html#cb42-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="fl">171.1</span>, <span class="dv">20</span>)</span>
@@ -330,7 +334,8 @@ This is a kind of “sanity check” to see if the priors are reasonable.</p>
 <span id="cb42-19"><a href="simple-linear-regression.html#cb42-19" tabindex="-1"></a>        <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.2</span>))</span>
 <span id="cb42-20"><a href="simple-linear-regression.html#cb42-20" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>This relationship seems rather non-restrictive. According to our priors,
+<p>This linear relationship defined with the chosen priors seems rather
+non-restrictive. According to our priors,
 one could see very steeply rising or falling lines. We could at least make
 the priors for the slope (<span class="math inline">\(\beta\)</span>) non-negative. One possibility to do this
 is to use a <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">log-normal distribution</a>
@@ -390,21 +395,21 @@ for the prior of <span class="math inline">\(\beta\)</span> which can only take 
 <p>See <a href="simple-linear-regression.html#exercise2_simpl_lin_reg">exercise 2</a>.</p>
 <p><strong>Interpretation of <span class="math inline">\(\beta\)</span></strong>:
 The mean of the posterior distribution of <span class="math inline">\(\beta\)</span> is 0.9. A person with a weight
-of 1 kg more weight can be expected to be 0.9 cm taller. A 96% credible interval
+of 1 kg more weight can be expected to be 0.9 cm taller. A 89% credible interval
 for this estimate is <span class="math inline">\([0.83, 0.97]\)</span>. We can be quite sure that the slope is
-positive.</p>
+positive (of course we designed it that way too via the prior).</p>
 <p>It might also be interesting to inspect the variance-covariance matrix,
 respectively the correlation between the parameters as we did before
 in the intercept model.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="simple-linear-regression.html#cb47-1" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">vcov</span>(mod))</span></code></pre></div>
 <pre><code>##           a           b       sigma 
 ## 0.073078550 0.001757918 0.036539558</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="simple-linear-regression.html#cb49-1" tabindex="-1"></a><span class="fu">cov2cor</span>(<span class="fu">vcov</span>(mod))</span></code></pre></div>
-<pre><code>##                   a             b         sigma
-## a      1.000000e+00 -9.591866e-10  3.330963e-05
-## b     -9.591866e-10  1.000000e+00 -2.879607e-05
-## sigma  3.330963e-05 -2.879607e-05  1.000000e+00</code></pre>
-<p>As we can see the correlations are near zero. Compare to the graphical
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="simple-linear-regression.html#cb49-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov2cor</span>(<span class="fu">vcov</span>(mod)),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##       a b sigma
+## a     1 0     0
+## b     0 1     0
+## sigma 0 0     1</code></pre>
+<p>As we can see the correlations are (near) zero. Compare to the graphical
 display of the model structure. There is no connection.</p>
 </div>
 <div id="result" class="section level3 hasAnchor" number="3.1.4">
@@ -480,7 +485,7 @@ around the mean (at a certain weight). We do this with <code>sim</code>.</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>The lighter and wider shaded region is where the model expects to find 89%
 of the heights of a person with a certain weight.</p>
-<p>This part is sometimes a bit desillusioning when seen for the first time:
+<p>This part is <strong>sometimes a bit desillusioning</strong> when seen for the first time:
 Draw a horizontal line at 150 cm and see how many weights (according to
 the individual prediction) are compatible with this height. Weights
 from 30 to 50 kg are compatible with this height according to the
@@ -488,6 +493,10 @@ from 30 to 50 kg are compatible with this height according to the
 the wider the range of compatible weights (more than 60% of the weight-range).</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="simple-linear-regression.html#cb59-1" tabindex="-1"></a>(<span class="dv">50</span> <span class="sc">-</span> <span class="dv">30</span>) <span class="sc">/</span> (<span class="fu">range</span>(d2<span class="sc">$</span>weight)[<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight)[<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## [1] 0.6265362</code></pre>
+<p>On the other hand: We did not model the relationship this ways.
+We modeled height depending on weight and not the other way around.
+In the next chapter, we will regress weight on height (yes, this is the correct order)
+and see what changes.</p>
 </div>
 <div id="summary" class="section level3 hasAnchor" number="3.1.6">
 <h3><span class="header-section-number">3.1.6</span> Summary<a href="simple-linear-regression.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -516,8 +525,8 @@ I recommend reading the first couple of chapters from <a href="https://www.routl
 <li><span class="math inline">\(\beta_0\)</span> is the unknown but fixed intercept</li>
 <li><span class="math inline">\(\beta_1\)</span> is the unknown but fixed slope</li>
 </ul>
-<div id="model-assumptions-of-the-classical-regression-model-westfall-1.7" class="section level4 hasAnchor" number="3.2.1.1">
-<h4><span class="header-section-number">3.2.1.1</span> Model Assumptions of the Classical Regression Model (<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a>, 1.7):<a href="simple-linear-regression.html#model-assumptions-of-the-classical-regression-model-westfall-1.7" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="id__model_assumptions" class="section level4 hasAnchor" number="3.2.1.1">
+<h4><span class="header-section-number">3.2.1.1</span> Model Assumptions of the Classical Regression Model (<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a>, 1.7):<a href="simple-linear-regression.html#id__model_assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The first and <strong>most important assumption</strong> is that the data are produced<br />
 probabilistically, which is specifically stated as
 <span class="math display">\[ Y|X = x \sim p(y|x)\]</span></p>
@@ -531,25 +540,47 @@ In our case above this was the normal distribution with mean <span class="math i
 </ul>
 <p>You can play with <a href="https://psychmeth.shinyapps.io/Regression-NVFehler/">this shiny app</a> to improve your understanding.
 It offers the option “Bedingte Verteilung anzeigen”.</p>
-<p>One always things about the so-called
+<p>One always thinks about the so-called
 <a href="https://en.wikipedia.org/wiki/Data_generating_process">data generating process</a>
 (<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a>, 1.2).
 How did the data come about? There is a process behind it and this process
 is attempted to be modeled.</p>
-<p>Further assumptions:</p>
+<p><strong>Further assumptions</strong>:</p>
 <ul>
 <li><p>Correct functional specification: The conditional mean function <span class="math inline">\(f(x) = \mathbb{E}(Y|X=x)\)</span>.
 In the case of the linear model, the assumption is <span class="math inline">\(\mathbb{E}(Y|X=x) = \alpha + \beta x\)</span>.
-The expectation of <span class="math inline">\(Y\)</span> (height) depends linearly on <span class="math inline">\(x\)</span> (weight).</p></li>
+The <strong>expectation</strong> of <span class="math inline">\(Y\)</span> (height) depends linearly on <span class="math inline">\(x\)</span> (weight).
+This assumption is violated when the true relationship is not linear or the
+data at least suggest that it is not linear, like <a href="https://www.alexanderdemos.org/Class5_files/figure-html/unnamed-chunk-2-1.png">here</a>.</p></li>
 <li><p>The errors are homoscedastic (constant variance <span class="math inline">\(\sigma\)</span>). This means the
-variances of all conditional distributions <span class="math inline">\(p(y|x)\)</span> are constant (<span class="math inline">\(=\sigma^2\)</span>).</p></li>
+variances of all conditional distributions <span class="math inline">\(p(y|x)\)</span> are constant (<span class="math inline">\(=\sigma^2\)</span>).
+This assumption is violated if points are <a href="https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png">spreading out more and more
+around the regression line</a>,
+indicating that the errors are getting larger.</p></li>
 <li><p>Normality. For the classical linear regression model all the conditional
-distributions <span class="math inline">\(p(y|x)\)</span> are normal distributions.</p></li>
+distributions <span class="math inline">\(p(y|x)\)</span> are normal distributions. It could well be, that
+the errors are not nicely normally distributed around the regression line,
+for instance if we have a lot of outliers upwards and the distribution
+is skewed, like <a href="https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html">here</a>.</p></li>
 <li><p>The errors are independent of each other.
 The potentially observable <span class="math inline">\(\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})\)</span>
 is uncorrelated with <span class="math inline">\(\varepsilon_j = Y_j - f(\mathbf{x_j}, \mathbf{\beta})\)</span> for
-<span class="math inline">\(i \neq j\)</span>.</p></li>
+<span class="math inline">\(i \neq j\)</span>. This assumption is violated if the errors are correlated,
+here is an example: The true data comes from a sine curve and we estimate a
+linear model (green), which does not fit the data well (left plot).
+The residuals plot shows clear patterns (right plot) and indicates
+that the errors are correlated. Specifically, the errors around <span class="math inline">\(x=2\)</span> and <span class="math inline">\(x=4\)</span>
+are negatively correlated (see <a href="simple-linear-regression.html#exercise6_simpl_lin_reg">exercise 6</a>).</p></li>
 </ul>
+<pre><code>## 
+## Attaching package: &#39;patchwork&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     area</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p>In the case above, the errors are <strong>not conditionally independent</strong>.
+If we condition on <span class="math inline">\(X=2\)</span> and <span class="math inline">\(X=4.5\)</span>, the errors are correlated (<span class="math inline">\(r \sim -0.3\)</span>),
+which they should not be.</p>
 <p>These assumptions become clearer as we go along and should be checked
 for every model we fit. They are not connected, they can all be true or false.
 The question is not “Are the assumptions met?” since they never are exactly met.
@@ -583,12 +614,12 @@ the model-predicted heights in order to find <span class="math inline">\(\beta_0
 </ul>
 <p>Interpretation of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>: see <a href="simple-linear-regression.html#exercise3_simpl_lin_reg">exercise 3</a>.</p>
 <p>Let’s use R again to solve the problem:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="simple-linear-regression.html#cb61-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb61-2"><a href="simple-linear-regression.html#cb61-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
-<span id="cb61-3"><a href="simple-linear-regression.html#cb61-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
-<span id="cb61-4"><a href="simple-linear-regression.html#cb61-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
-<span id="cb61-5"><a href="simple-linear-regression.html#cb61-5" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
-<span id="cb61-6"><a href="simple-linear-regression.html#cb61-6" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simple-linear-regression.html#cb63-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb63-2"><a href="simple-linear-regression.html#cb63-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb63-3"><a href="simple-linear-regression.html#cb63-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb63-4"><a href="simple-linear-regression.html#cb63-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
+<span id="cb63-5"><a href="simple-linear-regression.html#cb63-5" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
+<span id="cb63-6"><a href="simple-linear-regression.html#cb63-6" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = height ~ weight, data = d2)
@@ -655,7 +686,7 @@ into two parts:</p>
 explains the concept nicely.</p>
 <p>Let’s visualize our regression result:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 </div>
 <div id="r2---coefficient-of-determination" class="section level3 hasAnchor" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> <span class="math inline">\(R^2\)</span> - Coefficient of Determination<a href="simple-linear-regression.html#r2---coefficient-of-determination" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -698,7 +729,7 @@ Scenario 1 is the original model, scenario 2 is the same data with added noise (
 which reduces <span class="math inline">\(R^2\)</span> to <span class="math inline">\(0.13\)</span>, much lower. In the right plot, the distributions have a large
 overlap and it is hard to distinguish between heights when knowing even very low (10% quantile)
 or very high (90% quantile) weights.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>See also <a href="simple-linear-regression.html#exercise5_simpl_lin_reg">exercise 5</a>.</p>
 </div>
 </div>
@@ -710,6 +741,8 @@ or very high (90% quantile) weights.</p>
 <li>random X vs fixed X</li>
 <li>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)
 <span class="math inline">\(R^2\)</span>. We will verify this when we have more than 2 explanatory variables.</li>
+<li>Regress weight on height and study changes</li>
+<li>Regression towards the mean</li>
 </ul>
 </div>
 </div>
@@ -758,6 +791,14 @@ to <span class="math inline">\(\beta_1\)</span>?</li>
 <h3><span class="header-section-number">3.3.5</span> [M] Exercise 5<a href="simple-linear-regression.html#exercise5_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Verify with simulation in R that the separation of the distributions in the simple linear regression model
 improves if the true (but usually unknown) slope increases.</p>
+</div>
+<div id="exercise6_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.6">
+<h3><span class="header-section-number">3.3.6</span> [H] #Exercise 6<a href="simple-linear-regression.html#exercise6_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Go to the model assumptions in the classical regression model (<a href="simple-linear-regression.html#id__model_assumptions">Model Assumptions</a>).
+- Use the code from <a href="https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd">github</a>
+to recreate the regression model with the sine-curve.
+- Check the independence assumption as described. Look at the residuals, when <span class="math inline">\(X=2\)</span> and <span class="math inline">\(X=4.5\)</span>.
+You can get those by filtering residuals that are <span class="math inline">\(&gt;0.5\)</span> and <span class="math inline">\(&lt;0.5\)</span>.</p>
 
 </div>
 </div>

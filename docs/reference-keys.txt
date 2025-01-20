@@ -25,7 +25,7 @@ credible-bands
 summary
 simple-linear-regression-in-the-frequentist-framework
 model-definition-1
-model-assumptions-of-the-classical-regression-model-westfall-1.7
+id__model_assumptions
 fit_model_simple_lin_reg_classic
 analysis_of_variance
 r2---coefficient-of-determination
@@ -37,3 +37,4 @@ exercise2_simpl_lin_reg
 exercise3_simpl_lin_reg
 exercise4_simpl_lin_reg
 exercise5_simpl_lin_reg
+exercise6_simpl_lin_reg

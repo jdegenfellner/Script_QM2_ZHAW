@@ -112,9 +112,12 @@ reason is probably the rather straightforward interpretation of the coefficients
 
 ### Priors
 
-We want to plot our priors to get a feeling what 
-the model would predict without seeing the data.
+We want to plot our priors to get a feeling **what 
+the model would predict without seeing the data**.
 This is a kind of "sanity check" to see if the priors are reasonable.
+Again, we just draw from the assumed distributions for $\alpha$ and $\beta$
+100 times and draw the corresponding lines. Just as the model 
+definition says.
 
 ```{r}
 set.seed(2971)
@@ -139,7 +142,8 @@ for (i in 1:N) {
 }
 ```
 
-This relationship seems rather non-restrictive. According to our priors,
+This linear relationship defined with the chosen priors seems rather 
+non-restrictive. According to our priors,
 one could see very steeply rising or falling lines. We could at least make 
 the priors for the slope ($\beta$) non-negative. One possibility to do this 
 is to use a [log-normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) 
@@ -210,9 +214,9 @@ See [exercise 2](#exercise2_simpl_lin_reg).
 
 **Interpretation of $\beta$**:
 The mean of the posterior distribution of $\beta$ is 0.9. A person with a weight
-of 1 kg more weight can be expected to be 0.9 cm taller. A 96% credible interval
+of 1 kg more weight can be expected to be 0.9 cm taller. A 89% credible interval
 for this estimate is $[0.83, 0.97]$. We can be quite sure that the slope is 
-positive. 
+positive (of course we designed it that way too via the prior). 
 
 It might also be interesting to inspect the variance-covariance matrix, 
 respectively the correlation between the parameters as we did before
@@ -220,10 +224,10 @@ in the intercept model.
 
 ```{r}
 diag(vcov(mod))
-cov2cor(vcov(mod))
+round(cov2cor(vcov(mod)),2)
 ```
 
-As we can see the correlations are near zero. Compare to the graphical
+As we can see the correlations are (near) zero. Compare to the graphical
 display of the model structure. There is no connection.
 
 ### Result
@@ -313,7 +317,7 @@ shade(height.PI, weight.seq)
 The lighter and wider shaded region is where the model expects to find 89%
 of the heights of a person with a certain weight. 
 
-This part is sometimes a bit desillusioning when seen for the first time:
+This part is **sometimes a bit desillusioning** when seen for the first time:
 Draw a horizontal line at 150 cm and see how many weights (according to 
 the individual prediction) are compatible with this height. Weights 
 from 30 to 50 kg are compatible with this height according to the 
@@ -323,6 +327,11 @@ the wider the range of compatible weights (more than 60% of the weight-range).
 ```{r}
 (50 - 30) / (range(d2$weight)[2] - range(d2$weight)[1])
 ```
+
+On the other hand: We did not model the relationship this ways.
+We modeled height depending on weight and not the other way around. 
+In the next chapter, we will regress weight on height (yes, this is the correct order)
+and see what changes.
 
 ### Summary
 
@@ -352,7 +361,7 @@ where
 - $\beta_0$ is the unknown but fixed intercept
 - $\beta_1$ is the unknown but fixed slope
 
-#### Model Assumptions of the Classical Regression Model ([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), 1.7):
+#### Model Assumptions of the Classical Regression Model ([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), 1.7): {#_model_assumptions}
 
 The first and **most important assumption** is that the data are produced  
 probabilistically, which is specifically stated as
@@ -369,28 +378,89 @@ What does this mean?
 You can play with [this shiny app](https://psychmeth.shinyapps.io/Regression-NVFehler/) to improve your understanding.
 It offers the option "Bedingte Verteilung anzeigen".
 
-One always things about the so-called
+One always thinks about the so-called
 [data generating process](https://en.wikipedia.org/wiki/Data_generating_process) 
 ([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), 1.2).
 How did the data come about? There is a process behind it and this process
 is attempted to be modeled.
 
-Further assumptions:
+**Further assumptions**:
 
 - Correct functional specification: The conditional mean function $f(x) = \mathbb{E}(Y|X=x)$.
   In the case of the linear model, the assumption is $\mathbb{E}(Y|X=x) = \alpha + \beta x$. 
-  The expectation of $Y$ (height) depends linearly on $x$ (weight).
+  The **expectation** of $Y$ (height) depends linearly on $x$ (weight).
+  This assumption is violated when the true relationship is not linear or the
+  data at least suggest that it is not linear, like [here](https://www.alexanderdemos.org/Class5_files/figure-html/unnamed-chunk-2-1.png).
 
 - The errors are homoscedastic (constant variance $\sigma$). This means the
-variances of all conditional distributions $p(y|x)$ are constant ($=\sigma^2$).
+  variances of all conditional distributions $p(y|x)$ are constant ($=\sigma^2$).
+  This assumption is violated if points are [spreading out more and more
+  around the regression line](https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png), 
+  indicating that the errors are getting larger.
 
 - Normality. For the classical linear regression model all the conditional
-  distributions $p(y|x)$ are normal distributions.
+  distributions $p(y|x)$ are normal distributions. It could well be, that
+  the errors are not nicely normally distributed around the regression line,
+  for instance if we have a lot of outliers upwards and the distribution 
+  is skewed, like [here](https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html).
 
 - The errors are independent of each other. 
   The potentially observable $\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})$
   is uncorrelated with $\varepsilon_j = Y_j - f(\mathbf{x_j}, \mathbf{\beta})$ for 
-  $i \neq j$.
+  $i \neq j$. This assumption is violated if the errors are correlated,
+  here is an example: The true data comes from a sine curve and we estimate a 
+  linear model (green), which does not fit the data well (left plot).
+  The residuals plot shows clear patterns (right plot) and indicates
+  that the errors are correlated. Specifically, the errors around $x=2$ and $x=4$ 
+  are negatively correlated (see [exercise 6](#exercise6_simpl_lin_reg)).
+```{r, echo=FALSE, warning=FALSE}
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate data from a sine function
+x <- seq(0, 2 * pi, length.out = 100)       # Predictor variable
+true_y <- sin(x)                            # True values based on sine function
+
+# Add noise to simulate observed data
+noise <- rnorm(length(x), mean = 0, sd = 0.2)
+observed_y <- true_y + noise                # Observed response variable
+
+# Perform a simple linear regression with intercept
+linear_model <- lm(observed_y ~ x)
+
+# Display summary of the model
+#summary(linear_model)
+
+# Load necessary libraries
+library(ggplot2)
+library(patchwork)
+
+# Create the first plot: Observed data and linear regression fit
+plot1 <- ggplot(data = data.frame(x, observed_y, true_y), aes(x = x)) +
+  geom_point(aes(y = observed_y), color = "blue", size = 2) +
+  geom_line(aes(y = true_y), color = "red",
+            linetype = "dashed", linewidth = 1) +
+  geom_abline(intercept = coef(linear_model)[1], slope = coef(linear_model)[2],
+              color = "green", linewidth = 1) +
+  labs(title = "Sine Data with Linear Regression", x = "x", y = "Observed y") +
+  theme_minimal()
+
+# Create the second plot: Residuals
+plot2 <- ggplot(data = data.frame(x, residuals = residuals(linear_model)),
+                aes(x = x, y = residuals)) +
+  geom_point(color = "blue", size = 2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs. x", x = "x", y = "Residuals") +
+  theme_minimal()
+
+# Arrange the plots side by side using patchwork
+plot1 + plot2
+```
+
+In the case above, the errors are **not conditionally independent**.
+If we condition on $X=2$ and $X=4.5$, the errors are correlated ($r \sim -0.3$),
+which they should not be.
 
 These assumptions become clearer as we go along and should be checked 
 for every model we fit. They are not connected, they can all be true or false.
@@ -790,7 +860,8 @@ See also [exercise 5](#exercise5_simpl_lin_reg).
 - random X vs fixed X
 - If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
 $R^2$. We will verify this when we have more than 2 explanatory variables. 
-
+- Regress weight on height and study changes
+- Regression towards the mean
 
 
 
@@ -838,3 +909,11 @@ Verify the statement above in the text for high and low values of $R^2$.
 
 Verify with simulation in R that the separation of the distributions in the simple linear regression model
 improves if the true (but usually unknown) slope increases.
+
+### [H] #Exercise 6 {#exercise6_simpl_lin_reg}
+
+Go to the model assumptions in the classical regression model ([Model Assumptions](#_model_assumptions)).
+- Use the code from [github](https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd) 
+  to recreate the regression model with the sine-curve.
+- Check the independence assumption as described. Look at the residuals, when $X=2$ and $X=4.5$. 
+  You can get those by filtering residuals that are $>0.5$ and $<0.5$.
