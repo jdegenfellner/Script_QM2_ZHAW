@@ -187,7 +187,7 @@ We want to **start building our first model** right away.
 Let's begin with the example in 
 [Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
 using data from the [!Kung San](https://en.wikipedia.org/wiki/%C7%83Kung_people) 
-people starting on page 79.
+people.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 library(rethinking)
@@ -237,8 +237,10 @@ h_i \sim \text{Normal}(\mu, \sigma)
 standard deviation. As our current knowledge about the mean height, we use 
 a prior distribution for the mean (we do not know but want to estimate) by 
 assuming the mean of a population we know and a standard deviation of $20$ cm which
-allows are rather large range of possible values for $\mu$.
-$\sigma$ is also unknown and a priori we restrict ourselves to values 
+allows are rather large range of possible values for $\mu$ 
+(the unobserved population mean of the !Kung San people).
+$\sigma$ (the unobserved standard deviation of the population of !Kun San people) 
+is also unknown and a priori we restrict ourselves to values 
 between $0$ and $50$ cm, whereas we assign equal plausibility to all 
 values in this range (which can and should be critically discussed).
 
@@ -259,10 +261,11 @@ digraph BayesianModel {
 ")
 ```
 
-Mind that there is a conceptual difference between the normal distribution of the heights 
+Mind that there is a **conceptual difference** between the normal distribution of the heights 
 and the normal prior distribution of the mean. The latter expresses our prior knowledge/insecurity
-about the unobserved mean. The normal distribution says we expect the heights to be normally distributed
-but we do not know the parameters ($\mu$ and $\sigma$) yet.
+about the unobserved mean. The normal distribution of the heights says we expect the heights to be normally distributed
+but we do not know the parameters ($\mu$ and $\sigma$) yet. We will 
+estimate these parameters using prior knowledge and the data.
 
 Of course we would not need the prior here due to the large sample size, 
 but let's do it anyways for demonstration purposes.
@@ -272,17 +275,21 @@ The $20$ in the prior for the mean expresses our range of possible true
 mean values and aknowledge
 that there are a variety of different subpopulations with different means.
 
-Using the Swiss data in the link one could estimate that the standard deviation of the heights 
-from $21,873$ Swiss people is around is $25.6553$ cm ([Exercise 1](#exercise1_Intro)).
+Using the Swiss data in the [link](https://www.bfs.admin.ch/asset/de/30305714) 
+one could estimate that the standard deviation of the heights 
+from $21,873$ Swiss people is around is $25.67$ cm ([Exercise 1](#exercise1_Intro)).
 
 Remember, in the Baysian world, there is no **fixed but unknown**
 parameter, but instead we define a distribution over the unobserved parameter.
 
-We **visualize the prior for $\mu$**.
+We **visualize the prior for $\mu$**:
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 curve(dnorm(x, 171.1, 20), from = 100, to = 250)
 ```
+
+A wide range of population means is possible. Once could discuss this distribution 
+and maybe further restrict it.
 
 The **prior for $\sigma$** is uniform between $0$ and $50$ cm. This is a very wide prior and
 just constrains the values to be positive and below $50$ cm. 
@@ -320,7 +327,7 @@ relative plausibilities of different heights, before seeing the data.
 
 Now, there are a couple of different ways to estimtate the model incorporating 
 the new data. For didactic reasons, grid approximation is often used (as in the book).
-For many parameters, grid approximation becomes more and more infeasible (due to combinatorial explosion). 
+For many parameters, this approach becomes more and more infeasible (due to combinatorial explosion). 
 
 We will skip that for now and use quadratic approximation instead which
 works well for many common procedures in applied statistics (like linear regression).
@@ -357,13 +364,19 @@ m_heights <- quap(flist, data = d2)
 Now let's take a look at the fitted model:
 (Note: In the online-version of the book, they used the command `map` instead of `quap`.)
 
+The `precis`function displays concise parameter estimate information 
+(from the posterior) for an existing model fit.
+
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 precis(m_heights)
 ```
 Above, we see the mean of the posterior for $\mu$ **and** $\sigma$;
-and a 89% credible interval for those parameters.
+and a **89% credible interval** for those parameters.
+Note that these are rather tight credible intervals. We are rather confident that the mean is somewhere between
+$154$ and $155$ cm and the standard deviation is between $7$ and $8$ cm.
 
-We can now plot the posterior distribution of the mean and the standard deviation.
+We can now plot the posterior distribution of the mean ($\mu$) and the standard 
+deviation ($\sigma$) separately by drawing from the posterior distribution.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 post <- extract.samples(m_heights, n = 10^4)
@@ -373,10 +386,10 @@ dens(post$sigma)
 ```
 
 Note, that **these samples come from a multi-dimensional posterior distribution**.
-In our case, we approximated the posterior with a 
+In our case, we approximated the **joint** posterior distribution of $\mu$ *and* $\sigma$ with a 
 [bivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution).
 They are not necessarily independent from each other, but in this case they are.
-We know this from the model definition above. $\mu$ and $\sigma$ are both
+We know this from the prior definition above. $\mu$ and $\sigma$ are both
 defined as normal respectively uniform distributions and by definition do not
 influence each other. This is also visible in the vizualisation of the model structure: 
 There is no confounding variable or connection between those priors. One could
@@ -431,6 +444,9 @@ plot_ly(
 ```
 
 **How beautiful ist that?**
+
+This shows how credible each combination of $\mu$ and $\sigma$ is based on our priors and the data observed.
+The higher the mountain for a certain parameter combination, the more credible this combination is.
 
 We see in the 3D plot, that the "mountain" is not rotated, indicating 
 graphically that the parameters are independent from each other.
