@@ -889,8 +889,11 @@ See also [exercise 5](#exercise5_simpl_lin_reg).
 $R^2$. We will verify this when we have more than 2 explanatory variables. 
 - Regress weight on height and study changes
 - Regression towards the mean
-
-
+- One could think of the least squares method of minimizing the sum of 
+  Work that has to be done in order to adjust a long stick through the points.
+  Every point is attached to the stick with a srping. the work needed to change the
+  spring by $\delta x$ is $k \delta x^2$. The stick is adjusted in such a way that
+  the sum of the work is minimized. This is the least squares method.
 
 
 ## Exercises
