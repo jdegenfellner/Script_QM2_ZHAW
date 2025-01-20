@@ -25,6 +25,19 @@ where variability and uncertainty are inherent, statistical models are
 valuable tools for making sense of complex phenomena. 
 You can watch [this](https://www.youtube.com/watch?v=3d5ivs_8amQ&ab_channel=VeryNormal) as short intro.
 
+In [QM1](https://jdegenfellner.github.io/Script_QM1_ZHAW/probs.html) we have already 
+made testable predictions with respect to the probability of an event. 
+In our 1000-researcher experiment we stated for instance, that the probability of
+obeserving $66$ or more findings would be very unlikely. If such an event would 
+occur (while not repeating the experiment many times), we would reconsider our model.
+Inexactly, we could have stated something like: "We will not see more than 100 findings by chance."
+With respect to our multiple choice test we could predict:
+"We will not see a single person answering all questions correctly by chance in our 
+lifetime (given the frequency of tests)." Note, that in this context, the word **predict**
+is used with respect to a future event (chance finding or chance passing of the test).
+As we will see, there does not necessarily have to be a temporal connection in order 
+to *predict* something.
+
 Depending on the task at hand, we would use different models.
 In any case, logical reasoning and critical thinking comes first, 
 then comes the model. **It makes no sense to estimate statistical models just for the sake of it**.
@@ -61,7 +74,7 @@ These models aim to uncover mechanisms and answer **"why"**
 questions. For example:
    
    - Does smoking increase the risk of lung cancer? **Yes**. (If you want to see what a large effect-size looks like, check out [this study](https://bmjopen.bmj.com/content/bmjopen/8/10/e021611.full.pdf).)
-   - How large is the "effect" of smoking on lung cancer? **Large**.
+   - How large is the **effect** (causal) of smoking on lung cancer? **Large**.
    - Does pain education and graded sensorimotor relearning improve disability (a question we ask in 
    our [Resolve Swiss project](https://data.snf.ch/grants/grant/220585))?
 
@@ -125,11 +138,13 @@ What do we actually want to do in general? Very broadly speaking we want to:
 **describe** the association of variables to each other that carry variability. 
 Hence, the relationship is not deterministic like $$y = 2x + 3$$ but rather we need
 to "loosen up" the relationship to account for variability (in $x$ and $y$).
-So, the values $2$ and $3$ are not fixed but aflicted with uncertainty.
+So, $y$ and $x$ are not fixed but aflicted with uncertainty.
 Depending on your philosophical view, you might say you want to find
-the "true" but unknown relationship between variables.
+the "true" but unknown relationship (here, $2$ and $3$ are the true coefficients) between variables.
 This is what we do in simulation studies all the time: We know the true relationship, 
 simulate data by adding variability and then try to estimate the true relationship we assumed in the first place.
+This is an **advantage** the pioneers of statistics did not have. We can simulate
+millions of lines of data at the click of a button. 
 For some practical applications, we can get a really nice and complete answer to our question
 (for instance sample size for proportions).
 
@@ -155,14 +170,15 @@ of a person given their age at a certain point in time, whereas both variables a
 The **simplest statistical model** would be the mean model where $Y$ is "predicted" by a 
 constant: $Y = c$ which (at least in the classical linear regression) turns out to be $c = \bar{x}$. 
 This simple model is often surprisingly good, or, to put it in other words, models with more complexity
-are often not that much better with regards to multiple metrics.
+are often not that much better.
 
 ## A (simple) model for adult body heights in the Bayesian framework
 
-As repetition, read the parts about [Bayes statistics from QM1](https://jdegenfellner.github.io/Script_QM1_ZHAW/bayes_statistics.html) 
+As repetition, read the parts about [Bayes statistics from QM1](https://jdegenfellner.github.io/Script_QM1_ZHAW/bayes_statistics.html)
 again to refresh your memory about the Bayesian framework.
 
 It's recommendable to read the beginning of the book [Statistical rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
+(hint: the online-version of the book differs a bit from the paper-version) 
 up until page 39 as well. We are not completely new to the topic of Bayes due 
 to QM1.
 
