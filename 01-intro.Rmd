@@ -779,8 +779,9 @@ highlight_x <- c(0.5, 2)
 highlight_y <- c(0.5, 2)
 
 # Number of simulations
-n_sim <- 10^3
+n_sim <- 10^4
 
+set.seed(343434)
 # Simulate bivariate normal samples
 samples <- mvrnorm(n = n_sim, mu = mu, Sigma = sigma)
 
