@@ -34,7 +34,10 @@ seperating-property-of-regression-due-to-r2
 check-regression-assumptions
 linearity
 constant-variance
+independence-uncorrelated-errors
+normality
 regression-towards-the-mean
+todos
 exercises-1
 exercise1_simpl_lin_reg
 exercise2_simpl_lin_reg
@@ -43,3 +46,4 @@ exercise4_simpl_lin_reg
 exercise5_simpl_lin_reg
 exercise6_simpl_lin_reg
 exercise7_simpl_lin_reg
+exercise8_simpl_lin_reg

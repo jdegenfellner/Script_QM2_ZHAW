@@ -199,6 +199,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2---coefficient-of-determination"><i class="fa fa-check"></i><b>3.2.4</b> <span class="math inline">\(R^2\)</span> - Coefficient of Determination</a></li>
 <li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.5</b> Check regression assumptions</a></li>
 <li class="chapter" data-level="3.2.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.6</b> Regression towards the mean</a></li>
+<li class="chapter" data-level="3.2.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#todos"><i class="fa fa-check"></i><b>3.2.7</b> TODOS</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
 <ul>
@@ -209,6 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise5_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.5</b> [M] Exercise 5</a></li>
 <li class="chapter" data-level="3.3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise6_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.6</b> [H] Exercise 6</a></li>
 <li class="chapter" data-level="3.3.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise7_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.7</b> [M] Exercise 7</a></li>
+<li class="chapter" data-level="3.3.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise8_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.8</b> [H] Exercise 8</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -286,8 +288,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-5f8b7545ae4dc0405e6b" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-5f8b7545ae4dc0405e6b">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-c10bf53ca813c0acff89" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c10bf53ca813c0acff89">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -827,11 +829,90 @@ The above looks homoscedastic. If it was heteroscedastic, this is not a problem,
 we just have to model it differently (later).</p>
 <p>As always, it is a good idea to study the variability of these plots
 using simulation (<a href="simple-linear-regression.html#exercise7_simpl_lin_reg">exercise 7</a>).</p>
+<p>Better for detecting heteroscedasticity is the <span class="math inline">\(\hat{y_i}, |e_i|\)</span> plot
+with a smoothing line:</p>
+<pre><code>## &#39;data.frame&#39;:    544 obs. of  4 variables:
+##  $ height: num  152 140 137 157 145 ...
+##  $ weight: num  47.8 36.5 31.9 53 41.3 ...
+##  $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
+##  $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>This will probably not be a perfectly horizontal line, since
+there are less points at the end of the range of the predictor.
+For instance, There are less people with extreme weights in the data set.</p>
+</div>
+<div id="independence-uncorrelated-errors" class="section level4 hasAnchor" number="3.2.5.3">
+<h4><span class="header-section-number">3.2.5.3</span> Independence, uncorrelated errors<a href="simple-linear-regression.html#independence-uncorrelated-errors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We had a example above, where the errors were correlated.
+The sine curve could stem from time series data, where the <span class="math inline">\(x\)</span>-variable
+is the time and the <span class="math inline">\(y\)</span>-variable is a seasonally changing variable
+like temperature (purely hypothetical). In <a href="simple-linear-regression.html#exercise6_simpl_lin_reg">exercise 6</a>,
+the values are autocorrelated: Correlated with previous values of the same variable.
+If we would track the body heights of persons over time, we would have
+an autocorrelated time series since the height of a person at time <span class="math inline">\(t\)</span> is
+correlated with the height of the same person at time <span class="math inline">\(t-1\)</span>, gut a little
+less with the height at time <span class="math inline">\(t-2\)</span> and so on. If I am tall today, it is
+very likely that I was tall yesterday.</p>
+<p>In our case of the !Kung San data, we do not have autocorrelated data.</p>
+<p>But still, we could look at the correlations the residuals with lagged residuals.</p>
+<pre><code>## cor= 0.01858044</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>It least with a lag of <span class="math inline">\(1\)</span>, there so no large correlation between the residuals.</p>
+</div>
+<div id="normality" class="section level4 hasAnchor" number="3.2.5.4">
+<h4><span class="header-section-number">3.2.5.4</span> Normality<a href="simple-linear-regression.html#normality" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This assumptions states that the conditional distribution <span class="math inline">\(Y|X=x\)</span>
+is a normal distribution. We do not look at the normality of <span class="math inline">\(Y\)</span> itself,
+since it is not a formal requirement, that <span class="math inline">\(Y\)</span> is normally distributed.
+We need to assess the normality of the residuals <span class="math display">\[e_i = y_i - \hat{y}_i\]</span>
+I like doing this with a <a href="https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html#q-q-plots">Q-Q plot</a>
+from the R package <code>car</code>:</p>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## 
+## Attaching package: &#39;car&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     recode</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     some</code></pre>
+<pre><code>## The following object is masked from &#39;package:rethinking&#39;:
+## 
+##     logit</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<pre><code>## 479  94 
+## 317  72</code></pre>
+<p>With the 97% confidence envelope, we can see if the residuals are
+consistent with coming from a normal distribution.
+We could again use simulation to see how the QQ Plot changes
+to get a better feeling.</p>
 </div>
 </div>
 <div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.6">
 <h3><span class="header-section-number">3.2.6</span> Regression towards the mean<a href="simple-linear-regression.html#regression-towards-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>……. <strong>TODOS</strong></p>
+<p>There are great explanations for “<a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean">regression towards the mean</a>” in
+<a href="http://www.stat.columbia.edu/~gelman/arm/">Gelman</a> p.58 and
+<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a> p.36.
+This <a href="https://www.youtube.com/watch?v=1tSqSMOyNFE&amp;ab_channel=Veritasium">video</a> might be interesting to watch.</p>
+<p>It describes the phenomenon that the predicted value (y) is closer to the mean than the predictor (x).
+In our case this, if the weight of a person is 1 standard deviation above the mean of body weights,
+the (model-)predicted height is less than 1 standard deviation above the mean of body heights, but
+still larger than the average height. Let’s verify:</p>
+<pre><code>## predicted height= 0.7547479</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>As Gelman points out in his book (Fiugure 4.2), there is a fine detail:
+The regression line is not the line most people would draw through the data.
+They would draw a line trhough the main directions of variability
+(the so-called principal components).
+In dotted green, you can see these directions. The regression line is a solution
+to another problem (as we have seen): It minimizes the sum of squared residuals,
+which are defined via the <strong>vertical</strong> distances to the line.
+See <a href="simple-linear-regression.html#exercise8_simpl_lin_reg">exercise 8</a>.</p>
+</div>
+<div id="todos" class="section level3 hasAnchor" number="3.2.7">
+<h3><span class="header-section-number">3.2.7</span> TODOS<a href="simple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>random X vs fixed X</li>
 <li>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)
@@ -916,6 +997,13 @@ You can get those by filtering residuals that are <span class="math inline">\(&g
 <li>Draw the <span class="math inline">\(\hat{y_i}, e_i\)</span> plot.</li>
 <li>Draw the <span class="math inline">\(\hat{y_i}, |e_i|\)</span> plot.</li>
 <li>Repeat the simulation and look at the variability of the plot.</li>
+</ul>
+</div>
+<div id="exercise8_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.8">
+<h3><span class="header-section-number">3.3.8</span> [H] Exercise 8<a href="simple-linear-regression.html#exercise8_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Go to p.36 in Westfall’s book and read Appendix A.</li>
+<li>Pay close attention to the explanation about regression toward the mean.</li>
 </ul>
 
 </div>
