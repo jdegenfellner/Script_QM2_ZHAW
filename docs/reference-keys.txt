@@ -32,6 +32,9 @@ analysis_of_variance
 r2---coefficient-of-determination
 seperating-property-of-regression-due-to-r2
 check-regression-assumptions
+linearity
+constant-variance
+regression-towards-the-mean
 exercises-1
 exercise1_simpl_lin_reg
 exercise2_simpl_lin_reg
@@ -39,3 +42,4 @@ exercise3_simpl_lin_reg
 exercise4_simpl_lin_reg
 exercise5_simpl_lin_reg
 exercise6_simpl_lin_reg
+exercise7_simpl_lin_reg

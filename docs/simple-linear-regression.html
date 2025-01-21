@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-01-20" />
+<meta name="date" content="2025-01-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,8 +66,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -77,7 +78,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -197,6 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analysis_of_variance"><i class="fa fa-check"></i><b>3.2.3</b> ANOVA (Analysis of Variance)</a></li>
 <li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2---coefficient-of-determination"><i class="fa fa-check"></i><b>3.2.4</b> <span class="math inline">\(R^2\)</span> - Coefficient of Determination</a></li>
 <li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.5</b> Check regression assumptions</a></li>
+<li class="chapter" data-level="3.2.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.6</b> Regression towards the mean</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
 <ul>
@@ -205,7 +207,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise3_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.3</b> [M] Exercise 3</a></li>
 <li class="chapter" data-level="3.3.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise4_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.4</b> [M] Exercise 4</a></li>
 <li class="chapter" data-level="3.3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise5_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.5</b> [M] Exercise 5</a></li>
-<li class="chapter" data-level="3.3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise6_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.6</b> [H] #Exercise 6</a></li>
+<li class="chapter" data-level="3.3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise6_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.6</b> [H] Exercise 6</a></li>
+<li class="chapter" data-level="3.3.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise7_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.7</b> [M] Exercise 7</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -283,8 +286,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-1b86cd11efa55e2de933" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-1b86cd11efa55e2de933">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-5f8b7545ae4dc0405e6b" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-5f8b7545ae4dc0405e6b">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -548,22 +551,22 @@ How did the data come about? There is a process behind it and this process
 is attempted to be modeled.</p>
 <p><strong>Further assumptions</strong>:</p>
 <ul>
-<li><p>Correct functional specification: The conditional mean function <span class="math inline">\(f(x) = \mathbb{E}(Y|X=x)\)</span>.
+<li><p><strong>Correct functional specification</strong>: The conditional mean function <span class="math inline">\(f(x) = \mathbb{E}(Y|X=x)\)</span>.
 In the case of the linear model, the assumption is <span class="math inline">\(\mathbb{E}(Y|X=x) = \alpha + \beta x\)</span>.
 The <strong>expectation</strong> of <span class="math inline">\(Y\)</span> (height) depends linearly on <span class="math inline">\(x\)</span> (weight).
 This assumption is violated when the true relationship is not linear or the
 data at least suggest that it is not linear, like <a href="https://www.alexanderdemos.org/Class5_files/figure-html/unnamed-chunk-2-1.png">here</a>.</p></li>
-<li><p>The errors are homoscedastic (constant variance <span class="math inline">\(\sigma\)</span>). This means the
+<li><p><strong>The errors are homoscedastic</strong> (constant variance <span class="math inline">\(\sigma\)</span>). This means the
 variances of all conditional distributions <span class="math inline">\(p(y|x)\)</span> are constant (<span class="math inline">\(=\sigma^2\)</span>).
 This assumption is violated if points are <a href="https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png">spreading out more and more
 around the regression line</a>,
 indicating that the errors are getting larger.</p></li>
-<li><p>Normality. For the classical linear regression model all the conditional
+<li><p><strong>Normality</strong>. For the classical linear regression model all the conditional
 distributions <span class="math inline">\(p(y|x)\)</span> are normal distributions. It could well be, that
 the errors are not nicely normally distributed around the regression line,
 for instance if we have a lot of outliers upwards and the distribution
 is skewed, like <a href="https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html">here</a>.</p></li>
-<li><p>The errors are independent of each other.
+<li><p>The <strong>errors are independent</strong> of each other.
 The potentially observable <span class="math inline">\(\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})\)</span>
 is uncorrelated with <span class="math inline">\(\varepsilon_j = Y_j - f(\mathbf{x_j}, \mathbf{\beta})\)</span> for
 <span class="math inline">\(i \neq j\)</span>. This assumption is violated if the errors are correlated,
@@ -759,7 +762,75 @@ as “heavy” (top 10% weight) and every person below as “light” (bottom 10
 </div>
 <div id="check-regression-assumptions" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Check regression assumptions<a href="simple-linear-regression.html#check-regression-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>……….</p>
+<p>Everytime we fit a model, we should check the assumptions <a href="simple-linear-regression.html#id__model_assumptions">above</a>.
+We do this for different reasons (which will become clearer over the course).
+The assumptions are independent of each other.
+They can all be true or false or some can be true and some false
+(<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Wesftall</a>, p.21).
+Chapter 4 in the book is dedicated to this topic. It is important to know
+that the assumptions are usually not met exactly. The question is how badly they are violated.
+Furthermore, the asssumptions refer to the data generating process, not the data itself.
+Thus, the evaluation of the assumptions should involve subject matter knowledge.</p>
+<p><span class="math inline">\(p\)</span>-values to evaluate model assumptions are not a good idea. To <a href="https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108#d1e949">quote</a> the
+American Statistical Association (ASA): “By itself, a p-value does not provide a good measure
+of evidence regarding a model or hypothesis.”
+Hypothesis testing is simple and you do not have to know anything about your data
+your theoretical background to apply them. This might be reason for its widespread use.
+Deicision-tree thinking might not be the best idea for statistical modeling.</p>
+<p>We will not use hypothesis tests for assumptions, because</p>
+<ul>
+<li>They are never met exactly. You cannot “prove” them.</li>
+<li>With small smaple sizes, the statistical <em>power</em> is often low.</li>
+<li>With large sample sizes, the smallest deviation will be “significant”.</li>
+</ul>
+<p>We will follow the book (chapter 4, pages 99ff) and use graphical and simulation methods to check the assumptions.
+As guidance, we could the check the assumptions in the following order:</p>
+<ul>
+<li>Linearity</li>
+<li>Constant variance</li>
+<li>Independence</li>
+<li>Normality</li>
+</ul>
+<div id="linearity" class="section level4 hasAnchor" number="3.2.5.1">
+<h4><span class="header-section-number">3.2.5.1</span> Linearity<a href="simple-linear-regression.html#linearity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>First, we <strong>plot the data</strong>, as we did already above. We can add a
+a smoothing line as well:</p>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>This looks like this relationship is describable in a linear way.
+No apparent curvature or patches.
+A refined version of the scatterplot of the raw data is The
+<strong>residual scatter plot</strong> (<span class="math inline">\(x_i, e_i\)</span>):</p>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>Compared to the scatterplot above, the residuals plot magnifies
+possible curvature. The reason is that the range of residuals
+is smaller than the range of the heights.</p>
+<p>In multiple regression, we will use the (<span class="math inline">\(\hat{y_i}, e_i\)</span>) plot, which is
+identical to the plot above in simple linear regression, but
+very helpful in multiple regression.
+You get the (<span class="math inline">\(\hat{y_i}, e_i\)</span>) plot in R with <code>plot(mod, which = 1)</code>.</p>
+</div>
+<div id="constant-variance" class="section level4 hasAnchor" number="3.2.5.2">
+<h4><span class="header-section-number">3.2.5.2</span> Constant variance<a href="simple-linear-regression.html#constant-variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This assumption means that the variance of the residuals is constant.
+If it is violated, the spread around a hypothical regression line is not constant.
+We look at the residual scatter plot again:</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Look for a changes in patterns of vertical variability. Note, that
+often do not have as many data points near the end of the range of the predictor.
+Here are some examples of heteroskedasticity:
+<a href="https://i0.wp.com/statisticsbyjim.com/wp-content/uploads/2017/08/residuals_unfixed.png?resize=576%2C384">1</a>,
+<a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPAPMGV5U0Pe0nKnhoZWHJ8KypqVCls6ZQZud84C3KM8SJqOkuMNeJl2oTg-UDuukJRhk&amp;usqp=CAU">2</a>,
+<a href="https://i.sstatic.net/R5KIH.png">3</a>.
+The above looks homoscedastic. If it was heteroscedastic, this is not a problem,
+we just have to model it differently (later).</p>
+<p>As always, it is a good idea to study the variability of these plots
+using simulation (<a href="simple-linear-regression.html#exercise7_simpl_lin_reg">exercise 7</a>).</p>
+</div>
+</div>
+<div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> Regression towards the mean<a href="simple-linear-regression.html#regression-towards-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>……. <strong>TODOS</strong></p>
 <ul>
 <li>random X vs fixed X</li>
@@ -767,7 +838,21 @@ as “heavy” (top 10% weight) and every person below as “light” (bottom 10
 <span class="math inline">\(R^2\)</span>. We will verify this when we have more than 2 explanatory variables.</li>
 <li>Regress weight on height and study changes</li>
 <li>Regression towards the mean</li>
+<li>One could think of the least squares method of minimizing the sum of
+Work that has to be done in order to adjust a long stick through the points.
+Every point is attached to the stick with a srping. the work needed to change the
+spring by <span class="math inline">\(\delta x\)</span> is <span class="math inline">\(k \delta x^2\)</span>. The stick is adjusted in such a way that
+the sum of the work is minimized. This is the least squares method.
+<ul>
+<li>confint regression coefficients</li>
+<li>bootstrap confidence intervals for coefficients</li>
+</ul></li>
 </ul>
+<p>For multiple regression:
+We could also look at the simple regression problem as fitting a plane to the data,
+as is done <a href="https://rpubs.com/pjozefek/576206">here</a> or
+<a href="https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization">here</a>
+at the end. As</p>
 </div>
 </div>
 <div id="exercises-1" class="section level2 hasAnchor" number="3.3">
@@ -817,12 +902,21 @@ to <span class="math inline">\(\beta_1\)</span>?</li>
 improves if the true (but usually unknown) slope increases.</p>
 </div>
 <div id="exercise6_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.6">
-<h3><span class="header-section-number">3.3.6</span> [H] #Exercise 6<a href="simple-linear-regression.html#exercise6_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.3.6</span> [H] Exercise 6<a href="simple-linear-regression.html#exercise6_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Go to the model assumptions in the classical regression model (<a href="simple-linear-regression.html#id__model_assumptions">Model Assumptions</a>).
 - Use the code from <a href="https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd">github</a>
 to recreate the regression model with the sine-curve.
 - Check the independence assumption as described. Look at the residuals, when <span class="math inline">\(X=2\)</span> and <span class="math inline">\(X=4.5\)</span>.
 You can get those by filtering residuals that are <span class="math inline">\(&gt;0.5\)</span> and <span class="math inline">\(&lt;0.5\)</span>.</p>
+</div>
+<div id="exercise7_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.7">
+<h3><span class="header-section-number">3.3.7</span> [M] Exercise 7<a href="simple-linear-regression.html#exercise7_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Simulate data from the regression of heights on weights in our !Kung San data set.</li>
+<li>Draw the <span class="math inline">\(\hat{y_i}, e_i\)</span> plot.</li>
+<li>Draw the <span class="math inline">\(\hat{y_i}, |e_i|\)</span> plot.</li>
+<li>Repeat the simulation and look at the variability of the plot.</li>
+</ul>
 
 </div>
 </div>

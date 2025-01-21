@@ -386,25 +386,25 @@ is attempted to be modeled.
 
 **Further assumptions**:
 
-- Correct functional specification: The conditional mean function $f(x) = \mathbb{E}(Y|X=x)$.
+- **Correct functional specification**: The conditional mean function $f(x) = \mathbb{E}(Y|X=x)$.
   In the case of the linear model, the assumption is $\mathbb{E}(Y|X=x) = \alpha + \beta x$. 
   The **expectation** of $Y$ (height) depends linearly on $x$ (weight).
   This assumption is violated when the true relationship is not linear or the
   data at least suggest that it is not linear, like [here](https://www.alexanderdemos.org/Class5_files/figure-html/unnamed-chunk-2-1.png).
 
-- The errors are homoscedastic (constant variance $\sigma$). This means the
+- **The errors are homoscedastic** (constant variance $\sigma$). This means the
   variances of all conditional distributions $p(y|x)$ are constant ($=\sigma^2$).
   This assumption is violated if points are [spreading out more and more
   around the regression line](https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png), 
   indicating that the errors are getting larger.
 
-- Normality. For the classical linear regression model all the conditional
+- **Normality**. For the classical linear regression model all the conditional
   distributions $p(y|x)$ are normal distributions. It could well be, that
   the errors are not nicely normally distributed around the regression line,
   for instance if we have a lot of outliers upwards and the distribution 
   is skewed, like [here](https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html).
 
-- The errors are independent of each other. 
+- The **errors are independent** of each other. 
   The potentially observable $\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})$
   is uncorrelated with $\varepsilon_j = Y_j - f(\mathbf{x_j}, \mathbf{\beta})$ for 
   $i \neq j$. This assumption is violated if the errors are correlated,
@@ -598,6 +598,7 @@ fig <- fig %>% add_trace(
 fig
 
 ```
+
 
 
 ### ANOVA (Analysis of Variance) {#analysis_of_variance}
@@ -874,11 +875,110 @@ We could then just introduce a cutoff value and classify people accordingly.
 Every person above the cutoff value for height (maybe 160 cm) would be classified 
 as "heavy" (top 10% weight) and every person below as "light" (bottom 10% weight).
 
-
 See also [exercise 5](#exercise5_simpl_lin_reg).
 
 ### Check regression assumptions
-..........
+Everytime we fit a model, we should check the assumptions [above](#_model_assumptions).
+We do this for different reasons (which will become clearer over the course). 
+The assumptions are independent of each other.
+They can all be true or false or some can be true and some false 
+([Wesftall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), p.21).
+Chapter 4 in the book is dedicated to this topic. It is important to know
+that the assumptions are usually not met exactly. The question is how badly they are violated.
+Furthermore, the asssumptions refer to the data generating process, not the data itself.
+Thus, the evaluation of the assumptions should involve subject matter knowledge.
+
+$p$-values to evaluate model assumptions are not a good idea. To [quote](https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108#d1e949) the 
+American Statistical Association (ASA): "By itself, a p-value does not provide a good measure 
+of evidence regarding a model or hypothesis."
+Hypothesis testing is simple and you do not have to know anything about your data
+your theoretical background to apply them. This might be reason for its widespread use.
+Deicision-tree thinking might not be the best idea for statistical modeling.
+
+We will not use hypothesis tests for assumptions, because
+
+- They are never met exactly. You cannot "prove" them.
+- With small smaple sizes, the statistical *power* is often low.
+- With large sample sizes, the smallest deviation will be "significant".
+
+We will follow the book (chapter 4, pages 99ff) and use graphical and simulation methods to check the assumptions.
+As guidance, we could the check the assumptions in the following order:
+
+- Linearity
+- Constant variance 
+- Independence
+- Normality
+
+#### Linearity
+
+First, we **plot the data**, as we did already above. We can add a 
+a smoothing line as well:
+
+```{r, echo=FALSE}
+ggplot(d2, aes(x = weight, y = height)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "loess", se = FALSE, color = "blue", linewidth = 1) +
+  labs(title = "Scatterplot with Regression Line",
+       x = "Weight",
+       y = "Height") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+This looks like this relationship is describable in a linear way.
+No apparent curvature or patches.
+A refined version of the scatterplot of the raw data is The
+**residual scatter plot** ($x_i, e_i$):
+
+```{r, echo=FALSE}
+# Calculate residuals
+d2$residuals <- residuals(mod)
+
+# Create the residual scatter plot
+ggplot(d2, aes(x = weight, y = residuals)) +
+  geom_point(alpha = 0.6) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  geom_smooth(method = "loess", se = FALSE, color = "blue", linewidth = 1) +
+  labs(title = "Residuals vs. Weight",
+       x = "Weight",
+       y = "Residuals") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+Compared to the scatterplot above, the residuals plot magnifies
+possible curvature. The reason is that the range of residuals
+is smaller than the range of the heights. 
+
+In multiple regression, we will use the ($\hat{y_i}, e_i$) plot, which is
+identical to the  plot above in simple linear regression, but
+very helpful in multiple regression.
+You get the ($\hat{y_i}, e_i$) plot in R with `plot(mod, which = 1)`.
+
+
+#### Constant variance 
+
+This assumption means that the variance of the residuals is constant.
+If it is violated, the spread around a hypothical regression line is not constant.
+We look at the residual scatter plot again:
+
+```{r, echo=FALSE}
+plot(mod, which = 1)
+```
+
+Look for a changes in patterns of vertical variability. Note, that
+often do not have as many data points near the end of the range of the predictor.
+Here are some examples of heteroskedasticity:
+[1](https://i0.wp.com/statisticsbyjim.com/wp-content/uploads/2017/08/residuals_unfixed.png?resize=576%2C384),
+[2](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPAPMGV5U0Pe0nKnhoZWHJ8KypqVCls6ZQZud84C3KM8SJqOkuMNeJl2oTg-UDuukJRhk&usqp=CAU),
+[3](https://i.sstatic.net/R5KIH.png). 
+The above looks homoscedastic. If it was heteroscedastic, this is not a problem,
+we just have to model it differently (later).
+
+As always, it is a good idea to study the variability of these plots
+using simulation ([exercise 7](#exercise7_simpl_lin_reg)). 
+
+### Regression towards the mean
 
 
 
@@ -894,6 +994,14 @@ $R^2$. We will verify this when we have more than 2 explanatory variables.
   Every point is attached to the stick with a srping. the work needed to change the
   spring by $\delta x$ is $k \delta x^2$. The stick is adjusted in such a way that
   the sum of the work is minimized. This is the least squares method.
+  - confint regression coefficients
+  - bootstrap confidence intervals for coefficients
+
+For multiple regression:
+We could also look at the simple regression problem as fitting a plane to the data,
+as is done [here](https://rpubs.com/pjozefek/576206) or 
+[here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
+at the end. As
 
 
 ## Exercises
@@ -940,10 +1048,17 @@ Verify the statement above in the text for high and low values of $R^2$.
 Verify with simulation in R that the separation of the distributions in the simple linear regression model
 improves if the true (but usually unknown) slope increases.
 
-### [H] #Exercise 6 {#exercise6_simpl_lin_reg}
+### [H] Exercise 6 {#exercise6_simpl_lin_reg}
 
 Go to the model assumptions in the classical regression model ([Model Assumptions](#_model_assumptions)).
 - Use the code from [github](https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd) 
   to recreate the regression model with the sine-curve.
 - Check the independence assumption as described. Look at the residuals, when $X=2$ and $X=4.5$. 
   You can get those by filtering residuals that are $>0.5$ and $<0.5$.
+
+### [M] Exercise 7 {#exercise7_simpl_lin_reg}
+
+- Simulate data from the regression of heights on weights in our !Kung San data set.
+- Draw the $\hat{y_i}, e_i$ plot.
+- Draw the $\hat{y_i}, |e_i|$ plot.
+- Repeat the simulation and look at the variability of the plot.
