@@ -35,7 +35,7 @@ check-regression-assumptions
 linearity
 constant-variance
 independence-uncorrelated-errors
-normality
+normality_assumption
 regression-towards-the-mean
 todos
 exercises-1
@@ -47,3 +47,5 @@ exercise5_simpl_lin_reg
 exercise6_simpl_lin_reg
 exercise7_simpl_lin_reg
 exercise8_simpl_lin_reg
+exercise9_simpl_lin_reg
+exercise10_simpl_lin_reg

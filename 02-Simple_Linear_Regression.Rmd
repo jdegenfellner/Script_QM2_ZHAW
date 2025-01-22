@@ -686,7 +686,7 @@ ggplot(d2, aes(x = weight, y = height)) +
   )
 ```
 
-The plot is rather self-explanatory. The blue dotted line is the distance from
+The blue dotted line is the distance from
 the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
 is the distance from the regression line to the point (unexplained variance).
@@ -889,7 +889,7 @@ Furthermore, the asssumptions refer to the data generating process, not the data
 Thus, the evaluation of the assumptions should involve subject matter knowledge.
 
 $p$-values to evaluate model assumptions are not a good idea. To [quote](https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108#d1e949) the 
-American Statistical Association (ASA): "By itself, a p-value does not provide a good measure 
+American Statistical Association (ASA): "By itself, a $p$-value does not provide a good measure 
 of evidence regarding a model or hypothesis."
 Hypothesis testing is simple and you do not have to know anything about your data
 your theoretical background to apply them. This might be reason for its widespread use.
@@ -1019,7 +1019,9 @@ very likely that I was tall yesterday.
 
 In our case of the !Kung San data, we do not have autocorrelated data.
 
-But still, we could look at the correlations the residuals with lagged residuals.
+But still, we could look at the correlations the residuals with lagged residuals. 
+A $lag=1$ means I compare the residuals with the ones right next to me and check if
+they are correlated. 
 
 ```{r, echo=FALSE}
 library(rethinking)
@@ -1037,7 +1039,7 @@ plot(residuals, residuals_lagged)
 
 It least with a lag of $1$, there so no large correlation between the residuals.
 
-#### Normality
+#### Normality {#normality_assumption}
 
 This assumptions states that the conditional distribution $Y|X=x$ 
 is a normal distribution. We do not look at the normality of $Y$ itself,
@@ -1058,7 +1060,7 @@ qqPlot(residuals(mod), envelope = 0.97)
 With the 97% confidence envelope, we can see if the residuals are
 consistent with coming from a normal distribution.
 We could again use simulation to see how the QQ Plot changes 
-to get a better feeling.
+to get a better feeling (see [exercise 9](#exercise9_simpl_lin_reg)).
 
 ### Regression towards the mean
 
@@ -1067,8 +1069,9 @@ There are great explanations for "[regression towards the mean](https://en.wikip
 [Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4) p.36.
 This [video](https://www.youtube.com/watch?v=1tSqSMOyNFE&ab_channel=Veritasium) might be interesting to watch.
 
-It describes the phenomenon that the predicted value (y) is closer to the mean than the predictor (x).
-In our case this, if the weight of a person is 1 standard deviation above the mean of body weights,
+It describes the phenomenon that the predicted value (y) is closer to its 
+mean than the predictor (x) its mean.
+In our case this means, if the weight of a person is 1 standard deviation above the mean of body weights,
 the (model-)predicted height is less than 1 standard deviation above the mean of body heights, but
 still larger than the average height. Let's verify:
 
@@ -1121,10 +1124,10 @@ ggplot(d2, aes(x = weight_scaled, y = height_scaled)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-As Gelman points out in his book (Fiugure 4.2), there is a fine detail:
+As Gelman points out in his book (Figure 4.2), there is a fine detail:
 The regression line is not the line most people would draw through the data.
 They would draw a line through the main directions of variability 
-(the so-called principal components).
+(directions are the eigenvectors of the covariance matrix).
 In dotted green, you can see these directions. The regression line is a solution 
 to another problem (as we have seen): It minimizes the sum of squared residuals, 
 which are defined via the **vertical** distances to the line.
@@ -1148,6 +1151,7 @@ $R^2$. We will verify this when we have more than 2 explanatory variables.
   the sum of the work is minimized. This is the least squares method.
   - confint regression coefficients
   - bootstrap confidence intervals for coefficients
+- check_model()
 
 For multiple regression:
 We could also look at the simple regression problem as fitting a plane to the data,
@@ -1219,3 +1223,23 @@ Go to the model assumptions in the classical regression model ([Model Assumption
 
 - Go to p.36 in Westfall's book and read Appendix A.
 - Pay close attention to the explanation about regression toward the mean.
+
+### [M] Exercise 9 {#exercise9_simpl_lin_reg}
+
+Go to the resuials [above](#normality_assumption) where we tested the normality assumption.
+
+- Calcuate mean and standard deviation from the residuals of the model
+  that regresses height on weight.
+- Simulate from a normal distribution using these parameters.
+- Get a feeling how the QQ plot changes by drawing the QQ plot repeatedly.
+
+### [M] Exercise 10 {#exercise10_simpl_lin_reg}
+
+Using our !Kung San data, 
+
+- show that the regression of height on weight (`lm(height ~ weight)`)
+  is not the same as the regression of weight on height (`lm(weight ~ height)`).
+- Draw both regression lines in one diagram.
+- Can you simulate data where the two regressions deliver (almost) identical results?
+- Explain why the results differ and what consequences this would have for a research question.
+  Which question do I answer with each?
