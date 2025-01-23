@@ -1022,7 +1022,7 @@ very helpful in multiple regression.
 You get the ($\hat{y_i}, e_i$) plot in R with `plot(mod, which = 1)`.
 
 
-#### Constant variance 
+#### Constant variance {#constant_variance}
 
 This assumption means that the variance of the residuals is constant.
 If it is violated, the spread around a hypothical regression line is not constant.
@@ -1174,9 +1174,9 @@ ggplot(new_data, aes(x = weight, y = height)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-The simulated and original data fit nicely together. 
+The simulated and original data (green) fit nicely together. 
 This lends some credibility to the model.
-And now the density plots of the model created data and the observed data:
+And now the density plots of the model created data (blue) and the observed data (green):
 
 ```{r, echo=FALSE}
 
@@ -1209,18 +1209,32 @@ legend("topright", legend = c("Observed", "Simulated"),
 
 As you can see, the densities of the observed and simulated data are broadly similar.
 One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
-Depending on the context, this might be a problem or not. Let's accept this model for now.
+Depending on the context, this might be a problem or not. Let's accept the model for now.
 
 ##### Linear fit (upper right)
 This is the same plot as [above](#linearity): $(\hat{y}_i, e_i)$.
 
 ##### Homogeneity of variance (middle left)
+This is the same plot as [above](#constant_variance): $(\hat{y}_i, |e_i|)$.
 
 ##### Influential observations (middle right)
+The standard method to check for influential observations is to compute the
+so-called [Cook's distance](https://en.wikipedia.org/wiki/Cook%27s_distance). 
+This is a measure of how leverage a single observation has on the model.
+We can extract the Cook's distance from the model using `cooks.distance()`.
+
 
 ##### Normality of residuals (lower left)
 
+### Bootstrap fit
+In order to get a feeling for the variability of the model with regards to the predictors as well, 
+we can bootstrap the whole data set, fit the model and draw regression lines.
 
+...........
+
+One could also draw from the residuals and create bootstrap replicates using those:
+
+...........
 
 
 ### Regression towards the mean
@@ -1318,6 +1332,7 @@ $R^2$. We will verify this when we have more than 2 explanatory variables.
   - bootstrap confidence intervals for coefficients
 - check_model()
 - extend further reading to create more connections
+- maybe create animation of points wiggling to get a feeling for the variability
 
 For multiple regression:
 We could also look at the simple regression problem as fitting a plane to the data,

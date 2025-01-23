@@ -199,9 +199,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analysis_of_variance"><i class="fa fa-check"></i><b>3.2.4</b> ANOVA (Analysis of Variance)</a></li>
 <li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2---coefficient-of-determination"><i class="fa fa-check"></i><b>3.2.5</b> <span class="math inline">\(R^2\)</span> - Coefficient of Determination</a></li>
 <li class="chapter" data-level="3.2.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.6</b> Check regression assumptions</a></li>
-<li class="chapter" data-level="3.2.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.7</b> Regression towards the mean</a></li>
-<li class="chapter" data-level="3.2.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#random-x-vs-fixed-x"><i class="fa fa-check"></i><b>3.2.8</b> Random X vs fixed X</a></li>
-<li class="chapter" data-level="3.2.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#todos"><i class="fa fa-check"></i><b>3.2.9</b> TODOS</a></li>
+<li class="chapter" data-level="3.2.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#bootstrap-fit"><i class="fa fa-check"></i><b>3.2.7</b> Bootstrap fit</a></li>
+<li class="chapter" data-level="3.2.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.8</b> Regression towards the mean</a></li>
+<li class="chapter" data-level="3.2.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#random-x-vs-fixed-x"><i class="fa fa-check"></i><b>3.2.9</b> Random X vs fixed X</a></li>
+<li class="chapter" data-level="3.2.10" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#todos"><i class="fa fa-check"></i><b>3.2.10</b> TODOS</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
 <ul>
@@ -292,8 +293,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-d5dad35f553d9699ed3b" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-d5dad35f553d9699ed3b">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-a62bc347e4cbe99809a5" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-a62bc347e4cbe99809a5">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -968,7 +969,7 @@ are in line with the observed data. One could repeat this process
 multiple times to get a feeling for the variability of the model predictions.</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
-<p>The simulated and original data fit nicely together.
+<p>The simulated and original data (green) fit nicely together.
 This lends some credibility to the model.
 And now the density plots of the model created data and the observed data:</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
@@ -991,8 +992,16 @@ Depending on the context, this might be a problem or not. Let’s accept this mo
 </div>
 </div>
 </div>
-<div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.7">
-<h3><span class="header-section-number">3.2.7</span> Regression towards the mean<a href="simple-linear-regression.html#regression-towards-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="bootstrap-fit" class="section level3 hasAnchor" number="3.2.7">
+<h3><span class="header-section-number">3.2.7</span> Bootstrap fit<a href="simple-linear-regression.html#bootstrap-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In order to get a feeling for the variability of the model with regards to the predictors as well,
+we can bootstrap the whole data set, fit the model and draw regression lines.</p>
+<p>………..</p>
+<p>One could also draw from the residuals and create bootstrap replicates using those:</p>
+<p>………..</p>
+</div>
+<div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.8">
+<h3><span class="header-section-number">3.2.8</span> Regression towards the mean<a href="simple-linear-regression.html#regression-towards-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are great explanations for “<a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean">regression towards the mean</a>” in
 <a href="http://www.stat.columbia.edu/~gelman/arm/">Gelman</a> p.58 and
 <a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a> p.36.
@@ -1014,8 +1023,8 @@ to another problem (as we have seen): It minimizes the sum of squared residuals,
 which are defined via the <strong>vertical</strong> distances to the line.
 See <a href="simple-linear-regression.html#exercise8_simpl_lin_reg">exercise 8</a>.</p>
 </div>
-<div id="random-x-vs-fixed-x" class="section level3 hasAnchor" number="3.2.8">
-<h3><span class="header-section-number">3.2.8</span> Random X vs fixed X<a href="simple-linear-regression.html#random-x-vs-fixed-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="random-x-vs-fixed-x" class="section level3 hasAnchor" number="3.2.9">
+<h3><span class="header-section-number">3.2.9</span> Random X vs fixed X<a href="simple-linear-regression.html#random-x-vs-fixed-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A detail that is not mentioned often in introductory statistics courses
 is the question of whether the predictor variable <span class="math inline">\(X\)</span> is random or fixed.
 In our case, we did not specify the weights of the people in the !Kung San data set.
@@ -1025,8 +1034,8 @@ We could have for instance only included people with weights at certain steps (5
 In the latter case, we could consider X as fixed. In the former case, we consider X as random.
 Further reading: <a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a> 1.5.</p>
 </div>
-<div id="todos" class="section level3 hasAnchor" number="3.2.9">
-<h3><span class="header-section-number">3.2.9</span> TODOS<a href="simple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="todos" class="section level3 hasAnchor" number="3.2.10">
+<h3><span class="header-section-number">3.2.10</span> TODOS<a href="simple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)
 <span class="math inline">\(R^2\)</span>. We will verify this when we have more than 2 explanatory variables.</li>

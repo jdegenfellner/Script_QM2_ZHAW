@@ -42,6 +42,7 @@ linear-fit-upper-right
 homogeneity-of-variance-middle-left
 influential-observations-middle-right
 normality-of-residuals-lower-left
+bootstrap-fit
 regression-towards-the-mean
 random-x-vs-fixed-x
 todos
