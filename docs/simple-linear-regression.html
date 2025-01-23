@@ -293,8 +293,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-36c9386501bd1d326107" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-36c9386501bd1d326107">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-3a9363b0257dde9dae0c" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-3a9363b0257dde9dae0c">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -1093,12 +1093,7 @@ Further reading: <a href="https://www.routledge.com/Understanding-Regression-Ana
 Work that has to be done in order to adjust a long stick through the points.
 Every point is attached to the stick with a srping. the work needed to change the
 spring by <span class="math inline">\(\delta x\)</span> is <span class="math inline">\(k \delta x^2\)</span>. The stick is adjusted in such a way that
-the sum of the work is minimized. This is the least squares method.
-<ul>
-<li>confint regression coefficients</li>
-<li>bootstrap confidence intervals for coefficients</li>
-</ul></li>
-<li>check_model()</li>
+the sum of the work is minimized. This is the least squares method.</li>
 <li>extend further reading to create more connections</li>
 <li>maybe create animation of points wiggling to get a feeling for the variability</li>
 </ul>

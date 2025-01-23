@@ -125,7 +125,7 @@
 
 \title{Quantitive Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-01-17}
+\date{2025-01-23}
 
 \begin{document}
 \maketitle
@@ -178,6 +178,16 @@ The complete code for this script can be found
   (Free) \href{https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf}{Doing Bayesian Data Analysis}
 \end{itemize}
 
+\section{If you need a good reason to buy good books\ldots{}}\label{if-you-need-a-good-reason-to-buy-good-books}
+
+Think of the total costs of your education. You want to extract maximum
+benefit from it. In the US, an education costs \href{https://www.finaid.ucsb.edu/docs/default-source/default-document-library/2024-2025-undergrad-coa.pdf?sfvrsn=fb791f8a_4}{a lot}.
+In beautiful Switzerland, the \href{https://www.zhaw.ch/de/sml/studium/master/kosten}{tuition fees} (if applicable) are nowhere near these figures.
+Costs you could consider are opportunity costs of not working.
+A comparison with both, a foreign education or opportunity costs,
+justifies the investment in good books.
+Or: The costs of all the good books of your education combined are probably less than an iPhone Pro.
+
 \chapter{Introduction}\label{intro}
 
 \section{What is statistical modeling and what do we need this for?}\label{what-is-statistical-modeling-and-what-do-we-need-this-for}
@@ -204,6 +214,19 @@ and the real-world processes that generated them. In health research,
 where variability and uncertainty are inherent, statistical models are
 valuable tools for making sense of complex phenomena.
 You can watch \href{https://www.youtube.com/watch?v=3d5ivs_8amQ&ab_channel=VeryNormal}{this} as short intro.
+
+In \href{https://jdegenfellner.github.io/Script_QM1_ZHAW/probs.html}{QM1} we have already
+made testable predictions with respect to the probability of an event.
+In our 1000-researcher experiment we stated for instance, that the probability of
+obeserving \(66\) or more findings would be very unlikely. If such an event would
+occur (while not repeating the experiment many times), we would reconsider our model.
+Inexactly, we could have stated something like: ``We will not see more than 100 findings by chance.''
+With respect to our multiple choice test we could predict:
+``We will not see a single person answering all questions correctly by chance in our
+lifetime (given the frequency of tests).'' Note, that in this context, the word \textbf{predict}
+is used with respect to a future event (chance finding or chance passing of the test).
+As we will see, there does not necessarily have to be a temporal connection in order
+to \emph{predict} something.
 
 Depending on the task at hand, we would use different models.
 In any case, logical reasoning and critical thinking comes first,
@@ -247,7 +270,7 @@ questions. For example:
 \item
   Does smoking increase the risk of lung cancer? \textbf{Yes}. (If you want to see what a large effect-size looks like, check out \href{https://bmjopen.bmj.com/content/bmjopen/8/10/e021611.full.pdf}{this study}.)
 \item
-  How large is the ``effect'' of smoking on lung cancer? \textbf{Large}.
+  How large is the \textbf{effect} (causal) of smoking on lung cancer? \textbf{Large}.
 \item
   Does pain education and graded sensorimotor relearning improve disability (a question we ask in
   our \href{https://data.snf.ch/grants/grant/220585}{Resolve Swiss project})?
@@ -324,11 +347,13 @@ What do we actually want to do in general? Very broadly speaking we want to:
 \textbf{describe} the association of variables to each other that carry variability.
 Hence, the relationship is not deterministic like \[y = 2x + 3\] but rather we need
 to ``loosen up'' the relationship to account for variability (in \(x\) and \(y\)).
-So, the values \(2\) and \(3\) are not fixed but aflicted with uncertainty.
+So, \(y\) and \(x\) are not fixed but aflicted with uncertainty.
 Depending on your philosophical view, you might say you want to find
-the ``true'' but unknown relationship between variables.
+the ``true'' but unknown relationship (here, \(2\) and \(3\) are the true coefficients) between variables.
 This is what we do in simulation studies all the time: We know the true relationship,
 simulate data by adding variability and then try to estimate the true relationship we assumed in the first place.
+This is an \textbf{advantage} the pioneers of statistics did not have. We can simulate
+millions of lines of data at the click of a button.
 For some practical applications, we can get a really nice and complete answer to our question
 (for instance sample size for proportions).
 
@@ -364,7 +389,7 @@ the future. It merely means we estimate the value (or mean) of \(Y\) given \(X\)
 The \textbf{simplest statistical model} would be the mean model where \(Y\) is ``predicted'' by a
 constant: \(Y = c\) which (at least in the classical linear regression) turns out to be \(c = \bar{x}\).
 This simple model is often surprisingly good, or, to put it in other words, models with more complexity
-are often not that much better with regards to multiple metrics.
+are often not that much better.
 
 \section{A (simple) model for adult body heights in the Bayesian framework}\label{a-simple-model-for-adult-body-heights-in-the-bayesian-framework}
 
@@ -372,6 +397,7 @@ As repetition, read the parts about \href{https://jdegenfellner.github.io/Script
 again to refresh your memory about the Bayesian framework.
 
 It's recommendable to read the beginning of the book \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical rethinking}
+(hint: the online-version of the book differs a bit from the paper-version)
 up until page 39 as well. We are not completely new to the topic of Bayes due
 to QM1.
 
@@ -380,7 +406,7 @@ We want to \textbf{start building our first model} right away.
 Let's begin with the example in
 \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical rethinking}
 using data from the \href{https://en.wikipedia.org/wiki/\%C7\%83Kung_people}{!Kung San}
-people starting on page 79.
+people.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -450,18 +476,21 @@ h_i \sim \text{Normal}(\mu, \sigma)
 standard deviation. As our current knowledge about the mean height, we use
 a prior distribution for the mean (we do not know but want to estimate) by
 assuming the mean of a population we know and a standard deviation of \(20\) cm which
-allows are rather large range of possible values for \(\mu\).
-\(\sigma\) is also unknown and a priori we restrict ourselves to values
+allows are rather large range of possible values for \(\mu\)
+(the unobserved population mean of the !Kung San people).
+\(\sigma\) (the unobserved standard deviation of the population of !Kun San people)
+is also unknown and a priori we restrict ourselves to values
 between \(0\) and \(50\) cm, whereas we assign equal plausibility to all
 values in this range (which can and should be critically discussed).
 
 \textbf{Vizualisation of the model structure}:
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-3-1.pdf}}
 
-Mind that there is a conceptual difference between the normal distribution of the heights
+Mind that there is a \textbf{conceptual difference} between the normal distribution of the heights
 and the normal prior distribution of the mean. The latter expresses our prior knowledge/insecurity
-about the unobserved mean. The normal distribution says we expect the heights to be normally distributed
-but we do not know the parameters (\(\mu\) and \(\sigma\)) yet.
+about the unobserved mean. The normal distribution of the heights says we expect the heights to be normally distributed
+but we do not know the parameters (\(\mu\) and \(\sigma\)) yet. We will
+estimate these parameters using prior knowledge and the data.
 
 Of course we would not need the prior here due to the large sample size,
 but let's do it anyways for demonstration purposes.
@@ -471,13 +500,14 @@ The \(20\) in the prior for the mean expresses our range of possible true
 mean values and aknowledge
 that there are a variety of different subpopulations with different means.
 
-Using the Swiss data in the link one could estimate that the standard deviation of the heights
-from \(21,873\) Swiss people is around is \(25.6553\) cm (\hyperref[exercise1_Intro]{Exercise 1}).
+Using the Swiss data in the \href{https://www.bfs.admin.ch/asset/de/30305714}{link}
+one could estimate that the standard deviation of the heights
+from \(21,873\) Swiss people is around is \(25.67\) cm (\hyperref[exercise1_Intro]{Exercise 1}).
 
 Remember, in the Baysian world, there is no \textbf{fixed but unknown}
 parameter, but instead we define a distribution over the unobserved parameter.
 
-We \textbf{visualize the prior for \(\mu\)}.
+We \textbf{visualize the prior for \(\mu\)}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -486,6 +516,9 @@ We \textbf{visualize the prior for \(\mu\)}.
 \end{Shaded}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+A wide range of population means is possible. Once could discuss this distribution
+and maybe further restrict it.
 
 The \textbf{prior for \(\sigma\)} is uniform between \(0\) and \(50\) cm. This is a very wide prior and
 just constrains the values to be positive and below \(50\) cm.
@@ -540,7 +573,7 @@ relative plausibilities of different heights, before seeing the data.
 
 Now, there are a couple of different ways to estimtate the model incorporating
 the new data. For didactic reasons, grid approximation is often used (as in the book).
-For many parameters, grid approximation becomes more and more infeasible (due to combinatorial explosion).
+For many parameters, this approach becomes more and more infeasible (due to combinatorial explosion).
 
 We will skip that for now and use quadratic approximation instead which
 works well for many common procedures in applied statistics (like linear regression).
@@ -581,6 +614,9 @@ Then we estimate/fit the model using quadratic approximation.
 Now let's take a look at the fitted model:
 (Note: In the online-version of the book, they used the command \texttt{map} instead of \texttt{quap}.)
 
+The \texttt{precis}function displays concise parameter estimate information
+(from the posterior) for an existing model fit.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{precis}\NormalTok{(m\_heights)}
@@ -588,15 +624,18 @@ Now let's take a look at the fitted model:
 \end{Shaded}
 
 \begin{verbatim}
-##            mean        sd       5.5%      94.5%
-## mu    154.60410 0.4119942 153.945649 155.262542
-## sigma   7.73133 0.2913857   7.265639   8.197021
+##             mean        sd       5.5%      94.5%
+## mu    154.604024 0.4119901 153.945585 155.262464
+## sigma   7.731254 0.2913785   7.265575   8.196933
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
-and a 89\% credible interval for those parameters.
+and a \textbf{89\% credible interval} for those parameters.
+Note that these are rather tight credible intervals. We are rather confident that the mean is somewhere between
+\(154\) and \(155\) cm and the standard deviation is between \(7\) and \(8\) cm.
 
-We can now plot the posterior distribution of the mean and the standard deviation.
+We can now plot the posterior distribution of the mean (\(\mu\)) and the standard
+deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -607,12 +646,12 @@ We can now plot the posterior distribution of the mean and the standard deviatio
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.1925 7.423180
-## 2 155.2860 7.458126
-## 3 154.8460 7.678170
-## 4 154.9292 8.063130
-## 5 154.8236 7.527297
-## 6 154.4318 7.673882
+## 1 154.4548 7.843703
+## 2 154.2205 7.991343
+## 3 154.5580 7.412633
+## 4 155.0355 7.859825
+## 5 153.8514 7.250709
+## 6 154.4716 7.625474
 \end{verbatim}
 
 \begin{Shaded}
@@ -632,10 +671,10 @@ We can now plot the posterior distribution of the mean and the standard deviatio
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-10-2.pdf}}
 
 Note, that \textbf{these samples come from a multi-dimensional posterior distribution}.
-In our case, we approximated the posterior with a
+In our case, we approximated the \textbf{joint} posterior distribution of \(\mu\) \emph{and} \(\sigma\) with a
 \href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution}{bivariate normal distribution}.
 They are not necessarily independent from each other, but in this case they are.
-We know this from the model definition above. \(\mu\) and \(\sigma\) are both
+We know this from the prior definition above. \(\mu\) and \(\sigma\) are both
 defined as normal respectively uniform distributions and by definition do not
 influence each other. This is also visible in the vizualisation of the model structure:
 There is no confounding variable or connection between those priors. One could
@@ -652,8 +691,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697391902 0.0001537495
-## sigma 0.0001537495 0.0849056127
+## mu    0.1697358502 0.0001521788
+## sigma 0.0001521788 0.0849014439
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -667,7 +706,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973919 0.08490561
+## 0.16973585 0.08490144
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -680,8 +719,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001280721
-## sigma 0.001280721 1.000000000
+## mu    1.000000000 0.001267681
+## sigma 0.001267681 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -689,6 +728,9 @@ Let's plot the posterior in 3D, because we \textbf{can}:
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/posterior-3d-correct-1.pdf}}
 
 \textbf{How beautiful ist that?}
+
+This shows how credible each combination of \(\mu\) and \(\sigma\) is based on our priors and the data observed.
+The higher the mountain for a certain parameter combination, the more credible this combination is.
 
 We see in the 3D plot, that the ``mountain'' is not rotated, indicating
 graphically that the parameters are independent from each other.
@@ -711,6 +753,12 @@ Here, we do not use any prior knowledge, at least not that explicitely.
 The classical approach to fit a regression line is the so-called
 \textbf{\href{https://en.wikipedia.org/wiki/Least_squares}{least squares method}}.
 
+There are hundreds of \href{https://www.youtube.com/results?search_query=linear+regression}{videos online}
+explaining this method in great detail
+with animations. Maybe watch these videos, when we add a predictor to the mean model,
+since most of instructional videos start at the simple linear regression using
+two parameters (intercept (\(\beta_0\) or \(\alpha\)) and slope (\(\beta_1\))).
+
 The \textbf{(simple mean-) model} is:
 
 \[ Y_i = height_i = c + \varepsilon_i \]
@@ -723,7 +771,7 @@ The \textbf{(simple mean-) model} is:
   normally distributed errors \(\varepsilon_i \sim \text{Normal}(0, \sigma)\).
 \end{itemize}
 
-These are on average zero and have a constant standard deviation of \(\sigma\).
+The errors \(\varepsilon_i\) are on average zero and have a constant standard deviation of \(\sigma\).
 So, we assume there is a fixed, but unknown, constant \(c\) that we want to estimate and we
 assume that there is a special sort of error in our model that is normally distributed.
 Sometimes there is a large deviation from the true \(c\), sometimes there is a small deviation.
@@ -765,7 +813,6 @@ Let's do that:
 
 This should be zero for the minimum:
 \[ -2 \sum_{i=1}^{n} (height_i - c) = 0\]
-\[ \sum_{i=1}^{n} (height_i - c) = 0\]
 \[ \sum_{i=1}^{n} (height_i - c) = 0\]
 \[ \sum_{i=1}^{n} height_i - n \cdot c = 0\]
 \[ \hat{c} = \frac{1}{n} \sum_{i=1}^{n} height_i = \overline{height_i}\]
@@ -856,7 +903,7 @@ In R, we can do this easily:
 ## [1] 7.742332
 \end{verbatim}
 
-the \texttt{\textasciitilde{}1} means that there is just a so-called \textbf{intercept} in the model.
+The \texttt{\textasciitilde{}1} means that there is just a so-called \textbf{intercept} in the model.
 There are \textbf{no covariates}, just the constant \(c\).
 This is the simplest we can do. \texttt{lm} stands for linear model and with this base
 command in R we ask the software to do the least squares estimation for us.
@@ -900,17 +947,28 @@ Let's look at the situation graphically:
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-15-1.pdf}}
 
-Above, the heights are plotted against the index of the observation.
+Above, the heights are plotted against the index of the observation (the order does not matter).
 The variability of heights around the regression line (constant in this case) seems to
-stay constant, which is a good sign. We will call this \textbf{homoscedasticity} later.
-The dashed vertical red lines show two residuals, the difference between the actual height
+stay constant, which is a good sign. We will call this
+\href{https://en.wikipedia.org/wiki/Homoscedasticity_and_heteroscedasticity}{\textbf{homoscedasticity}} later.
+The dashed vertical red lines show two residuals (one \(>0\), the other \(<0\)), the difference between the actual height
 and the estimated height. The model-estimated heights (\(\widehat{heights_i}\))
 are all identical and nothing but the mean of all heights.
 
 Peter Westfall explains in his excellent book a conditional distribution
 approach to regression. I highly recommend reading the first chapters.
 
-What does this mean in this context?
+\textbf{What does this mean in this context?}
+This means, that for every fixed value of the predictor (which we formally do not have),
+the distribution of the response is normal with mean \(\hat{c}\) and standard deviation \(\sigma\).
+Since, we do not have a predictor, we can say, that the distribution of the heights is normal with mean \(\hat{c}\)
+and standard deviation \(\sigma\). This is what we assumed in the model. It can also directly seen
+in the formula:
+
+\[ height_i = c + \varepsilon_i \]
+
+If you add a normally distributed random variable (\(\varepsilon_i\)) to a constant (\(c\)),
+the result is a normally distributed. No surprise here.
 
 \section{Exercises}\label{exercises}
 
@@ -918,12 +976,21 @@ What does this mean in this context?
 
 Use the \href{https://www.bfs.admin.ch/asset/de/30305714}{Swiss body heights} data to
 determine
-- the 95\% ``Vertrauensintervall'' for \(\mu\) and
-- calculate the standard deviation of the heights from \(21,873\) Swiss people.
+
+\begin{itemize}
+\tightlist
+\item
+  the 95\% ``Vertrauensintervall'' for \(\mu\) and
+\item
+  calculate the standard deviation of the heights from \(21,873\) Swiss people.
+\item
+  Read the definition of the confidence interval in the footer of the table and
+  explain why this is correct.
+\end{itemize}
 
 \subsection{{[}E{]} Exercise 2}\label{exercise2_Intro}
 
-Why do we not need a hypothesis test to know that the population mean of body heights is not zero?
+Why do we \textbf{not} need a hypothesis test to know that the population mean of body heights is not zero?
 Give 2 reasons.
 
 \subsection{{[}M{]} Exercise 3}\label{exercise3_Intro}
@@ -933,7 +1000,7 @@ the sample standard deviation of the heights.
 
 \subsection{{[}M{]} Exercise 4}\label{exercise4_Intro}
 
-Repeat the estimation of the simple model using a different data set about
+Repeat the Bayesian and frequentist estimation of the simple model using a different data set about
 \href{https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html}{chicken weights},
 which is included in R.
 
@@ -957,8 +1024,8 @@ also helps.
 The bivariate normal distribution is a generalization of the normal distribution to two dimensions.
 Now, we look at the distribution of two random variables \(X\) and \(Y\) \textbf{at the same time}.
 
-Instead of one Gaussian bell curve, we have a
-\href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution\#/media/File:Multivariate_Gaussian.png}{3D bell curve}.
+Instead of one Gaussian curve, we have a
+\href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution\#/media/File:Multivariate_Gaussian.png}{3D curve}.
 This curve defines how plausible different combinations of \(X\) and \(Y\) are.
 
 Single points (like (3,6)) still have probability zero, because now the \textbf{volume} over a single point
@@ -988,6 +1055,78 @@ If you look at if from above, we have hihglighted the section on the surface
 over the area \(X \in [0.5, 2]\) and \(Y \in [0.5, 2]\). The volume over this area
 under the density curve is the probability of this area: \(P(X \in [0.5, 2] \text{ and } Y \in [0.5, 2])\)
 
+Calculate with R this probability with R:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load the mvtnorm package}
+\FunctionTok{library}\NormalTok{(mvtnorm)}
+
+\CommentTok{\# Define the parameters of the bivariate normal distribution}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)                       }\CommentTok{\# Mean}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{), }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\CommentTok{\# Covariance matrix}
+
+\CommentTok{\# Define the bounds of the square}
+\NormalTok{highlight\_x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{highlight\_y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\CommentTok{\# Calculate the probability using pmvnorm}
+\FunctionTok{pmvnorm}\NormalTok{(}
+  \AttributeTok{lower =} \FunctionTok{c}\NormalTok{(highlight\_x[}\DecValTok{1}\NormalTok{], highlight\_y[}\DecValTok{1}\NormalTok{]),}
+  \AttributeTok{upper =} \FunctionTok{c}\NormalTok{(highlight\_x[}\DecValTok{2}\NormalTok{], highlight\_y[}\DecValTok{2}\NormalTok{]),}
+  \AttributeTok{mean =}\NormalTok{ mu,}
+  \AttributeTok{sigma =}\NormalTok{ sigma}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1526031
+## attr(,"error")
+## [1] 1e-15
+## attr(,"msg")
+## [1] "Normal Completion"
+\end{verbatim}
+
+Since we do not believe everything we are told, we rather check via simulation,
+if \(0.1526\) is a plausible value for the probability:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load necessary library}
+\FunctionTok{library}\NormalTok{(MASS)}
+
+\CommentTok{\# Define the parameters of the bivariate normal distribution}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)                       }\CommentTok{\# Mean}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{), }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\CommentTok{\# Covariance matrix}
+
+\CommentTok{\# Define the bounds of the square}
+\NormalTok{highlight\_x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{highlight\_y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Number of simulations}
+\NormalTok{n\_sim }\OtherTok{\textless{}{-}} \DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{4}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{343434}\NormalTok{)}
+\CommentTok{\# Simulate bivariate normal samples}
+\NormalTok{samples }\OtherTok{\textless{}{-}} \FunctionTok{mvrnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n\_sim, }\AttributeTok{mu =}\NormalTok{ mu, }\AttributeTok{Sigma =}\NormalTok{ sigma)}
+
+\CommentTok{\# Count how many samples fall within the square}
+\NormalTok{inside\_square }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}
+\NormalTok{  samples[, }\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textgreater{}=}\NormalTok{ highlight\_x[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\&}\NormalTok{ samples[, }\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textless{}=}\NormalTok{ highlight\_x[}\DecValTok{2}\NormalTok{] }\SpecialCharTok{\&}
+\NormalTok{  samples[, }\DecValTok{2}\NormalTok{] }\SpecialCharTok{\textgreater{}=}\NormalTok{ highlight\_y[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\&}\NormalTok{ samples[, }\DecValTok{2}\NormalTok{] }\SpecialCharTok{\textless{}=}\NormalTok{ highlight\_y[}\DecValTok{2}\NormalTok{]}
+\NormalTok{)}
+
+\CommentTok{\# Estimate the probability}
+\NormalTok{inside\_square }\SpecialCharTok{/}\NormalTok{ n\_sim}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1557
+\end{verbatim}
+
+Looks good.
+
 \chapter{Simple Linear Regression}\label{simple-linear-regression}
 
 \section{Simple Linear Regression in the Bayesian Framework}\label{simple-linear-regression-in-the-bayesian-framework}
@@ -1000,7 +1139,7 @@ So far, our ``regression'' did not do much to be honest. The mean of a list of v
 was already calculated in the \href{https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html}{descriptive statistics section}
 before and we have mentioned how great this statistic is as measure of location and where its weaknesses are.
 
-Now, we want to model how body height and weight are related.
+Now, we want to model \textbf{how} body height and weight are \textbf{related}.
 Formally, one wants to \emph{predict} body heights from body weights.
 
 Here and in the frequentist framework, we will see that it is \textbf{not the same}
@@ -1010,7 +1149,16 @@ problem (and therefore results in a different statistical model)
 The word ``predictor'' is important here. It is a technical term
 and describes a variable that we know (in our case weight) and with
 which we want to ``guess as good as possible'' the value of the
-dependent variable (in our case height).
+dependent variable (in our case height). ``As good as possible''
+means that we put a penalty on an error. The farer our prediction
+is aways from the true value (\(y_i\)), the higher the penalty.
+And not only that, but if you are twice as far away from the true value,
+you should be penalized four times as much. This is the idea behind
+the squared error \href{https://en.wikipedia.org/wiki/Loss_function}{loss function}
+and the core of the least squares method.
+What if we would punish differently you ask?
+There are many loss functions one could use, maybe we will see some
+later. For now, we punish quadratically.
 
 We \textbf{always} visualize the data first to improve our understanding.
 
@@ -1020,10 +1168,12 @@ We \textbf{always} visualize the data first to improve our understanding.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}}
 
+It's not often, that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
-The higher the weight, the higher the height; with some deviations of course.
+The higher the weight, the higher the height; with some deviations of course and
+we decide that normally distributed errors are a good idea.
 This relationsip is neither causal, not deterministic.
 
 \begin{itemize}
@@ -1054,10 +1204,10 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpTHDlI5/file41802583e43f/widget418075fdf756.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjcCui5/filea70012024b8d/widgeta70054ae1f37.html screenshot completed
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}}
 
 There are now additional lines for the priors of \(\alpha\) and \(\beta\).
 The model structure also shows the way to simulate from the prior.
@@ -1069,9 +1219,9 @@ One starts at the top and ends up with the heights.
   \(h_i\) is the height of the \(i\)-th person and we assume it is normally distributed.
 \item
   \(\mu_i\) is the mean of the height of the \(i\)-th person and we
-  assume it is normally distributed. Compared to the intercept model,
-  a different mean is assumed for each person. \textbf{The mean \(\mu_i\) is linearly
-  dependent on the weight} of the \(i\)-th person (second line).
+  assume it is linearly dependent on the difference \(x_i-\bar{x}\).
+  Compared to the intercept model, a different mean is assumed for each person
+  depending on his/her weight.
 \item
   \(\alpha\) is the intercept and we use the same prior as before.
 \item
@@ -1091,9 +1241,12 @@ reason is probably the rather straightforward interpretation of the coefficients
 
 \subsection{Priors}\label{priors}
 
-We want to plot our priors to get a feeling what
-the model would predict without seeing the data.
+We want to plot our priors to get a feeling \textbf{what
+the model would predict without seeing the data}.
 This is a kind of ``sanity check'' to see if the priors are reasonable.
+Again, we just draw from the assumed distributions for \(\alpha\) and \(\beta\)
+100 times and draw the corresponding lines. Just as the model
+definition says.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1120,9 +1273,10 @@ This is a kind of ``sanity check'' to see if the priors are reasonable.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-19-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf}}
 
-This relationship seems rather non-restrictive. According to our priors,
+This linear relationship defined with the chosen priors seems rather
+non-restrictive. According to our priors,
 one could see very steeply rising or falling lines. We could at least make
 the priors for the slope (\(\beta\)) non-negative. One possibility to do this
 is to use a \href{https://en.wikipedia.org/wiki/Log-normal_distribution}{log-normal distribution}
@@ -1157,7 +1311,7 @@ Lets plot the priors again.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
 
 This seems definitely more realistic.
 
@@ -1208,11 +1362,11 @@ See \hyperref[exercise2_simpl_lin_reg]{exercise 2}.
 
 \textbf{Interpretation of \(\beta\)}:
 The mean of the posterior distribution of \(\beta\) is 0.9. A person with a weight
-of 1 kg more weight can be expected to be 0.9 cm taller. A 96\% credible interval
+of 1 kg more weight can be expected to be 0.9 cm taller. A 89\% credible interval
 for this estimate is \([0.83, 0.97]\). We can be quite sure that the slope is
-positive.
+positive (of course we designed it that way too via the prior).
 
-It might also be interesting to insept the variance-covariance matrix,
+It might also be interesting to inspect the variance-covariance matrix,
 respectively the correlation between the parameters as we did before
 in the intercept model.
 
@@ -1229,18 +1383,18 @@ in the intercept model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{cov2cor}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(mod))}
+\FunctionTok{round}\NormalTok{(}\FunctionTok{cov2cor}\NormalTok{(}\FunctionTok{vcov}\NormalTok{(mod)),}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                   a             b         sigma
-## a      1.000000e+00 -9.591866e-10  3.330963e-05
-## b     -9.591866e-10  1.000000e+00 -2.879607e-05
-## sigma  3.330963e-05 -2.879607e-05  1.000000e+00
+##       a b sigma
+## a     1 0     0
+## b     0 1     0
+## sigma 0 0     1
 \end{verbatim}
 
-As we can see the correlations are near zero. Compare to the graphical
+As we can see the correlations are (near) zero. Compare to the graphical
 display of the model structure. There is no connection.
 
 \subsection{Result}\label{result}
@@ -1257,7 +1411,7 @@ display of the model structure. There is no connection.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-24-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf}}
 
 \subsection{Credible bands}\label{credible-bands}
 
@@ -1293,7 +1447,7 @@ the variability of the estimates.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-25-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-27-1.pdf}}
 
 The \texttt{link} function fixes the weight at the values in \texttt{weight.seq} and
 draws samples from the posterior distribution of the parameters. We will do
@@ -1312,7 +1466,7 @@ We can also draw a nice shade for the regression line:
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-28-1.pdf}}
 
 As we can see, we are pretty sure about the mean of height which
 we wanted to model in the first place.
@@ -1357,12 +1511,12 @@ around the mean (at a certain weight). We do this with \texttt{sim}.
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-27-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-29-1.pdf}}
 
 The lighter and wider shaded region is where the model expects to find 89\%
 of the heights of a person with a certain weight.
 
-This part is sometimes a bit desillusioning when seen for the first time:
+This part is \textbf{sometimes a bit desillusioning} when seen for the first time:
 Draw a horizontal line at 150 cm and see how many weights (according to
 the individual prediction) are compatible with this height. Weights
 from 30 to 50 kg are compatible with this height according to the
@@ -1378,6 +1532,11 @@ the wider the range of compatible weights (more than 60\% of the weight-range).
 \begin{verbatim}
 ## [1] 0.6265362
 \end{verbatim}
+
+On the other hand: We did not model the relationship this ways.
+We modeled height depending on weight and not the other way around.
+In the next chapter, we will regress weight on height (yes, this is the correct order)
+and see what changes.
 
 \subsection{Summary}\label{summary}
 
@@ -1421,7 +1580,7 @@ where
   \(\beta_1\) is the unknown but fixed slope
 \end{itemize}
 
-\subsubsection{\texorpdfstring{Model Assumptions of the Classical Regression Model (\href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall}, 1.7):}{Model Assumptions of the Classical Regression Model (Westfall, 1.7):}}\label{model-assumptions-of-the-classical-regression-model-westfall-1.7}
+\subsubsection{\texorpdfstring{Model Assumptions of the Classical Regression Model (\href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall}, 1.7):}{Model Assumptions of the Classical Regression Model (Westfall, 1.7):}}\label{_model_assumptions}
 
 The first and \textbf{most important assumption} is that the data are produced\\
 probabilistically, which is specifically stated as
@@ -1440,31 +1599,64 @@ What does this mean?
   In our case above this was the normal distribution with mean \(\mu_i\) and variance \(\sigma\).
 \end{itemize}
 
-One always things about the so-called data
-\href{https://en.wikipedia.org/wiki/Data_generating_process}{generating process}
+You can play with \href{https://psychmeth.shinyapps.io/Regression-NVFehler/}{this shiny app} to improve your understanding.
+It offers the option ``Bedingte Verteilung anzeigen''.
+
+One always thinks about the so-called
+\href{https://en.wikipedia.org/wiki/Data_generating_process}{data generating process}
 (\href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall}, 1.2).
 How did the data come about? There is a process behind it and this process
 is attempted to be modeled.
 
-Further assumptions:
+\textbf{Further assumptions}:
 
 \begin{itemize}
 \item
-  Correct functional specification: The conditional mean function \(f(x) = \mathbb{E}(Y|X=x)\).
+  \textbf{Correct functional specification}: The conditional mean function \(f(x) = \mathbb{E}(Y|X=x)\).
   In the case of the linear model, the assumption is \(\mathbb{E}(Y|X=x) = \alpha + \beta x\).
-  The expectation of \(Y\) (height) depends linearly on \(x\) (weight).
+  The \textbf{expectation} of \(Y\) (height) depends linearly on \(x\) (weight).
+  This assumption is violated when the true relationship is not linear or the
+  data at least suggest that it is not linear, like \href{https://www.alexanderdemos.org/Class5_files/figure-html/unnamed-chunk-2-1.png}{here}.
 \item
-  The errors are homoscedastic (constant variance \(\sigma\)). This means the
+  \textbf{The errors are homoscedastic} (constant variance \(\sigma\)). This means the
   variances of all conditional distributions \(p(y|x)\) are constant (\(=\sigma^2\)).
+  This assumption is violated if points are \href{https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png}{spreading out more and more
+  around the regression line},
+  indicating that the errors are getting larger.
 \item
-  Normality. For the classical linear regression model all the conditional
-  distributions \(p(y|x)\) are normal distributions.
+  \textbf{Normality}. For the classical linear regression model all the conditional
+  distributions \(p(y|x)\) are normal distributions. It could well be, that
+  the errors are not nicely normally distributed around the regression line,
+  for instance if we have a lot of outliers upwards and the distribution
+  is skewed, like \href{https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html}{here}.
 \item
-  The errors are independent of each other.
+  The \textbf{errors are independent} of each other.
   The potentially observable \(\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})\)
   is uncorrelated with \(\varepsilon_j = Y_j - f(\mathbf{x_j}, \mathbf{\beta})\) for
-  \(i \neq j\).
+  \(i \neq j\). This assumption is violated if the errors are correlated,
+  here is an example: The true data comes from a sine curve and we estimate a
+  linear model (green), which does not fit the data well (left plot).
+  The residuals plot shows clear patterns (right plot) and indicates
+  that the errors are correlated. Specifically, the errors around \(x=2\) and \(x=4\)
+  are negatively correlated (see \hyperref[exercise6_simpl_lin_reg]{exercise 6}).
 \end{itemize}
+
+\begin{verbatim}
+## 
+## Attaching package: 'patchwork'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:MASS':
+## 
+##     area
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-31-1.pdf}}
+
+In the case above, the errors are \textbf{not conditionally independent}.
+If we condition on \(X=2\) and \(X=4.5\), the errors are correlated (\(r \sim -0.3\)),
+which they should not be.
 
 These assumptions become clearer as we go along and should be checked
 for every model we fit. They are not connected, they can all be true or false.
@@ -1478,24 +1670,46 @@ In full, the classical linear regression model can be written as:
 \[ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)\]
 for \(i = 1, \dots, n\).
 
-\subsection{Fit the model}\label{fit-the-model}
+\subsection{Fit the model}\label{fit_model_simple_lin_reg_classic}
 
-Again, we fit the model using the least squares method.
+Again, we fit the model using the least squares method. For a neat animated explanation,
+visit \href{https://www.youtube.com/watch?v=jEEJNz0RK4Q&ab_channel=COCCmath}{this video}.
+There are literally hundreds of videos on the topic. Choose wisely. Not all are good.
+If in doubt, use our recommended books as reading materials. This is the most reliable source.
+A hint along the way: Be very sceptical if you ask GPT about information,
+although for this special case one has a good chance of getting a good answer due to
+the vast amount of training data.
+
 One has to minimize the sum of squared differences between the true heights and
 the model-predicted heights in order to find \(\beta_0\) and \(\beta_1\).
 
 \[ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 \]
 
-We omit the technical details and give the results for \(\beta_0\) and \(\beta_1\):
+We omit the technical details (set derivative to zero and solve the system) and give the results for \(\beta_0\) and \(\beta_1\):
 
 \[
 \hat{\beta_0} = \bar{y} - (\hat{\beta_1} \bar{x}),
 \]
 \[
-\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+\hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} =
+ \frac{s_{x,y}}{s_x^2} = r_{xy} \frac{s_y}{s_x}.
 \]
 
-Let's use R again to solve the problem:
+where:
+
+\begin{itemize}
+\tightlist
+\item
+  \(r_{xy}\) is the \href{https://en.wikipedia.org/wiki/Pearson_correlation_coefficient}{sample correlation coefficient} between \(x\) and \(y\)
+\item
+  \(s_x\) and \(s_y\) are the \href{https://en.wikipedia.org/wiki/Standard_deviation}{uncorrected sample standard deviations} of \(x\) and \(y\)
+\item
+  \(s_x^2\) and \(s_{xy}\) are the \href{https://en.wikipedia.org/wiki/Variance}{sample variance} and \href{https://en.wikipedia.org/wiki/Covariance}{sample covariance}, respectively
+\end{itemize}
+
+Interpretation of \(\hat{\beta}_0\) and \(\hat{\beta}_1\): see \hyperref[exercise3_simpl_lin_reg]{exercise 3}.
+
+Let's \textbf{use R again to solve the problem}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1537,9 +1751,9 @@ Let's use R again to solve the problem:
   \texttt{Call}: The model that was fitted.
 \item
   \texttt{Residuals}: \(r_i = height_i - \widehat{height}_i\).
-  Difference between true heights and model-predicted heights.
+  Differences between true heights and model-predicted heights.
 \item
-  \texttt{Coefficients}: The estimated \(\beta_0\) and \(\beta_1\).
+  \texttt{Coefficients}: Estimated for \(\beta_0\) and \(\beta_1\). We call them \(\hat{\beta}_0\) and \(\hat{\beta}_1\).
 
   \begin{itemize}
   \tightlist
@@ -1565,13 +1779,121 @@ Let's use R again to solve the problem:
 \item
   \texttt{F-statistic}: The value of the \(F\)-statistic for the hypothesis test:
   \(H_0: \beta_1 = \beta_2 = \dots = \beta_k = 0\). Note, the alternative
-  hypotheses to this test is that \emph{any} of the \(\beta_i\) is not zero. If that Is
+  hypotheses to this test is that \emph{any} of the \(\beta_i\) is not zero. If that is
   the case, the model explains more than the mean model with just \(\beta_0\).
 \end{itemize}
 
-\subsection{ANOVA (Analysis of Variance)}\label{anova-analysis-of-variance}
+We could also \textbf{solve the least squares problem graphically}: We want to find the
+values of \(\beta_0\) and \(\beta_1\) that minimize the sum of squared differences
+which can be plotted as 3D function. All we have to do is to ask R which of
+the coordinates minimizes the sum of squared errors. The result confirmes
+the results from the \texttt{lm} function.The dot in red marks the spot (Code is in the git repository):
 
-A non-obvious and very useful finding is that the total variability in the data can be
+\textbf{---COMPILE CODE AT DEOPLOYMENT---}
+
+\subsection{Confidence Intervals of coefficients (frequentist)}\label{confidence_intervals_frequentist}
+
+You can get CI's conveniently with the \texttt{confint} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(mod, }\AttributeTok{level =} \FloatTok{0.96}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    2 %        98 %
+## (Intercept) 109.939864 117.8189232
+## weight        0.818351   0.9917072
+\end{verbatim}
+
+Remember, these are frequenetist confidence intervals. If one repeats the experiment
+many times, the true but unknown value of the parameter will be in the interval in 96\% of the cases.
+
+We can also use the simple \href{https://en.wikipedia.org/wiki/Bootstrapping_(statistics)}{bootstrap}.
+The advantage of this tequique is that we can basically always use it,
+no matter how compliated the estimator is. We do not need formulae.
+We simply
+
+\begin{itemize}
+\tightlist
+\item
+  create 1000 bootstrap samples,
+\item
+  fit the model,
+\item
+  store the coefficients.
+\item
+  The 2\% and 98\% quantiles of the coefficients constitute the 96\% bootstrap confidence interval.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(d2)}
+\NormalTok{B }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{boot\_coefs }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =}\NormalTok{ B, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{B) \{}
+\NormalTok{  boot\_idx }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  boot\_mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(height }\SpecialCharTok{\textasciitilde{}}\NormalTok{ weight, }\AttributeTok{data =}\NormalTok{ d2[boot\_idx, ])}
+\NormalTok{  boot\_coefs[i, ] }\OtherTok{\textless{}{-}} \FunctionTok{coef}\NormalTok{(boot\_mod)}
+\NormalTok{\}}
+\CommentTok{\#head(boot\_coefs)}
+\FunctionTok{quantile}\NormalTok{(boot\_coefs, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.02}\NormalTok{, }\FloatTok{0.98}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          2%         98% 
+##   0.8343242 117.0319290
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t}\NormalTok{(}\FunctionTok{apply}\NormalTok{(boot\_coefs, }\DecValTok{2}\NormalTok{, quantile, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.02}\NormalTok{, }\FloatTok{0.98}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               2%         98%
+## [1,] 110.1862455 117.4516455
+## [2,]   0.8229982   0.9859997
+\end{verbatim}
+
+The CIs are quite similar to the ones from the \texttt{confint} function.
+
+In the Bayesian setting, we used the centered weight variable. Let's to this here too for
+comparison and use 89\% coverage probability.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d2}\SpecialCharTok{$}\NormalTok{weight\_centered }\OtherTok{\textless{}{-}}\NormalTok{ d2}\SpecialCharTok{$}\NormalTok{weight }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(d2}\SpecialCharTok{$}\NormalTok{weight)}
+\NormalTok{mod\_centered }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(height }\SpecialCharTok{\textasciitilde{}}\NormalTok{ weight\_centered, }\AttributeTok{data =}\NormalTok{ d2)}
+\CommentTok{\#summary(mod\_centered)}
+\FunctionTok{confint}\NormalTok{(mod\_centered, }\AttributeTok{level =} \FloatTok{0.89}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      5.5 %      94.5 %
+## (Intercept)     154.162715 155.0314698
+## weight_centered   0.837658   0.9724002
+\end{verbatim}
+
+Compare with \texttt{precis} from the Bayesian model:
+
+\begin{verbatim}
+##              mean         sd       5.5%       94.5%
+## a     154.5972131 0.27033041 154.165173 155.0292533
+## b       0.9050133 0.04192753   0.838005   0.9720216
+## sigma   5.0718667 0.19115317   4.766367   5.3773663
+\end{verbatim}
+
+We are glad to see that both analyses align really nicely.
+
+\subsection{ANOVA (Analysis of Variance)}\label{analysis_of_variance}
+
+A non-obvious and very useful finding is that the total variability in the data (our heights) can be
 \textbf{decomposed} (or \href{https://en.wiktionary.org/wiki/analysis}{analysed})
 into two parts:
 
@@ -1583,11 +1905,11 @@ into two parts:
   The variability not explained by the model (the residuals)
 \end{itemize}
 
-\[ \text{Total sum of squares} = \text{Regression sum of squares} + \text{Residual sum of squares} \]
+\[ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} \]
 
 \[ SST = SSR + SSE \]
 
-\[ \sum (y_i - \bar{y})^2 = \sum (\hat{y}_i - \bar{y})^2 + \sum (y_i - \hat{y}_i)^2 \]
+\[ \sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]
 
 If you are interested in the details, check out \href{https://en.wikipedia.org/wiki/Explained_sum_of_squares\#Partitioning_in_the_general_ordinary_least_squares_model}{this}.
 
@@ -1600,31 +1922,493 @@ Let's visualize our regression result:
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-30-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-38-1.pdf}}
 
-\ldots\ldots. \textbf{TODOS}
+The blue dotted line is the distance from
+the mean to the point (total variance), the red dotted line is the distance from
+the mean to the regression line (explained variance) and the green dotted line
+is the distance from the regression line to the point (unexplained variance).
+One sees that it adds up. I find this fact quite fascinating.
+One finds additivity by considering not determinisic values, but variances.
+Thank you \href{https://en.wikipedia.org/wiki/Analysis_of_variance\#:~:text=ANOVA\%20was\%20developed\%20by\%20the,to\%20different\%20sources\%20of\%20variation.}{Ronald Fisher}.
+
+\subsection{\texorpdfstring{\(R^2\) - Coefficient of Determination}{R\^{}2 - Coefficient of Determination}}\label{r2---coefficient-of-determination}
+
+\href{https://en.wikipedia.org/wiki/Coefficient_of_determination}{\(R^2\)}
+is the \textbf{amount of variance explained by the model}.
+You can also read \href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall} 8.1.
+
+As you can see
+\hyperref[analysis_of_variance]{above}, the total variance (SST) of our outcome (height)
+can be decomposed into two parts: the variance explained by the model (SSR)
+and the variance not explained by the model (SSE).
+
+Maybe the most intuitive definition of \(R^2\) is:
+
+\[ R^2 = \frac{SSR}{SST} = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}\]
+
+The value is between 0 and 1. The higher the value, the more variance is explained.
+But be cautious. Depending on the context, a really high \(R^2\) is not
+necessarily a good thing. With the data we are working with,
+it could easily hint towards an error. If we are near 1,
+all points in the simple linear regression model are on the line.
+If we are near 0, the model does not explain much of the variance
+and we would see ``noise with no slope'' in the scatterplot (\hyperref[exercise4_simpl_lin_reg]{exercise 4}).
+The normal \(R^2\) can be found in the R output under \texttt{Multiple\ R-squared}.
+
+If you add a lot of variables to your regression model, you can get an arbitrarily large (\(\le 1\))
+\(R^2\). We will verify this when we have more than 2 explanatory variables.
+As a non-formal explanation for this: In the Sum of Squares Errors (SSE),
+if you add more covariates (\(\beta_2, \beta_3\)), you have more freedom
+to choose values that minimize the number that will be squared. Simple regression
+is just a special case of multiple (more than one predictor) regression with \(\beta_2=\beta_3=\dots=0\).
+Hence, you will definitely not be worse off with regards to SSE when using more covariates.
+A smaller SSE implies a larger SSR (sum constraint) and hence a larger \(R^2\). SST remains constant.
+
+Although not perfect, one way to mitigate the influence of ``too many'' variables
+on \(R^2\) is to use the adjusted \(R^2\), which an also be found in the R output (\texttt{Adjusted\ R-squared}).
+
+\subsubsection{\texorpdfstring{Seperating property of regression due to \(R^2\):}{Seperating property of regression due to R\^{}2:}}\label{seperating-property-of-regression-due-to-r2}
+
+\href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Peter Westfall}
+explains (in Figure 8.1 of the book) how \(R^2\) influences the separation of distributions in our simple regression model.
+
+In our regression of height on weight (order is correct, that's how you say it),
+the \(R^2\) is \(0.5696\). The following plot shows how well one can predict
+height if we use the 10\% and 90\% quantile of the weights (x\_low and x\_high).
+In both, you see the conditional distribution of height given the weight \(X = x_{low}\) or \(X = x_{high}\).
+Scenario 1 is the original model, scenario 2 is the same data with added noise (in Y-direction),
+which reduces \(R^2\) to \(0.13\), much lower. In the right plot, the distributions have a large
+overlap and it is hard to distinguish between weights when seeing the height.
+With a very low \(R^2\), the height prediction does not really change and we could just as well
+use the mean model.
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-39-1.pdf}}
+
+In the left plot, given \(X = x_{low}\) gives as a rather shifted normal distribution of
+potentially observable heights for this weight compared to \(X=x_{high}\).
+We would have a lower missclassification error when trying to distinguish weights
+of very light and very heavy people in the sample just by seeing the height.
+You can think of an even more extreme separation of these distributions,
+which would happen, when \(R^2\) is very high or the true slope is much higher.
+Then it would be trivial to distinguish between the two groups (light versus heavy people).
+We could then just introduce a cutoff value and classify people accordingly.
+Every person above the cutoff value for height (maybe 160 cm) would be classified
+as ``heavy'' (top 10\% weight) and every person below as ``light'' (bottom 10\% weight).
+
+See also \hyperref[exercise5_simpl_lin_reg]{exercise 5}.
+
+\subsection{Check regression assumptions}\label{check-regression-assumptions}
+
+Everytime we fit a model, we should check the assumptions \hyperref[_model_assumptions]{above}.
+We do this for different reasons (which will become clearer over the course).
+The assumptions are independent of each other.
+They can all be true or false or some can be true and some false
+(\href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Wesftall}, p.21).
+Chapter 4 in the book is dedicated to this topic. It is important to know
+that the assumptions are usually not met exactly. The question is how badly they are violated.
+Furthermore, the asssumptions refer to the data generating process, not the data itself.
+Thus, the evaluation of the assumptions should involve subject matter knowledge.
+
+\(p\)-values to evaluate model assumptions are not a good idea. To \href{https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108\#d1e949}{quote} the
+American Statistical Association (ASA): ``By itself, a \(p\)-value does not provide a good measure
+of evidence regarding a model or hypothesis.''
+Hypothesis testing is simple and you do not have to know anything about your data
+your theoretical background to apply them. This might be reason for its widespread use.
+Deicision-tree thinking might not be the best idea for statistical modeling.
+
+We will not use hypothesis tests for assumptions, because
 
 \begin{itemize}
 \tightlist
 \item
-  Conditional distribution approach
+  They are never met exactly. You cannot ``prove'' them.
 \item
-  Not the same to predict X with Y or vice versa.
+  With small smaple sizes, the statistical \emph{power} is often low.
 \item
-  Analysis of Variance, R\^{}2
-\item
-  random X vs fixed X
-\item
-  separability interpretration using R\^{}2
-\item
-  check assumptions of model
-\item
-  interpret alpha and beta maybe using simulation
+  With large sample sizes, the smallest deviation will be ``significant''.
 \end{itemize}
+
+We will follow the book (chapter 4, pages 99ff) and use graphical and simulation methods to check the assumptions.
+As guidance, we could the check the assumptions in the following order:
+
+\begin{itemize}
+\tightlist
+\item
+  Linearity
+\item
+  Constant variance
+\item
+  Independence
+\item
+  Normality
+\end{itemize}
+
+\subsubsection{Linearity}\label{linearity}
+
+First, we \textbf{plot the data}, as we did already above. We can add a
+a smoothing line as well:
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-40-1.pdf}}
+
+This looks like this relationship is describable in a linear way.
+No apparent curvature or patches.
+A refined version of the scatterplot of the raw data is The
+\textbf{residual scatter plot} (\(x_i, e_i\)):
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-41-1.pdf}}
+
+Compared to the scatterplot above, the residuals plot magnifies
+possible curvature. The reason is that the range of residuals
+is smaller than the range of the heights.
+
+In multiple regression, we will use the (\(\hat{y_i}, e_i\)) plot, which is
+identical to the plot above in simple linear regression, but
+very helpful in multiple regression.
+You get the (\(\hat{y_i}, e_i\)) plot in R with \texttt{plot(mod,\ which\ =\ 1)}.
+
+\subsubsection{Constant variance}\label{constant_variance}
+
+This assumption means that the variance of the residuals is constant.
+If it is violated, the spread around a hypothical regression line is not constant.
+We look at the residual scatter plot again:
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf}}
+
+Look for a changes in patterns of vertical variability. Note, that
+often do not have as many data points near the end of the range of the predictor.
+Here are some examples of heteroskedasticity:
+\href{https://i0.wp.com/statisticsbyjim.com/wp-content/uploads/2017/08/residuals_unfixed.png?resize=576\%2C384}{1},
+\href{https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPAPMGV5U0Pe0nKnhoZWHJ8KypqVCls6ZQZud84C3KM8SJqOkuMNeJl2oTg-UDuukJRhk&usqp=CAU}{2},
+\href{https://i.sstatic.net/R5KIH.png}{3}.
+The above looks homoscedastic. If it was heteroscedastic, this is not a problem,
+we just have to model it differently (later).
+
+As always, it is a good idea to study the variability of these plots
+using simulation (\hyperref[exercise7_simpl_lin_reg]{exercise 7}).
+
+Better for detecting heteroscedasticity is the \(\hat{y_i}, |e_i|\) plot
+with a smoothing line:
+
+\begin{verbatim}
+## 'data.frame':    544 obs. of  4 variables:
+##  $ height: num  152 140 137 157 145 ...
+##  $ weight: num  47.8 36.5 31.9 53 41.3 ...
+##  $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
+##  $ male  : int  1 0 0 1 0 1 0 1 0 1 ...
+\end{verbatim}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-43-1.pdf}}
+
+This will probably not be a perfectly horizontal line, since
+there are less points at the end of the range of the predictor.
+For instance, There are less people with extreme weights in the data set.
+
+\subsubsection{Independence, uncorrelated errors}\label{independence-uncorrelated-errors}
+
+We had a example above, where the errors were correlated.
+The sine curve could stem from time series data, where the \(x\)-variable
+is the time and the \(y\)-variable is a seasonally changing variable
+like temperature (purely hypothetical). In \hyperref[exercise6_simpl_lin_reg]{exercise 6},
+the values are autocorrelated: Correlated with previous values of the same variable.
+If we would track the body heights of persons over time, we would have
+an autocorrelated time series since the height of a person at time \(t\) is
+correlated with the height of the same person at time \(t-1\), gut a little
+less with the height at time \(t-2\) and so on. If I am tall today, it is
+very likely that I was tall yesterday.
+
+In our case of the !Kung San data, we do not have autocorrelated data.
+
+But still, we could look at the correlations the residuals with lagged residuals.
+A \(lag=1\) means I compare the residuals with the ones right next to me and check if
+they are correlated.
+
+\begin{verbatim}
+## cor= 0.01858044
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf}}
+
+It least with a lag of \(1\), there so no large correlation between the residuals.
+
+\subsubsection{Normality}\label{normality_assumption}
+
+This assumptions states that the conditional distribution \(Y|X=x\)
+is a normal distribution. We do not look at the normality of \(Y\) itself,
+since it is not a formal requirement, that \(Y\) is normally distributed.
+We need to assess the normality of the residuals \[e_i = y_i - \hat{y}_i\]
+I like doing this with a \href{https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html\#q-q-plots}{Q-Q plot}
+from the R package \texttt{car}:
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'car'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     some
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:rethinking':
+## 
+##     logit
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-45-1.pdf}}
+
+\begin{verbatim}
+## 479  94 
+## 317  72
+\end{verbatim}
+
+With the 97\% confidence envelope, we can see if the residuals are
+consistent with coming from a normal distribution.
+We could again use simulation to see how the QQ Plot changes
+to get a better feeling (see \hyperref[exercise9_simpl_lin_reg]{exercise 9}).
+
+Another convenient way to check model assumptions is to use
+the \texttt{check\_model} function from the \texttt{performance} package:
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-46-1.pdf}}
+
+In this case, everything looks fine. Let's go through the plots and explain them:
+
+\paragraph{Posterior predictive check (upper left)}\label{posterior-predictive-check-upper-left}
+
+Here, you create new data from the estimated model.
+Using least squares, the estimated model was:
+\[ height_i = 113.87939 + 0.90503 \cdot weight_i + Normal(0, 5.086) \]
+From this model, we can simulate new data (or the original weights, if we want to use fixed X)
+by plugging in different weights, and adding a random error from a normal distribution
+with mean 0 and standard deviation 5.086.
+Then, we can compare the distribution of the simulated data with the observed data.
+The blue lines in the graph are model predicted heights, the green line are the
+observed heights.
+
+Let's try to replicate this plot.
+First, we want to simulate new data from the model.
+A scatter plot is also a nice way to check of the model predictions
+are in line with the observed data. One could repeat this process
+multiple times to get a feeling for the variability of the model predictions.
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-47-1.pdf}}
+
+The simulated and original data (green) fit nicely together.
+This lends some credibility to the model.
+And now the density plots of the model created data (blue) and the observed data (green):
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf}}
+
+As you can see, the densities of the observed and simulated data are broadly similar.
+One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
+Depending on the context, this might be a problem or not. Let's accept the model for now.
+
+\paragraph{Linear fit (upper right)}\label{linear-fit-upper-right}
+
+This is the same plot as \hyperref[linearity]{above}: \((\hat{y}_i, e_i)\).
+
+\paragraph{Homogeneity of variance (middle left)}\label{homogeneity-of-variance-middle-left}
+
+This is the same plot as \hyperref[constant_variance]{above}: \((\hat{y}_i, |e_i|)\).
+
+\paragraph{Influential observations (middle right)}\label{influential-observations-middle-right}
+
+The standard method to check for influential observations is to compute the
+so-called \href{https://en.wikipedia.org/wiki/Cook\%27s_distance}{Cook's distance}.
+This is a measure of how leverage a single observation has on the model.
+We can extract the Cook's distance from the model using \texttt{cooks.distance()}.
+An ugly rule of thumb would be to look at observations with a Cook's distance
+greater than 1.
+In the plot, the leverage \(h_{ii}\) is on the x-axis, and the standardized residuals
+are on the y-axis. In short, a high leverage means that the estimated value \(\hat{y}_i\)
+is potentially far away from the original value \(y_i\).
+The contours (dotted green lines) are the Cook's distance, in this
+case at a Cook's distance of 0.5.
+There is \href{https://en.wikipedia.org/wiki/Cook\%27s_distance\#Relationship_to_other_influence_measures_(and_interpretation)}{formula}
+that relates the leverage (\(h_{ii}\)), the Cook's distance
+and the residuals. Holding Cook`s distant constant at 0.5,
+gives you the green dotted line in the plot.
+
+Let's create an outlier and see what happens:
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-49-1.pdf}}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-49-2.pdf}}
+
+\begin{verbatim}
+## Cook's distance =  7.025207
+\end{verbatim}
+
+One single outlier changes the diagnostic plots. Observation 352
+is clearly identified as influential. The one point
+changes all diagnostic plots notably.
+The estimates of the regression coefficients
+are alos affected:
+
+\begin{verbatim}
+## [1] "Original Model"
+\end{verbatim}
+
+\begin{verbatim}
+## (Intercept)      weight 
+## 113.8793936   0.9050291
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Model with outlier"
+\end{verbatim}
+
+\begin{verbatim}
+## (Intercept)      weight 
+##  127.172494    0.599054
+\end{verbatim}
+
+Admitted, this is a somewhat artificial example.
+
+\paragraph{Normality of residuals (lower left)}\label{normality-of-residuals-lower-left}
+
+This is basically the same plot as above, just \href{https://cran.r-project.org/web/packages/qqplotr/vignettes/introduction.html}{detrended}.
+Let's try to replicate it:
+
+\begin{verbatim}
+## 
+## Attaching package: 'qqplotr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:ggplot2':
+## 
+##     stat_qq_line, StatQqLine
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-51-1.pdf}}
+
+The normality assumption seems to hold. Not that in the above QQ plot,
+we detrended the residuals and used a bootrap confidence band. Depending
+on the band type, the confidence band can be wider or narrower and include
+or exlude points.
+
+\textbf{After having checked the assumptions for the classical regression model}
+and we feel comfortable with the model, we get exact confidence intervals
+for the effect sizes (\(\beta\)s) using \texttt{confint()} (p.~74 in Westfall).
+
+Heureka! We have a model that fits the data well.
+
+\subsection{Bootstrap fit}\label{bootstrap-fit}
+
+In order to get a feeling for the variability of the model with regards to the predictors as well,
+we can bootstrap the whole data set, fit the model and draw regression lines.
+We create \(100\) bootrap replicates of our data set \texttt{d2} by drawing with
+replication. For every bootrap replicate, we fit the model and draw the regression line.
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-52-1.pdf}}
+
+The results is very stable. Neither intercept nor slope change much.
+
+\subsection{Regression towards the mean}\label{regression-towards-the-mean}
+
+There are great explanations for ``\href{https://en.wikipedia.org/wiki/Regression_toward_the_mean}{regression towards the mean}'' in
+\href{http://www.stat.columbia.edu/~gelman/arm/}{Gelman} p.58 and
+\href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall} p.36.
+This \href{https://www.youtube.com/watch?v=1tSqSMOyNFE&ab_channel=Veritasium}{video} might be interesting to watch.
+
+It describes the phenomenon that the predicted value (y) is closer to its
+mean than the predictor (x) its mean.
+In our case this means, if the weight of a person is 1 standard deviation above the mean of body weights,
+the (model-)predicted height is less than 1 standard deviation above the mean of body heights, but
+still larger than the average height. Let's verify:
+
+\begin{verbatim}
+## predicted height= 0.7547479
+\end{verbatim}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf}}
+
+As Gelman points out in his book (Figure 4.2), there is a fine detail:
+The regression line is not the line most people would draw through the data.
+They would draw a line through the main directions of variability
+(directions are the eigenvectors of the covariance matrix).
+In dotted green, you can see these directions. The regression line is a solution
+to another problem (as we have seen): It minimizes the sum of squared residuals,
+which are defined via the \textbf{vertical} distances to the line.
+See \hyperref[exercise8_simpl_lin_reg]{exercise 8}.
+
+\subsection{Random X vs fixed X}\label{random-x-vs-fixed-x}
+
+A detail that is not mentioned often in introductory statistics courses
+is the question of whether the predictor variable \(X\) is random or fixed.
+In our case, we did not specify the weights of the people in the !Kung San data set.
+\emph{Obervational} data was collected and we have no control over the weights.
+In an \emph{experimental} setting, we could have controlled the weights of the people.
+We could have for instance only included people with weights at certain steps (50 kg, 60 kg, 70 kg).
+In the latter case, we could consider X as fixed. In the former case, we consider X as random.
+Further reading: \href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall} 1.5.
+
+\subsection{TODOS}\label{todos}
+
+\begin{itemize}
+\tightlist
+\item
+  If you add a lot of variables to your regression model, you can get an arbitrarily large (\(\le 1\))
+  \(R^2\). We will verify this when we have more than 2 explanatory variables.
+\item
+  One could think of the least squares method of minimizing the sum of
+  Work that has to be done in order to adjust a long stick through the points.
+  Every point is attached to the stick with a srping. the work needed to change the
+  spring by \(\delta x\) is \(k \delta x^2\). The stick is adjusted in such a way that
+  the sum of the work is minimized. This is the least squares method.
+\item
+  extend further reading to create more connections
+\item
+  maybe create animation of points wiggling to get a feeling for the variability
+\end{itemize}
+
+For multiple regression:
+We could also look at the simple regression problem as fitting a plane to the data,
+as is done \href{https://rpubs.com/pjozefek/576206}{here} or
+\href{https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization}{here}
+at the end. As
 
 \section{Exercises}\label{exercises-1}
 
-\subsection{Exercise 1}\label{exercise1_simpl_lin_reg}
+\subsection{{[}E{]} Exercise 1}\label{exercise1_simpl_lin_reg}
 
 In the model from above:
 
@@ -1644,7 +2428,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
   What is the expected height when \(x_i\) changes by 1 unit?
 \end{itemize}
 
-\subsection{Exercise 2}\label{exercise2_simpl_lin_reg}
+\subsection{{[}E{]} Exercise 2}\label{exercise2_simpl_lin_reg}
 
 Look at the marginal distrubutions of the parameters in the Bayesian model.
 
@@ -1654,6 +2438,97 @@ Look at the marginal distrubutions of the parameters in the Bayesian model.
   Plot the posterior distribution of all 3 parameters.
 \item
   Include in the plot a 99\% credible interval (HDI).
+\end{itemize}
+
+\subsection{{[}M{]} Exercise 3}\label{exercise3_simpl_lin_reg}
+
+Go to the coefficient estimates in the simple linear regression setting
+above (\hyperref[fit_model_simple_lin_reg_classic]{Fit the model})
+in the classical framework.
+
+\begin{itemize}
+\tightlist
+\item
+  Create an R file to simulate the simple linear regression model.
+\item
+  Change your input parameters and see how the estimates change.
+\item
+  Does this make sense with respect to the estimates given, specifically with respect
+  to \(\beta_1\)?
+\end{itemize}
+
+\subsection{{[}M{]} Exercise 4}\label{exercise4_simpl_lin_reg}
+
+Verify the statement above in the text for high and low values of \(R^2\).
+
+\subsection{{[}M{]} Exercise 5}\label{exercise5_simpl_lin_reg}
+
+Verify with simulation in R that the separation of the distributions in the simple linear regression model
+improves if the true (but usually unknown) slope increases.
+
+\subsection{{[}H{]} Exercise 6}\label{exercise6_simpl_lin_reg}
+
+Go to the model assumptions in the classical regression model (\hyperref[_model_assumptions]{Model Assumptions}).
+- Use the code from \href{https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd}{github}
+to recreate the regression model with the sine-curve.
+- Check the independence assumption as described. Look at the residuals, when \(X=2\) and \(X=4.5\).
+You can get those by filtering residuals that are \(>0.5\) and \(<0.5\).
+
+\subsection{{[}M{]} Exercise 7}\label{exercise7_simpl_lin_reg}
+
+\begin{itemize}
+\tightlist
+\item
+  Simulate data from the regression of heights on weights in our !Kung San data set.
+\item
+  Draw the \(\hat{y_i}, e_i\) plot.
+\item
+  Draw the \(\hat{y_i}, |e_i|\) plot.
+\item
+  Repeat the simulation and look at the variability of the plot.
+\end{itemize}
+
+\subsection{{[}H{]} Exercise 8}\label{exercise8_simpl_lin_reg}
+
+\begin{itemize}
+\tightlist
+\item
+  Go to p.36 in Westfall's book and read Appendix A.
+\item
+  Pay close attention to the explanation about regression toward the mean.
+\end{itemize}
+
+\subsection{{[}M{]} Exercise 9}\label{exercise9_simpl_lin_reg}
+
+Go to the resuials \hyperref[normality_assumption]{above} where we tested the normality assumption.
+
+\begin{itemize}
+\tightlist
+\item
+  Calcuate mean and standard deviation from the residuals of the model
+  that regresses height on weight.
+\item
+  Simulate from a normal distribution using these parameters.
+\item
+  Get a feeling how the QQ plot changes by drawing the QQ plot repeatedly.
+\end{itemize}
+
+\subsection{{[}M{]} Exercise 10}\label{exercise10_simpl_lin_reg}
+
+Using our !Kung San data,
+
+\begin{itemize}
+\tightlist
+\item
+  show that the regression of height on weight (\texttt{lm(height\ \textasciitilde{}\ weight)})
+  is not the same as the regression of weight on height (\texttt{lm(weight\ \textasciitilde{}\ height)}).
+\item
+  Draw both regression lines in one diagram.
+\item
+  Can you simulate data where the two regressions deliver (almost) identical results?
+\item
+  Explain why the results differ and what consequences this would have for a research question.
+  Which question do I answer with each?
 \end{itemize}
 
 \bibliography{book.bib,packages.bib}
