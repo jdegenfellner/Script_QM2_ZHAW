@@ -37,7 +37,13 @@ linearity
 constant-variance
 independence-uncorrelated-errors
 normality_assumption
+posterior-predictive-check-upper-left
+linear-fit-upper-right
+homogeneity-of-variance-middle-left
+influential-observations-middle-right
+normality-of-residuals-lower-left
 regression-towards-the-mean
+random-x-vs-fixed-x
 todos
 exercises-1
 exercise1_simpl_lin_reg

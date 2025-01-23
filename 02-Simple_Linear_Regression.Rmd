@@ -609,12 +609,15 @@ confint(mod, level = 0.96)
 Remember, these are frequenetist confidence intervals. If one repeats the experiment
 many times, the true but unknown value of the parameter will be in the interval in 96% of the cases.
 
-We can also try to bootstrap using simple bootstrap. We 
+We can also use the simple [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)). 
+The advantage of this tequique is that we can basically always use it,
+no matter how compliated the estimator is. We do not need formulae.
+We simply
 
 - create 1000 bootstrap samples, 
 - fit the model, 
 - store the coefficients. 
-- The 2% and 98% quantiles of the coefficients are the 98% bootstrap confidence intervals.
+- The 2% and 98% quantiles of the coefficients constitute the 96% bootstrap confidence interval.
 
 ```{r}
 set.seed(123)
@@ -972,7 +975,7 @@ As guidance, we could the check the assumptions in the following order:
 - Independence
 - Normality
 
-#### Linearity
+#### Linearity {#linearity}
 
 First, we **plot the data**, as we did already above. We can add a 
 a smoothing line as well:
@@ -1125,6 +1128,101 @@ consistent with coming from a normal distribution.
 We could again use simulation to see how the QQ Plot changes 
 to get a better feeling (see [exercise 9](#exercise9_simpl_lin_reg)).
 
+Another convenient way to check model assumptions is to use 
+the `check_model` function from the `performance` package:
+
+```{r, echo=FALSE}
+library(performance)
+check_model(mod)
+```
+
+In this case, everything loosk fine. Let's go through the plots and explain them:
+
+##### Posterior predictive check (upper left)
+
+Here, you create new data from the estimated model. 
+Using least squares, the estimated model was:
+$$ height_i = 113.87939 + 0.90503 \cdot weight_i + Normal(0, 5.086) $$
+From this model, we can simulate new data (or the original weights, if we want to use fixed X) 
+by plugging in different weights, and adding a random error from a normal distribution 
+with mean 0 and standard deviation 5.086.
+Then, we can compare the distribution of the simulated data with the observed data.
+The blue lines in the graph are model predicted heights, the green line are the
+observed heights. 
+
+Let's try to replicate this plot.
+First, we want to simulate new data from the model.
+A scatter plot is also a nice way to check of the model predictions
+are in line with the observed data. One could repeat this process
+multiple times to get a feeling for the variability of the model predictions.
+
+```{r, echo=FALSE}
+# Create new data
+new_data <- data.frame(weight = d2$weight)
+new_data$height <- rnorm(nrow(new_data), 
+                   mean = coef(mod)[1] + coef(mod)[2] * new_data$weight, sd = sigma(mod))
+
+# Create the plot
+ggplot(new_data, aes(x = weight, y = height)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "blue", linewidth = 1) +
+  geom_point(data = d2, aes(x = weight, y = height), color = "green", alpha = 0.6) +
+  labs(title = "Scatter plot of observed and simulated data",
+       x = "Weight",
+       y = "Height") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+The simulated and original data fit nicely together. 
+This lends some credibility to the model.
+And now the density plots of the model created data and the observed data:
+
+```{r, echo=FALSE}
+
+# Set up an empty plot area
+plot(NULL, xlim = range(d2$height), ylim = c(0, 0.07), 
+     xlab = "Height", ylab = "Density", 
+     main = "Posterior Predictive Density Plot")
+
+# Simulate 10 new datasets and overlay densities
+for (i in 1:10) {
+  # Generate new simulated data
+  new_heights <- rnorm(
+    n = nrow(d2),
+    mean = coef(mod)[1] + coef(mod)[2] * d2$weight,
+    sd = sigma(mod)
+  )
+  
+  # Add density for simulated data in light blue
+  lines(density(new_heights), col = rgb(0.2, 0.6, 1, alpha = 0.2), lwd = 1)
+}
+
+# Add density for the original data in green
+lines(density(d2$height), col = "green", lwd = 2)
+
+# Add a legend
+legend("topright", legend = c("Observed", "Simulated"),
+       col = c("green", rgb(0.2, 0.6, 1, alpha = 0.5)), 
+       lwd = c(2, 2), bty = "n", cex = 0.8)
+```
+
+As you can see, the densities of the observed and simulated data are broadly similar.
+One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
+Depending on the context, this might be a problem or not. Let's accept this model for now.
+
+##### Linear fit (upper right)
+This is the same plot as [above](#linearity): $(\hat{y}_i, e_i)$.
+
+##### Homogeneity of variance (middle left)
+
+##### Influential observations (middle right)
+
+##### Normality of residuals (lower left)
+
+
+
+
 ### Regression towards the mean
 
 There are great explanations for "[regression towards the mean](https://en.wikipedia.org/wiki/Regression_toward_the_mean)" in 
@@ -1196,17 +1294,21 @@ to another problem (as we have seen): It minimizes the sum of squared residuals,
 which are defined via the **vertical** distances to the line.
 See [exercise 8](#exercise8_simpl_lin_reg).
 
+### Random X vs fixed X
 
-
-
+A detail that is not mentioned often in introductory statistics courses
+is the question of whether the predictor variable $X$ is random or fixed.
+In our case, we did not specify the weights of the people in the !Kung San data set.
+*Obervational* data was collected and we have no control over the weights.
+In an *experimental* setting, we could have controlled the weights of the people.
+We could have for instance only included people with weights at certain steps (50 kg, 60 kg, 70 kg).
+In the latter case, we could consider X as fixed. In the former case, we consider X as random.
+Further reading: [Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4) 1.5.
 
 ### TODOS
 
-- random X vs fixed X
 - If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
 $R^2$. We will verify this when we have more than 2 explanatory variables. 
-- Regress weight on height and study changes
-- Regression towards the mean
 - One could think of the least squares method of minimizing the sum of 
   Work that has to be done in order to adjust a long stick through the points.
   Every point is attached to the stick with a srping. the work needed to change the
@@ -1215,6 +1317,7 @@ $R^2$. We will verify this when we have more than 2 explanatory variables.
   - confint regression coefficients
   - bootstrap confidence intervals for coefficients
 - check_model()
+- extend further reading to create more connections
 
 For multiple regression:
 We could also look at the simple regression problem as fitting a plane to the data,
