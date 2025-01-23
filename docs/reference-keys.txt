@@ -34,7 +34,7 @@ r2---coefficient-of-determination
 seperating-property-of-regression-due-to-r2
 check-regression-assumptions
 linearity
-constant-variance
+constant_variance
 independence-uncorrelated-errors
 normality_assumption
 posterior-predictive-check-upper-left

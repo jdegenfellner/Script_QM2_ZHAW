@@ -293,8 +293,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-a62bc347e4cbe99809a5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-a62bc347e4cbe99809a5">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-ee504b18f2cf52752ab1" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-ee504b18f2cf52752ab1">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -871,8 +871,8 @@ identical to the plot above in simple linear regression, but
 very helpful in multiple regression.
 You get the (<span class="math inline">\(\hat{y_i}, e_i\)</span>) plot in R with <code>plot(mod, which = 1)</code>.</p>
 </div>
-<div id="constant-variance" class="section level4 hasAnchor" number="3.2.6.2">
-<h4><span class="header-section-number">3.2.6.2</span> Constant variance<a href="simple-linear-regression.html#constant-variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="constant_variance" class="section level4 hasAnchor" number="3.2.6.2">
+<h4><span class="header-section-number">3.2.6.2</span> Constant variance<a href="simple-linear-regression.html#constant_variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This assumption means that the variance of the residuals is constant.
 If it is violated, the spread around a hypothical regression line is not constant.
 We look at the residual scatter plot again:</p>
@@ -950,7 +950,7 @@ to get a better feeling (see <a href="simple-linear-regression.html#exercise9_si
 <p>Another convenient way to check model assumptions is to use
 the <code>check_model</code> function from the <code>performance</code> package:</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
-<p>In this case, everything loosk fine. Let’s go through the plots and explain them:</p>
+<p>In this case, everything looks fine. Let’s go through the plots and explain them:</p>
 <div id="posterior-predictive-check-upper-left" class="section level5 hasAnchor" number="3.2.6.4.1">
 <h5><span class="header-section-number">3.2.6.4.1</span> Posterior predictive check (upper left)<a href="simple-linear-regression.html#posterior-predictive-check-upper-left" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Here, you create new data from the estimated model.
@@ -971,11 +971,11 @@ multiple times to get a feeling for the variability of the model predictions.</p
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>The simulated and original data (green) fit nicely together.
 This lends some credibility to the model.
-And now the density plots of the model created data and the observed data:</p>
+And now the density plots of the model created data (blue) and the observed data (green):</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>As you can see, the densities of the observed and simulated data are broadly similar.
 One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
-Depending on the context, this might be a problem or not. Let’s accept this model for now.</p>
+Depending on the context, this might be a problem or not. Let’s accept the model for now.</p>
 </div>
 <div id="linear-fit-upper-right" class="section level5 hasAnchor" number="3.2.6.4.2">
 <h5><span class="header-section-number">3.2.6.4.2</span> Linear fit (upper right)<a href="simple-linear-regression.html#linear-fit-upper-right" class="anchor-section" aria-label="Anchor link to header"></a></h5>
@@ -983,12 +983,45 @@ Depending on the context, this might be a problem or not. Let’s accept this mo
 </div>
 <div id="homogeneity-of-variance-middle-left" class="section level5 hasAnchor" number="3.2.6.4.3">
 <h5><span class="header-section-number">3.2.6.4.3</span> Homogeneity of variance (middle left)<a href="simple-linear-regression.html#homogeneity-of-variance-middle-left" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>This is the same plot as <a href="simple-linear-regression.html#constant_variance">above</a>: <span class="math inline">\((\hat{y}_i, |e_i|)\)</span>.</p>
 </div>
 <div id="influential-observations-middle-right" class="section level5 hasAnchor" number="3.2.6.4.4">
 <h5><span class="header-section-number">3.2.6.4.4</span> Influential observations (middle right)<a href="simple-linear-regression.html#influential-observations-middle-right" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The standard method to check for influential observations is to compute the
+so-called <a href="https://en.wikipedia.org/wiki/Cook%27s_distance">Cook’s distance</a>.
+This is a measure of how leverage a single observation has on the model.
+We can extract the Cook’s distance from the model using <code>cooks.distance()</code>.
+An ugly rule of thumb would be to look at observations with a Cook’s distance
+greater than 1.
+In the plot, the leverage <span class="math inline">\(h_{ii}\)</span> is on the x-axis, and the standardized residuals
+are on the y-axis. In short, a high leverage means that the estimated value <span class="math inline">\(\hat{y}_i\)</span>
+is potentially far away from the original value <span class="math inline">\(y_i\)</span>.
+The contours (dotted green lines) are the Cook’s distance, in this
+case at a Cook’s distance of 0.5.
+There is formula that relates the leverage (<span class="math inline">\(h_{ii}\)</span>) and the Cook’s distance
+and the residuals. Holding Cook`s distant constant at 0.5,
+gives you the green dotted line in the plot.</p>
+<p>Let’s create an outlier and see what happens:</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-49-2.png" width="672" /></p>
+<pre><code>## Cook&#39;s distance =  7.025207</code></pre>
+<p>One single outlier changes the diagnostic plots. Observation 352
+is clearly identified as influential. The one point
+changes all diagnostic plots notably.
+The estimates of the regression coefficients
+are alos affected:</p>
+<pre><code>## [1] &quot;Original Model&quot;</code></pre>
+<pre><code>## (Intercept)      weight 
+## 113.8793936   0.9050291</code></pre>
+<pre><code>## [1] &quot;Model with outlier&quot;</code></pre>
+<pre><code>## (Intercept)      weight 
+##  127.172494    0.599054</code></pre>
+<p>Admitted, this is a somewhat artificial example.</p>
 </div>
 <div id="normality-of-residuals-lower-left" class="section level5 hasAnchor" number="3.2.6.4.5">
 <h5><span class="header-section-number">3.2.6.4.5</span> Normality of residuals (lower left)<a href="simple-linear-regression.html#normality-of-residuals-lower-left" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>……..</p>
 </div>
 </div>
 </div>
@@ -1013,7 +1046,7 @@ the (model-)predicted height is less than 1 standard deviation above the mean of
 still larger than the average height. Let’s verify:</p>
 <pre><code>## predicted height= 0.7547479</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <p>As Gelman points out in his book (Figure 4.2), there is a fine detail:
 The regression line is not the line most people would draw through the data.
 They would draw a line through the main directions of variability
@@ -1050,6 +1083,7 @@ the sum of the work is minimized. This is the least squares method.
 </ul></li>
 <li>check_model()</li>
 <li>extend further reading to create more connections</li>
+<li>maybe create animation of points wiggling to get a feeling for the variability</li>
 </ul>
 <p>For multiple regression:
 We could also look at the simple regression problem as fitting a plane to the data,
