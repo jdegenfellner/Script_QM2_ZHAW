@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-01-22" />
+<meta name="date" content="2025-01-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -195,11 +195,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#model-definition-1"><i class="fa fa-check"></i><b>3.2.1</b> Model definition</a></li>
 <li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#fit_model_simple_lin_reg_classic"><i class="fa fa-check"></i><b>3.2.2</b> Fit the model</a></li>
-<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analysis_of_variance"><i class="fa fa-check"></i><b>3.2.3</b> ANOVA (Analysis of Variance)</a></li>
-<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2---coefficient-of-determination"><i class="fa fa-check"></i><b>3.2.4</b> <span class="math inline">\(R^2\)</span> - Coefficient of Determination</a></li>
-<li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.5</b> Check regression assumptions</a></li>
-<li class="chapter" data-level="3.2.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.6</b> Regression towards the mean</a></li>
-<li class="chapter" data-level="3.2.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#todos"><i class="fa fa-check"></i><b>3.2.7</b> TODOS</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#confidence_intervals_frequentist"><i class="fa fa-check"></i><b>3.2.3</b> Confidence Intervals of coefficients (frequentist)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analysis_of_variance"><i class="fa fa-check"></i><b>3.2.4</b> ANOVA (Analysis of Variance)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2---coefficient-of-determination"><i class="fa fa-check"></i><b>3.2.5</b> <span class="math inline">\(R^2\)</span> - Coefficient of Determination</a></li>
+<li class="chapter" data-level="3.2.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.6</b> Check regression assumptions</a></li>
+<li class="chapter" data-level="3.2.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.7</b> Regression towards the mean</a></li>
+<li class="chapter" data-level="3.2.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#todos"><i class="fa fa-check"></i><b>3.2.8</b> TODOS</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
 <ul>
@@ -290,8 +291,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-2b7041fcdbb7674219ee" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-2b7041fcdbb7674219ee">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-81b833f0a4d9bf3ffcd1" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-81b833f0a4d9bf3ffcd1">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -682,8 +683,58 @@ the coordinates minimizes the sum of squared errors. The result confirmes
 the results from the <code>lm</code> function.The dot in red marks the spot (Code is in the git repository):</p>
 <p><strong>—COMPILE CODE AT DEOPLOYMENT—</strong></p>
 </div>
-<div id="analysis_of_variance" class="section level3 hasAnchor" number="3.2.3">
-<h3><span class="header-section-number">3.2.3</span> ANOVA (Analysis of Variance)<a href="simple-linear-regression.html#analysis_of_variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="confidence_intervals_frequentist" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Confidence Intervals of coefficients (frequentist)<a href="simple-linear-regression.html#confidence_intervals_frequentist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You can get CI’s conveniently with the <code>confint</code> function:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="simple-linear-regression.html#cb65-1" tabindex="-1"></a><span class="fu">confint</span>(mod, <span class="at">level =</span> <span class="fl">0.96</span>)</span></code></pre></div>
+<pre><code>##                    2 %        98 %
+## (Intercept) 109.939864 117.8189232
+## weight        0.818351   0.9917072</code></pre>
+<p>Remember, these are frequenetist confidence intervals. If one repeats the experiment
+many times, the true but unknown value of the parameter will be in the interval in 96% of the cases.</p>
+<p>We can also try to bootstrap using simple bootstrap. We</p>
+<ul>
+<li>create 1000 bootstrap samples,</li>
+<li>fit the model,</li>
+<li>store the coefficients.</li>
+<li>The 2% and 98% quantiles of the coefficients are the 98% bootstrap confidence intervals.</li>
+</ul>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="simple-linear-regression.html#cb67-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb67-2"><a href="simple-linear-regression.html#cb67-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(d2)</span>
+<span id="cb67-3"><a href="simple-linear-regression.html#cb67-3" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb67-4"><a href="simple-linear-regression.html#cb67-4" tabindex="-1"></a>boot_coefs <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> B, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb67-5"><a href="simple-linear-regression.html#cb67-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb67-6"><a href="simple-linear-regression.html#cb67-6" tabindex="-1"></a>  boot_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb67-7"><a href="simple-linear-regression.html#cb67-7" tabindex="-1"></a>  boot_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2[boot_idx, ])</span>
+<span id="cb67-8"><a href="simple-linear-regression.html#cb67-8" tabindex="-1"></a>  boot_coefs[i, ] <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot_mod)</span>
+<span id="cb67-9"><a href="simple-linear-regression.html#cb67-9" tabindex="-1"></a>}</span>
+<span id="cb67-10"><a href="simple-linear-regression.html#cb67-10" tabindex="-1"></a><span class="co">#head(boot_coefs)</span></span>
+<span id="cb67-11"><a href="simple-linear-regression.html#cb67-11" tabindex="-1"></a><span class="fu">quantile</span>(boot_coefs, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##          2%         98% 
+##   0.8343242 117.0319290</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="simple-linear-regression.html#cb69-1" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">apply</span>(boot_coefs, <span class="dv">2</span>, quantile, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>)))</span></code></pre></div>
+<pre><code>##               2%         98%
+## [1,] 110.1862455 117.4516455
+## [2,]   0.8229982   0.9859997</code></pre>
+<p>The CIs are quite similar to the ones from the <code>confint</code> function.</p>
+<p>In the Bayesian setting, we used the centered weight variable. Let’s to this here too for
+comparison and use 89% coverage probability.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="simple-linear-regression.html#cb71-1" tabindex="-1"></a>d2<span class="sc">$</span>weight_centered <span class="ot">&lt;-</span> d2<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
+<span id="cb71-2"><a href="simple-linear-regression.html#cb71-2" tabindex="-1"></a>mod_centered <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight_centered, <span class="at">data =</span> d2)</span>
+<span id="cb71-3"><a href="simple-linear-regression.html#cb71-3" tabindex="-1"></a><span class="co">#summary(mod_centered)</span></span>
+<span id="cb71-4"><a href="simple-linear-regression.html#cb71-4" tabindex="-1"></a><span class="fu">confint</span>(mod_centered, <span class="at">level =</span> <span class="fl">0.89</span>)</span></code></pre></div>
+<pre><code>##                      5.5 %      94.5 %
+## (Intercept)     154.162715 155.0314698
+## weight_centered   0.837658   0.9724002</code></pre>
+<p>Compare with <code>precis</code> from the Bayesian model:</p>
+<pre><code>##              mean         sd       5.5%       94.5%
+## a     154.5972131 0.27033041 154.165173 155.0292533
+## b       0.9050133 0.04192753   0.838005   0.9720216
+## sigma   5.0718667 0.19115317   4.766367   5.3773663</code></pre>
+<p>We are glad to see that both analyses align really nicely.</p>
+</div>
+<div id="analysis_of_variance" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> ANOVA (Analysis of Variance)<a href="simple-linear-regression.html#analysis_of_variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A non-obvious and very useful finding is that the total variability in the data (our heights) can be
 <strong>decomposed</strong> (or <a href="https://en.wiktionary.org/wiki/analysis">analysed</a>)
 into two parts:</p>
@@ -699,7 +750,7 @@ into two parts:</p>
 explains the concept nicely.</p>
 <p>Let’s visualize our regression result:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>The blue dotted line is the distance from
 the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
@@ -708,8 +759,8 @@ One sees that it adds up. I find this fact quite fascinating.
 One finds additivity by considering not determinisic values, but variances.
 Thank you <a href="https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.">Ronald Fisher</a>.</p>
 </div>
-<div id="r2---coefficient-of-determination" class="section level3 hasAnchor" number="3.2.4">
-<h3><span class="header-section-number">3.2.4</span> <span class="math inline">\(R^2\)</span> - Coefficient of Determination<a href="simple-linear-regression.html#r2---coefficient-of-determination" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="r2---coefficient-of-determination" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> <span class="math inline">\(R^2\)</span> - Coefficient of Determination<a href="simple-linear-regression.html#r2---coefficient-of-determination" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><a href="https://en.wikipedia.org/wiki/Coefficient_of_determination"><span class="math inline">\(R^2\)</span></a>
 is the <strong>amount of variance explained by the model</strong>.
 You can also read <a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a> 8.1.</p>
@@ -737,8 +788,8 @@ Hence, you will definitely not be worse off with regards to SSE when using more 
 A smaller SSE implies a larger SSR (sum constraint) and hence a larger <span class="math inline">\(R^2\)</span>. SST remains constant.</p>
 <p>Although not perfect, one way to mitigate the influence of “too many” variables
 on <span class="math inline">\(R^2\)</span> is to use the adjusted <span class="math inline">\(R^2\)</span>, which an also be found in the R output (<code>Adjusted R-squared</code>).</p>
-<div id="seperating-property-of-regression-due-to-r2" class="section level4 hasAnchor" number="3.2.4.1">
-<h4><span class="header-section-number">3.2.4.1</span> Seperating property of regression due to <span class="math inline">\(R^2\)</span>:<a href="simple-linear-regression.html#seperating-property-of-regression-due-to-r2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="seperating-property-of-regression-due-to-r2" class="section level4 hasAnchor" number="3.2.5.1">
+<h4><span class="header-section-number">3.2.5.1</span> Seperating property of regression due to <span class="math inline">\(R^2\)</span>:<a href="simple-linear-regression.html#seperating-property-of-regression-due-to-r2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Peter Westfall</a>
 explains (in Figure 8.1 of the book) how <span class="math inline">\(R^2\)</span> influences the separation of distributions in our simple regression model.</p>
 <p>In our regression of height on weight (order is correct, that’s how you say it),
@@ -750,7 +801,7 @@ which reduces <span class="math inline">\(R^2\)</span> to <span class="math inli
 overlap and it is hard to distinguish between weights when seeing the height.
 With a very low <span class="math inline">\(R^2\)</span>, the height prediction does not really change and we could just as well
 use the mean model.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <p>In the left plot, given <span class="math inline">\(X = x_{low}\)</span> gives as a rather shifted normal distribution of
 potentially observable heights for this weight compared to <span class="math inline">\(X=x_{high}\)</span>.
 We would have a lower missclassification error when trying to distinguish weights
@@ -764,8 +815,8 @@ as “heavy” (top 10% weight) and every person below as “light” (bottom 10
 <p>See also <a href="simple-linear-regression.html#exercise5_simpl_lin_reg">exercise 5</a>.</p>
 </div>
 </div>
-<div id="check-regression-assumptions" class="section level3 hasAnchor" number="3.2.5">
-<h3><span class="header-section-number">3.2.5</span> Check regression assumptions<a href="simple-linear-regression.html#check-regression-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="check-regression-assumptions" class="section level3 hasAnchor" number="3.2.6">
+<h3><span class="header-section-number">3.2.6</span> Check regression assumptions<a href="simple-linear-regression.html#check-regression-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Everytime we fit a model, we should check the assumptions <a href="simple-linear-regression.html#id__model_assumptions">above</a>.
 We do this for different reasons (which will become clearer over the course).
 The assumptions are independent of each other.
@@ -795,18 +846,18 @@ As guidance, we could the check the assumptions in the following order:</p>
 <li>Independence</li>
 <li>Normality</li>
 </ul>
-<div id="linearity" class="section level4 hasAnchor" number="3.2.5.1">
-<h4><span class="header-section-number">3.2.5.1</span> Linearity<a href="simple-linear-regression.html#linearity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="linearity" class="section level4 hasAnchor" number="3.2.6.1">
+<h4><span class="header-section-number">3.2.6.1</span> Linearity<a href="simple-linear-regression.html#linearity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>First, we <strong>plot the data</strong>, as we did already above. We can add a
 a smoothing line as well:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>This looks like this relationship is describable in a linear way.
 No apparent curvature or patches.
 A refined version of the scatterplot of the raw data is The
 <strong>residual scatter plot</strong> (<span class="math inline">\(x_i, e_i\)</span>):</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>Compared to the scatterplot above, the residuals plot magnifies
 possible curvature. The reason is that the range of residuals
 is smaller than the range of the heights.</p>
@@ -815,12 +866,12 @@ identical to the plot above in simple linear regression, but
 very helpful in multiple regression.
 You get the (<span class="math inline">\(\hat{y_i}, e_i\)</span>) plot in R with <code>plot(mod, which = 1)</code>.</p>
 </div>
-<div id="constant-variance" class="section level4 hasAnchor" number="3.2.5.2">
-<h4><span class="header-section-number">3.2.5.2</span> Constant variance<a href="simple-linear-regression.html#constant-variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="constant-variance" class="section level4 hasAnchor" number="3.2.6.2">
+<h4><span class="header-section-number">3.2.6.2</span> Constant variance<a href="simple-linear-regression.html#constant-variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This assumption means that the variance of the residuals is constant.
 If it is violated, the spread around a hypothical regression line is not constant.
 We look at the residual scatter plot again:</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>Look for a changes in patterns of vertical variability. Note, that
 often do not have as many data points near the end of the range of the predictor.
 Here are some examples of heteroskedasticity:
@@ -839,13 +890,13 @@ with a smoothing line:</p>
 ##  $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
 ##  $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>This will probably not be a perfectly horizontal line, since
 there are less points at the end of the range of the predictor.
 For instance, There are less people with extreme weights in the data set.</p>
 </div>
-<div id="independence-uncorrelated-errors" class="section level4 hasAnchor" number="3.2.5.3">
-<h4><span class="header-section-number">3.2.5.3</span> Independence, uncorrelated errors<a href="simple-linear-regression.html#independence-uncorrelated-errors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="independence-uncorrelated-errors" class="section level4 hasAnchor" number="3.2.6.3">
+<h4><span class="header-section-number">3.2.6.3</span> Independence, uncorrelated errors<a href="simple-linear-regression.html#independence-uncorrelated-errors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>We had a example above, where the errors were correlated.
 The sine curve could stem from time series data, where the <span class="math inline">\(x\)</span>-variable
 is the time and the <span class="math inline">\(y\)</span>-variable is a seasonally changing variable
@@ -861,11 +912,11 @@ very likely that I was tall yesterday.</p>
 A <span class="math inline">\(lag=1\)</span> means I compare the residuals with the ones right next to me and check if
 they are correlated.</p>
 <pre><code>## cor= 0.01858044</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>It least with a lag of <span class="math inline">\(1\)</span>, there so no large correlation between the residuals.</p>
 </div>
-<div id="normality_assumption" class="section level4 hasAnchor" number="3.2.5.4">
-<h4><span class="header-section-number">3.2.5.4</span> Normality<a href="simple-linear-regression.html#normality_assumption" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="normality_assumption" class="section level4 hasAnchor" number="3.2.6.4">
+<h4><span class="header-section-number">3.2.6.4</span> Normality<a href="simple-linear-regression.html#normality_assumption" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This assumptions states that the conditional distribution <span class="math inline">\(Y|X=x\)</span>
 is a normal distribution. We do not look at the normality of <span class="math inline">\(Y\)</span> itself,
 since it is not a formal requirement, that <span class="math inline">\(Y\)</span> is normally distributed.
@@ -884,7 +935,7 @@ from the R package <code>car</code>:</p>
 <pre><code>## The following object is masked from &#39;package:rethinking&#39;:
 ## 
 ##     logit</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <pre><code>## 479  94 
 ## 317  72</code></pre>
 <p>With the 97% confidence envelope, we can see if the residuals are
@@ -893,8 +944,8 @@ We could again use simulation to see how the QQ Plot changes
 to get a better feeling (see <a href="simple-linear-regression.html#exercise9_simpl_lin_reg">exercise 9</a>).</p>
 </div>
 </div>
-<div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.6">
-<h3><span class="header-section-number">3.2.6</span> Regression towards the mean<a href="simple-linear-regression.html#regression-towards-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.7">
+<h3><span class="header-section-number">3.2.7</span> Regression towards the mean<a href="simple-linear-regression.html#regression-towards-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are great explanations for “<a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean">regression towards the mean</a>” in
 <a href="http://www.stat.columbia.edu/~gelman/arm/">Gelman</a> p.58 and
 <a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a> p.36.
@@ -906,7 +957,7 @@ the (model-)predicted height is less than 1 standard deviation above the mean of
 still larger than the average height. Let’s verify:</p>
 <pre><code>## predicted height= 0.7547479</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>As Gelman points out in his book (Figure 4.2), there is a fine detail:
 The regression line is not the line most people would draw through the data.
 They would draw a line through the main directions of variability
@@ -916,8 +967,8 @@ to another problem (as we have seen): It minimizes the sum of squared residuals,
 which are defined via the <strong>vertical</strong> distances to the line.
 See <a href="simple-linear-regression.html#exercise8_simpl_lin_reg">exercise 8</a>.</p>
 </div>
-<div id="todos" class="section level3 hasAnchor" number="3.2.7">
-<h3><span class="header-section-number">3.2.7</span> TODOS<a href="simple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="todos" class="section level3 hasAnchor" number="3.2.8">
+<h3><span class="header-section-number">3.2.8</span> TODOS<a href="simple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>random X vs fixed X</li>
 <li>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)

@@ -28,6 +28,7 @@ simple-linear-regression-in-the-frequentist-framework
 model-definition-1
 id__model_assumptions
 fit_model_simple_lin_reg_classic
+confidence_intervals_frequentist
 analysis_of_variance
 r2---coefficient-of-determination
 seperating-property-of-regression-due-to-r2

@@ -596,10 +596,73 @@ fig <- fig %>% add_trace(
 )
 
 fig
-
 ```
 
+### Confidence Intervals of coefficients (frequentist) {#confidence_intervals_frequentist}
 
+You can get CI's conveniently with the `confint` function:
+
+```{r}
+confint(mod, level = 0.96)
+```
+
+Remember, these are frequenetist confidence intervals. If one repeats the experiment
+many times, the true but unknown value of the parameter will be in the interval in 96% of the cases.
+
+We can also try to bootstrap using simple bootstrap. We 
+
+- create 1000 bootstrap samples, 
+- fit the model, 
+- store the coefficients. 
+- The 2% and 98% quantiles of the coefficients are the 98% bootstrap confidence intervals.
+
+```{r}
+set.seed(123)
+n <- nrow(d2)
+B <- 1000
+boot_coefs <- matrix(NA, nrow = B, ncol = 2)
+for (i in 1:B) {
+  boot_idx <- sample(1:n, replace = TRUE)
+  boot_mod <- lm(height ~ weight, data = d2[boot_idx, ])
+  boot_coefs[i, ] <- coef(boot_mod)
+}
+#head(boot_coefs)
+quantile(boot_coefs, c(0.02, 0.98), na.rm = TRUE)
+t(apply(boot_coefs, 2, quantile, c(0.02, 0.98)))
+```
+The CIs are quite similar to the ones from the `confint` function.
+
+In the Bayesian setting, we used the centered weight variable. Let's to this here too for 
+comparison and use 89% coverage probability.
+
+```{r}
+d2$weight_centered <- d2$weight - mean(d2$weight)
+mod_centered <- lm(height ~ weight_centered, data = d2)
+#summary(mod_centered)
+confint(mod_centered, level = 0.89)
+```
+
+Compare with `precis` from the Bayesian model:
+```{r, echo=FALSE}
+library(rethinking)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
+xbar <- mean(d2$weight)
+# fit model
+mod <- quap(
+    alist(
+        height ~ dnorm(mu, sigma),
+        mu <- a + b * (weight - xbar),
+        a ~ dnorm(171.1, 100),
+        b ~ dnorm(0, 10),
+        sigma ~ dunif(0, 50)
+    ) ,
+data = d2)
+precis(mod)
+```
+
+We are glad to see that both analyses align really nicely.
 
 ### ANOVA (Analysis of Variance) {#analysis_of_variance}
 
