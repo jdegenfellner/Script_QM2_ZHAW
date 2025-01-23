@@ -1229,7 +1229,8 @@ are on the y-axis. In short, a high leverage means that the estimated value $\ha
 is potentially far away from the original value $y_i$. 
 The contours (dotted green lines) are the Cook's distance, in this 
 case at a Cook's distance of 0.5.
-There is formula that relates the leverage ($h_{ii}$) and the Cook's distance
+There is [formula](https://en.wikipedia.org/wiki/Cook%27s_distance#Relationship_to_other_influence_measures_(and_interpretation))
+that relates the leverage ($h_{ii}$), the Cook's distance
 and the residuals. Holding Cook`s distant constant at 0.5, 
 gives you the green dotted line in the plot.
 
@@ -1280,18 +1281,105 @@ coef(mod2)
 Admitted, this is a somewhat artificial example.
 
 ##### Normality of residuals (lower left)
-........
+This is basically the same plot as above, just [detrended](https://cran.r-project.org/web/packages/qqplotr/vignettes/introduction.html). 
+Let's try to replicate it:
+
+```{r, echo=FALSE, warning=FALSE}
+library(ggplot2)
+library(qqplotr)
+
+# Prepare the data
+df <- data.frame(
+  residuals = scale(mod$residuals) # Standardize the residuals to match `check_model()`
+)
+
+# Create the detrended QQ plot
+ggplot(data = df, mapping = aes(sample = residuals)) +
+  stat_qq_band(distribution = "norm", 
+               bandType = "boot",
+               detrend = TRUE, 
+               fill = "grey", 
+               alpha = 0.3) + # Confidence band
+  stat_qq_line(distribution = "norm", 
+  detrend = TRUE, color = "green", linewidth = 0.8) + # Detrended line
+  stat_qq_point(distribution = "norm", 
+  detrend = TRUE, color = "blue", linewidth = 1.5) + # Points
+  labs(
+    title = "Normality of Residuals",
+    subtitle = "Dots should fall along the line",
+    x = "Standard Normal Distribution Quantiles",
+    y = "Sample Quantile Deviations"
+  ) +
+  coord_cartesian(ylim = c(-2, 2)) + # Match the y-range to the `check_model()` plot
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  theme(plot.subtitle = element_text(hjust = 0.5))
+```
+
+The normality assumption seems to hold. Not that in the above QQ plot, 
+we detrended the residuals and used a bootrap confidence band. Depending 
+on the band type, the confidence band can be wider or narrower and include
+or exlude points.
+
+**After having checked the assumptions for the classical regression model**
+and we feel comfortable with the model, we get exact confidence intervals
+for the effect sizes ($\beta$s) using `confint()` (p. 74 in Westfall).
+
+Heureka! We have a model that fits the data well.
 
 ### Bootstrap fit
 In order to get a feeling for the variability of the model with regards to the predictors as well, 
 we can bootstrap the whole data set, fit the model and draw regression lines.
+We create $100$ bootrap replicates of our data set `d2` by drawing with 
+replication. For every bootrap replicate, we fit the model and draw the regression line.
 
-...........
+```{r, echo=FALSE, warning=FALSE}
+# Required Libraries
+library(ggplot2)
 
-One could also draw from the residuals and create bootstrap replicates using those:
+# Define number of bootstrap replicates
+n_bootstrap <- 100
 
-...........
+# Create a list to store bootstrap models
+bootstrap_models <- vector("list", n_bootstrap)
 
+# Bootstrap and fit the model
+set.seed(123) # For reproducibility
+for (i in 1:n_bootstrap) {
+  # Sample with replacement
+  bootstrap_data <- mod$model[sample(nrow(mod$model), replace = TRUE), ]
+  
+  # Fit the model to the bootstrap sample
+  bootstrap_models[[i]] <- lm(as.formula(mod$call), data = bootstrap_data)
+}
+
+# Extract regression lines
+bootstrap_lines <- lapply(bootstrap_models, function(model) {
+  data.frame(
+    x = mod$model[[2]], # Predictor variable
+    y = predict(model, newdata = mod$model) # Predicted values
+  )
+})
+
+# Combine all bootstrap lines into a single data frame
+bootstrap_lines_df <- do.call(rbind, lapply(seq_along(bootstrap_lines), function(i) {
+  data.frame(x = bootstrap_lines[[i]]$x, y = bootstrap_lines[[i]]$y, replicate = i)
+}))
+
+# Scatterplot of the original data with bootstrap regression lines
+ggplot(mod$model, aes(x = .data[[names(mod$model)[2]]], y = .data[[names(mod$model)[1]]])) +
+  geom_point(color = "blue", alpha = 0.7) + # Scatterplot points
+  geom_line(data = bootstrap_lines_df, aes(x = x, y = y, group = replicate), 
+            color = "grey", alpha = 0.3, linewidth = 0.5) + # Bootstrap regression lines
+  labs(
+    title = "Bootstrap Regression Lines",
+    x = "Predictor",
+    y = "Response"
+  ) +
+  theme_minimal()
+```
+
+The results is very stable. Neither intercept nor slope change much.
 
 ### Regression towards the mean
 
@@ -1384,9 +1472,6 @@ $R^2$. We will verify this when we have more than 2 explanatory variables.
   Every point is attached to the stick with a srping. the work needed to change the
   spring by $\delta x$ is $k \delta x^2$. The stick is adjusted in such a way that
   the sum of the work is minimized. This is the least squares method.
-  - confint regression coefficients
-  - bootstrap confidence intervals for coefficients
-- check_model()
 - extend further reading to create more connections
 - maybe create animation of points wiggling to get a feeling for the variability
 

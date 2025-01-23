@@ -293,8 +293,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-ee504b18f2cf52752ab1" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-ee504b18f2cf52752ab1">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-36c9386501bd1d326107" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-36c9386501bd1d326107">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -998,7 +998,8 @@ are on the y-axis. In short, a high leverage means that the estimated value <spa
 is potentially far away from the original value <span class="math inline">\(y_i\)</span>.
 The contours (dotted green lines) are the Cook’s distance, in this
 case at a Cook’s distance of 0.5.
-There is formula that relates the leverage (<span class="math inline">\(h_{ii}\)</span>) and the Cook’s distance
+There is <a href="https://en.wikipedia.org/wiki/Cook%27s_distance#Relationship_to_other_influence_measures_(and_interpretation)">formula</a>
+that relates the leverage (<span class="math inline">\(h_{ii}\)</span>), the Cook’s distance
 and the residuals. Holding Cook`s distant constant at 0.5,
 gives you the green dotted line in the plot.</p>
 <p>Let’s create an outlier and see what happens:</p>
@@ -1021,17 +1022,33 @@ are alos affected:</p>
 </div>
 <div id="normality-of-residuals-lower-left" class="section level5 hasAnchor" number="3.2.6.4.5">
 <h5><span class="header-section-number">3.2.6.4.5</span> Normality of residuals (lower left)<a href="simple-linear-regression.html#normality-of-residuals-lower-left" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>……..</p>
+<p>This is basically the same plot as above, just <a href="https://cran.r-project.org/web/packages/qqplotr/vignettes/introduction.html">detrended</a>.
+Let’s try to replicate it:</p>
+<pre><code>## 
+## Attaching package: &#39;qqplotr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     stat_qq_line, StatQqLine</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>The normality assumption seems to hold. Not that in the above QQ plot,
+we detrended the residuals and used a bootrap confidence band. Depending
+on the band type, the confidence band can be wider or narrower and include
+or exlude points.</p>
+<p><strong>After having checked the assumptions for the classical regression model</strong>
+and we feel comfortable with the model, we get exact confidence intervals
+for the effect sizes (<span class="math inline">\(\beta\)</span>s) using <code>confint()</code> (p. 74 in Westfall).</p>
+<p>Heureka! We have a model that fits the data well.</p>
 </div>
 </div>
 </div>
 <div id="bootstrap-fit" class="section level3 hasAnchor" number="3.2.7">
 <h3><span class="header-section-number">3.2.7</span> Bootstrap fit<a href="simple-linear-regression.html#bootstrap-fit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In order to get a feeling for the variability of the model with regards to the predictors as well,
-we can bootstrap the whole data set, fit the model and draw regression lines.</p>
-<p>………..</p>
-<p>One could also draw from the residuals and create bootstrap replicates using those:</p>
-<p>………..</p>
+we can bootstrap the whole data set, fit the model and draw regression lines.
+We create <span class="math inline">\(100\)</span> bootrap replicates of our data set <code>d2</code> by drawing with
+replication. For every bootrap replicate, we fit the model and draw the regression line.</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>The results is very stable. Neither intercept nor slope change much.</p>
 </div>
 <div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.8">
 <h3><span class="header-section-number">3.2.8</span> Regression towards the mean<a href="simple-linear-regression.html#regression-towards-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1046,7 +1063,7 @@ the (model-)predicted height is less than 1 standard deviation above the mean of
 still larger than the average height. Let’s verify:</p>
 <pre><code>## predicted height= 0.7547479</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 <p>As Gelman points out in his book (Figure 4.2), there is a fine detail:
 The regression line is not the line most people would draw through the data.
 They would draw a line through the main directions of variability
