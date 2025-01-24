@@ -1319,7 +1319,7 @@ ggplot(data = df, mapping = aes(sample = residuals)) +
 The normality assumption seems to hold. Not that in the above QQ plot, 
 we detrended the residuals and used a bootrap confidence band. Depending 
 on the band type, the confidence band can be wider or narrower and include
-or exlude points.
+or exclude points.
 
 **After having checked the assumptions for the classical regression model**
 and we feel comfortable with the model, we get exact confidence intervals
@@ -1474,12 +1474,17 @@ $R^2$. We will verify this when we have more than 2 explanatory variables.
   the sum of the work is minimized. This is the least squares method.
 - extend further reading to create more connections
 - maybe create animation of points wiggling to get a feeling for the variability
-
-For multiple regression:
-We could also look at the simple regression problem as fitting a plane to the data,
-as is done [here](https://rpubs.com/pjozefek/576206) or 
-[here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
-at the end. As
+- Show by simulation what Gelman talks about with significant p values. So I scan the data
+  for significant p values and then simulate data with the same effect size and see how often
+  I get significant p values. Especially the next effect would be probably smaller,
+  especially, if one did p-hacking! Calculate a priori probability for replication (def?).
+- For multiple regression:
+  We could also look at the simple regression problem as fitting a plane to the data,
+  as is done [here](https://rpubs.com/pjozefek/576206) or 
+  [here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
+  at the end. As
+- Variability of confidence interval borders
+- Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 
 
 ## Exercises

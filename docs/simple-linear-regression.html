@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-01-23" />
+<meta name="date" content="2025-01-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -293,8 +293,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-3a9363b0257dde9dae0c" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-3a9363b0257dde9dae0c">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-d66202ed9fd65e7525a0" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-d66202ed9fd65e7525a0">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -1033,7 +1033,7 @@ Let’s try to replicate it:</p>
 <p>The normality assumption seems to hold. Not that in the above QQ plot,
 we detrended the residuals and used a bootrap confidence band. Depending
 on the band type, the confidence band can be wider or narrower and include
-or exlude points.</p>
+or exclude points.</p>
 <p><strong>After having checked the assumptions for the classical regression model</strong>
 and we feel comfortable with the model, we get exact confidence intervals
 for the effect sizes (<span class="math inline">\(\beta\)</span>s) using <code>confint()</code> (p. 74 in Westfall).</p>
@@ -1096,12 +1096,18 @@ spring by <span class="math inline">\(\delta x\)</span> is <span class="math inl
 the sum of the work is minimized. This is the least squares method.</li>
 <li>extend further reading to create more connections</li>
 <li>maybe create animation of points wiggling to get a feeling for the variability</li>
-</ul>
-<p>For multiple regression:
+<li>Show by simulation what Gelman talks about with significant p values. So I scan the data
+for significant p values and then simulate data with the same effect size and see how often
+I get significant p values. Especially the next effect would be probably smaller,
+especially, if one did p-hacking! Calculate a priori probability for replication (def?).</li>
+<li>For multiple regression:
 We could also look at the simple regression problem as fitting a plane to the data,
 as is done <a href="https://rpubs.com/pjozefek/576206">here</a> or
 <a href="https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization">here</a>
-at the end. As</p>
+at the end. As</li>
+<li>Variability of confidence interval borders</li>
+<li>Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test</li>
+</ul>
 </div>
 </div>
 <div id="exercises-1" class="section level2 hasAnchor" number="3.3">
