@@ -1273,7 +1273,7 @@ This is the same plot as [above](#constant_variance): $(\hat{y}_i, |e_i|)$.
 ##### Influential observations (middle right)
 The standard method to check for influential observations is to compute the
 so-called [Cook's distance](https://en.wikipedia.org/wiki/Cook%27s_distance). 
-This is a measure of how leverage a single observation has on the model.
+This is a measure of how much leverage a single observation has on the model.
 We can extract the Cook's distance from the model using `cooks.distance()`.
 An ugly rule of thumb would be to look at observations with a Cook's distance
 greater than 1.
@@ -1322,7 +1322,7 @@ One single outlier changes the diagnostic plots. Observation 352
 is clearly identified as influential. The one point
 changes all diagnostic plots notably.
 The estimates of the regression coefficients
-are alos affected:
+are also affected:
 
 ```{r, echo=FALSE}
 print("Original Model")
