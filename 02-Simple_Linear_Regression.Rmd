@@ -41,7 +41,7 @@ It's not often, that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
 The higher the weight, the higher the height; with some deviations of course and
 we decide that normally distributed errors are a good idea.
-This relationsip is neither causal, not deterministic.
+This relationsip is neither causal, nor deterministic.
 
 - It is not causal since an increase in weight does not 
   necessarily lead to an increase in height, especially in grown-ups.
@@ -218,17 +218,20 @@ of 1 kg more weight can be expected to be 0.9 cm taller. A 89% credible interval
 for this estimate is $[0.83, 0.97]$. We can be quite sure that the slope is 
 positive (of course we designed it that way too via the prior). 
 
-It might also be interesting to inspect the variance-covariance matrix, 
+It might also be interesting to inspect the **variance-covariance matrix**, 
 respectively the correlation between the parameters as we did before
-in the intercept model.
+in the intercept model. Remember, these are the correlations of
+parameters in the multivariate (because three paremeters simulatenously) 
+posterior distribution.
 
 ```{r}
 diag(vcov(mod))
 round(cov2cor(vcov(mod)),2)
 ```
 
-As we can see the correlations are (near) zero. Compare to the graphical
-display of the model structure. There is no connection.
+- `diag(vcov(mod))` gives the variances of the parameters and 
+- `cov2cor(vcov(mod))`the correlations. As we can see the correlations are (near) zero. Compare to the graphical
+  display of the model structure. There is no connection.
 
 ### Result
 
@@ -283,7 +286,7 @@ shade(mu.PI, weight.seq)
 
 As we can see, we are pretty sure about the mean of height which 
 we wanted to model in the first place.
-Mean modeling is one thing, individual prediction is another.
+**Mean modeling is one thing, individual prediction is another**.
 Given a certain weight of a person, what is the height of the same person?
 The first line in the model definition ($height_i \sim Normal(\mu_i, \sigma)$)
 tells us that a person's weight is distributed *around* the mean
@@ -321,17 +324,62 @@ This part is **sometimes a bit desillusioning** when seen for the first time:
 Draw a horizontal line at 150 cm and see how many weights (according to 
 the individual prediction) are compatible with this height. Weights 
 from 30 to 50 kg are compatible with this height according to the 
-89% prediction interval. The higher the credibility, the wider the interval,
-the wider the range of compatible weights (more than 60% of the weight-range).
+89% prediction interval:
+
+```{r, echo=FALSE}
+# Simulate heights from the posterior
+sim.height <- sim(mod, data = list(weight = weight.seq))
+#str(sim.height)
+##  num [1:1000, 1:46] 138 130 130 147 136 ...
+
+# Compute the 89% prediction interval for simulated heights
+height.PI <- apply(sim.height, 2, PI, prob = 0.89)
+
+# Plot the raw data
+plot(height ~ weight, d2, col = col.alpha(rangi2, 0.5))
+
+# Draw MAP (mean a posteriori) line
+lines(weight.seq, mu.mean)
+
+# Draw HPDI (highest posterior density interval) region for mu
+shade(mu.PI, weight.seq)
+
+# Draw PI (prediction interval) region for simulated heights
+shade(height.PI, weight.seq)
+
+# Add horizontal line at height = 150
+abline(h = 150, col = "red", lty = 2)
+
+# Find weight range for height = 150
+height_at_150 <- which.min(abs(height.PI[1, ] - 150)) # Closest weight for lower bound
+weight_lower <- weight.seq[height_at_150]
+
+height_at_150_upper <- which.min(abs(height.PI[2, ] - 150)) # Closest weight for upper bound
+weight_upper <- weight.seq[height_at_150_upper]
+
+# Add vertical lines for weight range
+abline(v = c(weight_lower, weight_upper), col = "blue", lty = 2)
+
+# Annotate the plot (optional)
+text(weight_lower, 150, labels = paste("Upper:", round(weight_lower, 1)), pos = 4)
+text(weight_upper, 150, labels = paste("Lower:", round(weight_upper, 1)), pos = 4)
+```
+
+The higher the credibility, the wider the interval,
+the wider the range of compatible weights. 
+In our example, more than 60% of the weight-range are 
+plausible to predict a height of 150 cm.
 
 ```{r}
 (50 - 30) / (range(d2$weight)[2] - range(d2$weight)[1])
 ```
 
-On the other hand: We did not model the relationship this ways.
-We modeled height depending on weight and not the other way around. 
+On the other hand: We did not model the relationship this way.
+We modeled **height depending on weight** and not the other way around. 
 In the next chapter, we will regress weight on height (yes, this is the correct order)
 and see what changes.
+
+
 
 ### Summary
 
@@ -1484,6 +1532,7 @@ $R^2$. We will verify this when we have more than 2 explanatory variables.
   [here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
   at the end. As
 - Variability of confidence interval borders
+- Next Chapter: Multiple regression
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 
 
