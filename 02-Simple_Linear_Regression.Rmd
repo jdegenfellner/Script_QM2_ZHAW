@@ -592,9 +592,10 @@ We could also **solve the least squares problem graphically**: We want to find t
 values of $\beta_0$ and $\beta_1$ that minimize the sum of squared differences
 which can be plotted as 3D function. All we have to do is to ask R which of 
 the coordinates minimizes the sum of squared errors. The result confirmes
-the results from the `lm` function.The dot in red marks the spot (Code is in the git repository):
+the results from the `lm` function.The dot in red marks the spot 
+(Code is in the [git repository](https://github.com/jdegenfellner/Script_QM2_ZHAW)):
 
-**---COMPILE CODE AT DEOPLOYMENT---**
+**---COMPILE CODE AT DEOPLOYMENT (takes a bit)---**
 
 ```{r, echo=FALSE, eval=FALSE}
 library(pacman)
@@ -654,8 +655,11 @@ You can get CI's conveniently with the `confint` function:
 confint(mod, level = 0.96)
 ```
 
-Remember, these are frequenetist confidence intervals. If one repeats the experiment
-many times, the true but unknown value of the parameter will be in the interval in 96% of the cases.
+Remember, these are frequenetist confidence intervals. 
+
+**If one repeats the experiment
+many times, the true but unknown value of the parameter will 
+be in the interval in 96% of the cases**
 
 We can also use the simple [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)). 
 The advantage of this tequique is that we can basically always use it,
@@ -717,7 +721,8 @@ We are glad to see that both analyses align really nicely.
 
 ### ANOVA (Analysis of Variance) {#analysis_of_variance}
 
-A non-obvious and very useful finding is that the total variability in the data (our heights) can be
+A non-obvious and very useful finding is that the total variability 
+in the data (our heights) can be
 **decomposed** (or [analysed](https://en.wiktionary.org/wiki/analysis)) 
 into two parts:
 
@@ -804,7 +809,7 @@ The blue dotted line is the distance from
 the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
 is the distance from the regression line to the point (unexplained variance).
-One sees that it adds up. I find this fact quite fascinating.
+We see that it adds up. I find this fact quite fascinating.
 One finds additivity by considering not determinisic values, but variances.
 Thank you [Ronald Fisher](https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.).
 
@@ -838,7 +843,11 @@ if you add more covariates ($\beta_2, \beta_3$), you have more freedom
 to choose values that minimize the number that will be squared. Simple regression
 is just a special case of multiple (more than one predictor) regression with $\beta_2=\beta_3=\dots=0$.
 Hence, you will definitely not be worse off with regards to SSE when using more covariates.
-A smaller SSE implies a larger SSR (sum constraint) and hence a larger $R^2$. SST remains constant.
+A smaller SSE implies a larger SSR (sum constraint; SST remains constant) and hence a larger $R^2$.
+If you have as many explanatory variables as data points, you can get an $R^2$ of 1. This is
+[overfitting](https://en.wikipedia.org/wiki/Overfitting) at its "best" (which we want to avoid). 
+You would just get a value for each data point by setting all other $\beta_i$ to zero. 
+Since we want to find the unterlying process, we want to avoid this.
 
 Although not perfect, one way to mitigate the influence of "too many" variables
 on $R^2$ is to use the adjusted $R^2$, which an also be found in the R output (`Adjusted R-squared`).
@@ -980,14 +989,10 @@ combined_plot
 
 In the left plot, given $X = x_{low}$ gives as a rather shifted normal distribution of
 potentially observable heights for this weight compared to $X=x_{high}$.
-We would have a lower missclassification error when trying to distinguish weights
+We would have a lower missclassification error when trying to distinguish heights
 of very light and very heavy people in the sample just by seeing the height. 
 You can think of an even more extreme separation of these distributions,
 which would happen, when $R^2$ is very high or the true slope is much higher.
-Then it would be trivial to distinguish between the two groups (light versus heavy people).
-We could then just introduce a cutoff value and classify people accordingly.
-Every person above the cutoff value for height (maybe 160 cm) would be classified 
-as "heavy" (top 10% weight) and every person below as "light" (bottom 10% weight).
 
 See also [exercise 5](#exercise5_simpl_lin_reg).
 
@@ -998,15 +1003,14 @@ The assumptions are independent of each other.
 They can all be true or false or some can be true and some false 
 ([Wesftall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), p.21).
 Chapter 4 in the book is dedicated to this topic. It is important to know
-that the assumptions are usually not met exactly. The question is how badly they are violated.
+that the assumptions are usually not met exactly. The question is *how badly* they are violated,
+not *if* they are violated.
 Furthermore, the asssumptions refer to the data generating process, not the data itself.
 Thus, the evaluation of the assumptions should involve subject matter knowledge.
 
 $p$-values to evaluate model assumptions are not a good idea. To [quote](https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108#d1e949) the 
 American Statistical Association (ASA): "By itself, a $p$-value does not provide a good measure 
 of evidence regarding a model or hypothesis."
-Hypothesis testing is simple and you do not have to know anything about your data
-your theoretical background to apply them. This might be reason for its widespread use.
 Deicision-tree thinking might not be the best idea for statistical modeling.
 
 We will not use hypothesis tests for assumptions, because
@@ -1016,7 +1020,7 @@ We will not use hypothesis tests for assumptions, because
 - With large sample sizes, the smallest deviation will be "significant".
 
 We will follow the book (chapter 4, pages 99ff) and use graphical and simulation methods to check the assumptions.
-As guidance, we could the check the assumptions in the following order:
+As guidance, we could check the assumptions in the following order:
 
 - Linearity
 - Constant variance 
@@ -1026,7 +1030,7 @@ As guidance, we could the check the assumptions in the following order:
 #### Linearity {#linearity}
 
 First, we **plot the data**, as we did already above. We can add a 
-a smoothing line as well:
+a smoothing line to the raw data as well:
 
 ```{r, echo=FALSE}
 ggplot(d2, aes(x = weight, y = height)) +
@@ -1039,7 +1043,7 @@ ggplot(d2, aes(x = weight, y = height)) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-This looks like this relationship is describable in a linear way.
+It looks like this relationship is describable in a linear way.
 No apparent curvature or patches.
 A refined version of the scatterplot of the raw data is The
 **residual scatter plot** ($x_i, e_i$):
@@ -1073,26 +1077,26 @@ You get the ($\hat{y_i}, e_i$) plot in R with `plot(mod, which = 1)`.
 #### Constant variance {#constant_variance}
 
 This assumption means that the variance of the residuals is constant.
-If it is violated, the spread around a hypothical regression line is not constant.
+If it is violated, the spread around a hypothetical regression line is not constant.
 We look at the residual scatter plot again:
 
 ```{r, echo=FALSE}
 plot(mod, which = 1)
 ```
 
-Look for a changes in patterns of vertical variability. Note, that
+Look for a changes in patterns of vertical variability. Note, that you
 often do not have as many data points near the end of the range of the predictor.
 Here are some examples of heteroskedasticity:
 [1](https://i0.wp.com/statisticsbyjim.com/wp-content/uploads/2017/08/residuals_unfixed.png?resize=576%2C384),
 [2](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPAPMGV5U0Pe0nKnhoZWHJ8KypqVCls6ZQZud84C3KM8SJqOkuMNeJl2oTg-UDuukJRhk&usqp=CAU),
 [3](https://i.sstatic.net/R5KIH.png). 
-The above looks homoscedastic. If it was heteroscedastic, this is not a problem,
+The above looks homoscedastic. If it was heteroskedastic, this is not a problem,
 we just have to model it differently (later).
 
 As always, it is a good idea to study the variability of these plots
 using simulation ([exercise 7](#exercise7_simpl_lin_reg)). 
 
-Better for detecting heteroscedasticity is the $\hat{y_i}, |e_i|$ plot
+Better for detecting heteroscedasticity is the ($\hat{y_i}, |e_i|$) plot
 with a smoothing line:
 
 ```{r, echo=FALSE}
@@ -1127,7 +1131,7 @@ like temperature (purely hypothetical). In [exercise 6](#exercise6_simpl_lin_reg
 the values are autocorrelated: Correlated with previous values of the same variable.
 If we would track the body heights of persons over time, we would have
 an autocorrelated time series since the height of a person at time $t$ is
-correlated with the height of the same person at time $t-1$, gut a little
+correlated with the height of the same person at time $t-1$, but a little
 less with the height at time $t-2$ and so on. If I am tall today, it is 
 very likely that I was tall yesterday.
 
@@ -1137,7 +1141,7 @@ But still, we could look at the correlations the residuals with lagged residuals
 A $lag=1$ means I compare the residuals with the ones right next to me and check if
 they are correlated. 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 library(rethinking)
 data("Howell1")
 d <- Howell1
@@ -1171,13 +1175,14 @@ d2 <- d[d$age >= 18, ] # only adults
 mod <- lm(height ~ weight, data = d2)
 qqPlot(residuals(mod), envelope = 0.97)
 ``` 
+
 With the 97% confidence envelope, we can see if the residuals are
 consistent with coming from a normal distribution.
-We could again use simulation to see how the QQ Plot changes 
+We could again use simulation to see how the Q-Q Plot changes 
 to get a better feeling (see [exercise 9](#exercise9_simpl_lin_reg)).
 
-Another convenient way to check model assumptions is to use 
-the `check_model` function from the `performance` package:
+Another convenient way to check model assumptions (for a wide class of models) 
+is to use the `check_model` function from the `performance` package:
 
 ```{r, echo=FALSE}
 library(performance)

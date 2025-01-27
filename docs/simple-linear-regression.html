@@ -293,8 +293,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-7fdeb1ee4127806c2141" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7fdeb1ee4127806c2141">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-3930c7d9192c6c09d878" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-3930c7d9192c6c09d878">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -691,8 +691,9 @@ the case, the model explains more than the mean model with just <span class="mat
 values of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> that minimize the sum of squared differences
 which can be plotted as 3D function. All we have to do is to ask R which of
 the coordinates minimizes the sum of squared errors. The result confirmes
-the results from the <code>lm</code> function.The dot in red marks the spot (Code is in the git repository):</p>
-<p><strong>—COMPILE CODE AT DEOPLOYMENT—</strong></p>
+the results from the <code>lm</code> function.The dot in red marks the spot
+(Code is in the <a href="https://github.com/jdegenfellner/Script_QM2_ZHAW">git repository</a>):</p>
+<p><strong>—COMPILE CODE AT DEOPLOYMENT (takes a bit)—</strong></p>
 </div>
 <div id="confidence_intervals_frequentist" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Confidence Intervals of coefficients (frequentist)<a href="simple-linear-regression.html#confidence_intervals_frequentist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -701,8 +702,10 @@ the results from the <code>lm</code> function.The dot in red marks the spot (Cod
 <pre><code>##                    2 %        98 %
 ## (Intercept) 109.939864 117.8189232
 ## weight        0.818351   0.9917072</code></pre>
-<p>Remember, these are frequenetist confidence intervals. If one repeats the experiment
-many times, the true but unknown value of the parameter will be in the interval in 96% of the cases.</p>
+<p>Remember, these are frequenetist confidence intervals.</p>
+<p><strong>If one repeats the experiment
+many times, the true but unknown value of the parameter will
+be in the interval in 96% of the cases</strong></p>
 <p>We can also use the simple <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)">bootstrap</a>.
 The advantage of this tequique is that we can basically always use it,
 no matter how compliated the estimator is. We do not need formulae.
@@ -749,7 +752,8 @@ comparison and use 89% coverage probability.</p>
 </div>
 <div id="analysis_of_variance" class="section level3 hasAnchor" number="3.2.4">
 <h3><span class="header-section-number">3.2.4</span> ANOVA (Analysis of Variance)<a href="simple-linear-regression.html#analysis_of_variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A non-obvious and very useful finding is that the total variability in the data (our heights) can be
+<p>A non-obvious and very useful finding is that the total variability
+in the data (our heights) can be
 <strong>decomposed</strong> (or <a href="https://en.wiktionary.org/wiki/analysis">analysed</a>)
 into two parts:</p>
 <ul>
@@ -769,7 +773,7 @@ explains the concept nicely.</p>
 the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
 is the distance from the regression line to the point (unexplained variance).
-One sees that it adds up. I find this fact quite fascinating.
+We see that it adds up. I find this fact quite fascinating.
 One finds additivity by considering not determinisic values, but variances.
 Thank you <a href="https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.">Ronald Fisher</a>.</p>
 </div>
@@ -799,7 +803,11 @@ if you add more covariates (<span class="math inline">\(\beta_2, \beta_3\)</span
 to choose values that minimize the number that will be squared. Simple regression
 is just a special case of multiple (more than one predictor) regression with <span class="math inline">\(\beta_2=\beta_3=\dots=0\)</span>.
 Hence, you will definitely not be worse off with regards to SSE when using more covariates.
-A smaller SSE implies a larger SSR (sum constraint) and hence a larger <span class="math inline">\(R^2\)</span>. SST remains constant.</p>
+A smaller SSE implies a larger SSR (sum constraint; SST remains constant) and hence a larger <span class="math inline">\(R^2\)</span>.
+If you have as many explanatory variables as data points, you can get an <span class="math inline">\(R^2\)</span> of 1. This is
+<a href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a> at its “best” (which we want to avoid).
+You would just get a value for each data point by setting all other <span class="math inline">\(\beta_i\)</span> to zero.
+Since we want to find the unterlying process, we want to avoid this.</p>
 <p>Although not perfect, one way to mitigate the influence of “too many” variables
 on <span class="math inline">\(R^2\)</span> is to use the adjusted <span class="math inline">\(R^2\)</span>, which an also be found in the R output (<code>Adjusted R-squared</code>).</p>
 <div id="seperating-property-of-regression-due-to-r2" class="section level4 hasAnchor" number="3.2.5.1">
@@ -818,14 +826,10 @@ use the mean model.</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>In the left plot, given <span class="math inline">\(X = x_{low}\)</span> gives as a rather shifted normal distribution of
 potentially observable heights for this weight compared to <span class="math inline">\(X=x_{high}\)</span>.
-We would have a lower missclassification error when trying to distinguish weights
+We would have a lower missclassification error when trying to distinguish heights
 of very light and very heavy people in the sample just by seeing the height.
 You can think of an even more extreme separation of these distributions,
-which would happen, when <span class="math inline">\(R^2\)</span> is very high or the true slope is much higher.
-Then it would be trivial to distinguish between the two groups (light versus heavy people).
-We could then just introduce a cutoff value and classify people accordingly.
-Every person above the cutoff value for height (maybe 160 cm) would be classified
-as “heavy” (top 10% weight) and every person below as “light” (bottom 10% weight).</p>
+which would happen, when <span class="math inline">\(R^2\)</span> is very high or the true slope is much higher.</p>
 <p>See also <a href="simple-linear-regression.html#exercise5_simpl_lin_reg">exercise 5</a>.</p>
 </div>
 </div>
@@ -837,14 +841,13 @@ The assumptions are independent of each other.
 They can all be true or false or some can be true and some false
 (<a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Wesftall</a>, p.21).
 Chapter 4 in the book is dedicated to this topic. It is important to know
-that the assumptions are usually not met exactly. The question is how badly they are violated.
+that the assumptions are usually not met exactly. The question is <em>how badly</em> they are violated,
+not <em>if</em> they are violated.
 Furthermore, the asssumptions refer to the data generating process, not the data itself.
 Thus, the evaluation of the assumptions should involve subject matter knowledge.</p>
 <p><span class="math inline">\(p\)</span>-values to evaluate model assumptions are not a good idea. To <a href="https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108#d1e949">quote</a> the
 American Statistical Association (ASA): “By itself, a <span class="math inline">\(p\)</span>-value does not provide a good measure
 of evidence regarding a model or hypothesis.”
-Hypothesis testing is simple and you do not have to know anything about your data
-your theoretical background to apply them. This might be reason for its widespread use.
 Deicision-tree thinking might not be the best idea for statistical modeling.</p>
 <p>We will not use hypothesis tests for assumptions, because</p>
 <ul>
@@ -853,7 +856,7 @@ Deicision-tree thinking might not be the best idea for statistical modeling.</p>
 <li>With large sample sizes, the smallest deviation will be “significant”.</li>
 </ul>
 <p>We will follow the book (chapter 4, pages 99ff) and use graphical and simulation methods to check the assumptions.
-As guidance, we could the check the assumptions in the following order:</p>
+As guidance, we could check the assumptions in the following order:</p>
 <ul>
 <li>Linearity</li>
 <li>Constant variance</li>
@@ -863,10 +866,10 @@ As guidance, we could the check the assumptions in the following order:</p>
 <div id="linearity" class="section level4 hasAnchor" number="3.2.6.1">
 <h4><span class="header-section-number">3.2.6.1</span> Linearity<a href="simple-linear-regression.html#linearity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>First, we <strong>plot the data</strong>, as we did already above. We can add a
-a smoothing line as well:</p>
+a smoothing line to the raw data as well:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
-<p>This looks like this relationship is describable in a linear way.
+<p>It looks like this relationship is describable in a linear way.
 No apparent curvature or patches.
 A refined version of the scatterplot of the raw data is The
 <strong>residual scatter plot</strong> (<span class="math inline">\(x_i, e_i\)</span>):</p>
@@ -883,20 +886,20 @@ You get the (<span class="math inline">\(\hat{y_i}, e_i\)</span>) plot in R with
 <div id="constant_variance" class="section level4 hasAnchor" number="3.2.6.2">
 <h4><span class="header-section-number">3.2.6.2</span> Constant variance<a href="simple-linear-regression.html#constant_variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This assumption means that the variance of the residuals is constant.
-If it is violated, the spread around a hypothical regression line is not constant.
+If it is violated, the spread around a hypothetical regression line is not constant.
 We look at the residual scatter plot again:</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
-<p>Look for a changes in patterns of vertical variability. Note, that
+<p>Look for a changes in patterns of vertical variability. Note, that you
 often do not have as many data points near the end of the range of the predictor.
 Here are some examples of heteroskedasticity:
 <a href="https://i0.wp.com/statisticsbyjim.com/wp-content/uploads/2017/08/residuals_unfixed.png?resize=576%2C384">1</a>,
 <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPAPMGV5U0Pe0nKnhoZWHJ8KypqVCls6ZQZud84C3KM8SJqOkuMNeJl2oTg-UDuukJRhk&amp;usqp=CAU">2</a>,
 <a href="https://i.sstatic.net/R5KIH.png">3</a>.
-The above looks homoscedastic. If it was heteroscedastic, this is not a problem,
+The above looks homoscedastic. If it was heteroskedastic, this is not a problem,
 we just have to model it differently (later).</p>
 <p>As always, it is a good idea to study the variability of these plots
 using simulation (<a href="simple-linear-regression.html#exercise7_simpl_lin_reg">exercise 7</a>).</p>
-<p>Better for detecting heteroscedasticity is the <span class="math inline">\(\hat{y_i}, |e_i|\)</span> plot
+<p>Better for detecting heteroscedasticity is the (<span class="math inline">\(\hat{y_i}, |e_i|\)</span>) plot
 with a smoothing line:</p>
 <pre><code>## &#39;data.frame&#39;:    544 obs. of  4 variables:
 ##  $ height: num  152 140 137 157 145 ...
@@ -918,7 +921,7 @@ like temperature (purely hypothetical). In <a href="simple-linear-regression.htm
 the values are autocorrelated: Correlated with previous values of the same variable.
 If we would track the body heights of persons over time, we would have
 an autocorrelated time series since the height of a person at time <span class="math inline">\(t\)</span> is
-correlated with the height of the same person at time <span class="math inline">\(t-1\)</span>, gut a little
+correlated with the height of the same person at time <span class="math inline">\(t-1\)</span>, but a little
 less with the height at time <span class="math inline">\(t-2\)</span> and so on. If I am tall today, it is
 very likely that I was tall yesterday.</p>
 <p>In our case of the !Kung San data, we do not have autocorrelated data.</p>
@@ -954,10 +957,10 @@ from the R package <code>car</code>:</p>
 ## 317  72</code></pre>
 <p>With the 97% confidence envelope, we can see if the residuals are
 consistent with coming from a normal distribution.
-We could again use simulation to see how the QQ Plot changes
+We could again use simulation to see how the Q-Q Plot changes
 to get a better feeling (see <a href="simple-linear-regression.html#exercise9_simpl_lin_reg">exercise 9</a>).</p>
-<p>Another convenient way to check model assumptions is to use
-the <code>check_model</code> function from the <code>performance</code> package:</p>
+<p>Another convenient way to check model assumptions (for a wide class of models)
+is to use the <code>check_model</code> function from the <code>performance</code> package:</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>In this case, everything looks fine. Let’s go through the plots and explain them:</p>
 <div id="posterior-predictive-check-upper-left" class="section level5 hasAnchor" number="3.2.6.4.1">
