@@ -1516,30 +1516,8 @@ We could have for instance only included people with weights at certain steps (5
 In the latter case, we could consider X as fixed. In the former case, we consider X as random.
 Further reading: [Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4) 1.5.
 
-### TODOS
-
-- If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
-$R^2$. We will verify this when we have more than 2 explanatory variables. 
-- One could think of the least squares method of minimizing the sum of 
-  Work that has to be done in order to adjust a long stick through the points.
-  Every point is attached to the stick with a srping. the work needed to change the
-  spring by $\delta x$ is $k \delta x^2$. The stick is adjusted in such a way that
-  the sum of the work is minimized. This is the least squares method.
-- extend further reading to create more connections
-- maybe create animation of points wiggling to get a feeling for the variability
-- Show by simulation what Gelman talks about with significant p values. So I scan the data
-  for significant p values and then simulate data with the same effect size and see how often
-  I get significant p values. Especially the next effect would be probably smaller,
-  especially, if one did p-hacking! Calculate a priori probability for replication (def?).
-- For multiple regression:
-  We could also look at the simple regression problem as fitting a plane to the data,
-  as is done [here](https://rpubs.com/pjozefek/576206) or 
-  [here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
-  at the end. As
-- Variability of confidence interval borders
-- Next Chapter: Multiple regression
-- Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
-
+There are many more details we could look into, but we wanted to give a first 
+practical introduction to regression analysis with less empfahsis theory and proofs behind it.
 
 ## Exercises
 

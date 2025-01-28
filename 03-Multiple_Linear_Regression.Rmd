@@ -1,23 +1,161 @@
-# Methods
+# Multiple Linear Regression
 
-We describe our methods in this chapter.
+So far, we have dealt with the simple mean model and the model with one predictor
+in the Bayesian and Frequentist framework.
+We will now add another predictor and an subsequently an interaction term to the model.
 
-Math can be added in body using usual syntax like this 
+## Linear Regression with Two Predictors in the Baysian Framework
 
-## math example
+### Meaning of "linear"
+What is a linear model? The term "linear" refers to the relationship of the predictors 
+with the dependent variable (or outcome). The following model is also linear:
 
-$p$ is unknown but expected to be around 1/3. Standard error will be approximated
+$$height_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2$$
 
-$$
-SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{1/3 (1 - 1/3)} {300}} = 0.027
-$$
+The model is linear in the parameters $\beta_0, \beta_1, \beta_2$ but not in the predictors $x_i$.
+The term $x_i^2$ is ok, since the heights are just sums of multiples of the predictors (which can be nonlinear).
+This model is not a linear model anymore:
 
-You can also use math in footnotes like this^[where we mention $p = \frac{a}{b}$].
+$$height_i = \beta_0 + \beta_1 x_i + e^{\beta_2 x_i^2}$$
 
-We will approximate standard error to 0.027[^longnote]
+### Adding a transformed predictor to the model
 
-[^longnote]: $p$ is unknown but expected to be around 1/3. Standard error will be approximated
+Around 4.5. in the book [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
+there is are lineare regression using a quadratic term for weight. 
+It is a principle, called the "**variable inclusion principle**", that we always include the lower order terms when fitting a model
+with higher order terms. See [Westfall](https://vdoc.pub/documents/understanding-regression-analysis-a-conditional-distribution-approach-84oqjr8sqva0), 
+p. 213. If we do not include the lower order terms, the coefficient does not measure what
+we want it to meausure (curvature in our case). For instance, if we want to model a quadratic relationship (parabola) between
+weight and height, we also have to include the linear term for weight ($x_i$).
+Since we do not assume the relationship between weight and height to be linear but
+quadratic (which is a polynomial of degree 2), we call this a 
+[polynomial regression](https://en.wikipedia.org/wiki/Polynomial_regression#:~:text=In%20statistics%2C%20polynomial%20regression%20is,nth%20degree%20polynomial%20in%20x.).
 
-    $$
-    SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{1/3 (1 - 1/3)} {300}} = 0.027
-    $$
+This time, lets look at the whole age range of data from the !Kung San people.
+
+```{r}
+library(rethinking)
+library(tidyverse)
+data(Howell1)
+d <- Howell1
+d %>% ggplot(aes(x = weight, y = height)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +
+  geom_smooth(method = "loess", se = FALSE, color = "red")
+```
+
+It would not be a good idea to fit a linear trend through this data,
+because we would not caupture the relationship adequately. 
+The red line is a [loess smothing](https://en.wikipedia.org/wiki/Local_regression) line
+which is often used to capture non-linear relationships.
+The blue line is the usual line from classic linear regression (from the previous chapter).
+Which one describes the data more accurately? 
+In this case it is obvious, a non-linear relationship is present and it might be a good idea 
+to model it. Modeling the relationshiop with a linear trend, leads to bad residuals with structure.
+We will demonstrate this in the freuqentist setting.
+Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
+
+This time, we use mean for the prior from the book ($178$).
+The model equations are:
+
+\begin{eqnarray*}
+h_i &\sim& \text{Normal}(\mu_i, \sigma) \\
+\mu_i &=& \alpha + \beta_1 x_i + \beta_2 x_i^2 \\
+\alpha &\sim& \text{Normal}(178, 20) \\
+\beta_1 &\sim& \text{Log-Normal}(0, 1) \\
+\beta_2 &\sim& \text{Normal}(0, 1) \\
+\sigma &\sim& \text{Uniform}(0, 50)
+\end{eqnarray*}
+
+The prior for $\beta_1$ is log-normal, because we can reasonably assume
+the the overall linear trend is positive. The prior for $\beta_2$ is normal, because
+we are not so sure. If we thought back to our school days to the topic of 
+"curve discussion" or parabolas, we could probably also assume that $\beta_2$ is negative.
+But, data will show.
+
+How can we interpret the model equations? 
+The model assumes that the **expected** height $\mu_i$ of a person $i$
+depends non-linearly on the weight $x_i$ of the person.
+We are in the business of mean-modeling. 
+The prior for $\sigma$ is uniform as before.
+The prior for $\alpha$ is normal with mean $178$ and standard deviation $20$
+because this is what we can expect from body heights in our experience.
+
+Let's **fit the model**:
+
+We standardize the weight again and add the squared weights to the data set.
+Let's fit the model with the quadratic term for weight:
+
+```{r}
+# Standardize weight
+d$weight_s <- (d$weight - mean(d$weight)) / sd(d$weight)
+# Square of standardized weight
+d$weight_s2 <- d$weight_s^2
+m4.1 <- quap(
+  alist(
+    height ~ dnorm(mu, sigma),
+    mu <- a + b1*weight_s + b2*weight_s^2,
+    a ~ dnorm(178, 20),
+    b1 ~ dnorm(0, 10),
+    b2 ~ dnorm(0, 10),
+    sigma ~ dunif(0, 50)
+  ), data = d)
+precis(m4.1)
+```
+$\beta_2$ is indeed negative. We get our full distribution of the $four model parameters$.
+Let's look at the fit using the mean estimates of the posterior distribution:
+
+```{r}
+# Summarize the model parameters
+model_summary <- precis(m4.1)
+params <- as.data.frame(model_summary)
+
+# Extract parameter values
+a <- params["a", "mean"]       # Intercept
+b1 <- params["b1", "mean"]     # Coefficient for standardized weight
+b2 <- params["b2", "mean"]     # Coefficient for squared standardized weight
+
+# Generate a sequence of standardized weights for the fitted curve
+weight_fine <- seq(min(d$weight_s), max(d$weight_s), length.out = 200)
+
+# Calculate the fitted values using the quadratic equation
+height_fitted <- a + b1 * weight_fine + b2 * weight_fine^2
+
+# Plot the scatterplot
+plot(d$weight_s, d$height, pch = 16, col = "blue",
+     xlab = "Standardized Weight", ylab = "Height (cm)",
+     main = "Scatterplot with Fitted Curve (Standardized Weight)")
+
+# Add the fitted curve
+lines(weight_fine, height_fitted, col = "red", lwd = 2)
+
+# Add a legend
+legend("topright", legend = c("Observed data", "Fitted curve"),
+       col = c("blue", "red"), pch = c(16, NA), lty = c(NA, 1), lwd = 2)
+```
+
+
+#### Interpretation of the coefficients
+
+
+
+
+## Linear Regression with Two Predictors in the Frequentist Framework
+
+### TODOS
+
+- If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
+  $R^2$. We will verify this when we have more than 2 explanatory variables. 
+- maybe create animation of points wiggling to get a feeling for the variability
+- Show by simulation what Gelman talks about with significant p values. So I scan the data
+  for significant p values and then simulate data with the same effect size and see how often
+  I get significant p values. Especially the next effect would be probably smaller,
+  especially, if one did p-hacking! Calculate a priori probability for replication (def?).
+- For multiple regression:
+  We could also look at the simple regression problem as fitting a plane to the data,
+  as is done [here](https://rpubs.com/pjozefek/576206) or 
+  [here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
+  at the end. As
+- Variability of confidence interval borders
+- Next Chapter: Multiple regression
+- Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test

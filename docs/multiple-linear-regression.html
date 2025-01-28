@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Multiple Linear Regression | Quantitive Methods 2, ZHAW</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Multiple Linear Regression | Quantitive Methods 2, ZHAW" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Multiple Linear Regression | Quantitive Methods 2, ZHAW" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Jürgen Degenfellner" />
+
+
+<meta name="date" content="2025-01-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="simple-linear-regression.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.11/grViz.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Quantitative Methods 2</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#books-we-will-heavily-borrow-from-are"><i class="fa fa-check"></i><b>1.1</b> Books we will heavily borrow from are:</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#if-you-need-a-good-reason-to-buy-good-books"><i class="fa fa-check"></i><b>1.2</b> If you need a good reason to buy good books…</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-statistical-modeling-and-what-do-we-need-this-for"><i class="fa fa-check"></i><b>2.1</b> What is statistical modeling and what do we need this for?</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="intro.html"><a href="intro.html#explanatory-vs.-predictive-models"><i class="fa fa-check"></i><b>2.1.1</b> Explanatory vs. Predictive Models</a></li>
+<li class="chapter" data-level="2.1.2" data-path="intro.html"><a href="intro.html#individual-vs.-population-prediction"><i class="fa fa-check"></i><b>2.1.2</b> Individual vs. Population Prediction</a></li>
+<li class="chapter" data-level="2.1.3" data-path="intro.html"><a href="intro.html#practical-use-of-statistical-models"><i class="fa fa-check"></i><b>2.1.3</b> Practical Use of Statistical Models</a></li>
+<li class="chapter" data-level="2.1.4" data-path="intro.html"><a href="intro.html#start-at-the-beginning"><i class="fa fa-check"></i><b>2.1.4</b> Start at the beginning</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#a-simple-model-for-adult-body-heights-in-the-bayesian-framework"><i class="fa fa-check"></i><b>2.2</b> A (simple) model for adult body heights in the Bayesian framework</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#classical-approach-for-the-simplest-model"><i class="fa fa-check"></i><b>2.3</b> Classical approach for the simplest model</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#exercises"><i class="fa fa-check"></i><b>2.4</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="intro.html"><a href="intro.html#exercise1_Intro"><i class="fa fa-check"></i><b>2.4.1</b> [E] Exercise 1</a></li>
+<li class="chapter" data-level="2.4.2" data-path="intro.html"><a href="intro.html#exercise2_Intro"><i class="fa fa-check"></i><b>2.4.2</b> [E] Exercise 2</a></li>
+<li class="chapter" data-level="2.4.3" data-path="intro.html"><a href="intro.html#exercise3_Intro"><i class="fa fa-check"></i><b>2.4.3</b> [M] Exercise 3</a></li>
+<li class="chapter" data-level="2.4.4" data-path="intro.html"><a href="intro.html#exercise4_Intro"><i class="fa fa-check"></i><b>2.4.4</b> [M] Exercise 4</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#addendum"><i class="fa fa-check"></i><b>2.5</b> Addendum</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="intro.html"><a href="intro.html#bivariate_normal"><i class="fa fa-check"></i><b>2.5.1</b> The bivariate normal distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-in-the-bayesian-framework"><i class="fa fa-check"></i><b>3.1</b> Simple Linear Regression in the Bayesian Framework</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#model-definition"><i class="fa fa-check"></i><b>3.1.1</b> Model definition</a></li>
+<li class="chapter" data-level="3.1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#priors"><i class="fa fa-check"></i><b>3.1.2</b> Priors</a></li>
+<li class="chapter" data-level="3.1.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#fit-model"><i class="fa fa-check"></i><b>3.1.3</b> Fit model</a></li>
+<li class="chapter" data-level="3.1.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#result"><i class="fa fa-check"></i><b>3.1.4</b> Result</a></li>
+<li class="chapter" data-level="3.1.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#credible-bands"><i class="fa fa-check"></i><b>3.1.5</b> Credible bands</a></li>
+<li class="chapter" data-level="3.1.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#summary"><i class="fa fa-check"></i><b>3.1.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-in-the-frequentist-framework"><i class="fa fa-check"></i><b>3.2</b> Simple Linear Regression in the Frequentist Framework</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#model-definition-1"><i class="fa fa-check"></i><b>3.2.1</b> Model definition</a></li>
+<li class="chapter" data-level="3.2.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#fit_model_simple_lin_reg_classic"><i class="fa fa-check"></i><b>3.2.2</b> Fit the model</a></li>
+<li class="chapter" data-level="3.2.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#confidence_intervals_frequentist"><i class="fa fa-check"></i><b>3.2.3</b> Confidence Intervals of coefficients (frequentist)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#analysis_of_variance"><i class="fa fa-check"></i><b>3.2.4</b> ANOVA (Analysis of Variance)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#r2---coefficient-of-determination"><i class="fa fa-check"></i><b>3.2.5</b> <span class="math inline">\(R^2\)</span> - Coefficient of Determination</a></li>
+<li class="chapter" data-level="3.2.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.6</b> Check regression assumptions</a></li>
+<li class="chapter" data-level="3.2.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#bootstrap-fit"><i class="fa fa-check"></i><b>3.2.7</b> Bootstrap fit</a></li>
+<li class="chapter" data-level="3.2.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.8</b> Regression towards the mean</a></li>
+<li class="chapter" data-level="3.2.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#random-x-vs-fixed-x"><i class="fa fa-check"></i><b>3.2.9</b> Random X vs fixed X</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise1_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.1</b> [E] Exercise 1</a></li>
+<li class="chapter" data-level="3.3.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise2_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.2</b> [E] Exercise 2</a></li>
+<li class="chapter" data-level="3.3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise3_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.3</b> [M] Exercise 3</a></li>
+<li class="chapter" data-level="3.3.4" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise4_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.4</b> [M] Exercise 4</a></li>
+<li class="chapter" data-level="3.3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise5_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.5</b> [M] Exercise 5</a></li>
+<li class="chapter" data-level="3.3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise6_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.6</b> [H] Exercise 6</a></li>
+<li class="chapter" data-level="3.3.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise7_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.7</b> [M] Exercise 7</a></li>
+<li class="chapter" data-level="3.3.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise8_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.8</b> [H] Exercise 8</a></li>
+<li class="chapter" data-level="3.3.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise9_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.9</b> [M] Exercise 9</a></li>
+<li class="chapter" data-level="3.3.10" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise10_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.10</b> [M] Exercise 10</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-baysian-framework"><i class="fa fa-check"></i><b>4.1</b> Linear Regression with Two Predictors in the Baysian Framework</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#meaning-of-linear"><i class="fa fa-check"></i><b>4.1.1</b> Meaning of “linear”</a></li>
+<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model"><i class="fa fa-check"></i><b>4.1.2</b> Adding a transformed predictor to the model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-frequentist-framework"><i class="fa fa-check"></i><b>4.2</b> Linear Regression with Two Predictors in the Frequentist Framework</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#todos"><i class="fa fa-check"></i><b>4.2.1</b> TODOS</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Quantitive Methods 2, ZHAW</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multiple-linear-regression" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Multiple Linear Regression<a href="multiple-linear-regression.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>So far, we have dealt with the simple mean model and the model with one predictor
+in the Bayesian and Frequentist framework.
+We will now add another predictor and an subsequently an interaction term to the model.</p>
+<div id="linear-regression-with-two-predictors-in-the-baysian-framework" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Linear Regression with Two Predictors in the Baysian Framework<a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-baysian-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="meaning-of-linear" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Meaning of “linear”<a href="multiple-linear-regression.html#meaning-of-linear" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What is a linear model? The term “linear” refers to the relationship of the predictors
+with the dependent variable (or outcome). The following model is also linear:</p>
+<p><span class="math display">\[height_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2\]</span></p>
+<p>The model is linear in the parameters <span class="math inline">\(\beta_0, \beta_1, \beta_2\)</span> but not in the predictors <span class="math inline">\(x_i\)</span>.
+The term <span class="math inline">\(x_i^2\)</span> is ok, since the heights are just sums of multiples of the predictors (which can be nonlinear).
+This model is not a linear model anymore:</p>
+<p><span class="math display">\[height_i = \beta_0 + \beta_1 x_i + e^{\beta_2 x_i^2}\]</span></p>
+</div>
+<div id="adding-a-transformed-predictor-to-the-model" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Adding a transformed predictor to the model<a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Around 4.5. in the book <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking</a>
+there is are lineare regression using a quadratic term for weight.
+It is a principle, called the “<strong>variable inclusion principle</strong>”, that we always include the lower order terms when fitting a model
+with higher order terms. See <a href="https://vdoc.pub/documents/understanding-regression-analysis-a-conditional-distribution-approach-84oqjr8sqva0">Westfall</a>,
+p. 213. If we do not include the lower order terms, the coefficient does not measure what
+we want it to meausure (curvature in our case). For instance, if we want to model a quadratic relationship (parabola) between
+weight and height, we also have to include the linear term for weight (<span class="math inline">\(x_i\)</span>).
+Since we do not assume the relationship between weight and height to be linear but
+quadratic (which is a polynomial of degree 2), we call this a
+<a href="https://en.wikipedia.org/wiki/Polynomial_regression#:~:text=In%20statistics%2C%20polynomial%20regression%20is,nth%20degree%20polynomial%20in%20x.">polynomial regression</a>.</p>
+<p>This time, lets look at the whole age range of data from the !Kung San people.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="multiple-linear-regression.html#cb97-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb97-2"><a href="multiple-linear-regression.html#cb97-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb97-3"><a href="multiple-linear-regression.html#cb97-3" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb97-4"><a href="multiple-linear-regression.html#cb97-4" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb97-5"><a href="multiple-linear-regression.html#cb97-5" tabindex="-1"></a>d <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> weight, <span class="at">y =</span> height)) <span class="sc">+</span></span>
+<span id="cb97-6"><a href="multiple-linear-regression.html#cb97-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb97-7"><a href="multiple-linear-regression.html#cb97-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb97-8"><a href="multiple-linear-regression.html#cb97-8" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p>It would not be a good idea to fit a linear trend through this data,
+because we would not caupture the relationship adequately.
+The red line is a <a href="https://en.wikipedia.org/wiki/Local_regression">loess smothing</a> line
+which is often used to capture non-linear relationships.
+The blue line is the usual line from classic linear regression (from the previous chapter).
+Which one describes the data more accurately?
+In this case it is obvious, a non-linear relationship is present and it might be a good idea
+to model it. Modeling the relationshiop with a linear trend, leads to bad residuals with structure.
+We will demonstrate this in the freuqentist setting.
+Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.</p>
+<p>This time, we use mean for the prior from the book (<span class="math inline">\(178\)</span>).
+The model equations are:</p>
+<p><span class="math display">\[\begin{eqnarray*}
+h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma) \\
+\mu_i &amp;=&amp; \alpha + \beta_1 x_i + \beta_2 x_i^2 \\
+\alpha &amp;\sim&amp; \text{Normal}(178, 20) \\
+\beta_1 &amp;\sim&amp; \text{Log-Normal}(0, 1) \\
+\beta_2 &amp;\sim&amp; \text{Normal}(0, 1) \\
+\sigma &amp;\sim&amp; \text{Uniform}(0, 50)
+\end{eqnarray*}\]</span></p>
+<p>The prior for <span class="math inline">\(\beta_1\)</span> is log-normal, because we can reasonably assume
+the the overall linear trend is positive. The prior for <span class="math inline">\(\beta_2\)</span> is normal, because
+we are not so sure. If we thought back to our school days to the topic of
+“curve discussion” or parabolas, we could probably also assume that <span class="math inline">\(\beta_2\)</span> is negative.
+But, data will show.</p>
+<p>How can we interpret the model equations?
+The model assumes that the <strong>expected</strong> height <span class="math inline">\(\mu_i\)</span> of a person <span class="math inline">\(i\)</span>
+depends non-linearly on the weight <span class="math inline">\(x_i\)</span> of the person.
+We are in the business of mean-modeling.
+The prior for <span class="math inline">\(\sigma\)</span> is uniform as before.
+The prior for <span class="math inline">\(\alpha\)</span> is normal with mean <span class="math inline">\(178\)</span> and standard deviation <span class="math inline">\(20\)</span>
+because this is what we can expect from body heights in our experience.</p>
+<p>Let’s <strong>fit the model</strong>:</p>
+<p>We standardize the weight again and add the squared weights to the data set.
+Let’s fit the model with the quadratic term for weight:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="multiple-linear-regression.html#cb99-1" tabindex="-1"></a><span class="co"># Standardize weight</span></span>
+<span id="cb99-2"><a href="multiple-linear-regression.html#cb99-2" tabindex="-1"></a>d<span class="sc">$</span>weight_s <span class="ot">&lt;-</span> (d<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>weight)) <span class="sc">/</span> <span class="fu">sd</span>(d<span class="sc">$</span>weight)</span>
+<span id="cb99-3"><a href="multiple-linear-regression.html#cb99-3" tabindex="-1"></a><span class="co"># Square of standardized weight</span></span>
+<span id="cb99-4"><a href="multiple-linear-regression.html#cb99-4" tabindex="-1"></a>d<span class="sc">$</span>weight_s2 <span class="ot">&lt;-</span> d<span class="sc">$</span>weight_s<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb99-5"><a href="multiple-linear-regression.html#cb99-5" tabindex="-1"></a>m4<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb99-6"><a href="multiple-linear-regression.html#cb99-6" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb99-7"><a href="multiple-linear-regression.html#cb99-7" tabindex="-1"></a>    height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb99-8"><a href="multiple-linear-regression.html#cb99-8" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b1<span class="sc">*</span>weight_s <span class="sc">+</span> b2<span class="sc">*</span>weight_s<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb99-9"><a href="multiple-linear-regression.html#cb99-9" tabindex="-1"></a>    a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb99-10"><a href="multiple-linear-regression.html#cb99-10" tabindex="-1"></a>    b1 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb99-11"><a href="multiple-linear-regression.html#cb99-11" tabindex="-1"></a>    b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb99-12"><a href="multiple-linear-regression.html#cb99-12" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb99-13"><a href="multiple-linear-regression.html#cb99-13" tabindex="-1"></a>  ), <span class="at">data =</span> d)</span>
+<span id="cb99-14"><a href="multiple-linear-regression.html#cb99-14" tabindex="-1"></a><span class="fu">precis</span>(m4<span class="fl">.1</span>)</span></code></pre></div>
+<pre><code>##             mean        sd       5.5%      94.5%
+## a     146.672739 0.3736465 146.075580 147.269898
+## b1     21.397637 0.2898827  20.934348  21.860925
+## b2     -8.419933 0.2813308  -8.869554  -7.970312
+## sigma   5.750550 0.1743749   5.471865   6.029235</code></pre>
+<p><span class="math inline">\(\beta_2\)</span> is indeed negative. We get our full distribution of the <span class="math inline">\(four model parameters\)</span>.
+Let’s look at the fit using the mean estimates of the posterior distribution:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="multiple-linear-regression.html#cb101-1" tabindex="-1"></a><span class="co"># Summarize the model parameters</span></span>
+<span id="cb101-2"><a href="multiple-linear-regression.html#cb101-2" tabindex="-1"></a>model_summary <span class="ot">&lt;-</span> <span class="fu">precis</span>(m4<span class="fl">.1</span>)</span>
+<span id="cb101-3"><a href="multiple-linear-regression.html#cb101-3" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(model_summary)</span>
+<span id="cb101-4"><a href="multiple-linear-regression.html#cb101-4" tabindex="-1"></a></span>
+<span id="cb101-5"><a href="multiple-linear-regression.html#cb101-5" tabindex="-1"></a><span class="co"># Extract parameter values</span></span>
+<span id="cb101-6"><a href="multiple-linear-regression.html#cb101-6" tabindex="-1"></a>a <span class="ot">&lt;-</span> params[<span class="st">&quot;a&quot;</span>, <span class="st">&quot;mean&quot;</span>]       <span class="co"># Intercept</span></span>
+<span id="cb101-7"><a href="multiple-linear-regression.html#cb101-7" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> params[<span class="st">&quot;b1&quot;</span>, <span class="st">&quot;mean&quot;</span>]     <span class="co"># Coefficient for standardized weight</span></span>
+<span id="cb101-8"><a href="multiple-linear-regression.html#cb101-8" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> params[<span class="st">&quot;b2&quot;</span>, <span class="st">&quot;mean&quot;</span>]     <span class="co"># Coefficient for squared standardized weight</span></span>
+<span id="cb101-9"><a href="multiple-linear-regression.html#cb101-9" tabindex="-1"></a></span>
+<span id="cb101-10"><a href="multiple-linear-regression.html#cb101-10" tabindex="-1"></a><span class="co"># Generate a sequence of standardized weights for the fitted curve</span></span>
+<span id="cb101-11"><a href="multiple-linear-regression.html#cb101-11" tabindex="-1"></a>weight_fine <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(d<span class="sc">$</span>weight_s), <span class="fu">max</span>(d<span class="sc">$</span>weight_s), <span class="at">length.out =</span> <span class="dv">200</span>)</span>
+<span id="cb101-12"><a href="multiple-linear-regression.html#cb101-12" tabindex="-1"></a></span>
+<span id="cb101-13"><a href="multiple-linear-regression.html#cb101-13" tabindex="-1"></a><span class="co"># Calculate the fitted values using the quadratic equation</span></span>
+<span id="cb101-14"><a href="multiple-linear-regression.html#cb101-14" tabindex="-1"></a>height_fitted <span class="ot">&lt;-</span> a <span class="sc">+</span> b1 <span class="sc">*</span> weight_fine <span class="sc">+</span> b2 <span class="sc">*</span> weight_fine<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb101-15"><a href="multiple-linear-regression.html#cb101-15" tabindex="-1"></a></span>
+<span id="cb101-16"><a href="multiple-linear-regression.html#cb101-16" tabindex="-1"></a><span class="co"># Plot the scatterplot</span></span>
+<span id="cb101-17"><a href="multiple-linear-regression.html#cb101-17" tabindex="-1"></a><span class="fu">plot</span>(d<span class="sc">$</span>weight_s, d<span class="sc">$</span>height, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb101-18"><a href="multiple-linear-regression.html#cb101-18" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Standardized Weight&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Height (cm)&quot;</span>,</span>
+<span id="cb101-19"><a href="multiple-linear-regression.html#cb101-19" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Scatterplot with Fitted Curve (Standardized Weight)&quot;</span>)</span>
+<span id="cb101-20"><a href="multiple-linear-regression.html#cb101-20" tabindex="-1"></a></span>
+<span id="cb101-21"><a href="multiple-linear-regression.html#cb101-21" tabindex="-1"></a><span class="co"># Add the fitted curve</span></span>
+<span id="cb101-22"><a href="multiple-linear-regression.html#cb101-22" tabindex="-1"></a><span class="fu">lines</span>(weight_fine, height_fitted, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb101-23"><a href="multiple-linear-regression.html#cb101-23" tabindex="-1"></a></span>
+<span id="cb101-24"><a href="multiple-linear-regression.html#cb101-24" tabindex="-1"></a><span class="co"># Add a legend</span></span>
+<span id="cb101-25"><a href="multiple-linear-regression.html#cb101-25" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Observed data&quot;</span>, <span class="st">&quot;Fitted curve&quot;</span>),</span>
+<span id="cb101-26"><a href="multiple-linear-regression.html#cb101-26" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="cn">NA</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<div id="interpretation-of-the-coefficients" class="section level4 hasAnchor" number="4.1.2.1">
+<h4><span class="header-section-number">4.1.2.1</span> Interpretation of the coefficients<a href="multiple-linear-regression.html#interpretation-of-the-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+</div>
+</div>
+<div id="linear-regression-with-two-predictors-in-the-frequentist-framework" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Linear Regression with Two Predictors in the Frequentist Framework<a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-frequentist-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="todos" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> TODOS<a href="multiple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)
+<span class="math inline">\(R^2\)</span>. We will verify this when we have more than 2 explanatory variables.</li>
+<li>maybe create animation of points wiggling to get a feeling for the variability</li>
+<li>Show by simulation what Gelman talks about with significant p values. So I scan the data
+for significant p values and then simulate data with the same effect size and see how often
+I get significant p values. Especially the next effect would be probably smaller,
+especially, if one did p-hacking! Calculate a priori probability for replication (def?).</li>
+<li>For multiple regression:
+We could also look at the simple regression problem as fitting a plane to the data,
+as is done <a href="https://rpubs.com/pjozefek/576206">here</a> or
+<a href="https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization">here</a>
+at the end. As</li>
+<li>Variability of confidence interval borders</li>
+<li>Next Chapter: Multiple regression</li>
+<li>Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test</li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simple-linear-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-Multiple_Linear_Regression.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
