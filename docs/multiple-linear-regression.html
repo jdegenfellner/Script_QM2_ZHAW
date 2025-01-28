@@ -226,8 +226,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-frequentist-framework"><i class="fa fa-check"></i><b>4.2</b> Linear Regression with Two Predictors in the Frequentist Framework</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#todos"><i class="fa fa-check"></i><b>4.2.1</b> TODOS</a></li>
+<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model-1"><i class="fa fa-check"></i><b>4.2.1</b> Adding a transformed predictor to the model</a></li>
 </ul></li>
+<li class="chapter" data-level="4.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercise1_multiple_regression"><i class="fa fa-check"></i><b>4.3.1</b> [M] Exercise 1</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#todos"><i class="fa fa-check"></i><b>4.4</b> TODOS</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -268,6 +273,8 @@ This model is not a linear model anymore:</p>
 </div>
 <div id="adding-a-transformed-predictor-to-the-model" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Adding a transformed predictor to the model<a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The world is not flat, although some people on YouTube might tell you otherwise.
+In our context, not all regression is linear.</p>
 <p>Around 4.5. in the book <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking</a>
 there is are lineare regression using a quadratic term for weight.
 It is a principle, called the “<strong>variable inclusion principle</strong>”, that we always include the lower order terms when fitting a model
@@ -324,7 +331,9 @@ The prior for <span class="math inline">\(\alpha\)</span> is normal with mean <s
 because this is what we can expect from body heights in our experience.</p>
 <p>Let’s <strong>fit the model</strong>:</p>
 <p>We standardize the weight again and add the squared weights to the data set.
-Let’s fit the model with the quadratic term for weight:</p>
+Standardizing the the predictors is a good idea, especially in polynomial regression
+since squares and cubes of large numbers can get very large and cause numerical problems.</p>
+<p>Let’s fit the model with the quadratic term for weight:</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="multiple-linear-regression.html#cb99-1" tabindex="-1"></a><span class="co"># Standardize weight</span></span>
 <span id="cb99-2"><a href="multiple-linear-regression.html#cb99-2" tabindex="-1"></a>d<span class="sc">$</span>weight_s <span class="ot">&lt;-</span> (d<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>weight)) <span class="sc">/</span> <span class="fu">sd</span>(d<span class="sc">$</span>weight)</span>
 <span id="cb99-3"><a href="multiple-linear-regression.html#cb99-3" tabindex="-1"></a><span class="co"># Square of standardized weight</span></span>
@@ -344,7 +353,7 @@ Let’s fit the model with the quadratic term for weight:</p>
 ## b1     21.397637 0.2898827  20.934348  21.860925
 ## b2     -8.419933 0.2813308  -8.869554  -7.970312
 ## sigma   5.750550 0.1743749   5.471865   6.029235</code></pre>
-<p><span class="math inline">\(\beta_2\)</span> is indeed negative. We get our full distribution of the <span class="math inline">\(four model parameters\)</span>.
+<p><span class="math inline">\(\beta_2\)</span> is indeed negative. We get our full distribution of the <strong>four model parameters</strong>.
 Let’s look at the fit using the mean estimates of the posterior distribution:</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="multiple-linear-regression.html#cb101-1" tabindex="-1"></a><span class="co"># Summarize the model parameters</span></span>
 <span id="cb101-2"><a href="multiple-linear-regression.html#cb101-2" tabindex="-1"></a>model_summary <span class="ot">&lt;-</span> <span class="fu">precis</span>(m4<span class="fl">.1</span>)</span>
@@ -373,15 +382,81 @@ Let’s look at the fit using the mean estimates of the posterior distribution:<
 <span id="cb101-25"><a href="multiple-linear-regression.html#cb101-25" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Observed data&quot;</span>, <span class="st">&quot;Fitted curve&quot;</span>),</span>
 <span id="cb101-26"><a href="multiple-linear-regression.html#cb101-26" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="cn">NA</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
-<div id="interpretation-of-the-coefficients" class="section level4 hasAnchor" number="4.1.2.1">
-<h4><span class="header-section-number">4.1.2.1</span> Interpretation of the coefficients<a href="multiple-linear-regression.html#interpretation-of-the-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-</div>
+<p>This fits much better than the linear model. In the book,
+there is also a polynomial regression with a cubic term for weight.
+Maybe this fits even better (see <a href="multiple-linear-regression.html#exercise1_multiple_regression">exercise 1</a>).</p>
+<p>……….</p>
 </div>
 </div>
 <div id="linear-regression-with-two-predictors-in-the-frequentist-framework" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Linear Regression with Two Predictors in the Frequentist Framework<a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-frequentist-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="todos" class="section level3 hasAnchor" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> TODOS<a href="multiple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="adding-a-transformed-predictor-to-the-model-1" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Adding a transformed predictor to the model<a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>No, let’s fit the same model as above in the frequentist framework.</p>
+<p>The model is:</p>
+<p><span class="math display">\[height_i = \alpha + \beta_1 weight_i + \beta_2 weight_i^2 + \varepsilon_i\]</span>
+whereas
+<span class="math display">\[\varepsilon_i \sim N(0, \sigma)\]</span></p>
+<p>We are looking for fixed, but unknown, parameters <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span> and <span class="math inline">\(\sigma\)</span>.
+This is fit again using the <code>lm</code> function in R which uses least squares to estimate the parameters.
+At this point I could torture you with <a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)">matrix algebra</a>
+and show you the <a href="https://en.wikipedia.org/wiki/Linear_least_squares">normal equations</a> for linear regression,
+but I will spare you for now.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="multiple-linear-regression.html#cb102-1" tabindex="-1"></a><span class="co"># scale weight</span></span>
+<span id="cb102-2"><a href="multiple-linear-regression.html#cb102-2" tabindex="-1"></a>d<span class="sc">$</span>weight_s <span class="ot">&lt;-</span> <span class="fu">scale</span>(d<span class="sc">$</span>weight)</span>
+<span id="cb102-3"><a href="multiple-linear-regression.html#cb102-3" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb102-4"><a href="multiple-linear-regression.html#cb102-4" tabindex="-1"></a>m4<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight_s <span class="sc">+</span> <span class="fu">I</span>(weight_s<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> d)</span>
+<span id="cb102-5"><a href="multiple-linear-regression.html#cb102-5" tabindex="-1"></a><span class="fu">summary</span>(m4<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = height ~ weight_s + I(weight_s^2), data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.9689  -3.9794   0.2364   3.9262  19.5182 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   146.6604     0.3748  391.30   &lt;2e-16 ***
+## weight_s       21.4149     0.2908   73.64   &lt;2e-16 ***
+## I(weight_s^2)  -8.4123     0.2822  -29.80   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.766 on 541 degrees of freedom
+## Multiple R-squared:  0.9565, Adjusted R-squared:  0.9564 
+## F-statistic:  5952 on 2 and 541 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>See <code>?I</code> in R. This command is used so that R knows that it should
+treat the “^2” as “square” and not as formula syntax.
+We could also create a new variable as before. Whatever you prefer.</p>
+<div id="interpretation-of-output-and-coefficients" class="section level4 hasAnchor" number="4.2.1.1">
+<h4><span class="header-section-number">4.2.1.1</span> Interpretation of output and coefficients<a href="multiple-linear-regression.html#interpretation-of-output-and-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>The intercept <span class="math inline">\(\alpha\)</span> is the <strong>model-predicted height</strong> of a person of <strong>average weight</strong>.
+Note that this is not the average height of the people in the data set, since the
+mean model is also a model, but different from ours.</li>
+<li>The residuals have range from <span class="math inline">\(-19.97\)</span> to <span class="math inline">\(19.51\)</span>. So, the model maximally
+overestimates the heights by <span class="math inline">\(19.97\)</span> cm and underestimates by <span class="math inline">\(19.51\)</span> cm.</li>
+<li>dfdfdfdf</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="exercises-2" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Exercises<a href="multiple-linear-regression.html#exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercise1_multiple_regression" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> [M] Exercise 1<a href="multiple-linear-regression.html#exercise1_multiple_regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Fit a model with a cubic term for weight and height of the !Kung San people.</li>
+<li>Add the prediction bands as seen in the book.</li>
+<li>Come up with an explanation for the functional form of this relationship.</li>
+<li>Could there be reasons to for taking a less complicated model
+(<a href="https://en.wikipedia.org/wiki/Statistical_model_specification">1</a>, <a href="https://en.wikipedia.org/wiki/Occam%27s_razor">2</a>)?</li>
+</ul>
+</div>
+</div>
+<div id="todos" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> TODOS<a href="multiple-linear-regression.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>If you add a lot of variables to your regression model, you can get an arbitrarily large (<span class="math inline">\(\le 1\)</span>)
 <span class="math inline">\(R^2\)</span>. We will verify this when we have more than 2 explanatory variables.</li>
@@ -398,9 +473,9 @@ at the end. As</li>
 <li>Variability of confidence interval borders</li>
 <li>Next Chapter: Multiple regression</li>
 <li>Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test</li>
+<li>Chapter about ICCs, but maybe reduced</li>
 </ul>
 
-</div>
 </div>
 </div>
             </section>

@@ -20,6 +20,9 @@ $$height_i = \beta_0 + \beta_1 x_i + e^{\beta_2 x_i^2}$$
 
 ### Adding a transformed predictor to the model
 
+The world is not flat, although some people on YouTube might tell you otherwise.
+In our context, not all regression is linear.
+
 Around 4.5. in the book [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
 there is are lineare regression using a quadratic term for weight. 
 It is a principle, called the "**variable inclusion principle**", that we always include the lower order terms when fitting a model
@@ -84,6 +87,9 @@ because this is what we can expect from body heights in our experience.
 Let's **fit the model**:
 
 We standardize the weight again and add the squared weights to the data set.
+Standardizing the the predictors is a good idea, especially in polynomial regression
+since squares and cubes of large numbers can get very large and cause numerical problems.
+
 Let's fit the model with the quadratic term for weight:
 
 ```{r}
@@ -102,7 +108,7 @@ m4.1 <- quap(
   ), data = d)
 precis(m4.1)
 ```
-$\beta_2$ is indeed negative. We get our full distribution of the $four model parameters$.
+$\beta_2$ is indeed negative. We get our full distribution of the **four model parameters**.
 Let's look at the fit using the mean estimates of the posterior distribution:
 
 ```{r}
@@ -134,15 +140,66 @@ legend("topright", legend = c("Observed data", "Fitted curve"),
        col = c("blue", "red"), pch = c(16, NA), lty = c(NA, 1), lwd = 2)
 ```
 
+This fits much better than the linear model. In the book,
+there is also a polynomial regression with a cubic term for weight.
+Maybe this fits even better (see [exercise 1](#exercise1_multiple_regression)).
 
-#### Interpretation of the coefficients
-
+..........
 
 
 
 ## Linear Regression with Two Predictors in the Frequentist Framework
+### Adding a transformed predictor to the model
 
-### TODOS
+No, let's fit the same model as above in the frequentist framework.
+
+The model is:
+
+$$height_i = \alpha + \beta_1 weight_i + \beta_2 weight_i^2 + \varepsilon_i$$
+whereas
+$$\varepsilon_i \sim N(0, \sigma)$$
+
+We are looking for fixed, but unknown, parameters $\alpha$, $\beta_1$, $\beta_2$ and $\sigma$.
+This is fit again using the `lm` function in R which uses least squares to estimate the parameters.
+At this point I could torture you with [matrix algebra](https://en.wikipedia.org/wiki/Matrix_(mathematics)) 
+and show you the [normal equations](https://en.wikipedia.org/wiki/Linear_least_squares) for linear regression,
+but I will spare you for now.
+
+```{r}
+# scale weight
+d$weight_s <- scale(d$weight)
+# Fit the model
+m4.2 <- lm(height ~ weight_s + I(weight_s^2), data = d)
+summary(m4.2)
+```
+
+See `?I` in R. This command is used so that R knows that it should 
+treat the "^2" as "square" and not as formula syntax.
+We could also create a new variable as before. Whatever you prefer.
+
+#### Interpretation of output and coefficients
+
+- The intercept $\alpha$ is the **model-predicted height** of a person of **average weight**.
+  Note that this is not the average height of the people in the data set, since the 
+  mean model is also a model, but different from ours.
+- The residuals have range from $-19.97$ to $19.51$. So, the model maximally
+  overestimates the heights by $19.97$ cm and underestimates by $19.51$ cm.
+- dfdfdfdf
+
+
+
+
+## Exercises
+
+### [M] Exercise 1 {#exercise1_multiple_regression}
+
+- Fit a model with a cubic term for weight and height of the !Kung San people.
+- Add the prediction bands as seen in the book.
+- Come up with an explanation for the functional form of this relationship.
+- Could there be reasons to for taking a less complicated model 
+  ([1](https://en.wikipedia.org/wiki/Statistical_model_specification), [2](https://en.wikipedia.org/wiki/Occam%27s_razor))?
+
+## TODOS
 
 - If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
   $R^2$. We will verify this when we have more than 2 explanatory variables. 
@@ -159,3 +216,4 @@ legend("topright", legend = c("Observed data", "Fitted curve"),
 - Variability of confidence interval borders
 - Next Chapter: Multiple regression
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
+- Chapter about ICCs, but maybe reduced
