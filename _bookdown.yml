@@ -8,4 +8,5 @@ rmd_files:
   - index.Rmd
   - 01-intro.Rmd
   - 02-Simple_Linear_Regression.Rmd
+  - 03-Multiple_Linear_Regression.Rmd
   # Add more Rmd files here as needed
