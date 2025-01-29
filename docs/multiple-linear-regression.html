@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-01-28" />
+<meta name="date" content="2025-01-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -222,15 +222,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-baysian-framework"><i class="fa fa-check"></i><b>4.1</b> Linear Regression with Two Predictors in the Baysian Framework</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#meaning-of-linear"><i class="fa fa-check"></i><b>4.1.1</b> Meaning of “linear”</a></li>
-<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model"><i class="fa fa-check"></i><b>4.1.2</b> Adding a transformed predictor to the model</a></li>
+<li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding_transformed_predictor"><i class="fa fa-check"></i><b>4.1.2</b> Adding a transformed predictor to the model</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-frequentist-framework"><i class="fa fa-check"></i><b>4.2</b> Linear Regression with Two Predictors in the Frequentist Framework</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model-1"><i class="fa fa-check"></i><b>4.2.1</b> Adding a transformed predictor to the model</a></li>
+<li class="chapter" data-level="4.2.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model"><i class="fa fa-check"></i><b>4.2.1</b> Adding a transformed predictor to the model</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a>
 <ul>
 <li class="chapter" data-level="4.3.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercise1_multiple_regression"><i class="fa fa-check"></i><b>4.3.1</b> [M] Exercise 1</a></li>
+<li class="chapter" data-level="4.3.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercise2_multiple_regression"><i class="fa fa-check"></i><b>4.3.2</b> [E] Exercise 2</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#todos"><i class="fa fa-check"></i><b>4.4</b> TODOS</a></li>
 </ul></li>
@@ -258,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 4</span> Multiple Linear Regression<a href="multiple-linear-regression.html#multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>So far, we have dealt with the simple mean model and the model with one predictor
 in the Bayesian and Frequentist framework.
-We will now add another predictor and an subsequently an interaction term to the model.</p>
+We will now add another predictor and subsequently an interaction term to the model.</p>
 <div id="linear-regression-with-two-predictors-in-the-baysian-framework" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Linear Regression with Two Predictors in the Baysian Framework<a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-baysian-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="meaning-of-linear" class="section level3 hasAnchor" number="4.1.1">
@@ -270,9 +271,12 @@ with the dependent variable (or outcome). The following model is also linear:</p
 The term <span class="math inline">\(x_i^2\)</span> is ok, since the heights are just sums of multiples of the predictors (which can be nonlinear).
 This model is not a linear model anymore:</p>
 <p><span class="math display">\[height_i = \beta_0 + \beta_1 x_i + e^{\beta_2 x_i^2}\]</span></p>
+<p><span class="math inline">\(\beta_2\)</span> is now is the exponent of <span class="math inline">\(e\)</span>. It would also not be linear,
+if the coefficients are in a square root or in the denominator of a fraction,
+or in a sine or in a logarithm. You get the idea.</p>
 </div>
-<div id="adding-a-transformed-predictor-to-the-model" class="section level3 hasAnchor" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Adding a transformed predictor to the model<a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="adding_transformed_predictor" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Adding a transformed predictor to the model<a href="multiple-linear-regression.html#adding_transformed_predictor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The world is not flat, although some people on YouTube might tell you otherwise.
 In our context, not all regression is linear.</p>
 <p>Around 4.5. in the book <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking</a>
@@ -307,8 +311,8 @@ In this case it is obvious, a non-linear relationship is present and it might be
 to model it. Modeling the relationshiop with a linear trend, leads to bad residuals with structure.
 We will demonstrate this in the freuqentist setting.
 Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.</p>
-<p>This time, we use mean for the prior from the book (<span class="math inline">\(178\)</span>).
-The model equations are:</p>
+<p>This time, we use the mean for the prior from the book (<span class="math inline">\(178 cm\)</span>).
+The model equations are (see <a href="multiple-linear-regression.html#exercise2_multiple_regression">exercise 2</a>):</p>
 <p><span class="math display">\[\begin{eqnarray*}
 h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma) \\
 \mu_i &amp;=&amp; \alpha + \beta_1 x_i + \beta_2 x_i^2 \\
@@ -332,7 +336,7 @@ because this is what we can expect from body heights in our experience.</p>
 <p>Let’s <strong>fit the model</strong>:</p>
 <p>We standardize the weight again and add the squared weights to the data set.
 Standardizing the the predictors is a good idea, especially in polynomial regression
-since squares and cubes of large numbers can get very large and cause numerical problems.</p>
+since squares and cubes of large numbers can get huge and cause numerical problems.</p>
 <p>Let’s fit the model with the quadratic term for weight:</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="multiple-linear-regression.html#cb99-1" tabindex="-1"></a><span class="co"># Standardize weight</span></span>
 <span id="cb99-2"><a href="multiple-linear-regression.html#cb99-2" tabindex="-1"></a>d<span class="sc">$</span>weight_s <span class="ot">&lt;-</span> (d<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>weight)) <span class="sc">/</span> <span class="fu">sd</span>(d<span class="sc">$</span>weight)</span>
@@ -353,7 +357,9 @@ since squares and cubes of large numbers can get very large and cause numerical 
 ## b1     21.397637 0.2898827  20.934348  21.860925
 ## b2     -8.419933 0.2813308  -8.869554  -7.970312
 ## sigma   5.750550 0.1743749   5.471865   6.029235</code></pre>
-<p><span class="math inline">\(\beta_2\)</span> is indeed negative. We get our full distribution of the <strong>four model parameters</strong>.
+<p><span class="math inline">\(\beta_2\)</span> is indeed negative.
+We get our <strong><a href="https://en.wikipedia.org/wiki/Joint_probability_distribution">join distribution</a></strong>
+of the <strong>four model parameters</strong>.
 Let’s look at the fit using the mean estimates of the posterior distribution:</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="multiple-linear-regression.html#cb101-1" tabindex="-1"></a><span class="co"># Summarize the model parameters</span></span>
 <span id="cb101-2"><a href="multiple-linear-regression.html#cb101-2" tabindex="-1"></a>model_summary <span class="ot">&lt;-</span> <span class="fu">precis</span>(m4<span class="fl">.1</span>)</span>
@@ -390,8 +396,8 @@ Maybe this fits even better (see <a href="multiple-linear-regression.html#exerci
 </div>
 <div id="linear-regression-with-two-predictors-in-the-frequentist-framework" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Linear Regression with Two Predictors in the Frequentist Framework<a href="multiple-linear-regression.html#linear-regression-with-two-predictors-in-the-frequentist-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="adding-a-transformed-predictor-to-the-model-1" class="section level3 hasAnchor" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Adding a transformed predictor to the model<a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="adding-a-transformed-predictor-to-the-model" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Adding a transformed predictor to the model<a href="multiple-linear-regression.html#adding-a-transformed-predictor-to-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>No, let’s fit the same model as above in the frequentist framework.</p>
 <p>The model is:</p>
 <p><span class="math display">\[height_i = \alpha + \beta_1 weight_i + \beta_2 weight_i^2 + \varepsilon_i\]</span>
@@ -401,7 +407,10 @@ whereas
 This is fit again using the <code>lm</code> function in R which uses least squares to estimate the parameters.
 At this point I could torture you with <a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)">matrix algebra</a>
 and show you the <a href="https://en.wikipedia.org/wiki/Linear_least_squares">normal equations</a> for linear regression,
-but I will spare you for now.</p>
+but I will spare you for now.
+Note that the least squares algorithm for fitting the curve works for all
+kinds of functions. We could also fit an exponential curve using the same
+technique.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="multiple-linear-regression.html#cb102-1" tabindex="-1"></a><span class="co"># scale weight</span></span>
 <span id="cb102-2"><a href="multiple-linear-regression.html#cb102-2" tabindex="-1"></a>d<span class="sc">$</span>weight_s <span class="ot">&lt;-</span> <span class="fu">scale</span>(d<span class="sc">$</span>weight)</span>
 <span id="cb102-3"><a href="multiple-linear-regression.html#cb102-3" tabindex="-1"></a><span class="co"># Fit the model</span></span>
@@ -436,9 +445,40 @@ We could also create a new variable as before. Whatever you prefer.</p>
 Note that this is not the average height of the people in the data set, since the
 mean model is also a model, but different from ours.</li>
 <li>The residuals have range from <span class="math inline">\(-19.97\)</span> to <span class="math inline">\(19.51\)</span>. So, the model maximally
-overestimates the heights by <span class="math inline">\(19.97\)</span> cm and underestimates by <span class="math inline">\(19.51\)</span> cm.</li>
-<li>dfdfdfdf</li>
+overestimates the heights by <span class="math inline">\(19.97\)</span> cm and underestimates by <span class="math inline">\(19.51\)</span> cm.
+These numbers are plausible when you look at the scatterplot with the fitted
+curve.</li>
+<li>The coefficients <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> agree with the Bayes estimates.
+Specifically, <span class="math inline">\(\beta_2\)</span> is non-zero indicating curvature.</li>
+<li>If you like <span class="math inline">\(p\)</span>-values: All the hypotheses that the coefficients are zero
+are rejected. The <span class="math inline">\(p\)</span>-values are very small. The data can not be explained
+by chance alone. On the other hand, for at least <span class="math inline">\(\beta_1\)</span> and
+and the global test this is not a surprise when you look at the scatterplot.</li>
+<li>The <span class="math inline">\(R^2\)</span> is a whopping <span class="math inline">\(0.96\)</span> which could be a sign of overfitting, but
+in this case we conclude that the true relationship is caputured rather well.
+Overfitting would occur if our curve would wiggle around the data points,
+so we would fit the data too much to the noise in the data than
+the underying trend.</li>
 </ul>
+</div>
+<div id="checking-model-assumptions" class="section level4 hasAnchor" number="4.2.1.2">
+<h4><span class="header-section-number">4.2.1.2</span> Checking model assumptions<a href="multiple-linear-regression.html#checking-model-assumptions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="multiple-linear-regression.html#cb104-1" tabindex="-1"></a><span class="fu">check_model</span>(m4<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## Some of the variables were in matrix-format - probably you used
+##   `scale()` on your data?
+##   If so, and you get an error, please try `datawizard::standardize()` to
+##   standardize your data.
+## Some of the variables were in matrix-format - probably you used
+##   `scale()` on your data?
+##   If so, and you get an error, please try `datawizard::standardize()` to
+##   standardize your data.</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p>If we want to be perfectionists, we could remark that (upper right plot)
+in the lower fitted values the residuals are more negative,
+meaning that the model overestimates the heights in this region.
+In the middle region the model underestimates a bit and we can see
+a positive tendency in the residuals. Apart from that,
+the diagnostic plots look excellent.</p>
 </div>
 </div>
 </div>
@@ -452,6 +492,15 @@ overestimates the heights by <span class="math inline">\(19.97\)</span> cm and u
 <li>Come up with an explanation for the functional form of this relationship.</li>
 <li>Could there be reasons to for taking a less complicated model
 (<a href="https://en.wikipedia.org/wiki/Statistical_model_specification">1</a>, <a href="https://en.wikipedia.org/wiki/Occam%27s_razor">2</a>)?</li>
+</ul>
+</div>
+<div id="exercise2_multiple_regression" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> [E] Exercise 2<a href="multiple-linear-regression.html#exercise2_multiple_regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider the model equations from <a href="multiple-linear-regression.html#adding_transformed_predictor">above</a>
+where we used polynomial regression to model the relationship between
+weight and height:</p>
+<ul>
+<li>Draw the model hierarchy for the model.</li>
 </ul>
 </div>
 </div>

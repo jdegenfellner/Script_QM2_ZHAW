@@ -2,7 +2,7 @@
 
 So far, we have dealt with the simple mean model and the model with one predictor
 in the Bayesian and Frequentist framework.
-We will now add another predictor and an subsequently an interaction term to the model.
+We will now add another predictor and subsequently an interaction term to the model.
 
 ## Linear Regression with Two Predictors in the Baysian Framework
 
@@ -18,7 +18,11 @@ This model is not a linear model anymore:
 
 $$height_i = \beta_0 + \beta_1 x_i + e^{\beta_2 x_i^2}$$
 
-### Adding a transformed predictor to the model
+$\beta_2$ is now is the exponent of $e$. It would also not be linear,
+if the coefficients are in a square root or in the denominator of a fraction,
+or in a sine or in a logarithm. You get the idea.
+
+### Adding a transformed predictor to the model {#adding_transformed_predictor}
 
 The world is not flat, although some people on YouTube might tell you otherwise.
 In our context, not all regression is linear.
@@ -58,8 +62,8 @@ to model it. Modeling the relationshiop with a linear trend, leads to bad residu
 We will demonstrate this in the freuqentist setting.
 Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
 
-This time, we use mean for the prior from the book ($178$).
-The model equations are:
+This time, we use the mean for the prior from the book ($178 cm$).
+The model equations are (see [exercise 2](#exercise2_multiple_regression)):
 
 \begin{eqnarray*}
 h_i &\sim& \text{Normal}(\mu_i, \sigma) \\
@@ -88,7 +92,7 @@ Let's **fit the model**:
 
 We standardize the weight again and add the squared weights to the data set.
 Standardizing the the predictors is a good idea, especially in polynomial regression
-since squares and cubes of large numbers can get very large and cause numerical problems.
+since squares and cubes of large numbers can get huge and cause numerical problems.
 
 Let's fit the model with the quadratic term for weight:
 
@@ -108,7 +112,9 @@ m4.1 <- quap(
   ), data = d)
 precis(m4.1)
 ```
-$\beta_2$ is indeed negative. We get our full distribution of the **four model parameters**.
+$\beta_2$ is indeed negative. 
+We get our **[join distribution](https://en.wikipedia.org/wiki/Joint_probability_distribution)** 
+of the **four model parameters**.
 Let's look at the fit using the mean estimates of the posterior distribution:
 
 ```{r}
@@ -164,6 +170,9 @@ This is fit again using the `lm` function in R which uses least squares to estim
 At this point I could torture you with [matrix algebra](https://en.wikipedia.org/wiki/Matrix_(mathematics)) 
 and show you the [normal equations](https://en.wikipedia.org/wiki/Linear_least_squares) for linear regression,
 but I will spare you for now.
+Note that the least squares algorithm for fitting the curve works for all
+kinds of functions. We could also fit an exponential curve using the same
+technique.
 
 ```{r}
 # scale weight
@@ -184,10 +193,32 @@ We could also create a new variable as before. Whatever you prefer.
   mean model is also a model, but different from ours.
 - The residuals have range from $-19.97$ to $19.51$. So, the model maximally
   overestimates the heights by $19.97$ cm and underestimates by $19.51$ cm.
-- dfdfdfdf
+  These numbers are plausible when you look at the scatterplot with the fitted
+  curve.
+- The coefficients $\beta_1$ and $\beta_2$ agree with the Bayes estimates.
+  Specifically, $\beta_2$ is non-zero indicating curvature.
+- If you like $p$-values: All the hypotheses that the coefficients are zero
+  are rejected. The $p$-values are very small. The data can not be explained
+  by chance alone. On the other hand, for at least $\beta_1$ and
+  and the global test this is not a surprise when you look at the scatterplot.
+- The $R^2$ is a whopping $0.96$ which could be a sign of overfitting, but
+  in this case we conclude that the true relationship is caputured rather well.
+  Overfitting would occur if our curve would wiggle around the data points,
+  so we would fit the data too much to the noise in the data than
+  the underying trend.
 
+#### Checking model assumptions
 
+```{r, warnings=FALSE}
+check_model(m4.2)
+```
 
+If we want to be perfectionists, we could remark that (upper right plot)
+in the lower fitted values the residuals are more negative, 
+meaning that the model overestimates the heights in this region.
+In the middle region the model underestimates a bit and we can see
+a positive tendency in the residuals. Apart from that,
+the diagnostic plots look excellent.
 
 ## Exercises
 
@@ -198,6 +229,15 @@ We could also create a new variable as before. Whatever you prefer.
 - Come up with an explanation for the functional form of this relationship.
 - Could there be reasons to for taking a less complicated model 
   ([1](https://en.wikipedia.org/wiki/Statistical_model_specification), [2](https://en.wikipedia.org/wiki/Occam%27s_razor))?
+
+### [E] Exercise 2 {#exercise2_multiple_regression}
+
+Consider the model equations from [above](#adding_transformed_predictor) 
+where we used polynomial regression to model the relationship between 
+weight and height:
+
+- Draw the model hierarchy for the model.
+
 
 ## TODOS
 
