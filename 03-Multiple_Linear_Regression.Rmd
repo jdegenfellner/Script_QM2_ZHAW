@@ -152,6 +152,8 @@ Maybe this fits even better (see [exercise 1](#exercise1_multiple_regression)).
 
 ..........
 
+### Adding another predictor to the model
+....
 
 
 ## Linear Regression with Two Predictors in the Frequentist Framework
@@ -203,7 +205,8 @@ We could also create a new variable as before. Whatever you prefer.
   and the global test this is not a surprise when you look at the scatterplot.
 - The $R^2$ is a whopping $0.96$ which could be a sign of overfitting, but
   in this case we conclude that the true relationship is caputured rather well.
-  Overfitting would occur if our curve would wiggle around the data points,
+  [Overfitting](https://en.wikipedia.org/wiki/Overfitting) would occur if 
+  our curve would wiggle around the data points,
   so we would fit the data too much to the noise in the data than
   the underying trend.
 
@@ -219,6 +222,99 @@ meaning that the model overestimates the heights in this region.
 In the middle region the model underestimates a bit and we can see
 a positive tendency in the residuals. Apart from that,
 the diagnostic plots look excellent.
+
+### Adding another predictor to the model
+
+Now, we add another predictor to the model. So we use $X_1$ and $X_2$ 
+**simultaneously** to predict $Y$. We are now in the lucky situation that
+we can still visualize the situation in 3D. The regression line from simple
+linear regression
+becomes a [plane](https://stackoverflow.com/questions/47344850/scatterplot3d-regression-plane-with-residuals).
+The vertical distances between the data points and the plane are the residuals.
+Minimizing the sum of the squared residuals gives again 
+the estimates for the coefficients. 
+
+For demonstration purposes, we can create data ourselves with known
+coefficients.
+This is the true model, which we usually do not know:
+
+$$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \varepsilon_i$$
+$$ Y_i = 10 + 0.5 X_{1i} + 1 X_{2i} + \varepsilon_i$$
+$$ \mathbb{E}(Y) = 10 + 0.5 X_1 + 1 X_2$$
+$$ i = 1 \ldots n$$
+$$ \varepsilon_i \sim N(0, 5)$$
+
+According to the model, the expected value of $Y$ is a linear function of $X_1$ and $X_2$.
+- If $X_1$ increases by one unit, $Y$ increases by $0.5$ unit on average (in expectation).
+- If $X_2$ increases by one unit, $Y$ increases by $1$ units on average (in expectation).
+- If $X_1$ and $X_2$ are zero, $Y$ is $10$ on average (in expectation).
+Why in expectation? Because there is still the error term which makes the whole thing random!
+We can see that an increase in $X_1$ does not influence the relationship between $X_2$ and $Y$.
+Hence, there is no interaction between $X_1$ and $X_2$ with respect to $Y$.
+
+Now lets's draw 100 points from this model, fit the model and draw the plane:
+
+```{r}
+library(plotly)
+
+#set.seed(123)
+n <- 100
+X1 <- rnorm(n, 0, 5)
+X2 <- rnorm(n, 0, 5)
+Y <- 10 + 0.5 * X1 + 1 * X2 + rnorm(n, 0, 2)
+d <- data.frame(X1 = X1, X2 = X2, Y = Y)
+
+# Fit the model
+m4.3 <- lm(Y ~ X1 + X2, data = d)
+summary(m4.3)
+
+# Create a grid for the plane
+X1_grid <- seq(min(d$X1), max(d$X1), length.out = 20)
+X2_grid <- seq(min(d$X2), max(d$X2), length.out = 20)
+grid <- expand.grid(X1 = X1_grid, X2 = X2_grid)
+
+# Predict the values for the grid
+grid$Y <- predict(m4.3, newdata = grid)
+
+# Convert the grid into a matrix for the plane
+plane_matrix <- matrix(grid$Y, nrow = length(X1_grid), ncol = length(X2_grid))
+
+# Create the interactive 3D plot
+plot_ly() %>%
+  add_markers(
+    x = d$X2, y = d$X1, z = d$Y,
+    marker = list(color = "blue", size = 5),
+    name = "Data Points"
+  ) %>%
+  add_surface(
+    x = X1_grid, y = X2_grid, z = plane_matrix,
+    colorscale = list(c(0, 1), c("red", "pink")),
+    showscale = FALSE,
+    opacity = 0.7,
+    name = "Fitted Plane"
+  ) %>%
+  plotly::layout(
+    scene = list(
+      xaxis = list(title = "X1"),
+      yaxis = list(title = "X2"),
+      zaxis = list(title = "Y")
+    ),
+    title = "Interactive 3D Scatterplot with Fitted Plane"
+  )
+```
+
+
+
+
+### Interaction term $X_1 \times X_2$
+
+I recommend reading the excellent explanations about interactions
+in John Kruschke's book [Doing Bayesian Data Analysis](https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf),
+15.2.2 und 15.2.3.
+
+
+
+
 
 ## Exercises
 

@@ -60,10 +60,13 @@ multiple-linear-regression
 linear-regression-with-two-predictors-in-the-baysian-framework
 meaning-of-linear
 adding_transformed_predictor
+adding-another-predictor-to-the-model
 linear-regression-with-two-predictors-in-the-frequentist-framework
 adding-a-transformed-predictor-to-the-model
 interpretation-of-output-and-coefficients
 checking-model-assumptions
+adding-another-predictor-to-the-model-1
+interaction-term-x_1-times-x_2
 exercises-2
 exercise1_multiple_regression
 exercise2_multiple_regression
