@@ -240,19 +240,21 @@ This is the true model, which we usually do not know:
 
 $$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \varepsilon_i$$
 $$ Y_i = 10 + 0.5 X_{1i} + 1 X_{2i} + \varepsilon_i$$
-$$ \mathbb{E}(Y) = 10 + 0.5 X_1 + 1 X_2$$
+$$ \mathbb{E}(Y_i) = 10 + 0.5 X_1 + 1 X_2$$
 $$ i = 1 \ldots n$$
 $$ \varepsilon_i \sim N(0, 5)$$
 
 According to the model, the expected value of $Y$ is a linear function of $X_1$ and $X_2$.
+
 - If $X_1$ increases by one unit, $Y$ increases by $0.5$ unit on average (in expectation).
 - If $X_2$ increases by one unit, $Y$ increases by $1$ units on average (in expectation).
 - If $X_1$ and $X_2$ are zero, $Y$ is $10$ on average (in expectation).
+
 Why in expectation? Because there is still the error term which makes the whole thing random!
 We can see that an increase in $X_1$ does not influence the relationship between $X_2$ and $Y$.
 Hence, there is no interaction between $X_1$ and $X_2$ with respect to $Y$.
 
-Now lets's draw 100 points from this model, fit the model and draw the plane:
+Now lets's draw 100 points from this model, fit the model and add the plane:
 
 ```{r}
 library(plotly)
@@ -303,8 +305,20 @@ plot_ly() %>%
   )
 ```
 
+This is, of course, a very idealized situation. There is no curvature in the plane,
+no interaction, not outliers, no homoscadasticity. It's the simplest case of multiple regression
+with 2 predictors. Reality is - usually - more complicated.
 
+Let's look at summary output and check model assumptions:
 
+```{r}
+summary(m4.3)
+check_model(m4.3)
+```
+
+We could repeat this simulation to get a feeling for the variability.
+The posterior predictive checks look nice. In this case, we *know* that the model is true
+and with this knowledge we can assess the diagnostic plots in front of us.
 
 ### Interaction term $X_1 \times X_2$
 
