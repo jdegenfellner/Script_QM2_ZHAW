@@ -225,13 +225,16 @@ the diagnostic plots look excellent.
 
 ### Adding another predictor to the model
 
-Now, we add another predictor to the model. So we use $X_1$ and $X_2$ 
+Now, we add another predictor to the model. We use $X_1$ and $X_2$ 
 **simultaneously** to predict $Y$. We are now in the lucky situation that
 we can still visualize the situation in 3D. The regression line from simple
 linear regression
 becomes a [plane](https://stackoverflow.com/questions/47344850/scatterplot3d-regression-plane-with-residuals).
 The vertical distances between the data points and the plane are the residuals.
-Minimizing the sum of the squared residuals gives again 
+See [here](https://rpubs.com/pjozefek/576206) or 
+[here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
+at the end for examples.
+Minimizing the sum of the squared errors gives again 
 the estimates for the coefficients. 
 
 For demonstration purposes, we can create data ourselves with known
@@ -239,20 +242,29 @@ coefficients.
 This is the true model, which we usually do not know:
 
 $$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \varepsilon_i$$
-$$ Y_i = 10 + 0.5 X_{1i} + 1 X_{2i} + \varepsilon_i$$
-$$ \mathbb{E}(Y_i) = 10 + 0.5 X_1 + 1 X_2$$
-$$ i = 1 \ldots n$$
+$$ \varepsilon_i \sim N(0, \sigma^2)$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + \beta_1 x_1 + \beta_2 x_2$$
+
+for example:
+
+$$ Y_i = 10 + 0.5 \cdot X_{1i} + 1 \cdot X_{2i} + \varepsilon_i$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2$$
 $$ \varepsilon_i \sim N(0, 5)$$
+$$ i = 1 \ldots n$$
 
-According to the model, the expected value of $Y$ is a linear function of $X_1$ and $X_2$.
 
-- If $X_1$ increases by one unit, $Y$ increases by $0.5$ unit on average (in expectation).
-- If $X_2$ increases by one unit, $Y$ increases by $1$ units on average (in expectation).
+According to the model, the conditional expected value of $Y_i$ given $X_1 = x_1$ and $X_2 = x_2$
+is a linear function of $x_1$ and $x_2$. Note, that small letters are realized values
+of random variables. Also note, that in the expectation the error term goes away, since
+$\mathbb{E}(\varepsilon_i) = 0$.
+
+- If $X_1$ increases by one unit, $Y$ increases by $0.5$ units on average (in expectation).
+- If $X_2$ increases by one unit, $Y$ increases by $1$ unit on average (in expectation).
 - If $X_1$ and $X_2$ are zero, $Y$ is $10$ on average (in expectation).
 
 Why in expectation? Because there is still the error term which makes the whole thing random!
 We can see that an increase in $X_1$ does not influence the relationship between $X_2$ and $Y$.
-Hence, there is no interaction between $X_1$ and $X_2$ with respect to $Y$.
+Hence, there is **no interaction** between $X_1$ and $X_2$ with respect to $Y$.
 
 Now lets's draw 100 points from this model, fit the model and add the plane:
 
@@ -306,7 +318,7 @@ plot_ly() %>%
 ```
 
 This is, of course, a very idealized situation. There is no curvature in the plane,
-no interaction, not outliers, no homoscadasticity. It's the simplest case of multiple regression
+no interaction, no outliers, no heteroscadasticity. It's the simplest case of multiple regression
 with 2 predictors. Reality is - usually - more complicated.
 
 Let's look at summary output and check model assumptions:
@@ -324,9 +336,17 @@ and with this knowledge we can assess the diagnostic plots in front of us.
 
 I recommend reading the excellent explanations about interactions
 in John Kruschke's book [Doing Bayesian Data Analysis](https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf),
-15.2.2 und 15.2.3.
+15.2.2 und 15.2.3. Peter Westfall also has a nice explanation in his [book](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4) 
+in section 9.3.
 
+Our statistical model is now:
 
+$$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} \times X_{2i} + \varepsilon_i$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_{1} + 1 x_{2} + 0.89 x_{1} \times x_{2}$$
+$$ i = 1 \ldots n$$
+
+The second equation states that the conditional expectation of $Y$ given $X_1$ and $X_2$ 
+is a function of $X_1$ and $X_2 and their interaction$.
 
 
 
@@ -362,8 +382,14 @@ weight and height:
   We could also look at the simple regression problem as fitting a plane to the data,
   as is done [here](https://rpubs.com/pjozefek/576206) or 
   [here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
-  at the end. As
+  at the end.
 - Variability of confidence interval borders
-- Next Chapter: Multiple regression
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 - Chapter about ICCs, but maybe reduced
+- clearer difference between prediction and explanation. why do we need causal inference and
+  why do we have to be careful when we throw predictors into a model, how sure can we be that
+  the model does what we want it to do?
+- simpons paradoxj
+- causal terror of richards book, fork, pipe, collider
+- Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt), 
+  ist diese Situation möglich?
