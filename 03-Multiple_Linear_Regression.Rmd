@@ -244,12 +244,13 @@ This is the true model, which we usually do not know:
 $$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \varepsilon_i$$
 $$ \varepsilon_i \sim N(0, \sigma^2)$$
 $$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + \beta_1 x_1 + \beta_2 x_2$$
+$$ i = 1 \ldots n$$
 
 for example:
 
 $$ Y_i = 10 + 0.5 \cdot X_{1i} + 1 \cdot X_{2i} + \varepsilon_i$$
-$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2$$
 $$ \varepsilon_i \sim N(0, 5)$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2$$
 $$ i = 1 \ldots n$$
 
 
@@ -342,11 +343,84 @@ in section 9.3.
 Our statistical model is now:
 
 $$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} \times X_{2i} + \varepsilon_i$$
-$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_{1} + 1 x_{2} + 0.89 x_{1} \times x_{2}$$
+$$ \varepsilon_i \sim N(0, \sigma^2)$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + beta_1 x_{1} + beta_2 x_{2} + \beta_3 x_{1} \times x_{2}$$
+$$ i = 1 \ldots n$$
+
+for example:
+
+$$ Y_i = 10 + 0.5 \cdot X_{1i} + 1 \cdot X_{2i} + 0.89 \cdot X_{1i} \cdot X_{2i} + \varepsilon_i$$
+$$ \varepsilon_i \sim N(0, 5)$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2 + 0.89 x_1 x_2$$
 $$ i = 1 \ldots n$$
 
 The second equation states that the conditional expectation of $Y$ given $X_1$ and $X_2$ 
-is a function of $X_1$ and $X_2 and their interaction$.
+is a function of $X_1$ and $X_2$ and their interaction. We are in a different situation now.
+Set for instance $x_2$ to a certain value, say $x_2 = 7$. Then the relationship (in expectation) 
+between $Y$ and $X_1$ is:
+
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = 7) = 10 + 0.5 x_1 + 1 \cdot 7 + 0.89 x_1 \cdot 7$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = 7) = 10 + (0.5 + 0.89 \cdot \mathbf{7}) \cdot x_1 + 1 \cdot 7$$
+
+Depending on the value of $x_2$, the *effect* of $X_1$ on $Y$ changes. 
+Hence, $X_2$ **modifies** the relationship between $X_1$ and $Y$, states otherwise,
+$X_1$ and $X_2$ **interact** with respect to $Y$. Remember, the word *effect* is 
+used in a strictly technical/statistical sense and **not in a causal** sense.
+It does not mean that if we *do* change $X_1$ by one unit, 
+$Y$ will also change in an experiment. We are purely describing the relationship
+in an associative way. We will probably touch causality in a later chapter.
+Bayesian statistics and causal inference are gaining popularity.
+
+Let's draw 100 points from this model, fit the model and add the plane:
+
+```{r}
+#set.seed(123)
+n <- 100
+X1 <- rnorm(n, 0, 5)
+X2 <- rnorm(n, 0, 5)
+Y <- 10 + 0.5 * X1 + 1 * X2 + 0.89 * X1 * X2 + rnorm(n, 0, 5)
+d <- data.frame(X1 = X1, X2 = X2, Y = Y)
+
+# Fit the model
+m4.4 <- lm(Y ~ X1 * X2, data = d)
+summary(m4.4)
+
+# Create a grid for the plane
+X1_grid <- seq(min(d$X1), max(d$X1), length.out = 20)
+X2_grid <- seq(min(d$X2), max(d$X2), length.out = 20)
+grid <- expand.grid(X1 = X1_grid, X2 = X2_grid)
+
+# Predict the values for the grid
+grid$Y <- predict(m4.4, newdata = grid)
+
+# Convert the grid into a matrix for the plane
+plane_matrix <- matrix(grid$Y, nrow = length(X1_grid), ncol = length(X2_grid))
+
+# Create the interactive 3D plot
+plot_ly() %>%
+  add_markers(
+    x = d$X2, y = d$X1, z = d$Y,
+    marker = list(color = "blue", size = 5),
+    name = "Data Points"
+  ) %>%
+  add_surface(
+    x = X1_grid, y = X2_grid, z = plane_matrix,
+    colorscale = list(c(0, 1), c("red", "pink")),
+    showscale = FALSE,
+    opacity = 0.7,
+    name = "Fitted Plane"
+  ) %>%
+  plotly::layout(
+    scene = list(
+      xaxis = list(title = "X1"),
+      yaxis = list(title = "X2"),
+      zaxis = list(title = "Y")
+    ),
+    title = "Interactive 3D Scatterplot with Fitted Plane"
+  )
+```
+
+
 
 
 
