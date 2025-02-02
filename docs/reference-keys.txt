@@ -14,6 +14,7 @@ exercise1_Intro
 exercise2_Intro
 exercise3_Intro
 exercise4_Intro
+exercise5_Intro
 addendum
 bivariate_normal
 simple-linear-regression
@@ -31,7 +32,7 @@ fit_model_simple_lin_reg_classic
 confidence_intervals_frequentist
 analysis_of_variance
 r2---coefficient-of-determination
-seperating-property-of-regression-due-to-r2
+seperating_property
 check-regression-assumptions
 linearity
 constant_variance
@@ -56,6 +57,7 @@ exercise7_simpl_lin_reg
 exercise8_simpl_lin_reg
 exercise9_simpl_lin_reg
 exercise10_simpl_lin_reg
+exercise11_simpl_lin_reg
 multiple-linear-regression
 linear-regression-with-two-predictors-in-the-baysian-framework
 meaning-of-linear
@@ -66,8 +68,15 @@ adding-a-transformed-predictor-to-the-model
 interpretation-of-output-and-coefficients
 checking-model-assumptions
 adding-another-predictor-to-the-model-1
-interaction-term-x_1-times-x_2
+adding-variables-to-the-model-and-why
+interaction_term
+formal-test-for-interaction
+interaction_plot
+simpsons-paradox
 exercises-2
 exercise1_multiple_regression
 exercise2_multiple_regression
+exercise3_multiple_regression
+exercise4_multiple_regression
+exercise5_multiple_regression
 todos

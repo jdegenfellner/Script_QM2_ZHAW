@@ -113,7 +113,7 @@ m4.1 <- quap(
 precis(m4.1)
 ```
 $\beta_2$ is indeed negative. 
-We get our **[join distribution](https://en.wikipedia.org/wiki/Joint_probability_distribution)** 
+We get our **[joint distribution](https://en.wikipedia.org/wiki/Joint_probability_distribution)** 
 of the **four model parameters**.
 Let's look at the fit using the mean estimates of the posterior distribution:
 
@@ -333,7 +333,25 @@ We could repeat this simulation to get a feeling for the variability.
 The posterior predictive checks look nice. In this case, we *know* that the model is true
 and with this knowledge we can assess the diagnostic plots in front of us.
 
-### Interaction term $X_1 \times X_2$
+#### Adding variables to the model and why
+
+This is a very complex question. We will go into it in later chapters and the next course (Methodenvertiefung).
+At this point we can say this:
+Depending on the goal at hand (prediction or explanation), we add variables to the model and probably use 
+other models apart from linear regression.
+Prediction seems to be easier than explanation. For instance, within linear models and 
+just a handful of predictors, one can even brute force the problem by searching through
+all subsets of predictors. If that is not possible, one could use clever algortithms, like 
+[best subest selection](https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/). 
+
+- What is **not** a good idea is to throw all variables into the model and hope for the best.
+- What is also not a good idea is to select variables depending on the $p$-values of the coefficients.
+- **Leaving variables out**, that are important, can lead to biased estimates of the coefficients 
+  ([omitted variable bias](https://en.wikipedia.org/wiki/Omitted-variable_bias)).
+- But also **adding variables** can hurt conclusions from the model (see Statistical Rethinking 6.2).
+
+
+### Interaction term $X_1 \times X_2$ {#interaction_term}
 
 I recommend reading the excellent explanations about interactions
 in John Kruschke's book [Doing Bayesian Data Analysis](https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf),
@@ -344,18 +362,18 @@ Our statistical model is now:
 
 $$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} \times X_{2i} + \varepsilon_i$$
 $$ \varepsilon_i \sim N(0, \sigma^2)$$
-$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + beta_1 x_{1} + beta_2 x_{2} + \beta_3 x_{1} \times x_{2}$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1} \times x_{2}$$
 $$ i = 1 \ldots n$$
 
 for example:
 
-$$ Y_i = 10 + 0.5 \cdot X_{1i} + 1 \cdot X_{2i} + 0.89 \cdot X_{1i} \cdot X_{2i} + \varepsilon_i$$
+$$ Y_i = 10 + 0.5 \cdot X_{1i} + 1 \cdot X_{2i} + 0.89 \cdot X_{1i} \times X_{2i} + \varepsilon_i$$
 $$ \varepsilon_i \sim N(0, 5)$$
-$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2 + 0.89 x_1 x_2$$
+$$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2 + 0.89 x_1 \times x_2$$
 $$ i = 1 \ldots n$$
 
-The second equation states that the conditional expectation of $Y$ given $X_1$ and $X_2$ 
-is a function of $X_1$ and $X_2$ and their interaction. We are in a different situation now.
+The second equation states that the conditional expectation of $Y_i$ given $X_1=x_1$ and $X_2=x_2$ 
+is a function of $x_1$ and $x_2$ and their interaction $x_1 \times x_2$. We are in a different situation now.
 Set for instance $x_2$ to a certain value, say $x_2 = 7$. Then the relationship (in expectation) 
 between $Y$ and $X_1$ is:
 
@@ -363,15 +381,15 @@ $$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = 7) = 10 + 0.5 x_1 + 1 \cdot 7 + 0.89 x_1 \cdo
 $$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = 7) = 10 + (0.5 + 0.89 \cdot \mathbf{7}) \cdot x_1 + 1 \cdot 7$$
 
 Depending on the value of $x_2$, the *effect* of $X_1$ on $Y$ changes. 
-Hence, $X_2$ **modifies** the relationship between $X_1$ and $Y$, states otherwise,
+Hence, $X_2$ **modifies** the relationship between $X_1$ and $Y$, or stated otherwise,
 $X_1$ and $X_2$ **interact** with respect to $Y$. Remember, the word *effect* is 
 used in a strictly technical/statistical sense and **not in a causal** sense.
 It does not mean that if we *do* change $X_1$ by one unit, 
 $Y$ will also change in an experiment. We are purely describing the relationship
 in an associative way. We will probably touch causality in a later chapter.
-Bayesian statistics and causal inference are gaining popularity.
+Bayesian statistics and causal inference are gaining popularity. Hence, we should try to keep up.
 
-Let's draw 100 points from this model, fit the model and add the plane:
+Let's draw 100 points from this model, fit the model and add the plane (see also [exercise 4](#exercise3_multiple_regression)):
 
 ```{r}
 #set.seed(123)
@@ -420,9 +438,119 @@ plot_ly() %>%
   )
 ```
 
+The term `X1 * X2` is a shortcut for `X1 + X2 + X1:X2` where `X1:X2` is the interaction term.
+R automatically includes the main effects of the predictors when an interaction term is included.
+The true but usually unknown $\beta$s are estimated quite precisely.
 
+#### Formal test for interaction
+We could apply a formal test for the interaction term by model comparison.
+The command `anova(., .)` would compare the two models and test if the change in the
+residual sum of squares is statistically interesting.
 
+```{r}
+m4.5 <- lm(Y ~ X1 + X2, data = d) # without interaction
+anova(m4.5, m4.4)
+```
 
+One can show that the following test statistic is F distributed under the null hypothesis:
+
+$$ F = \frac{\left(RSS_{\text{Model 1}} - RSS_{\text{Model 2}}\right) / \left(df_{\text{Model 1}} - df_{\text{Model 2}}\right)}{RSS_{\text{Model 2}} / df_{\text{Model 2}}}$$
+
+where $RSS$ is the residual sum of squares, 
+$df$ are the degrees of freedom of the residual sum of squares for both models.
+
+The output of the `anova` command shows us the residual degress of freedom (`Res.Df`)
+of both models, the residual sum of squares errors of both models (`RSS`), 
+the sum of squared errors between model 1 and model 2 (`Sum of Sq`), the value of the 
+F-statistic and the $p$-value for the hypothesis, that the coefficient for
+the interaction term is zero ($\beta_3=0$). Model 1 RSS has 97 degrees of freedom, since we have 100 data points
+and 3 parameters to estimate ($\beta_0, \beta_1, \beta_2$). Model 2 has 96 degrees of freedom, since
+we have 100 data points and 4 parameters to estimate ($\beta_0, \beta_1, \beta_2, \beta_3$).
+
+Let's verify the value of the F statistic:
+
+```{r}
+RSS_model1 <- sum(residuals(m4.5)^2)
+RSS_model2 <- sum(residuals(m4.4)^2)
+df_model1 <- n - length(coef(m4.5))
+df_model2 <- n - length(coef(m4.4))
+F <- ((RSS_model1 - RSS_model2) / (df_model1 - df_model2)) / (RSS_model2 / df_model2)
+F
+# Sum of Sq
+RSS_model1 - RSS_model2
+```
+
+In the numerator of the F statistic, we have the change in the residual sum of squares 
+(from the small (model 1) model to the larger one (model 2), `Sum of Sq`)
+per additional parameter in the model (one additional parameter $\beta_3$). 
+
+In the denominator, we have the residual sum of squares per residual degree of freedom of 
+the larger model (model 2). Hence, in the numerator we have the information on how much
+better we get with respect to the number of variables added, and in the denominator
+we have information on how good the full model is with respect to its degrees of freedom.
+
+The $p$-value is the probability of observing a value of the F statistic as extreme or more 
+extreme than the one we observed, given that the null hypothesis is true. Here, 
+the $p$-value is extremely small. So, statistically we would see an improvement in RSS
+which is not explainable by chance alone.
+But **let's be careful with $p$-values** and especially with fixed cutoff values for $\alpha$, 
+which we will **never** use in this script.
+Even for a rather small effect $\beta_3$, we would reject the null hypothesis, if only the sample
+size is large enough. Since a very small effect relative to $\beta_1$ and $\beta_2$ would
+probably not be of practical interest, one should be careful with looking at $p$-values alone.
+For instance, in Richard McElreath's book [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/),
+there are no $p$-values at all. I like that.
+
+If you again look at the comparison of the RSS between the two models, you would 
+immediately see that the model with the interaction term is better (at least with respect to this metric). 
+The difference is huge. We have already mentioned in the context of $R^2$ not to overinterpret 
+such metric, because RSS is monotonically descreasing with number of variables added and reaches
+zero when the number of variables equals the number of data points (see [exercise 3](#exercise3_multiple_regression)).
+
+### Using an interaction plot to see a potential interaction {#interaction_plot}
+
+Chronologically before we include an interaction term in the model, we can use an interaction plot
+to see if there is a potential interaction between the predictors.
+We can just create a catorical predictor out of the continuous predictors.
+We just categorize the predictors into quartiles and plot the means of the dependent variable ($Y$).
+If the lines are parallel, there is no interaction. If the lines are not parallel, 
+there might be an interaction.
+
+```{r}
+n <- 100
+X1 <- rnorm(n, 0, 5)
+X2 <- rnorm(n, 0, 5)
+Y <- 10 + 0.5 * X1 + 1 * X2 + 0.89 * X1 * X2 + rnorm(n, 0, 5)
+d <- data.frame(X1 = X1, X2 = X2, Y = Y)
+
+# Create categorical variables based on quartiles
+d$X2_cat <- cut(d$X2, 
+                breaks = quantile(d$X2, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE), 
+                include.lowest = TRUE, 
+                labels = c("Q1", "Q2", "Q3", "Q4"))
+
+d$X1_cat <- cut(d$X1, 
+                breaks = quantile(d$X1, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE), 
+                include.lowest = TRUE, 
+                labels = c("Q1", "Q2", "Q3", "Q4"))
+
+# Create the interaction plot
+interaction.plot(d$X2_cat, d$X1_cat, d$Y)
+```
+
+There seems to be an intercation of the predictors with respect to $Y$. The lines are not parallel.
+If there was no interaction, the change in $Y$ with respect to $X_1$ would be the same for all levels of $X_2$.
+This seems not to be the case here.
+See [exercise 5](#exercise5_multiple_regression).
+
+If we had one or both predictors already categorical, we would not have to discretize them before.
+
+### Simpsons Paradox
+
+The [Simpsons paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) is a phenomenon, 
+in which a trend appears in several different groups of data but disappears 
+or reverses when these groups are combined. 
+In Statistical Rethinking .......
 
 ## Exercises
 
@@ -442,6 +570,30 @@ weight and height:
 
 - Draw the model hierarchy for the model.
 
+### [H] Exercise 3 {#exercise3_multiple_regression}
+
+Invent a data set (or use the first 3 lines of a previous data set) 
+with 3 observations of $Y$ and $X_1, X_2$ and $X_3$. You have a data frame
+with 3 rows and 4 columns. 
+
+- Fit a model with $Y$ as the dependent variable and $X_1, X_2, X_3$ as predictors.
+- How big is $R^2$?
+- Could you have calulated this without `lm`and R?
+
+### [E] Exercise 4 {#exercise4_multiple_regression}
+
+Go back to the [section about the interaction term](#interaction_term) in the linear model.
+
+- Use the code provided
+- Standardise the predictors. How are the $\beta$s changing and what is their interpration now?
+- Change the relative sizes of the true but usually unknown $\beta$s. 
+  What happens to the estimates and the graph?
+- What happens if you change the error term and increase or decrease its variance?
+
+### [E] Exercise 5 {#exercise5_multiple_regression}
+
+Draw the interaction plot from the [section about the interaction plot](#interaction_plot) 
+for the case when there is not interaction, i.e. $\beta_3 = 0$.
 
 ## TODOS
 
@@ -452,18 +604,22 @@ weight and height:
   for significant p values and then simulate data with the same effect size and see how often
   I get significant p values. Especially the next effect would be probably smaller,
   especially, if one did p-hacking! Calculate a priori probability for replication (def?).
-- For multiple regression:
-  We could also look at the simple regression problem as fitting a plane to the data,
-  as is done [here](https://rpubs.com/pjozefek/576206) or 
-  [here](https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization)
-  at the end.
-- Variability of confidence interval borders
+- Variability of confidence interval borders (draw from X...)
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 - Chapter about ICCs, but maybe reduced
 - clearer difference between prediction and explanation. why do we need causal inference and
   why do we have to be careful when we throw predictors into a model, how sure can we be that
   the model does what we want it to do?
-- simpons paradoxj
+- Simpsons paradox
 - causal terror of richards book, fork, pipe, collider
 - Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt), 
   ist diese Situation möglich?
+- What about 2 interactions?
+- Which variables should I include in a model and why?
+- Causality either here or in MV?
+- Emphasize individual prediction (if not already) - cant get below $\sigma$ in prediction
+- Include information of Kahnemans book, Thinking fast and slow. Specifically, regression
+  is better than intuition. Intuition only works in a valid environment, where patterns
+  can be obeserved. In non-valid environments, the wrong patterns are learned. Furthermore,
+  regression using some simple scores is better than expert intuition. Also Meehl is mentioned 
+  by Kahneman.

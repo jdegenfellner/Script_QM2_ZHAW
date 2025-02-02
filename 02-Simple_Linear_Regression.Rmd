@@ -590,9 +590,11 @@ summary(mod)
 
 We could also **solve the least squares problem graphically**: We want to find the 
 values of $\beta_0$ and $\beta_1$ that minimize the sum of squared differences
-which can be plotted as 3D function. All we have to do is to ask R which of 
-the coordinates minimizes the sum of squared errors. The result confirmes
-the results from the `lm` function.The dot in red marks the spot 
+which can be plotted as 3D function. Since the function is a sum of squared terms,
+we should expected a paraboloid form.
+All we have to do is to ask R which of 
+the coordinates ($\beta_0$, $\beta_1$) minimizes the sum of squared errors. The result confirmes
+the results from the `lm` function. The dot in red marks the spot 
 (Code is in the [git repository](https://github.com/jdegenfellner/Script_QM2_ZHAW)):
 
 **---COMPILE CODE AT DEOPLOYMENT (takes a bit)---**
@@ -721,13 +723,13 @@ We are glad to see that both analyses align really nicely.
 
 ### ANOVA (Analysis of Variance) {#analysis_of_variance}
 
-A non-obvious and very useful finding is that the total variability 
+A non-obvious and very useful finding is that the total variability (SST)
 in the data (our heights) can be
 **decomposed** (or [analysed](https://en.wiktionary.org/wiki/analysis)) 
 into two parts:
 
-- The variability explained by the model (the regression line)
-- The variability not explained by the model (the residuals)
+- The variability explained by the model (the regression line): SSR
+- The variability not explained by the model (the residuals): SSE
 
 $$ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} $$
 
@@ -836,8 +838,9 @@ If we are near 0, the model does not explain much of the variance
 and we would see "noise with no slope" in the scatterplot ([exercise 4](#exercise4_simpl_lin_reg)).
 The normal $R^2$ can be found in the R output under `Multiple R-squared`.
 
-If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
-$R^2$. We will verify this when we have more than 2 explanatory variables. 
+If you add a lot of variables to your regression model, you can get an
+$R^2$ of 1. The $R^2$ will never decrease when adding more variables.
+We will verify this when we have more than 2 explanatory variables. 
 As a non-formal explanation for this: In the Sum of Squares Errors (SSE),
 if you add more covariates ($\beta_2, \beta_3$), you have more freedom
 to choose values that minimize the number that will be squared. Simple regression
@@ -846,18 +849,19 @@ Hence, you will definitely not be worse off with regards to SSE when using more 
 A smaller SSE implies a larger SSR (sum constraint; SST remains constant) and hence a larger $R^2$.
 If you have as many explanatory variables as data points, you can get an $R^2$ of 1. This is
 [overfitting](https://en.wikipedia.org/wiki/Overfitting) at its "best" (which we want to avoid). 
-You would just get a value for each data point by setting all other $\beta_i$ to zero. 
+You would just get a value for each data point by setting all other $\beta_i$ to zero and 
+$\beta_i = \frac{y_i}{x_i}$. 
 Since we want to find the unterlying process, we want to avoid this.
 
 Although not perfect, one way to mitigate the influence of "too many" variables
 on $R^2$ is to use the adjusted $R^2$, which an also be found in the R output (`Adjusted R-squared`).
 
-#### Seperating property of regression due to $R^2$:
+#### Seperating property of regression due to $R^2$: {#seperating_property}
 [Peter Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4)
 explains (in Figure 8.1 of the book) how $R^2$ influences the separation of distributions in our simple regression model.
 
-In our regression of height on weight (order is correct, that's how you say it), 
-the $R^2$ is $0.5696$. The following plot shows how well one can predict
+In our regression of *height on weight* (the order is correct, that's how you say it), 
+the $R^2$ is $0.5696$. The following plot shows how "well" (i.e. precise) one can predict
 height if we use the 10% and 90% quantile of the weights (x_low and x_high).
 In both, you see the conditional distribution of height given the weight $X = x_{low}$ or $X = x_{high}$.
 Scenario 1 is the original model, scenario 2 is the same data with added noise (in Y-direction),
@@ -987,7 +991,7 @@ combined_plot <- combined_plot +
 combined_plot
 ```
 
-In the left plot, given $X = x_{low}$ gives as a rather shifted normal distribution of
+In the left plot, given $X = x_{low}$ gives a a rather strongly shifted normal distribution of
 potentially observable heights for this weight compared to $X=x_{high}$.
 We would have a lower missclassification error when trying to distinguish heights
 of very light and very heavy people in the sample just by seeing the height. 
@@ -995,6 +999,45 @@ You can think of an even more extreme separation of these distributions,
 which would happen, when $R^2$ is very high or the true slope is much higher.
 
 See also [exercise 5](#exercise5_simpl_lin_reg).
+
+An interesting way to look at $R^2$ is the following:
+Given, that one person is in the 90% quantile of the weight,
+the other is in the 10% quantile. What is the probability that the
+height of the person in the 90% quantile is higher than the height of the other person?
+We could calculate this relatively easy using theorems about additivity of normal distributions.
+Since we are all about application, we simulate this:
+
+```{r}
+library(rethinking)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
+# Simulate heights for the two quantiles
+n_sims <- 10000
+set.seed(123)
+mod <- lm(height ~ weight, data = d2)
+summary(mod)$r.squared
+x_low_high <- quantile(d2$weight, probs = c(0.1, 0.9))
+x_low_high
+mean1 <- 113.8793936 + 0.9050291 * x_low_high[1]
+mean2 <- 113.8793936 + 0.9050291 * x_low_high[2]
+sd <- 5.086  # Standard deviation for both distributions
+simulated_heights <- tibble(
+  # conditional normal distribution according to the model
+  x_low = rnorm(n_sims, mean = mean1, sd = sd),
+  x_high = rnorm(n_sims, mean =  mean2, sd = sd)
+)
+
+# Calculate the probability that the height of the person in the 90% quantile is higher
+# than the height of the person in the 10% quantile
+simulated_heights %>%
+  mutate(higher_height = x_high > x_low) %>%
+  dplyr::summarise(mean(higher_height))
+```
+
+In other words, we can be almost sure, that a person in the 90% quantile of the weight
+is taller than a person in the 10% quantile of the weight given this data set. 
+See also [exercise 11](#exercise11_simpl_lin_r).
 
 ### Check regression assumptions
 Everytime we fit a model, we should check the assumptions [above](#_model_assumptions).
@@ -1602,3 +1645,12 @@ Using our !Kung San data,
 - Can you simulate data where the two regressions deliver (almost) identical results?
 - Explain why the results differ and what consequences this would have for a research question.
   Which question do I answer with each?
+
+### [E] Exercise 11 {#exercise11_simpl_lin_reg}
+
+Go back to the [section](#seperating_property) about $R^2$ and the separation of the distributions.
+How would the probability that a person in the 90% quantile of the weight
+is taller than a person in the 10% quantile of the weight change if you change 
+
+- the true slope of the regression line
+- the true $\sigma$, i.e. if you add more noise and have a lower $R^2$?

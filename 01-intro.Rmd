@@ -664,7 +664,11 @@ which is included in R.
   for the Baysian and the frequentist version considering 
   your a priori knowledge about chicken weights.
 
-## Addendum
+### [M] Exercise 5 {#exercise5_Intro}
+
+Try to verify the simulation of probability in the [addendum](#addendum) below.
+
+## Addendum {#addendum}
 
 ### The bivariate normal distribution {#bivariate_normal}
 
