@@ -4,7 +4,7 @@ So far, we have dealt with the simple mean model and the model with one predicto
 in the Bayesian and Frequentist framework.
 We will now add another predictor and subsequently an interaction term to the model.
 
-## Linear Regression with Two Predictors in the Baysian Framework
+## Linear Regression with 2 Predictors in the Baysian Framework
 
 ### Meaning of "linear"
 What is a linear model? The term "linear" refers to the relationship of the predictors 
@@ -150,13 +150,44 @@ This fits much better than the linear model. In the book,
 there is also a polynomial regression with a cubic term for weight.
 Maybe this fits even better (see [exercise 1](#exercise1_multiple_regression)).
 
-..........
+### Adding another predictor to the model {#adding_predictor_bayes}
 
-### Adding another predictor to the model
-....
+Since the !Kung San data set has already such a high $R^2$ with the quadratic term 
+(and possibly higher with the cubic term), we will use the created data set from 
+[below](#adding_predictor_freq) in the frequentist setting
+to estimate the coefficients of the model with two predictors.
+
+We use rather uniformative priors and fit the model using `quap`:
 
 
-## Linear Regression with Two Predictors in the Frequentist Framework
+```{r}
+library(rethinking)
+set.seed(123)
+n <- 100
+X1 <- rnorm(n, 0, 5)
+X2 <- rnorm(n, 0, 5)
+Y <- 10 + 0.5 * X1 + 1 * X2 + rnorm(n, 0, 2) # true model
+df <- data.frame(X1 = X1, X2 = X2, Y = Y)
+
+# fit model
+m4.2 <- quap(
+  alist(
+    Y ~ dnorm(mu, sigma),
+    mu <- a + b1*X1 + b2*X2,
+    a ~ dnorm(10, 10),
+    b1 ~ dnorm(0, 10),
+    b2 ~ dnorm(0, 10),
+    sigma ~ dunif(0, 50)
+  ), data = df)
+precis(m4.2)
+```
+
+
+#### Checking model assumptions
+.....
+
+
+## Linear regression with 2 Predictors in the Frequentist Framework
 ### Adding a transformed predictor to the model
 
 No, let's fit the same model as above in the frequentist framework.
@@ -223,7 +254,7 @@ In the middle region the model underestimates a bit and we can see
 a positive tendency in the residuals. Apart from that,
 the diagnostic plots look excellent.
 
-### Adding another predictor to the model
+### Adding another predictor to the model {#adding_predictor_freq}
 
 Now, we add another predictor to the model. We use $X_1$ and $X_2$ 
 **simultaneously** to predict $Y$. We are now in the lucky situation that
@@ -237,8 +268,8 @@ at the end for examples.
 Minimizing the sum of the squared errors gives again 
 the estimates for the coefficients. 
 
-For demonstration purposes, we can create data ourselves with known
-coefficients.
+For demonstration purposes, we can **create data ourselves** with known
+coefficients. This is the same as [above](#adding_predictor_bayes).
 This is the true model, which we usually do not know:
 
 $$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \varepsilon_i$$
@@ -272,7 +303,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 ```{r}
 library(plotly)
 
-#set.seed(123)
+set.seed(123)
 n <- 100
 X1 <- rnorm(n, 0, 5)
 X2 <- rnorm(n, 0, 5)
@@ -351,7 +382,7 @@ all subsets of predictors. If that is not possible, one could use clever algorti
 - But also **adding variables** can hurt conclusions from the model (see Statistical Rethinking 6.2).
 
 
-### Interaction term $X_1 \times X_2$ {#interaction_term}
+### Interaction Term $X_1 \times X_2$ {#interaction_term}
 
 I recommend reading the excellent explanations about interactions
 in John Kruschke's book [Doing Bayesian Data Analysis](https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf),
@@ -360,7 +391,7 @@ in section 9.3.
 
 Our statistical model is now:
 
-$$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} \times X_{2i} + \varepsilon_i$$
+$$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \mathbf{\beta_3 X_{1i} \times X_{2i}} + \varepsilon_i$$
 $$ \varepsilon_i \sim N(0, \sigma^2)$$
 $$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1} \times x_{2}$$
 $$ i = 1 \ldots n$$
@@ -392,7 +423,7 @@ Bayesian statistics and causal inference are gaining popularity. Hence, we shoul
 Let's draw 100 points from this model, fit the model and add the plane (see also [exercise 4](#exercise3_multiple_regression)):
 
 ```{r}
-#set.seed(123)
+set.seed(123)
 n <- 100
 X1 <- rnorm(n, 0, 5)
 X2 <- rnorm(n, 0, 5)
@@ -549,8 +580,56 @@ If we had one or both predictors already categorical, we would not have to discr
 
 The [Simpsons paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) is a phenomenon, 
 in which a trend appears in several different groups of data but disappears 
-or reverses when these groups are combined. 
-In Statistical Rethinking .......
+or reverses when these groups are combined. I agree with the criticism that this is not really 
+a paradox but a failure to consider confounding variables adequately. Let's quickly invent an example.
+We are interested in the relationship hours of muscle training and strength (not based on evidence)
+in children vs. adults. Within both groups there will be an increasing relationship. The more training,
+the more muscle strength. But if we combine the groups, we will see a decreasing relationship.
+
+```{r}
+library(tidyverse)
+n <- 100
+age <- c(rep("child", n/2), rep("adult", n/2))
+training <- c(rnorm(n/2, 0, 5) + 30, rnorm(n/2, 0, 5)+ 10)
+strength <- c(
+  10 + 0.5 * training[1:(n/2)] + rnorm(n/2, 0, 2), # For children
+  25 + 0.5 * training[(n/2 + 1):n] + rnorm(n/2, 0, 2) # For adults
+)
+
+d <- data.frame(age = age, training = training, strength = strength)
+
+ggplot(d, aes(x = training, y = strength, color = age)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + # Group-specific regression lines
+  geom_smooth(data = d, aes(x = training, y = strength), 
+              method = "lm", se = FALSE, color = "black", linetype = "dashed", linewidth = 1.2) + # Overall regression line
+  labs(title = "Regression Lines for Training and Strength",
+       x = "Training",
+       y = "Strength") +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+- **Group-Specific Trends**:
+   - In the group of **children** (blue line), strength **increases** with training, as indicated by the positive slope of the regression line.
+   - Similarly, in the group of **adults** (red line), strength also **increases** with training.
+
+- **Overall Trend**:
+   - When both groups are combined, the overall regression line (black, dashed) shows a **negative slope**, suggesting that **strength decreases** with training. 
+   - This overall trend is opposite to the trends observed within the individual groups.
+
+- **Why Does This Happen?**
+   - This paradox occurs because the relationship between the grouping variable (`age`) and the independent variable (`training`) creates a confounding effect.
+   - In this case:
+     - **Children** tend to have higher training values overall, while **adults** tend to have lower training values.
+     - The overall regression line reflects the imbalance between these groups rather than the true within-group relationships.
+
+This (fictitious) example illustrates the importance of considering group-level differences when analyzing data. 
+In multiple regression this might not be so straightforward, since we cannot just plot the data and see the effect
+as in our toy example. We will discuss this later.
+
+
+
 
 ## Exercises
 
@@ -623,3 +702,4 @@ for the case when there is not interaction, i.e. $\beta_3 = 0$.
   can be obeserved. In non-valid environments, the wrong patterns are learned. Furthermore,
   regression using some simple scores is better than expert intuition. Also Meehl is mentioned 
   by Kahneman.
+- What to do if regression assumptions are violated?
