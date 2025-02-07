@@ -771,7 +771,7 @@ abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
 abline(lm(Y~X),lwd=3,lty=3)
 ```
 
-- Pipe: In this setting $X$ is associated with $Y$ and $Z$ is associated with $Y$. $X$ and $Y$ are also associated.
+- Pipe: In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. $X$ and $Y$ are also associated.
   But if we condition on $Z$, the association between $X$ and $Y$ disappears. This is the pipe.
   This means, if we **know** the value of $Z$, $X$ does not give us any information about $Y$.
   This can be seen in the first plot: Once we are within $Z=0$ or $Z=1$, $X$ does not give us any information about $Y$,
@@ -849,7 +849,8 @@ Go back to the model assumptions checks [above](#check_model_bayes).
 
 Go back to the Simpson's paradox [section](#simpsons_paradox).
 
-- Verify that the coefficient for $X$ disappears when you add $Z$ to the model for the pipe and collider as well.
+- Verify that the coefficient for $X$ disappears when you add $Z$ to the model for the pipe.
+- What happens in the case of the collider?
 
 ## TODOS
 
