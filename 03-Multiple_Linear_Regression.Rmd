@@ -196,6 +196,9 @@ For further, more detailed information on model checking, refer to chapter 6 of
 [Gelman's book](https://sites.stat.columbia.edu/gelman/book/BDA3.pdf).
 
 Anyhow, we plot two posterior predictive checks here.
+We test the model within the same data set. We create new observations
+by drawing from the posterior distribution and compare these with the acutally 
+observed values. This is called **posterior predictive checks**.
 
 **First, we plot the observed $Y$ values against the predicted $Y$ values ($=\hat{Y}$)** 
 from the model (as in Statistical rethinking, Chapter 5).
@@ -778,6 +781,7 @@ Go back to the model assumptions checks [above](#check_model_bayes).
 
 ## TODOS
 
+- Add more Bayesian model checks, chapter 6 Gelman.
 - If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
   $R^2$. We will verify this when we have more than 2 explanatory variables. 
 - maybe create animation of points wiggling to get a feeling for the variability
@@ -792,13 +796,11 @@ Go back to the model assumptions checks [above](#check_model_bayes).
 - clearer difference between prediction and explanation. why do we need causal inference and
   why do we have to be careful when we throw predictors into a model, how sure can we be that
   the model does what we want it to do?
-- Simpsons paradox
 - causal terror of richards book, fork, pipe, collider
 - Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt), 
   ist diese Situation möglich?
 - What about 2 interactions?
 - Which variables should I include in a model and why?
-- Causality either here or in MV?
 - Emphasize individual prediction (if not already) - cant get below $\sigma$ in prediction
 - Include information of Kahnemans book, Thinking fast and slow. Specifically, regression
   is better than intuition. Intuition only works in a valid environment, where patterns
