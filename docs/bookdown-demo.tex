@@ -125,7 +125,7 @@
 
 \title{Quantitive Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-01-23}
+\date{2025-02-07}
 
 \begin{document}
 \maketitle
@@ -624,9 +624,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##             mean        sd       5.5%      94.5%
-## mu    154.604024 0.4119901 153.945585 155.262464
-## sigma   7.731254 0.2913785   7.265575   8.196933
+##             mean        sd       5.5%     94.5%
+## mu    154.604084 0.4119914 153.945643 155.26253
+## sigma   7.731277 0.2913807   7.265595   8.19696
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -646,12 +646,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.4548 7.843703
-## 2 154.2205 7.991343
-## 3 154.5580 7.412633
-## 4 155.0355 7.859825
-## 5 153.8514 7.250709
-## 6 154.4716 7.625474
+## 1 155.1573 7.771782
+## 2 154.4335 7.566521
+## 3 154.5907 7.509640
+## 4 154.5659 7.140598
+## 5 153.8801 7.838376
+## 6 154.3262 7.324707
 \end{verbatim}
 
 \begin{Shaded}
@@ -691,8 +691,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697358502 0.0001521788
-## sigma 0.0001521788 0.0849014439
+## mu    0.1697368884 0.0001535034
+## sigma 0.0001535034 0.0849027279
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -706,7 +706,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973585 0.08490144
+## 0.16973689 0.08490273
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -719,8 +719,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001267681
-## sigma 0.001267681 1.000000000
+## mu    1.000000000 0.001278701
+## sigma 0.001278701 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1012,6 +1012,10 @@ which is included in R.
   your a priori knowledge about chicken weights.
 \end{itemize}
 
+\subsection{{[}M{]} Exercise 5}\label{exercise5_Intro}
+
+Try to verify the simulation of probability in the \hyperref[addendum]{addendum} below.
+
 \section{Addendum}\label{addendum}
 
 \subsection{The bivariate normal distribution}\label{bivariate_normal}
@@ -1174,7 +1178,7 @@ It's not often, that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
 The higher the weight, the higher the height; with some deviations of course and
 we decide that normally distributed errors are a good idea.
-This relationsip is neither causal, not deterministic.
+This relationsip is neither causal, nor deterministic.
 
 \begin{itemize}
 \tightlist
@@ -1204,7 +1208,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjcCui5/filea70012024b8d/widgeta70054ae1f37.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp4jhoDi/file1f174efae9a5/widget1f173b017825.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}}
@@ -1366,9 +1370,11 @@ of 1 kg more weight can be expected to be 0.9 cm taller. A 89\% credible interva
 for this estimate is \([0.83, 0.97]\). We can be quite sure that the slope is
 positive (of course we designed it that way too via the prior).
 
-It might also be interesting to inspect the variance-covariance matrix,
+It might also be interesting to inspect the \textbf{variance-covariance matrix},
 respectively the correlation between the parameters as we did before
-in the intercept model.
+in the intercept model. Remember, these are the correlations of
+parameters in the multivariate (because three paremeters simulatenously)
+posterior distribution.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1394,8 +1400,14 @@ in the intercept model.
 ## sigma 0 0     1
 \end{verbatim}
 
-As we can see the correlations are (near) zero. Compare to the graphical
-display of the model structure. There is no connection.
+\begin{itemize}
+\tightlist
+\item
+  \texttt{diag(vcov(mod))} gives the variances of the parameters and
+\item
+  \texttt{cov2cor(vcov(mod))}the correlations. As we can see the correlations are (near) zero. Compare to the graphical
+  display of the model structure. There is no connection.
+\end{itemize}
 
 \subsection{Result}\label{result}
 
@@ -1470,7 +1482,7 @@ We can also draw a nice shade for the regression line:
 
 As we can see, we are pretty sure about the mean of height which
 we wanted to model in the first place.
-Mean modeling is one thing, individual prediction is another.
+\textbf{Mean modeling is one thing, individual prediction is another}.
 Given a certain weight of a person, what is the height of the same person?
 The first line in the model definition (\(height_i \sim Normal(\mu_i, \sigma)\))
 tells us that a person's weight is distributed \emph{around} the mean
@@ -1520,8 +1532,14 @@ This part is \textbf{sometimes a bit desillusioning} when seen for the first tim
 Draw a horizontal line at 150 cm and see how many weights (according to
 the individual prediction) are compatible with this height. Weights
 from 30 to 50 kg are compatible with this height according to the
-89\% prediction interval. The higher the credibility, the wider the interval,
-the wider the range of compatible weights (more than 60\% of the weight-range).
+89\% prediction interval:
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-30-1.pdf}}
+
+The higher the credibility, the wider the interval,
+the wider the range of compatible weights.
+In our example, more than 60\% of the weight-range are
+plausible to predict a height of 150 cm.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1533,8 +1551,8 @@ the wider the range of compatible weights (more than 60\% of the weight-range).
 ## [1] 0.6265362
 \end{verbatim}
 
-On the other hand: We did not model the relationship this ways.
-We modeled height depending on weight and not the other way around.
+On the other hand: We did not model the relationship this way.
+We modeled \textbf{height depending on weight} and not the other way around.
 In the next chapter, we will regress weight on height (yes, this is the correct order)
 and see what changes.
 
@@ -1652,7 +1670,7 @@ is attempted to be modeled.
 ##     area
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-31-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-32-1.pdf}}
 
 In the case above, the errors are \textbf{not conditionally independent}.
 If we condition on \(X=2\) and \(X=4.5\), the errors are correlated (\(r \sim -0.3\)),
@@ -1785,11 +1803,14 @@ Let's \textbf{use R again to solve the problem}:
 
 We could also \textbf{solve the least squares problem graphically}: We want to find the
 values of \(\beta_0\) and \(\beta_1\) that minimize the sum of squared differences
-which can be plotted as 3D function. All we have to do is to ask R which of
-the coordinates minimizes the sum of squared errors. The result confirmes
-the results from the \texttt{lm} function.The dot in red marks the spot (Code is in the git repository):
+which can be plotted as 3D function. Since the function is a sum of squared terms,
+we should expected a paraboloid form.
+All we have to do is to ask R which of
+the coordinates (\(\beta_0\), \(\beta_1\)) minimizes the sum of squared errors. The result confirmes
+the results from the \texttt{lm} function. The dot in red marks the spot
+(Code is in the \href{https://github.com/jdegenfellner/Script_QM2_ZHAW}{git repository}):
 
-\textbf{---COMPILE CODE AT DEOPLOYMENT---}
+\textbf{---COMPILE CODE AT DEOPLOYMENT (takes a bit)---}
 
 \subsection{Confidence Intervals of coefficients (frequentist)}\label{confidence_intervals_frequentist}
 
@@ -1807,8 +1828,11 @@ You can get CI's conveniently with the \texttt{confint} function:
 ## weight        0.818351   0.9917072
 \end{verbatim}
 
-Remember, these are frequenetist confidence intervals. If one repeats the experiment
-many times, the true but unknown value of the parameter will be in the interval in 96\% of the cases.
+Remember, these are frequenetist confidence intervals.
+
+\textbf{If one repeats the experiment
+many times, the true but unknown value of the parameter will
+be in the interval in 96\% of the cases}
 
 We can also use the simple \href{https://en.wikipedia.org/wiki/Bootstrapping_(statistics)}{bootstrap}.
 The advantage of this tequique is that we can basically always use it,
@@ -1893,16 +1917,17 @@ We are glad to see that both analyses align really nicely.
 
 \subsection{ANOVA (Analysis of Variance)}\label{analysis_of_variance}
 
-A non-obvious and very useful finding is that the total variability in the data (our heights) can be
+A non-obvious and very useful finding is that the total variability (SST)
+in the data (our heights) can be
 \textbf{decomposed} (or \href{https://en.wiktionary.org/wiki/analysis}{analysed})
 into two parts:
 
 \begin{itemize}
 \tightlist
 \item
-  The variability explained by the model (the regression line)
+  The variability explained by the model (the regression line): SSR
 \item
-  The variability not explained by the model (the residuals)
+  The variability not explained by the model (the residuals): SSE
 \end{itemize}
 
 \[ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} \]
@@ -1922,13 +1947,13 @@ Let's visualize our regression result:
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-38-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-39-1.pdf}}
 
 The blue dotted line is the distance from
 the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
 is the distance from the regression line to the point (unexplained variance).
-One sees that it adds up. I find this fact quite fascinating.
+We see that it adds up. I find this fact quite fascinating.
 One finds additivity by considering not determinisic values, but variances.
 Thank you \href{https://en.wikipedia.org/wiki/Analysis_of_variance\#:~:text=ANOVA\%20was\%20developed\%20by\%20the,to\%20different\%20sources\%20of\%20variation.}{Ronald Fisher}.
 
@@ -1956,25 +1981,31 @@ If we are near 0, the model does not explain much of the variance
 and we would see ``noise with no slope'' in the scatterplot (\hyperref[exercise4_simpl_lin_reg]{exercise 4}).
 The normal \(R^2\) can be found in the R output under \texttt{Multiple\ R-squared}.
 
-If you add a lot of variables to your regression model, you can get an arbitrarily large (\(\le 1\))
-\(R^2\). We will verify this when we have more than 2 explanatory variables.
+If you add a lot of variables to your regression model, you can get an
+\(R^2\) of 1. The \(R^2\) will never decrease when adding more variables.
+We will verify this when we have more than 2 explanatory variables.
 As a non-formal explanation for this: In the Sum of Squares Errors (SSE),
 if you add more covariates (\(\beta_2, \beta_3\)), you have more freedom
 to choose values that minimize the number that will be squared. Simple regression
 is just a special case of multiple (more than one predictor) regression with \(\beta_2=\beta_3=\dots=0\).
 Hence, you will definitely not be worse off with regards to SSE when using more covariates.
-A smaller SSE implies a larger SSR (sum constraint) and hence a larger \(R^2\). SST remains constant.
+A smaller SSE implies a larger SSR (sum constraint; SST remains constant) and hence a larger \(R^2\).
+If you have as many explanatory variables as data points, you can get an \(R^2\) of 1. This is
+\href{https://en.wikipedia.org/wiki/Overfitting}{overfitting} at its ``best'' (which we want to avoid).
+You would just get a value for each data point by setting all other \(\beta_i\) to zero and
+\(\beta_i = \frac{y_i}{x_i}\).
+Since we want to find the unterlying process, we want to avoid this.
 
 Although not perfect, one way to mitigate the influence of ``too many'' variables
 on \(R^2\) is to use the adjusted \(R^2\), which an also be found in the R output (\texttt{Adjusted\ R-squared}).
 
-\subsubsection{\texorpdfstring{Seperating property of regression due to \(R^2\):}{Seperating property of regression due to R\^{}2:}}\label{seperating-property-of-regression-due-to-r2}
+\subsubsection{\texorpdfstring{Seperating property of regression due to \(R^2\):}{Seperating property of regression due to R\^{}2:}}\label{seperating_property}
 
 \href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Peter Westfall}
 explains (in Figure 8.1 of the book) how \(R^2\) influences the separation of distributions in our simple regression model.
 
-In our regression of height on weight (order is correct, that's how you say it),
-the \(R^2\) is \(0.5696\). The following plot shows how well one can predict
+In our regression of \emph{height on weight} (the order is correct, that's how you say it),
+the \(R^2\) is \(0.5696\). The following plot shows how ``well'' (i.e.~precise) one can predict
 height if we use the 10\% and 90\% quantile of the weights (x\_low and x\_high).
 In both, you see the conditional distribution of height given the weight \(X = x_{low}\) or \(X = x_{high}\).
 Scenario 1 is the original model, scenario 2 is the same data with added noise (in Y-direction),
@@ -1983,20 +2014,83 @@ overlap and it is hard to distinguish between weights when seeing the height.
 With a very low \(R^2\), the height prediction does not really change and we could just as well
 use the mean model.
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-39-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-40-1.pdf}}
 
-In the left plot, given \(X = x_{low}\) gives as a rather shifted normal distribution of
+In the left plot, given \(X = x_{low}\) gives a a rather strongly shifted normal distribution of
 potentially observable heights for this weight compared to \(X=x_{high}\).
-We would have a lower missclassification error when trying to distinguish weights
+We would have a lower missclassification error when trying to distinguish heights
 of very light and very heavy people in the sample just by seeing the height.
 You can think of an even more extreme separation of these distributions,
 which would happen, when \(R^2\) is very high or the true slope is much higher.
-Then it would be trivial to distinguish between the two groups (light versus heavy people).
-We could then just introduce a cutoff value and classify people accordingly.
-Every person above the cutoff value for height (maybe 160 cm) would be classified
-as ``heavy'' (top 10\% weight) and every person below as ``light'' (bottom 10\% weight).
 
 See also \hyperref[exercise5_simpl_lin_reg]{exercise 5}.
+
+An interesting way to look at \(R^2\) is the following:
+Given, that one person is in the 90\% quantile of the weight,
+the other is in the 10\% quantile. What is the probability that the
+height of the person in the 90\% quantile is higher than the height of the other person?
+We could calculate this relatively easy using theorems about additivity of normal distributions.
+Since we are all about application, we simulate this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{data}\NormalTok{(Howell1)}
+\NormalTok{d }\OtherTok{\textless{}{-}}\NormalTok{ Howell1}
+\NormalTok{d2 }\OtherTok{\textless{}{-}}\NormalTok{ d[d}\SpecialCharTok{$}\NormalTok{age }\SpecialCharTok{\textgreater{}=} \DecValTok{18}\NormalTok{, ]}
+\CommentTok{\# Simulate heights for the two quantiles}
+\NormalTok{n\_sims }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(height }\SpecialCharTok{\textasciitilde{}}\NormalTok{ weight, }\AttributeTok{data =}\NormalTok{ d2)}
+\FunctionTok{summary}\NormalTok{(mod)}\SpecialCharTok{$}\NormalTok{r.squared}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5696444
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x\_low\_high }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(d2}\SpecialCharTok{$}\NormalTok{weight, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.9}\NormalTok{))}
+\NormalTok{x\_low\_high}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      10%      90% 
+## 36.48581 54.01997
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean1 }\OtherTok{\textless{}{-}} \FloatTok{113.8793936} \SpecialCharTok{+} \FloatTok{0.9050291} \SpecialCharTok{*}\NormalTok{ x\_low\_high[}\DecValTok{1}\NormalTok{]}
+\NormalTok{mean2 }\OtherTok{\textless{}{-}} \FloatTok{113.8793936} \SpecialCharTok{+} \FloatTok{0.9050291} \SpecialCharTok{*}\NormalTok{ x\_low\_high[}\DecValTok{2}\NormalTok{]}
+\NormalTok{sd }\OtherTok{\textless{}{-}} \FloatTok{5.086}  \CommentTok{\# Standard deviation for both distributions}
+\NormalTok{simulated\_heights }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \CommentTok{\# conditional normal distribution according to the model}
+  \AttributeTok{x\_low =} \FunctionTok{rnorm}\NormalTok{(n\_sims, }\AttributeTok{mean =}\NormalTok{ mean1, }\AttributeTok{sd =}\NormalTok{ sd),}
+  \AttributeTok{x\_high =} \FunctionTok{rnorm}\NormalTok{(n\_sims, }\AttributeTok{mean =}\NormalTok{  mean2, }\AttributeTok{sd =}\NormalTok{ sd)}
+\NormalTok{)}
+
+\CommentTok{\# Calculate the probability that the height of the person in the 90\% quantile is higher}
+\CommentTok{\# than the height of the person in the 10\% quantile}
+\NormalTok{simulated\_heights }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{higher\_height =}\NormalTok{ x\_high }\SpecialCharTok{\textgreater{}}\NormalTok{ x\_low) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{summarise}\NormalTok{(}\FunctionTok{mean}\NormalTok{(higher\_height))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 1
+##   `mean(higher_height)`
+##                   <dbl>
+## 1                 0.987
+\end{verbatim}
+
+In other words, we can be almost sure, that a person in the 90\% quantile of the weight
+is taller than a person in the 10\% quantile of the weight given this data set.
+See also \hyperref[exercise11_simpl_lin_r]{exercise 11}.
 
 \subsection{Check regression assumptions}\label{check-regression-assumptions}
 
@@ -2006,15 +2100,14 @@ The assumptions are independent of each other.
 They can all be true or false or some can be true and some false
 (\href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Wesftall}, p.21).
 Chapter 4 in the book is dedicated to this topic. It is important to know
-that the assumptions are usually not met exactly. The question is how badly they are violated.
+that the assumptions are usually not met exactly. The question is \emph{how badly} they are violated,
+not \emph{if} they are violated.
 Furthermore, the asssumptions refer to the data generating process, not the data itself.
 Thus, the evaluation of the assumptions should involve subject matter knowledge.
 
 \(p\)-values to evaluate model assumptions are not a good idea. To \href{https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108\#d1e949}{quote} the
 American Statistical Association (ASA): ``By itself, a \(p\)-value does not provide a good measure
 of evidence regarding a model or hypothesis.''
-Hypothesis testing is simple and you do not have to know anything about your data
-your theoretical background to apply them. This might be reason for its widespread use.
 Deicision-tree thinking might not be the best idea for statistical modeling.
 
 We will not use hypothesis tests for assumptions, because
@@ -2030,7 +2123,7 @@ We will not use hypothesis tests for assumptions, because
 \end{itemize}
 
 We will follow the book (chapter 4, pages 99ff) and use graphical and simulation methods to check the assumptions.
-As guidance, we could the check the assumptions in the following order:
+As guidance, we could check the assumptions in the following order:
 
 \begin{itemize}
 \tightlist
@@ -2047,15 +2140,15 @@ As guidance, we could the check the assumptions in the following order:
 \subsubsection{Linearity}\label{linearity}
 
 First, we \textbf{plot the data}, as we did already above. We can add a
-a smoothing line as well:
+a smoothing line to the raw data as well:
 
 \begin{verbatim}
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-40-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf}}
 
-This looks like this relationship is describable in a linear way.
+It looks like this relationship is describable in a linear way.
 No apparent curvature or patches.
 A refined version of the scatterplot of the raw data is The
 \textbf{residual scatter plot} (\(x_i, e_i\)):
@@ -2064,7 +2157,7 @@ A refined version of the scatterplot of the raw data is The
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-41-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-43-1.pdf}}
 
 Compared to the scatterplot above, the residuals plot magnifies
 possible curvature. The reason is that the range of residuals
@@ -2078,24 +2171,24 @@ You get the (\(\hat{y_i}, e_i\)) plot in R with \texttt{plot(mod,\ which\ =\ 1)}
 \subsubsection{Constant variance}\label{constant_variance}
 
 This assumption means that the variance of the residuals is constant.
-If it is violated, the spread around a hypothical regression line is not constant.
+If it is violated, the spread around a hypothetical regression line is not constant.
 We look at the residual scatter plot again:
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf}}
 
-Look for a changes in patterns of vertical variability. Note, that
+Look for a changes in patterns of vertical variability. Note, that you
 often do not have as many data points near the end of the range of the predictor.
 Here are some examples of heteroskedasticity:
 \href{https://i0.wp.com/statisticsbyjim.com/wp-content/uploads/2017/08/residuals_unfixed.png?resize=576\%2C384}{1},
 \href{https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPAPMGV5U0Pe0nKnhoZWHJ8KypqVCls6ZQZud84C3KM8SJqOkuMNeJl2oTg-UDuukJRhk&usqp=CAU}{2},
 \href{https://i.sstatic.net/R5KIH.png}{3}.
-The above looks homoscedastic. If it was heteroscedastic, this is not a problem,
+The above looks homoscedastic. If it was heteroskedastic, this is not a problem,
 we just have to model it differently (later).
 
 As always, it is a good idea to study the variability of these plots
 using simulation (\hyperref[exercise7_simpl_lin_reg]{exercise 7}).
 
-Better for detecting heteroscedasticity is the \(\hat{y_i}, |e_i|\) plot
+Better for detecting heteroscedasticity is the (\(\hat{y_i}, |e_i|\)) plot
 with a smoothing line:
 
 \begin{verbatim}
@@ -2110,7 +2203,7 @@ with a smoothing line:
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-43-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-45-1.pdf}}
 
 This will probably not be a perfectly horizontal line, since
 there are less points at the end of the range of the predictor.
@@ -2125,7 +2218,7 @@ like temperature (purely hypothetical). In \hyperref[exercise6_simpl_lin_reg]{ex
 the values are autocorrelated: Correlated with previous values of the same variable.
 If we would track the body heights of persons over time, we would have
 an autocorrelated time series since the height of a person at time \(t\) is
-correlated with the height of the same person at time \(t-1\), gut a little
+correlated with the height of the same person at time \(t-1\), but a little
 less with the height at time \(t-2\) and so on. If I am tall today, it is
 very likely that I was tall yesterday.
 
@@ -2139,7 +2232,7 @@ they are correlated.
 ## cor= 0.01858044
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-46-1.pdf}}
 
 It least with a lag of \(1\), there so no large correlation between the residuals.
 
@@ -2179,7 +2272,7 @@ from the R package \texttt{car}:
 ##     logit
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-45-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-47-1.pdf}}
 
 \begin{verbatim}
 ## 479  94 
@@ -2188,13 +2281,13 @@ from the R package \texttt{car}:
 
 With the 97\% confidence envelope, we can see if the residuals are
 consistent with coming from a normal distribution.
-We could again use simulation to see how the QQ Plot changes
+We could again use simulation to see how the Q-Q Plot changes
 to get a better feeling (see \hyperref[exercise9_simpl_lin_reg]{exercise 9}).
 
-Another convenient way to check model assumptions is to use
-the \texttt{check\_model} function from the \texttt{performance} package:
+Another convenient way to check model assumptions (for a wide class of models)
+is to use the \texttt{check\_model} function from the \texttt{performance} package:
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-46-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf}}
 
 In this case, everything looks fine. Let's go through the plots and explain them:
 
@@ -2220,13 +2313,13 @@ multiple times to get a feeling for the variability of the model predictions.
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-47-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-49-1.pdf}}
 
 The simulated and original data (green) fit nicely together.
 This lends some credibility to the model.
 And now the density plots of the model created data (blue) and the observed data (green):
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-50-1.pdf}}
 
 As you can see, the densities of the observed and simulated data are broadly similar.
 One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
@@ -2244,7 +2337,7 @@ This is the same plot as \hyperref[constant_variance]{above}: \((\hat{y}_i, |e_i
 
 The standard method to check for influential observations is to compute the
 so-called \href{https://en.wikipedia.org/wiki/Cook\%27s_distance}{Cook's distance}.
-This is a measure of how leverage a single observation has on the model.
+This is a measure of how much leverage a single observation has on the model.
 We can extract the Cook's distance from the model using \texttt{cooks.distance()}.
 An ugly rule of thumb would be to look at observations with a Cook's distance
 greater than 1.
@@ -2260,13 +2353,13 @@ gives you the green dotted line in the plot.
 
 Let's create an outlier and see what happens:
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-49-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-51-1.pdf}}
 
 \begin{verbatim}
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-49-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-51-2.pdf}}
 
 \begin{verbatim}
 ## Cook's distance =  7.025207
@@ -2276,7 +2369,7 @@ One single outlier changes the diagnostic plots. Observation 352
 is clearly identified as influential. The one point
 changes all diagnostic plots notably.
 The estimates of the regression coefficients
-are alos affected:
+are also affected:
 
 \begin{verbatim}
 ## [1] "Original Model"
@@ -2314,12 +2407,12 @@ Let's try to replicate it:
 ##     stat_qq_line, StatQqLine
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-51-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf}}
 
 The normality assumption seems to hold. Not that in the above QQ plot,
 we detrended the residuals and used a bootrap confidence band. Depending
 on the band type, the confidence band can be wider or narrower and include
-or exlude points.
+or exclude points.
 
 \textbf{After having checked the assumptions for the classical regression model}
 and we feel comfortable with the model, we get exact confidence intervals
@@ -2334,7 +2427,7 @@ we can bootstrap the whole data set, fit the model and draw regression lines.
 We create \(100\) bootrap replicates of our data set \texttt{d2} by drawing with
 replication. For every bootrap replicate, we fit the model and draw the regression line.
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-52-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-54-1.pdf}}
 
 The results is very stable. Neither intercept nor slope change much.
 
@@ -2359,7 +2452,7 @@ still larger than the average height. Let's verify:
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-55-1.pdf}}
 
 As Gelman points out in his book (Figure 4.2), there is a fine detail:
 The regression line is not the line most people would draw through the data.
@@ -2381,30 +2474,8 @@ We could have for instance only included people with weights at certain steps (5
 In the latter case, we could consider X as fixed. In the former case, we consider X as random.
 Further reading: \href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall} 1.5.
 
-\subsection{TODOS}\label{todos}
-
-\begin{itemize}
-\tightlist
-\item
-  If you add a lot of variables to your regression model, you can get an arbitrarily large (\(\le 1\))
-  \(R^2\). We will verify this when we have more than 2 explanatory variables.
-\item
-  One could think of the least squares method of minimizing the sum of
-  Work that has to be done in order to adjust a long stick through the points.
-  Every point is attached to the stick with a srping. the work needed to change the
-  spring by \(\delta x\) is \(k \delta x^2\). The stick is adjusted in such a way that
-  the sum of the work is minimized. This is the least squares method.
-\item
-  extend further reading to create more connections
-\item
-  maybe create animation of points wiggling to get a feeling for the variability
-\end{itemize}
-
-For multiple regression:
-We could also look at the simple regression problem as fitting a plane to the data,
-as is done \href{https://rpubs.com/pjozefek/576206}{here} or
-\href{https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization}{here}
-at the end. As
+There are many more details we could look into, but we wanted to give a first
+practical introduction to regression analysis with less empfahsis theory and proofs behind it.
 
 \section{Exercises}\label{exercises-1}
 
@@ -2529,6 +2600,1173 @@ Using our !Kung San data,
 \item
   Explain why the results differ and what consequences this would have for a research question.
   Which question do I answer with each?
+\end{itemize}
+
+\subsection{{[}E{]} Exercise 11}\label{exercise11_simpl_lin_reg}
+
+Go back to the \hyperref[seperating_property]{section} about \(R^2\) and the separation of the distributions.
+How would the probability that a person in the 90\% quantile of the weight
+is taller than a person in the 10\% quantile of the weight change if you change
+
+\begin{itemize}
+\tightlist
+\item
+  the true slope of the regression line
+\item
+  the true \(\sigma\), i.e.~if you add more noise and have a lower \(R^2\)?
+\end{itemize}
+
+\chapter{Multiple Linear Regression}\label{multiple-linear-regression}
+
+So far, we have dealt with the simple mean model and the model with one predictor
+in the Bayesian and Frequentist framework.
+We will now add another predictor and subsequently an interaction term to the model.
+
+\section{Linear Regression with 2 Predictors in the Baysian Framework}\label{linear-regression-with-2-predictors-in-the-baysian-framework}
+
+\subsection{Meaning of ``linear''}\label{meaning-of-linear}
+
+What is a linear model? The term ``linear'' refers to the relationship of the predictors
+with the dependent variable (or outcome). The following model is also linear:
+
+\[height_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2\]
+
+The model is linear in the parameters \(\beta_0, \beta_1, \beta_2\) but not in the predictors \(x_i\).
+The term \(x_i^2\) is ok, since the heights are just sums of multiples of the predictors (which can be nonlinear).
+This model is not a linear model anymore:
+
+\[height_i = \beta_0 + \beta_1 x_i + e^{\beta_2 x_i^2}\]
+
+\(\beta_2\) is now is the exponent of \(e\). It would also not be linear,
+if the coefficients are in a square root or in the denominator of a fraction,
+or in a sine or in a logarithm. You get the idea.
+
+\subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor}
+
+The world is not flat, although some people on YouTube might tell you otherwise.
+In our context, not all regression is linear.
+
+Around 4.5. in the book \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical Rethinking}
+there is are lineare regression using a quadratic term for weight.
+It is a principle, called the ``\textbf{variable inclusion principle}'', that we always include the lower order terms when fitting a model
+with higher order terms. See \href{https://vdoc.pub/documents/understanding-regression-analysis-a-conditional-distribution-approach-84oqjr8sqva0}{Westfall},
+p.~213. If we do not include the lower order terms, the coefficient does not measure what
+we want it to meausure (curvature in our case). For instance, if we want to model a quadratic relationship (parabola) between
+weight and height, we also have to include the linear term for weight (\(x_i\)).
+Since we do not assume the relationship between weight and height to be linear but
+quadratic (which is a polynomial of degree 2), we call this a
+\href{https://en.wikipedia.org/wiki/Polynomial_regression\#:~:text=In\%20statistics\%2C\%20polynomial\%20regression\%20is,nth\%20degree\%20polynomial\%20in\%20x.}{polynomial regression}.
+
+This time, lets look at the whole age range of data from the !Kung San people.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{data}\NormalTok{(Howell1)}
+\NormalTok{d }\OtherTok{\textless{}{-}}\NormalTok{ Howell1}
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ weight, }\AttributeTok{y =}\NormalTok{ height)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-56-1.pdf}}
+
+It would not be a good idea to fit a linear trend through this data,
+because we would not caupture the relationship adequately.
+The red line is a \href{https://en.wikipedia.org/wiki/Local_regression}{loess smothing} line
+which is often used to capture non-linear relationships.
+The blue line is the usual line from classic linear regression (from the previous chapter).
+Which one describes the data more accurately?
+In this case it is obvious, a non-linear relationship is present and it might be a good idea
+to model it. Modeling the relationshiop with a linear trend, leads to bad residuals with structure.
+We will demonstrate this in the freuqentist setting.
+Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
+
+This time, we use the mean for the prior from the book (\(178 cm\)).
+The model equations are (see \hyperref[exercise2_multiple_regression]{exercise 2}):
+
+\begin{eqnarray*}
+h_i &\sim& \text{Normal}(\mu_i, \sigma) \\
+\mu_i &=& \alpha + \beta_1 x_i + \beta_2 x_i^2 \\
+\alpha &\sim& \text{Normal}(178, 20) \\
+\beta_1 &\sim& \text{Log-Normal}(0, 1) \\
+\beta_2 &\sim& \text{Normal}(0, 1) \\
+\sigma &\sim& \text{Uniform}(0, 50)
+\end{eqnarray*}
+
+The prior for \(\beta_1\) is log-normal, because we can reasonably assume
+the the overall linear trend is positive. The prior for \(\beta_2\) is normal, because
+we are not so sure. If we thought back to our school days to the topic of
+``curve discussion'' or parabolas, we could probably also assume that \(\beta_2\) is negative.
+But, data will show.
+
+How can we interpret the model equations?
+The model assumes that the \textbf{expected} height \(\mu_i\) of a person \(i\)
+depends non-linearly on the weight \(x_i\) of the person.
+We are in the business of mean-modeling.
+The prior for \(\sigma\) is uniform as before.
+The prior for \(\alpha\) is normal with mean \(178\) and standard deviation \(20\)
+because this is what we can expect from body heights in our experience.
+
+Let's \textbf{fit the model}:
+
+We standardize the weight again and add the squared weights to the data set.
+Standardizing the the predictors is a good idea, especially in polynomial regression
+since squares and cubes of large numbers can get huge and cause numerical problems.
+
+Let's fit the model with the quadratic term for weight:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Standardize weight}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{weight\_s }\OtherTok{\textless{}{-}}\NormalTok{ (d}\SpecialCharTok{$}\NormalTok{weight }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight)) }\SpecialCharTok{/} \FunctionTok{sd}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight)}
+\CommentTok{\# Square of standardized weight}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{weight\_s2 }\OtherTok{\textless{}{-}}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{weight\_s}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{m4}\FloatTok{.1} \OtherTok{\textless{}{-}} \FunctionTok{quap}\NormalTok{(}
+  \FunctionTok{alist}\NormalTok{(}
+\NormalTok{    height }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma),}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b1}\SpecialCharTok{*}\NormalTok{weight\_s }\SpecialCharTok{+}\NormalTok{ b2}\SpecialCharTok{*}\NormalTok{weight\_s}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}
+\NormalTok{    a }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{178}\NormalTok{, }\DecValTok{20}\NormalTok{),}
+\NormalTok{    b1 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    b2 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\NormalTok{  ), }\AttributeTok{data =}\NormalTok{ d)}
+\FunctionTok{precis}\NormalTok{(m4}\FloatTok{.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             mean        sd       5.5%      94.5%
+## a     146.672739 0.3736465 146.075580 147.269898
+## b1     21.397637 0.2898827  20.934348  21.860925
+## b2     -8.419933 0.2813308  -8.869554  -7.970312
+## sigma   5.750550 0.1743749   5.471865   6.029235
+\end{verbatim}
+
+\(\beta_2\) is indeed negative.
+We get our \textbf{\href{https://en.wikipedia.org/wiki/Joint_probability_distribution}{joint distribution}}
+of the \textbf{four model parameters}.
+Let's look at the fit using the mean estimates of the posterior distribution:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Summarize the model parameters}
+\NormalTok{model\_summary }\OtherTok{\textless{}{-}} \FunctionTok{precis}\NormalTok{(m4}\FloatTok{.1}\NormalTok{)}
+\NormalTok{params }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(model\_summary)}
+
+\CommentTok{\# Extract parameter values}
+\NormalTok{a }\OtherTok{\textless{}{-}}\NormalTok{ params[}\StringTok{"a"}\NormalTok{, }\StringTok{"mean"}\NormalTok{]       }\CommentTok{\# Intercept}
+\NormalTok{b1 }\OtherTok{\textless{}{-}}\NormalTok{ params[}\StringTok{"b1"}\NormalTok{, }\StringTok{"mean"}\NormalTok{]     }\CommentTok{\# Coefficient for standardized weight}
+\NormalTok{b2 }\OtherTok{\textless{}{-}}\NormalTok{ params[}\StringTok{"b2"}\NormalTok{, }\StringTok{"mean"}\NormalTok{]     }\CommentTok{\# Coefficient for squared standardized weight}
+
+\CommentTok{\# Generate a sequence of standardized weights for the fitted curve}
+\NormalTok{weight\_fine }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s), }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s), }\AttributeTok{length.out =} \DecValTok{200}\NormalTok{)}
+
+\CommentTok{\# Calculate the fitted values using the quadratic equation}
+\NormalTok{height\_fitted }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b1 }\SpecialCharTok{*}\NormalTok{ weight\_fine }\SpecialCharTok{+}\NormalTok{ b2 }\SpecialCharTok{*}\NormalTok{ weight\_fine}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\CommentTok{\# Plot the scatterplot}
+\FunctionTok{plot}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s, d}\SpecialCharTok{$}\NormalTok{height, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Standardized Weight"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Height (cm)"}\NormalTok{,}
+     \AttributeTok{main =} \StringTok{"Scatterplot with Fitted Curve (Standardized Weight)"}\NormalTok{)}
+
+\CommentTok{\# Add the fitted curve}
+\FunctionTok{lines}\NormalTok{(weight\_fine, height\_fitted, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Add a legend}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"Observed data"}\NormalTok{, }\StringTok{"Fitted curve"}\NormalTok{),}
+       \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{), }\AttributeTok{pch =} \FunctionTok{c}\NormalTok{(}\DecValTok{16}\NormalTok{, }\ConstantTok{NA}\NormalTok{), }\AttributeTok{lty =} \FunctionTok{c}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-58-1.pdf}}
+
+This fits much better than the linear model. In the book,
+there is also a polynomial regression with a cubic term for weight.
+Maybe this fits even better (see \hyperref[exercise1_multiple_regression]{exercise 1}).
+
+\subsection{Adding another predictor to the model}\label{adding_predictor_bayes}
+
+Since the !Kung San data set has already such a high \(R^2\) with the quadratic term
+(and possibly higher with the cubic term), we will use the created data set from
+\hyperref[adding_predictor_freq]{below} in the frequentist setting
+to estimate the coefficients of the model with two predictors.
+
+We use rather uniformative priors and fit the model using \texttt{quap}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{X1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{X2 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \DecValTok{10} \SpecialCharTok{+} \FloatTok{0.5} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{+} \DecValTok{1} \SpecialCharTok{*}\NormalTok{ X2 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{) }\CommentTok{\# true model}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{X1 =}\NormalTok{ X1, }\AttributeTok{X2 =}\NormalTok{ X2, }\AttributeTok{Y =}\NormalTok{ Y)}
+
+\CommentTok{\# fit model}
+\NormalTok{m4}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{quap}\NormalTok{(}
+  \FunctionTok{alist}\NormalTok{(}
+\NormalTok{    Y }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma),}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b1}\SpecialCharTok{*}\NormalTok{X1 }\SpecialCharTok{+}\NormalTok{ b2}\SpecialCharTok{*}\NormalTok{X2,}
+\NormalTok{    a }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    b1 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    b2 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\NormalTok{  ), }\AttributeTok{data =}\NormalTok{ df)}
+\FunctionTok{precis}\NormalTok{(m4}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             mean         sd      5.5%      94.5%
+## a     10.2700227 0.18934442 9.9674137 10.5726316
+## b1     0.4467278 0.04131434 0.3806995  0.5127561
+## b2     1.0095082 0.03899992 0.9471788  1.0718377
+## sigma  1.8738833 0.13250803 1.6621099  2.0856567
+\end{verbatim}
+
+\subsubsection{Checking model assumptions}\label{check_model_bayes}
+
+Andrew Gelman mentions in some of his talks (see \href{https://sites.stat.columbia.edu/gelman/research/published/philosophy_chapter.pdf}{here} for more details)
+that many Bayesians he met do not check their models, since they reflect subjective probability.
+As I said in the introduction, one should not be afraid to check model predictions against the observed
+and probably new data. If a model for predicting BMI performs much worse on a new data set,
+we can probably conclude that the model does not reflect the general relationship between the predictors
+and the dependent variable. We \textbf{do not ask} the question if a model is true or false, but if it is useful or
+how badly the model assumptions are violated.
+
+For further, more detailed information on model checking, refer to chapter 6 of
+\href{https://sites.stat.columbia.edu/gelman/book/BDA3.pdf}{Gelman's book}.
+
+Anyhow, we plot two posterior predictive checks here.
+
+\textbf{First, we plot the observed \(Y\) values against the predicted \(Y\) values (\(=\hat{Y}\))}
+from the model (as in Statistical rethinking, Chapter 5).
+Although these practically never lie on the line \(y=x\), they should be sufficiently
+close to it. We could also compare these two plots with the mean-model (see \hyperref[exercise6_multiple_regression]{exercise 6}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 1) Posterior predictive checks Y vs Y\_hat}
+\CommentTok{\# see Statstical Rethinking p 138.}
+\CommentTok{\# call link without specifying new data}
+\CommentTok{\# so it uses the original data}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{link}\NormalTok{(m4}\FloatTok{.2}\NormalTok{)}
+
+\CommentTok{\# summarize samples accross cases}
+\NormalTok{mu\_mean }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(mu, }\DecValTok{2}\NormalTok{, mean)}
+\NormalTok{mu\_PI }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(mu, }\DecValTok{2}\NormalTok{, PI, }\AttributeTok{prob =} \FloatTok{0.89}\NormalTok{)}
+
+\CommentTok{\# simulate observations}
+\CommentTok{\# again, no new data, so uses original data}
+\NormalTok{D\_sim }\OtherTok{\textless{}{-}} \FunctionTok{sim}\NormalTok{(m4}\FloatTok{.2}\NormalTok{, }\AttributeTok{n =} \FloatTok{1e4}\NormalTok{)}
+\NormalTok{D\_PI }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(D\_sim, }\DecValTok{2}\NormalTok{, PI, }\AttributeTok{prob =} \FloatTok{0.89}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{(mu\_mean }\SpecialCharTok{\textasciitilde{}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{Y, }\AttributeTok{col =}\NormalTok{ rangi2, }\AttributeTok{ylim =} \FunctionTok{range}\NormalTok{(mu\_PI), }
+     \AttributeTok{xlab =} \StringTok{"Observed Y"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Model{-}Predicted Y"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{a =} \DecValTok{0}\NormalTok{, }\AttributeTok{b =} \DecValTok{1}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(df)) }\FunctionTok{lines}\NormalTok{(}\FunctionTok{rep}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Y[i], }\DecValTok{2}\NormalTok{), mu\_PI[,i], }\AttributeTok{col =}\NormalTok{ rangi2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf}}
+
+As we can see, the model fits the data quite well. The points are close to the dashed line (\(y=x\)).
+No under- or overestimation is visible. The model seems to capture the relationship between the predictors \(X_1\) and \(X_2\)
+and the dependent variable \(Y\) quite well. If there were patches of data points above or below the dashed line,
+we would probably have to reconsider the model definition and think about why these points are not captured by the model.
+
+\textbf{Next, we plot the posterior predictive plots} analog to the upper left in the \texttt{check\_model} output.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(scales)  }\CommentTok{\# For the alpha function to adjust transparency}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'scales'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     discard
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:readr':
+## 
+##     col_factor
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 2) Posterior predictive densities}
+\CommentTok{\# Simulate observations using the posterior predictive distribution}
+\NormalTok{D\_sim }\OtherTok{\textless{}{-}} \FunctionTok{sim}\NormalTok{(m4}\FloatTok{.2}\NormalTok{, }\AttributeTok{n =} \FloatTok{1e4}\NormalTok{)  }\CommentTok{\# Generate 10,000 simulated datasets}
+
+\CommentTok{\# Calculate densities for all samples}
+\NormalTok{densities }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(D\_sim, }\DecValTok{1}\NormalTok{, density)}
+
+\CommentTok{\# Find the maximum density value for setting the y{-}axis limits}
+\NormalTok{max\_density }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(}\FunctionTok{sapply}\NormalTok{(densities, }\ControlFlowTok{function}\NormalTok{(d) }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{y)))}
+
+\CommentTok{\# Create the density plot with predefined ylim}
+\FunctionTok{plot}\NormalTok{(}\ConstantTok{NULL}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{range}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Y), }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, max\_density),}
+     \AttributeTok{xlab =} \StringTok{"Y"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Density"}\NormalTok{,}
+     \AttributeTok{main =} \StringTok{"Comparison of Observed and Predicted Densities"}\NormalTok{)}
+
+\CommentTok{\# Add 100 posterior predictive density lines}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)  }\CommentTok{\# For reproducibility}
+\NormalTok{n\_lines }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{samples }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FloatTok{1e4}\NormalTok{, n\_lines)  }\CommentTok{\# Randomly sample 100 posterior predictive datasets}
+\ControlFlowTok{for}\NormalTok{ (s }\ControlFlowTok{in}\NormalTok{ samples) \{}
+  \FunctionTok{lines}\NormalTok{(}\FunctionTok{density}\NormalTok{(D\_sim[s, ]), }\AttributeTok{col =} \FunctionTok{alpha}\NormalTok{(}\StringTok{"lightblue"}\NormalTok{, }\FloatTok{0.3}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{1}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{\# Add the density line for the observed Y values}
+\NormalTok{obs\_density }\OtherTok{\textless{}{-}} \FunctionTok{density}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Y)}
+\FunctionTok{lines}\NormalTok{(obs\_density}\SpecialCharTok{$}\NormalTok{x, obs\_density}\SpecialCharTok{$}\NormalTok{y, }\AttributeTok{col =} \StringTok{"green"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# Add legend}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"Posterior Predictive Densities"}\NormalTok{, }\StringTok{"Observed Density"}\NormalTok{),}
+       \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"lightblue"}\NormalTok{, }\StringTok{"green"}\NormalTok{), }\AttributeTok{lty =} \DecValTok{1}\NormalTok{, }\AttributeTok{lwd =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-61-1.pdf}}
+
+The light blue lines show distributions of model predicted \(Y\) values.
+The green line shows the distribution of the observed \(Y\) values.
+As we can see, there seem to be no systematic differences between the observed and predicted values.
+The model seems to capture the relationship well.
+If we see systematic deviations here, we need to reconsider the model definition.
+
+\textbf{Example}: If you want to predict pain (\(Y\) variable) and you have a lot of zeros (pain-free participants)
+you will probably see a discrepancy between the observed and predicted values in this plot.
+What could you do? You could use a two step process (model the probability that a person is pain-free
+and then model the pain intensity for the people who have pain) or use a different model (like a zero-inflated model).
+
+Note that we did not explicitely assume normally distributed errors in the model definition above,
+so we won't check this here but in the Frequentist framework below.
+
+\section{Linear regression with 2 Predictors in the Frequentist Framework}\label{linear-regression-with-2-predictors-in-the-frequentist-framework}
+
+\subsection{Adding a transformed predictor to the model}\label{adding-a-transformed-predictor-to-the-model}
+
+No, let's fit the same model as above in the frequentist framework.
+
+The model is:
+
+\[height_i = \alpha + \beta_1 weight_i + \beta_2 weight_i^2 + \varepsilon_i\]
+whereas
+\[\varepsilon_i \sim N(0, \sigma)\]
+
+We are looking for fixed, but unknown, parameters \(\alpha\), \(\beta_1\), \(\beta_2\) and \(\sigma\).
+This is fit again using the \texttt{lm} function in R which uses least squares to estimate the parameters.
+At this point I could torture you with \href{https://en.wikipedia.org/wiki/Matrix_(mathematics)}{matrix algebra}
+and show you the \href{https://en.wikipedia.org/wiki/Linear_least_squares}{normal equations} for linear regression,
+but I will spare you for now.
+Note that the least squares algorithm for fitting the curve works for all
+kinds of functions. We could also fit an exponential curve using the same
+technique.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# scale weight}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{weight\_s }\OtherTok{\textless{}{-}} \FunctionTok{scale}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight)}
+\CommentTok{\# Fit the model}
+\NormalTok{m4}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(height }\SpecialCharTok{\textasciitilde{}}\NormalTok{ weight\_s }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(weight\_s}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{data =}\NormalTok{ d)}
+\FunctionTok{summary}\NormalTok{(m4}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = height ~ weight_s + I(weight_s^2), data = d)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -19.9689  -3.9794   0.2364   3.9262  19.5182 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   146.6604     0.3748  391.30   <2e-16 ***
+## weight_s       21.4149     0.2908   73.64   <2e-16 ***
+## I(weight_s^2)  -8.4123     0.2822  -29.80   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 5.766 on 541 degrees of freedom
+## Multiple R-squared:  0.9565, Adjusted R-squared:  0.9564 
+## F-statistic:  5952 on 2 and 541 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+See \texttt{?I} in R. This command is used so that R knows that it should
+treat the ``\^{}2'' as ``square'' and not as formula syntax.
+We could also create a new variable as before. Whatever you prefer.
+
+\subsubsection{Interpretation of output and coefficients}\label{interpretation-of-output-and-coefficients}
+
+\begin{itemize}
+\tightlist
+\item
+  The intercept \(\alpha\) is the \textbf{model-predicted height} of a person of \textbf{average weight}.
+  Note that this is not the average height of the people in the data set, since the
+  mean model is also a model, but different from ours.
+\item
+  The residuals have range from \(-19.97\) to \(19.51\). So, the model maximally
+  overestimates the heights by \(19.97\) cm and underestimates by \(19.51\) cm.
+  These numbers are plausible when you look at the scatterplot with the fitted
+  curve.
+\item
+  The coefficients \(\beta_1\) and \(\beta_2\) agree with the Bayes estimates.
+  Specifically, \(\beta_2\) is non-zero indicating curvature.
+\item
+  If you like \(p\)-values: All the hypotheses that the coefficients are zero
+  are rejected. The \(p\)-values are very small. The data can not be explained
+  by chance alone. On the other hand, for at least \(\beta_1\) and
+  and the global test this is not a surprise when you look at the scatterplot.
+\item
+  The \(R^2\) is a whopping \(0.96\) which could be a sign of overfitting, but
+  in this case we conclude that the true relationship is caputured rather well.
+  \href{https://en.wikipedia.org/wiki/Overfitting}{Overfitting} would occur if
+  our curve would wiggle around the data points,
+  so we would fit the data too much to the noise in the data than
+  the underying trend.
+\end{itemize}
+
+\subsubsection{Checking model assumptions}\label{checking-model-assumptions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{check\_model}\NormalTok{(m4}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Some of the variables were in matrix-format - probably you used
+##   `scale()` on your data?
+##   If so, and you get an error, please try `datawizard::standardize()` to
+##   standardize your data.
+## Some of the variables were in matrix-format - probably you used
+##   `scale()` on your data?
+##   If so, and you get an error, please try `datawizard::standardize()` to
+##   standardize your data.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf}}
+
+If we want to be perfectionists, we could remark that (upper right plot)
+in the lower fitted values the residuals are more negative,
+meaning that the model overestimates the heights in this region.
+In the middle region the model underestimates a bit and we can see
+a positive tendency in the residuals. Apart from that,
+the diagnostic plots look excellent.
+
+\subsection{Adding another predictor to the model}\label{adding_predictor_freq}
+
+Now, we add another predictor to the model. We use \(X_1\) and \(X_2\)
+\textbf{simultaneously} to predict \(Y\). We are now in the lucky situation that
+we can still visualize the situation in 3D. The regression line from simple
+linear regression
+becomes a \href{https://stackoverflow.com/questions/47344850/scatterplot3d-regression-plane-with-residuals}{plane}.
+The vertical distances between the data points and the plane are the residuals.
+See \href{https://rpubs.com/pjozefek/576206}{here} or
+\href{https://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization}{here}
+at the end for examples.
+Minimizing the sum of the squared errors gives again
+the estimates for the coefficients.
+
+For demonstration purposes, we can \textbf{create data ourselves} with known
+coefficients. This is the same as \hyperref[adding_predictor_bayes]{above}.
+This is the true model, which we usually do not know:
+
+\[ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \varepsilon_i\]
+\[ \varepsilon_i \sim N(0, \sigma^2)\]
+\[ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + \beta_1 x_1 + \beta_2 x_2\]
+\[ i = 1 \ldots n\]
+
+for example:
+
+\[ Y_i = 10 + 0.5 \cdot X_{1i} + 1 \cdot X_{2i} + \varepsilon_i\]
+\[ \varepsilon_i \sim N(0, 5)\]
+\[ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2\]
+\[ i = 1 \ldots n\]
+
+According to the model, the conditional expected value of \(Y_i\) given \(X_1 = x_1\) and \(X_2 = x_2\)
+is a linear function of \(x_1\) and \(x_2\). Note, that small letters are realized values
+of random variables. Also note, that in the expectation the error term goes away, since
+\(\mathbb{E}(\varepsilon_i) = 0\).
+
+\begin{itemize}
+\tightlist
+\item
+  If \(X_1\) increases by one unit, \(Y\) increases by \(0.5\) units on average (in expectation).
+\item
+  If \(X_2\) increases by one unit, \(Y\) increases by \(1\) unit on average (in expectation).
+\item
+  If \(X_1\) and \(X_2\) are zero, \(Y\) is \(10\) on average (in expectation).
+\end{itemize}
+
+Why in expectation? Because there is still the error term which makes the whole thing random!
+We can see that an increase in \(X_1\) does not influence the relationship between \(X_2\) and \(Y\).
+Hence, there is \textbf{no interaction} between \(X_1\) and \(X_2\) with respect to \(Y\).
+
+Now lets's draw 100 points from this model, fit the model and add the plane:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(plotly)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{X1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{X2 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \DecValTok{10} \SpecialCharTok{+} \FloatTok{0.5} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{+} \DecValTok{1} \SpecialCharTok{*}\NormalTok{ X2 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{X1 =}\NormalTok{ X1, }\AttributeTok{X2 =}\NormalTok{ X2, }\AttributeTok{Y =}\NormalTok{ Y)}
+
+\CommentTok{\# Fit the model}
+\NormalTok{m4}\FloatTok{.3} \OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X1 }\SpecialCharTok{+}\NormalTok{ X2, }\AttributeTok{data =}\NormalTok{ d)}
+\FunctionTok{summary}\NormalTok{(m4}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X1 + X2, data = d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7460 -1.3215 -0.2489  1.2427  4.1597 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 10.27013    0.19228   53.41   <2e-16 ***
+## X1           0.44673    0.04195   10.65   <2e-16 ***
+## X2           1.00952    0.03960   25.49   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.903 on 97 degrees of freedom
+## Multiple R-squared:  0.8839, Adjusted R-squared:  0.8815 
+## F-statistic: 369.1 on 2 and 97 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a grid for the plane}
+\NormalTok{X1\_grid }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X1), }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X1), }\AttributeTok{length.out =} \DecValTok{20}\NormalTok{)}
+\NormalTok{X2\_grid }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X2), }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X2), }\AttributeTok{length.out =} \DecValTok{20}\NormalTok{)}
+\NormalTok{grid }\OtherTok{\textless{}{-}} \FunctionTok{expand.grid}\NormalTok{(}\AttributeTok{X1 =}\NormalTok{ X1\_grid, }\AttributeTok{X2 =}\NormalTok{ X2\_grid)}
+
+\CommentTok{\# Predict the values for the grid}
+\NormalTok{grid}\SpecialCharTok{$}\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(m4}\FloatTok{.3}\NormalTok{, }\AttributeTok{newdata =}\NormalTok{ grid)}
+
+\CommentTok{\# Convert the grid into a matrix for the plane}
+\NormalTok{plane\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(grid}\SpecialCharTok{$}\NormalTok{Y, }\AttributeTok{nrow =} \FunctionTok{length}\NormalTok{(X1\_grid), }\AttributeTok{ncol =} \FunctionTok{length}\NormalTok{(X2\_grid))}
+
+\CommentTok{\# Create the interactive 3D plot}
+\FunctionTok{plot\_ly}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_markers}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{X2, }\AttributeTok{y =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{X1, }\AttributeTok{z =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{Y,}
+    \AttributeTok{marker =} \FunctionTok{list}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{5}\NormalTok{),}
+    \AttributeTok{name =} \StringTok{"Data Points"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_surface}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ X1\_grid, }\AttributeTok{y =}\NormalTok{ X2\_grid, }\AttributeTok{z =}\NormalTok{ plane\_matrix,}
+    \AttributeTok{colorscale =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"pink"}\NormalTok{)),}
+    \AttributeTok{showscale =} \ConstantTok{FALSE}\NormalTok{,}
+    \AttributeTok{opacity =} \FloatTok{0.7}\NormalTok{,}
+    \AttributeTok{name =} \StringTok{"Fitted Plane"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  plotly}\SpecialCharTok{::}\FunctionTok{layout}\NormalTok{(}
+    \AttributeTok{scene =} \FunctionTok{list}\NormalTok{(}
+      \AttributeTok{xaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"X1"}\NormalTok{),}
+      \AttributeTok{yaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"X2"}\NormalTok{),}
+      \AttributeTok{zaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"Y"}\NormalTok{)}
+\NormalTok{    ),}
+    \AttributeTok{title =} \StringTok{"Interactive 3D Scatterplot with Fitted Plane"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp4jhoDi/file1f1732bbd44c/widget1f17496ee399.html screenshot completed
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-64-1.pdf}}
+
+This is, of course, a very idealized situation. There is no curvature in the plane,
+no interaction, no outliers, no heteroscadasticity. It's the simplest case of multiple regression
+with 2 predictors. Reality is - usually - more complicated.
+
+Let's look at summary output and check model assumptions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(m4}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X1 + X2, data = d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7460 -1.3215 -0.2489  1.2427  4.1597 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 10.27013    0.19228   53.41   <2e-16 ***
+## X1           0.44673    0.04195   10.65   <2e-16 ***
+## X2           1.00952    0.03960   25.49   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.903 on 97 degrees of freedom
+## Multiple R-squared:  0.8839, Adjusted R-squared:  0.8815 
+## F-statistic: 369.1 on 2 and 97 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{check\_model}\NormalTok{(m4}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-65-1.pdf}}
+
+We could repeat this simulation to get a feeling for the variability.
+The posterior predictive checks look nice. In this case, we \emph{know} that the model is true
+and with this knowledge we can assess the diagnostic plots in front of us.
+
+\subsubsection{Adding variables to the model and why}\label{adding-variables-to-the-model-and-why}
+
+This is a very complex question. We will go into it in later chapters and the next course (Methodenvertiefung).
+At this point we can say this:
+Depending on the goal at hand (prediction or explanation), we add variables to the model and probably use
+other models apart from linear regression.
+Prediction seems to be easier than explanation. For instance, within linear models and
+just a handful of predictors, one can even brute force the problem by searching through
+all subsets of predictors. If that is not possible, one could use clever algortithms, like
+\href{https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/}{best subest selection}.
+
+\begin{itemize}
+\tightlist
+\item
+  What is \textbf{not} a good idea is to throw all variables into the model and hope for the best.
+\item
+  What is also not a good idea is to select variables depending on the \(p\)-values of the coefficients.
+\item
+  \textbf{Leaving variables out}, that are important, can lead to biased estimates of the coefficients
+  (\href{https://en.wikipedia.org/wiki/Omitted-variable_bias}{omitted variable bias}).
+\item
+  But also \textbf{adding variables} can hurt conclusions from the model (see Statistical Rethinking 6.2).
+\end{itemize}
+
+\subsection{\texorpdfstring{Interaction Term \(X_1 \times X_2\)}{Interaction Term X\_1 \textbackslash times X\_2}}\label{interaction_term}
+
+I recommend reading the excellent explanations about interactions
+in John Kruschke's book \href{https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf}{Doing Bayesian Data Analysis},
+15.2.2 und 15.2.3. Peter Westfall also has a nice explanation in his \href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{book}
+in section 9.3.
+
+Our statistical model is now:
+
+\[ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \mathbf{\beta_3 X_{1i} \times X_{2i}} + \varepsilon_i\]
+\[ \varepsilon_i \sim N(0, \sigma^2)\]
+\[ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1} \times x_{2}\]
+\[ i = 1 \ldots n\]
+
+for example:
+
+\[ Y_i = 10 + 0.5 \cdot X_{1i} + 1 \cdot X_{2i} + 0.89 \cdot X_{1i} \times X_{2i} + \varepsilon_i\]
+\[ \varepsilon_i \sim N(0, 5)\]
+\[ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2 + 0.89 x_1 \times x_2\]
+\[ i = 1 \ldots n\]
+
+The second equation states that the conditional expectation of \(Y_i\) given \(X_1=x_1\) and \(X_2=x_2\)
+is a function of \(x_1\) and \(x_2\) and their interaction \(x_1 \times x_2\). We are in a different situation now.
+Set for instance \(x_2\) to a certain value, say \(x_2 = 7\). Then the relationship (in expectation)
+between \(Y\) and \(X_1\) is:
+
+\[ \mathbb{E}(Y_i|X_1 = x_1; X_2 = 7) = 10 + 0.5 x_1 + 1 \cdot 7 + 0.89 x_1 \cdot 7\]
+\[ \mathbb{E}(Y_i|X_1 = x_1; X_2 = 7) = 10 + (0.5 + 0.89 \cdot \mathbf{7}) \cdot x_1 + 1 \cdot 7\]
+
+Depending on the value of \(x_2\), the \emph{effect} of \(X_1\) on \(Y\) changes.
+Hence, \(X_2\) \textbf{modifies} the relationship between \(X_1\) and \(Y\), or stated otherwise,
+\(X_1\) and \(X_2\) \textbf{interact} with respect to \(Y\). Remember, the word \emph{effect} is
+used in a strictly technical/statistical sense and \textbf{not in a causal} sense.
+It does not mean that if we \emph{do} change \(X_1\) by one unit,
+\(Y\) will also change in an experiment. We are purely describing the relationship
+in an associative way. We will probably touch causality in a later chapter.
+Bayesian statistics and causal inference are gaining popularity. Hence, we should try to keep up.
+
+Let's draw 100 points from this model, fit the model and add the plane (see also \hyperref[exercise3_multiple_regression]{exercise 4}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{X1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{X2 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \DecValTok{10} \SpecialCharTok{+} \FloatTok{0.5} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{+} \DecValTok{1} \SpecialCharTok{*}\NormalTok{ X2 }\SpecialCharTok{+} \FloatTok{0.89} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{*}\NormalTok{ X2 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{X1 =}\NormalTok{ X1, }\AttributeTok{X2 =}\NormalTok{ X2, }\AttributeTok{Y =}\NormalTok{ Y)}
+
+\CommentTok{\# Fit the model}
+\NormalTok{m4}\FloatTok{.4} \OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X1 }\SpecialCharTok{*}\NormalTok{ X2, }\AttributeTok{data =}\NormalTok{ d)}
+\FunctionTok{summary}\NormalTok{(m4}\FloatTok{.4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X1 * X2, data = d)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -9.360 -3.389 -0.543  2.949 11.583 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 10.70491    0.47888  22.354  < 2e-16 ***
+## X1           0.40719    0.10834   3.759 0.000293 ***
+## X2           1.03434    0.09881  10.468  < 2e-16 ***
+## X1:X2        0.92182    0.02290  40.257  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.734 on 96 degrees of freedom
+## Multiple R-squared:  0.9476, Adjusted R-squared:  0.9459 
+## F-statistic: 578.1 on 3 and 96 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a grid for the plane}
+\NormalTok{X1\_grid }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X1), }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X1), }\AttributeTok{length.out =} \DecValTok{20}\NormalTok{)}
+\NormalTok{X2\_grid }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X2), }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X2), }\AttributeTok{length.out =} \DecValTok{20}\NormalTok{)}
+\NormalTok{grid }\OtherTok{\textless{}{-}} \FunctionTok{expand.grid}\NormalTok{(}\AttributeTok{X1 =}\NormalTok{ X1\_grid, }\AttributeTok{X2 =}\NormalTok{ X2\_grid)}
+
+\CommentTok{\# Predict the values for the grid}
+\NormalTok{grid}\SpecialCharTok{$}\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(m4}\FloatTok{.4}\NormalTok{, }\AttributeTok{newdata =}\NormalTok{ grid)}
+
+\CommentTok{\# Convert the grid into a matrix for the plane}
+\NormalTok{plane\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(grid}\SpecialCharTok{$}\NormalTok{Y, }\AttributeTok{nrow =} \FunctionTok{length}\NormalTok{(X1\_grid), }\AttributeTok{ncol =} \FunctionTok{length}\NormalTok{(X2\_grid))}
+
+\CommentTok{\# Create the interactive 3D plot}
+\FunctionTok{plot\_ly}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_markers}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{X2, }\AttributeTok{y =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{X1, }\AttributeTok{z =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{Y,}
+    \AttributeTok{marker =} \FunctionTok{list}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{5}\NormalTok{),}
+    \AttributeTok{name =} \StringTok{"Data Points"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_surface}\NormalTok{(}
+    \AttributeTok{x =}\NormalTok{ X1\_grid, }\AttributeTok{y =}\NormalTok{ X2\_grid, }\AttributeTok{z =}\NormalTok{ plane\_matrix,}
+    \AttributeTok{colorscale =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"pink"}\NormalTok{)),}
+    \AttributeTok{showscale =} \ConstantTok{FALSE}\NormalTok{,}
+    \AttributeTok{opacity =} \FloatTok{0.7}\NormalTok{,}
+    \AttributeTok{name =} \StringTok{"Fitted Plane"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  plotly}\SpecialCharTok{::}\FunctionTok{layout}\NormalTok{(}
+    \AttributeTok{scene =} \FunctionTok{list}\NormalTok{(}
+      \AttributeTok{xaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"X1"}\NormalTok{),}
+      \AttributeTok{yaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"X2"}\NormalTok{),}
+      \AttributeTok{zaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"Y"}\NormalTok{)}
+\NormalTok{    ),}
+    \AttributeTok{title =} \StringTok{"Interactive 3D Scatterplot with Fitted Plane"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp4jhoDi/file1f1771bd19d7/widget1f1735ebac97.html screenshot completed
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
+
+The term \texttt{X1\ *\ X2} is a shortcut for \texttt{X1\ +\ X2\ +\ X1:X2} where \texttt{X1:X2} is the interaction term.
+R automatically includes the main effects of the predictors when an interaction term is included.
+The true but usually unknown \(\beta\)s are estimated quite precisely.
+
+\subsubsection{Formal test for interaction}\label{formal-test-for-interaction}
+
+We could apply a formal test for the interaction term by model comparison.
+The command \texttt{anova(.,\ .)} would compare the two models and test if the change in the
+residual sum of squares is statistically interesting.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m4}\FloatTok{.5} \OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X1 }\SpecialCharTok{+}\NormalTok{ X2, }\AttributeTok{data =}\NormalTok{ d) }\CommentTok{\# without interaction}
+\FunctionTok{anova}\NormalTok{(m4}\FloatTok{.5}\NormalTok{, m4}\FloatTok{.4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Analysis of Variance Table
+## 
+## Model 1: Y ~ X1 + X2
+## Model 2: Y ~ X1 * X2
+##   Res.Df   RSS Df Sum of Sq      F    Pr(>F)    
+## 1     97 38468                                  
+## 2     96  2151  1     36316 1620.6 < 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+One can show that the following test statistic is F distributed under the null hypothesis:
+
+\[ F = \frac{\left(RSS_{\text{Model 1}} - RSS_{\text{Model 2}}\right) / \left(df_{\text{Model 1}} - df_{\text{Model 2}}\right)}{RSS_{\text{Model 2}} / df_{\text{Model 2}}}\]
+
+where \(RSS\) is the residual sum of squares,
+\(df\) are the degrees of freedom of the residual sum of squares for both models.
+
+The output of the \texttt{anova} command shows us the residual degress of freedom (\texttt{Res.Df})
+of both models, the residual sum of squares errors of both models (\texttt{RSS}),
+the sum of squared errors between model 1 and model 2 (\texttt{Sum\ of\ Sq}), the value of the
+F-statistic and the \(p\)-value for the hypothesis, that the coefficient for
+the interaction term is zero (\(\beta_3=0\)). Model 1 RSS has 97 degrees of freedom, since we have 100 data points
+and 3 parameters to estimate (\(\beta_0, \beta_1, \beta_2\)). Model 2 has 96 degrees of freedom, since
+we have 100 data points and 4 parameters to estimate (\(\beta_0, \beta_1, \beta_2, \beta_3\)).
+
+Let's verify the value of the F statistic:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RSS\_model1 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{residuals}\NormalTok{(m4}\FloatTok{.5}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{RSS\_model2 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{residuals}\NormalTok{(m4}\FloatTok{.4}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{df\_model1 }\OtherTok{\textless{}{-}}\NormalTok{ n }\SpecialCharTok{{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{coef}\NormalTok{(m4}\FloatTok{.5}\NormalTok{))}
+\NormalTok{df\_model2 }\OtherTok{\textless{}{-}}\NormalTok{ n }\SpecialCharTok{{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{coef}\NormalTok{(m4}\FloatTok{.4}\NormalTok{))}
+\NormalTok{F }\OtherTok{\textless{}{-}}\NormalTok{ ((RSS\_model1 }\SpecialCharTok{{-}}\NormalTok{ RSS\_model2) }\SpecialCharTok{/}\NormalTok{ (df\_model1 }\SpecialCharTok{{-}}\NormalTok{ df\_model2)) }\SpecialCharTok{/}\NormalTok{ (RSS\_model2 }\SpecialCharTok{/}\NormalTok{ df\_model2)}
+\NormalTok{F}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1620.606
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sum of Sq}
+\NormalTok{RSS\_model1 }\SpecialCharTok{{-}}\NormalTok{ RSS\_model2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 36316.28
+\end{verbatim}
+
+In the numerator of the F statistic, we have the change in the residual sum of squares
+(from the small (model 1) model to the larger one (model 2), \texttt{Sum\ of\ Sq})
+per additional parameter in the model (one additional parameter \(\beta_3\)).
+
+In the denominator, we have the residual sum of squares per residual degree of freedom of
+the larger model (model 2). Hence, in the numerator we have the information on how much
+better we get with respect to the number of variables added, and in the denominator
+we have information on how good the full model is with respect to its degrees of freedom.
+
+The \(p\)-value is the probability of observing a value of the F statistic as extreme or more
+extreme than the one we observed, given that the null hypothesis is true. Here,
+the \(p\)-value is extremely small. So, statistically we would see an improvement in RSS
+which is not explainable by chance alone.
+But \textbf{let's be careful with \(p\)-values} and especially with fixed cutoff values for \(\alpha\),
+which we will \textbf{never} use in this script.
+Even for a rather small effect \(\beta_3\), we would reject the null hypothesis, if only the sample
+size is large enough. Since a very small effect relative to \(\beta_1\) and \(\beta_2\) would
+probably not be of practical interest, one should be careful with looking at \(p\)-values alone.
+For instance, in Richard McElreath's book \href{https://xcelab.net/rm/statistical-rethinking/}{Statistical Rethinking},
+there are no \(p\)-values at all. I like that.
+
+If you again look at the comparison of the RSS between the two models, you would
+immediately see that the model with the interaction term is better (at least with respect to this metric).
+The difference is huge. We have already mentioned in the context of \(R^2\) not to overinterpret
+such metric, because RSS is monotonically descreasing with number of variables added and reaches
+zero when the number of variables equals the number of data points (see \hyperref[exercise3_multiple_regression]{exercise 3}).
+
+\subsection{Using an interaction plot to see a potential interaction}\label{interaction_plot}
+
+Chronologically before we include an interaction term in the model, we can use an interaction plot
+to see if there is a potential interaction between the predictors.
+We can just create a catorical predictor out of the continuous predictors.
+We just categorize the predictors into quartiles and plot the means of the dependent variable (\(Y\)).
+If the lines are parallel, there is no interaction. If the lines are not parallel,
+there might be an interaction.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{X1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{X2 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \DecValTok{10} \SpecialCharTok{+} \FloatTok{0.5} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{+} \DecValTok{1} \SpecialCharTok{*}\NormalTok{ X2 }\SpecialCharTok{+} \FloatTok{0.89} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{*}\NormalTok{ X2 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{X1 =}\NormalTok{ X1, }\AttributeTok{X2 =}\NormalTok{ X2, }\AttributeTok{Y =}\NormalTok{ Y)}
+
+\CommentTok{\# Create categorical variables based on quartiles}
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{X2\_cat }\OtherTok{\textless{}{-}} \FunctionTok{cut}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X2, }
+                \AttributeTok{breaks =} \FunctionTok{quantile}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X2, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }
+                \AttributeTok{include.lowest =} \ConstantTok{TRUE}\NormalTok{, }
+                \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Q1"}\NormalTok{, }\StringTok{"Q2"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"Q4"}\NormalTok{))}
+
+\NormalTok{d}\SpecialCharTok{$}\NormalTok{X1\_cat }\OtherTok{\textless{}{-}} \FunctionTok{cut}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X1, }
+                \AttributeTok{breaks =} \FunctionTok{quantile}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X1, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }
+                \AttributeTok{include.lowest =} \ConstantTok{TRUE}\NormalTok{, }
+                \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Q1"}\NormalTok{, }\StringTok{"Q2"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"Q4"}\NormalTok{))}
+
+\CommentTok{\# Create the interaction plot}
+\FunctionTok{interaction.plot}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{X2\_cat, d}\SpecialCharTok{$}\NormalTok{X1\_cat, d}\SpecialCharTok{$}\NormalTok{Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-69-1.pdf}}
+
+There seems to be an intercation of the predictors with respect to \(Y\). The lines are not parallel.
+If there was no interaction, the change in \(Y\) with respect to \(X_1\) would be the same for all levels of \(X_2\).
+This seems not to be the case here.
+See \hyperref[exercise5_multiple_regression]{exercise 5}.
+
+If we had one or both predictors already categorical, we would not have to discretize them before.
+
+\subsection{Simpsons Paradox}\label{simpsons-paradox}
+
+The \href{https://en.wikipedia.org/wiki/Simpson\%27s_paradox}{Simpsons paradox} is a phenomenon,
+in which a trend appears in several different groups of data but disappears
+or reverses when these groups are combined. I agree with the criticism that this is not really
+a paradox but a failure to consider confounding variables adequately. Let's quickly invent an example.
+We are interested in the relationship hours of muscle training and strength (not based on evidence)
+in children vs.~adults. Within both groups there will be an increasing relationship. The more training,
+the more muscle strength. But if we combine the groups, we will see a decreasing relationship.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{age }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"child"}\NormalTok{, n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"adult"}\NormalTok{, n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{))}
+\NormalTok{training }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{) }\SpecialCharTok{+} \DecValTok{30}\NormalTok{, }\FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}\SpecialCharTok{+} \DecValTok{10}\NormalTok{)}
+\NormalTok{strength }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \DecValTok{10} \SpecialCharTok{+} \FloatTok{0.5} \SpecialCharTok{*}\NormalTok{ training[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)] }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{), }\CommentTok{\# For children}
+  \DecValTok{25} \SpecialCharTok{+} \FloatTok{0.5} \SpecialCharTok{*}\NormalTok{ training[(n}\SpecialCharTok{/}\DecValTok{2} \SpecialCharTok{+} \DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{n] }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{) }\CommentTok{\# For adults}
+\NormalTok{)}
+
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{age =}\NormalTok{ age, }\AttributeTok{training =}\NormalTok{ training, }\AttributeTok{strength =}\NormalTok{ strength)}
+
+\FunctionTok{ggplot}\NormalTok{(d, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ training, }\AttributeTok{y =}\NormalTok{ strength, }\AttributeTok{color =}\NormalTok{ age)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Group{-}specific regression lines}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{data =}\NormalTok{ d, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ training, }\AttributeTok{y =}\NormalTok{ strength), }
+              \AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Overall regression line}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Regression Lines for Training and Strength"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Training"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Strength"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-70-1.pdf}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Group-Specific Trends}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    In the group of \textbf{children} (blue line), strength \textbf{increases} with training, as indicated by the positive slope of the regression line.
+  \item
+    Similarly, in the group of \textbf{adults} (red line), strength also \textbf{increases} with training.
+  \end{itemize}
+\item
+  \textbf{Overall Trend}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    When both groups are combined, the overall regression line (black, dashed) shows a \textbf{negative slope}, suggesting that \textbf{strength decreases} with training.
+  \item
+    This overall trend is opposite to the trends observed within the individual groups.
+  \end{itemize}
+\item
+  \textbf{Why Does This Happen?}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This paradox occurs because the relationship between the grouping variable (\texttt{age}) and the independent variable (\texttt{training}) creates a confounding effect.
+  \item
+    In this case:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \textbf{Children} tend to have higher training values overall, while \textbf{adults} tend to have lower training values.
+    \item
+      The overall regression line reflects the imbalance between these groups rather than the true within-group relationships.
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+This (fictitious) example illustrates the importance of considering group-level differences when analyzing data.
+In multiple regression this might not be so straightforward, since we cannot just plot the data and see the effect
+as in our toy example. We will discuss this later.
+
+\section{Exercises}\label{exercises-2}
+
+\subsection{{[}M{]} Exercise 1}\label{exercise1_multiple_regression}
+
+\begin{itemize}
+\tightlist
+\item
+  Fit a model with a cubic term for weight and height of the !Kung San people.
+\item
+  Add the prediction bands as seen in the book.
+\item
+  Come up with an explanation for the functional form of this relationship.
+\item
+  Could there be reasons to for taking a less complicated model
+  (\href{https://en.wikipedia.org/wiki/Statistical_model_specification}{1}, \href{https://en.wikipedia.org/wiki/Occam\%27s_razor}{2})?
+\end{itemize}
+
+\subsection{{[}E{]} Exercise 2}\label{exercise2_multiple_regression}
+
+Consider the model equations from \hyperref[adding_transformed_predictor]{above}
+where we used polynomial regression to model the relationship between
+weight and height:
+
+\begin{itemize}
+\tightlist
+\item
+  Draw the model hierarchy for the model.
+\end{itemize}
+
+\subsection{{[}H{]} Exercise 3}\label{exercise3_multiple_regression}
+
+Invent a data set (or use the first 3 lines of a previous data set)
+with 3 observations of \(Y\) and \(X_1, X_2\) and \(X_3\). You have a data frame
+with 3 rows and 4 columns.
+
+\begin{itemize}
+\tightlist
+\item
+  Fit a model with \(Y\) as the dependent variable and \(X_1, X_2, X_3\) as predictors.
+\item
+  How big is \(R^2\)?
+\item
+  Could you have calulated this without \texttt{lm}and R?
+\end{itemize}
+
+\subsection{{[}E{]} Exercise 4}\label{exercise4_multiple_regression}
+
+Go back to the \hyperref[interaction_term]{section about the interaction term} in the linear model.
+
+\begin{itemize}
+\tightlist
+\item
+  Use the code provided
+\item
+  Standardise the predictors. How are the \(\beta\)s changing and what is their interpration now?
+\item
+  Change the relative sizes of the true but usually unknown \(\beta\)s.
+  What happens to the estimates and the graph?
+\item
+  What happens if you change the error term and increase or decrease its variance?
+\end{itemize}
+
+\subsection{{[}E{]} Exercise 5}\label{exercise5_multiple_regression}
+
+Draw the interaction plot from the \hyperref[interaction_plot]{section about the interaction plot}
+for the case when there is not interaction, i.e.~\(\beta_3 = 0\).
+
+\subsection{{[}M{]} Exercise 6}\label{exercise6_multiple_regression}
+
+Go back to the model assumptions checks \hyperref[check_model_bayes]{above}.
+
+\begin{itemize}
+\tightlist
+\item
+  Create the same two plots for the simple mean model without predictors, just with the intercept.
+\item
+  Which model fits the data better according to these posterior predictive checks?
+\end{itemize}
+
+\section{TODOS}\label{todos}
+
+\begin{itemize}
+\tightlist
+\item
+  If you add a lot of variables to your regression model, you can get an arbitrarily large (\(\le 1\))
+  \(R^2\). We will verify this when we have more than 2 explanatory variables.
+\item
+  maybe create animation of points wiggling to get a feeling for the variability
+\item
+  Show by simulation what Gelman talks about with significant p values. So I scan the data
+  for significant p values and then simulate data with the same effect size and see how often
+  I get significant p values. Especially the next effect would be probably smaller,
+  especially, if one did p-hacking! Calculate a priori probability for replication (def?).
+\item
+  Variability of confidence interval borders (draw from X\ldots)
+\item
+  Logistic Regression
+\item
+  Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
+\item
+  Chapter about ICCs, but maybe reduced
+\item
+  clearer difference between prediction and explanation. why do we need causal inference and
+  why do we have to be careful when we throw predictors into a model, how sure can we be that
+  the model does what we want it to do?
+\item
+  Simpsons paradox
+\item
+  causal terror of richards book, fork, pipe, collider
+\item
+  Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt),
+  ist diese Situation möglich?
+\item
+  What about 2 interactions?
+\item
+  Which variables should I include in a model and why?
+\item
+  Causality either here or in MV?
+\item
+  Emphasize individual prediction (if not already) - cant get below \(\sigma\) in prediction
+\item
+  Include information of Kahnemans book, Thinking fast and slow. Specifically, regression
+  is better than intuition. Intuition only works in a valid environment, where patterns
+  can be obeserved. In non-valid environments, the wrong patterns are learned. Furthermore,
+  regression using some simple scores is better than expert intuition. Also Meehl is mentioned
+  by Kahneman.
+\item
+  What to do if regression assumptions are violated?
+\item
+  What about a real life data set?
+\item
+  What about papers?
+\item
+  Simulate a cohort of Master thesis with small sample sizes and assume
+  that there is a true but unknown effect.
 \end{itemize}
 
 \bibliography{book.bib,packages.bib}
