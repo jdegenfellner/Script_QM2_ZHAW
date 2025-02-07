@@ -183,9 +183,102 @@ precis(m4.2)
 ```
 
 
-#### Checking model assumptions
-.....
+#### Checking model assumptions {#check_model_bayes}
+Andrew Gelman mentions in some of his talks (see [here](https://sites.stat.columbia.edu/gelman/research/published/philosophy_chapter.pdf) for more details) 
+that many Bayesians he met do not check their models, since they reflect subjective probability.
+As I said in the introduction, one should not be afraid to check model predictions against the observed
+and probably new data. If a model for predicting BMI performs much worse on a new data set,
+we can probably conclude that the model does not reflect the general relationship between the predictors
+and the dependent variable. We **do not ask** the question if a model is true or false, but if it is useful or
+how badly the model assumptions are violated.
 
+For further, more detailed information on model checking, refer to chapter 6 of 
+[Gelman's book](https://sites.stat.columbia.edu/gelman/book/BDA3.pdf).
+
+Anyhow, we plot two posterior predictive checks here.
+
+**First, we plot the observed $Y$ values against the predicted $Y$ values ($=\hat{Y}$)** 
+from the model (as in Statistical rethinking, Chapter 5).
+Although these practically never lie on the line $y=x$, they should be sufficiently 
+close to it. We could also compare these two plots with the mean-model (see [exercise 6](#exercise6_multiple_regression)).
+
+```{r}
+# 1) Posterior predictive checks Y vs Y_hat
+# see Statstical Rethinking p 138.
+# call link without specifying new data
+# so it uses the original data
+mu <- link(m4.2)
+
+# summarize samples accross cases
+mu_mean <- apply(mu, 2, mean)
+mu_PI <- apply(mu, 2, PI, prob = 0.89)
+
+# simulate observations
+# again, no new data, so uses original data
+D_sim <- sim(m4.2, n = 1e4)
+D_PI <- apply(D_sim, 2, PI, prob = 0.89)
+
+plot(mu_mean ~ df$Y, col = rangi2, ylim = range(mu_PI), 
+     xlab = "Observed Y", ylab = "Model-Predicted Y")
+abline(a = 0, b = 1, lty = 2)
+for(i in 1:nrow(df)) lines(rep(df$Y[i], 2), mu_PI[,i], col = rangi2)
+```
+
+As we can see, the model fits the data quite well. The points are close to the dashed line ($y=x$).
+No under- or overestimation is visible. The model seems to capture the relationship between the predictors $X_1$ and $X_2$
+and the dependent variable $Y$ quite well. If there were patches of data points above or below the dashed line,
+we would probably have to reconsider the model definition and think about why these points are not captured by the model.
+
+**Next, we plot the posterior predictive plots** analog to the upper left in the `check_model` output.
+
+```{r}
+library(scales)  # For the alpha function to adjust transparency
+
+# 2) Posterior predictive densities
+# Simulate observations using the posterior predictive distribution
+D_sim <- sim(m4.2, n = 1e4)  # Generate 10,000 simulated datasets
+
+# Calculate densities for all samples
+densities <- apply(D_sim, 1, density)
+
+# Find the maximum density value for setting the y-axis limits
+max_density <- max(sapply(densities, function(d) max(d$y)))
+
+# Create the density plot with predefined ylim
+plot(NULL, xlim = range(df$Y), ylim = c(0, max_density),
+     xlab = "Y", ylab = "Density",
+     main = "Comparison of Observed and Predicted Densities")
+
+# Add 100 posterior predictive density lines
+set.seed(42)  # For reproducibility
+n_lines <- 100
+samples <- sample(1:1e4, n_lines)  # Randomly sample 100 posterior predictive datasets
+for (s in samples) {
+  lines(density(D_sim[s, ]), col = alpha("lightblue", 0.3), lwd = 1)
+}
+
+# Add the density line for the observed Y values
+obs_density <- density(df$Y)
+lines(obs_density$x, obs_density$y, col = "green", lwd = 2)
+
+# Add legend
+legend("topright", legend = c("Posterior Predictive Densities", "Observed Density"),
+       col = c("lightblue", "green"), lty = 1, lwd = c(1, 2))
+```
+
+The light blue lines show distributions of model predicted $Y$ values. 
+The green line shows the distribution of the observed $Y$ values.
+As we can see, there seem to be no systematic differences between the observed and predicted values. 
+The model seems to capture the relationship well.
+If we see systematic deviations here, we need to reconsider the model definition. 
+
+**Example**: If you want to predict pain ($Y$ variable) and you have a lot of zeros (pain-free participants)
+you will probably see a discrepancy between the observed and predicted values in this plot.
+What could you do? You could use a two step process (model the probability that a person is pain-free 
+and then model the pain intensity for the people who have pain) or use a different model (like a zero-inflated model).
+
+Note that we did not explicitely assume normally distributed errors in the model definition above,
+so we won't check this here but in the Frequentist framework below.
 
 ## Linear regression with 2 Predictors in the Frequentist Framework
 ### Adding a transformed predictor to the model
@@ -674,6 +767,15 @@ Go back to the [section about the interaction term](#interaction_term) in the li
 Draw the interaction plot from the [section about the interaction plot](#interaction_plot) 
 for the case when there is not interaction, i.e. $\beta_3 = 0$.
 
+### [M] Exercise 6 {#exercise6_multiple_regression}
+
+Go back to the model assumptions checks [above](#check_model_bayes).
+
+- Create the same two plots for the simple mean model without predictors, just with the intercept.
+- Which model fits the data better according to these posterior predictive checks?
+
+
+
 ## TODOS
 
 - If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
@@ -684,6 +786,7 @@ for the case when there is not interaction, i.e. $\beta_3 = 0$.
   I get significant p values. Especially the next effect would be probably smaller,
   especially, if one did p-hacking! Calculate a priori probability for replication (def?).
 - Variability of confidence interval borders (draw from X...)
+- Logistic Regression
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 - Chapter about ICCs, but maybe reduced
 - clearer difference between prediction and explanation. why do we need causal inference and
@@ -703,3 +806,7 @@ for the case when there is not interaction, i.e. $\beta_3 = 0$.
   regression using some simple scores is better than expert intuition. Also Meehl is mentioned 
   by Kahneman.
 - What to do if regression assumptions are violated?
+- What about a real life data set?
+- What about papers?
+- Simulate a cohort of Master thesis with small sample sizes and assume 
+  that there is a true but unknown effect.

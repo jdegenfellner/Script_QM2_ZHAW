@@ -63,11 +63,11 @@ linear-regression-with-2-predictors-in-the-baysian-framework
 meaning-of-linear
 adding_transformed_predictor
 adding_predictor_bayes
-checking-model-assumptions
+check_model_bayes
 linear-regression-with-2-predictors-in-the-frequentist-framework
 adding-a-transformed-predictor-to-the-model
 interpretation-of-output-and-coefficients
-checking-model-assumptions-1
+checking-model-assumptions
 adding_predictor_freq
 adding-variables-to-the-model-and-why
 interaction_term
@@ -80,4 +80,5 @@ exercise2_multiple_regression
 exercise3_multiple_regression
 exercise4_multiple_regression
 exercise5_multiple_regression
+exercise6_multiple_regression
 todos
