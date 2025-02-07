@@ -624,9 +624,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##             mean        sd       5.5%     94.5%
-## mu    154.604084 0.4119914 153.945643 155.26253
-## sigma   7.731277 0.2913807   7.265595   8.19696
+##            mean        sd       5.5%      94.5%
+## mu    154.60365 0.4119936 153.945203 155.262093
+## sigma   7.73132 0.2913847   7.265631   8.197009
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -646,12 +646,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 155.1573 7.771782
-## 2 154.4335 7.566521
-## 3 154.5907 7.509640
-## 4 154.5659 7.140598
-## 5 153.8801 7.838376
-## 6 154.3262 7.324707
+## 1 155.0443 7.523394
+## 2 154.8819 7.810746
+## 3 154.2174 7.743306
+## 4 154.6609 7.780407
+## 5 154.4437 7.924487
+## 6 154.2984 8.052071
 \end{verbatim}
 
 \begin{Shaded}
@@ -691,8 +691,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697368884 0.0001535034
-## sigma 0.0001535034 0.0849027279
+## mu    0.1697387217 0.0001439151
+## sigma 0.0001439151 0.0849050480
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -706,7 +706,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973689 0.08490273
+## 0.16973872 0.08490505
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -719,8 +719,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001278701
-## sigma 0.001278701 1.000000000
+## mu    1.000000000 0.001198807
+## sigma 0.001198807 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1208,7 +1208,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp4jhoDi/file1f174efae9a5/widget1f173b017825.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpkK6ULT/file57f64a48308/widget57f64c968499.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-20-1.pdf}}
@@ -2848,6 +2848,9 @@ For further, more detailed information on model checking, refer to chapter 6 of
 \href{https://sites.stat.columbia.edu/gelman/book/BDA3.pdf}{Gelman's book}.
 
 Anyhow, we plot two posterior predictive checks here.
+We test the model within the same data set. We create new observations
+by drawing from the posterior distribution and compare these with the acutally
+observed values. This is called \textbf{posterior predictive checks}.
 
 \textbf{First, we plot the observed \(Y\) values against the predicted \(Y\) values (\(=\hat{Y}\))}
 from the model (as in Statistical rethinking, Chapter 5).
@@ -3205,7 +3208,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp4jhoDi/file1f1732bbd44c/widget1f17496ee399.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpkK6ULT/file57f6f75410c/widget57f65b0182c1.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-64-1.pdf}}
@@ -3397,7 +3400,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp4jhoDi/file1f1771bd19d7/widget1f1735ebac97.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpkK6ULT/file57f663856026/widget57f6496b91d5.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3632,6 +3635,66 @@ This (fictitious) example illustrates the importance of considering group-level 
 In multiple regression this might not be so straightforward, since we cannot just plot the data and see the effect
 as in our toy example. We will discuss this later.
 
+Richard McElreath also has a nice example for this on \href{https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r}{github}
+and explains this in a \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath}{video}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+
+\CommentTok{\# d{-}separation plots}
+\NormalTok{a }\OtherTok{\textless{}{-}} \FloatTok{0.7}
+\NormalTok{cols }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{( }\FunctionTok{col.alpha}\NormalTok{(}\DecValTok{1}\NormalTok{,a) , }\FunctionTok{col.alpha}\NormalTok{(}\DecValTok{2}\NormalTok{,a) )}
+
+\CommentTok{\# pipe}
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rbern}\NormalTok{(N,}\FunctionTok{inv\_logit}\NormalTok{(X))}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N,(}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Z}\DecValTok{{-}1}\NormalTok{))}
+
+\FunctionTok{plot}\NormalTok{( X , Y , }\AttributeTok{col=}\NormalTok{cols[Z}\SpecialCharTok{+}\DecValTok{1}\NormalTok{] , }\AttributeTok{pch=}\DecValTok{16}\NormalTok{ )}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{X[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]),}\AttributeTok{col=}\DecValTok{2}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{X[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]),}\AttributeTok{col=}\DecValTok{1}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\NormalTok{X),}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{lty=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# fork}
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rbern}\NormalTok{(N)}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N,}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Z}\DecValTok{{-}1}\NormalTok{)}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N,(}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Z}\DecValTok{{-}1}\NormalTok{))}
+
+\FunctionTok{plot}\NormalTok{( X , Y , }\AttributeTok{col=}\NormalTok{cols[Z}\SpecialCharTok{+}\DecValTok{1}\NormalTok{] , }\AttributeTok{pch=}\DecValTok{16}\NormalTok{ )}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{X[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]),}\AttributeTok{col=}\DecValTok{2}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{X[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]),}\AttributeTok{col=}\DecValTok{1}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\NormalTok{X),}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{lty=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-71-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# collider}
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rbern}\NormalTok{(N,}\FunctionTok{inv\_logit}\NormalTok{(}\DecValTok{2}\SpecialCharTok{*}\NormalTok{X}\SpecialCharTok{+}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Y}\DecValTok{{-}2}\NormalTok{))}
+
+\FunctionTok{plot}\NormalTok{( X , Y , }\AttributeTok{col=}\NormalTok{cols[Z}\SpecialCharTok{+}\DecValTok{1}\NormalTok{] , }\AttributeTok{pch=}\DecValTok{16}\NormalTok{ )}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{X[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]),}\AttributeTok{col=}\DecValTok{2}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{X[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]),}\AttributeTok{col=}\DecValTok{1}\NormalTok{,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\NormalTok{X),}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{lty=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-71-3.pdf}}
+
 \section{Exercises}\label{exercises-2}
 
 \subsection{{[}M{]} Exercise 1}\label{exercise1_multiple_regression}
@@ -3716,6 +3779,8 @@ Go back to the model assumptions checks \hyperref[check_model_bayes]{above}.
 \begin{itemize}
 \tightlist
 \item
+  Add more Bayesian model checks, chapter 6 Gelman.
+\item
   If you add a lot of variables to your regression model, you can get an arbitrarily large (\(\le 1\))
   \(R^2\). We will verify this when we have more than 2 explanatory variables.
 \item
@@ -3738,8 +3803,6 @@ Go back to the model assumptions checks \hyperref[check_model_bayes]{above}.
   why do we have to be careful when we throw predictors into a model, how sure can we be that
   the model does what we want it to do?
 \item
-  Simpsons paradox
-\item
   causal terror of richards book, fork, pipe, collider
 \item
   Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt),
@@ -3748,8 +3811,6 @@ Go back to the model assumptions checks \hyperref[check_model_bayes]{above}.
   What about 2 interactions?
 \item
   Which variables should I include in a model and why?
-\item
-  Causality either here or in MV?
 \item
   Emphasize individual prediction (if not already) - cant get below \(\sigma\) in prediction
 \item

@@ -73,7 +73,7 @@ adding-variables-to-the-model-and-why
 interaction_term
 formal-test-for-interaction
 interaction_plot
-simpsons-paradox
+simpsons_paradox
 exercises-2
 exercise1_multiple_regression
 exercise2_multiple_regression
@@ -81,4 +81,5 @@ exercise3_multiple_regression
 exercise4_multiple_regression
 exercise5_multiple_regression
 exercise6_multiple_regression
+exercise7_multiple_regression
 todos

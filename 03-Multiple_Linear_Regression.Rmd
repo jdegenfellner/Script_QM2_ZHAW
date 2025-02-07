@@ -672,7 +672,7 @@ See [exercise 5](#exercise5_multiple_regression).
 
 If we had one or both predictors already categorical, we would not have to discretize them before.
 
-### Simpsons Paradox
+### Simpsons Paradox {#simpsons_paradox}
 
 The [Simpsons paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) is a phenomenon, 
 in which a trend appears in several different groups of data but disappears 
@@ -724,8 +724,76 @@ This (fictitious) example illustrates the importance of considering group-level 
 In multiple regression this might not be so straightforward, since we cannot just plot the data and see the effect
 as in our toy example. We will discuss this later.
 
+Richard McElreath also has a nice example for this on [github](https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r)
+and explains this in a [video](https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath).
 
+```{r}
+library(rethinking)
 
+# d-separation plots
+a <- 0.7
+cols <- c( col.alpha(1,a) , col.alpha(2,a) )
+
+# pipe
+# X -> Z -> Y
+N <- 1000
+X <- rnorm(N)
+Z <- rbern(N,inv_logit(X))
+Y <- rnorm(N,(2*Z-1))
+
+plot( X , Y , col=cols[Z+1] , pch=16 )
+abline(lm(Y[Z==1]~X[Z==1]),col=2,lwd=3)
+abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
+abline(lm(Y~X),lwd=3,lty=3)
+
+# fork
+# X <- Z -> Y
+N <- 1000
+Z <- rbern(N)
+X <- rnorm(N,2*Z-1)
+Y <- rnorm(N,(2*Z-1))
+
+plot( X , Y , col=cols[Z+1] , pch=16 )
+abline(lm(Y[Z==1]~X[Z==1]),col=2,lwd=3)
+abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
+abline(lm(Y~X),lwd=3,lty=3)
+
+# collider
+# X -> Z <- Y
+N <- 1000
+X <- rnorm(N)
+Y <- rnorm(N)
+Z <- rbern(N,inv_logit(2*X+2*Y-2))
+
+plot( X , Y , col=cols[Z+1] , pch=16 )
+abline(lm(Y[Z==1]~X[Z==1]),col=2,lwd=3)
+abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
+abline(lm(Y~X),lwd=3,lty=3)
+```
+
+- Pipe: In this setting $X$ is associated with $Y$ and $Z$ is associated with $Y$. $X$ and $Y$ are also associated.
+  But if we condition on $Z$, the association between $X$ and $Y$ disappears. This is the pipe.
+  This means, if we **know** the value of $Z$, $X$ does not give us any information about $Y$.
+  This can be seen in the first plot: Once we are within $Z=0$ or $Z=1$, $X$ does not give us any information about $Y$,
+  i.e., the point cloud is horizontal and there is no correlation.
+
+  Or in the framework of Simpsons paradox:
+
+```{r}
+# pipe
+N <- 1000
+X <- rnorm(N)
+Z <- rbern(N,inv_logit(X))
+Y <- rnorm(N,(2*Z-1))
+mod1 <- lm(Y ~ X)
+summary(mod1)
+mod2 <- lm(Y ~ X + Z)
+summary(mod2)
+```
+
+Adding $Z$ to the model makes the coefficient for $X$ disappear. 
+
+See [exercise 7](#exercise7_multiple_regression).
 
 ## Exercises
 
@@ -777,7 +845,11 @@ Go back to the model assumptions checks [above](#check_model_bayes).
 - Create the same two plots for the simple mean model without predictors, just with the intercept.
 - Which model fits the data better according to these posterior predictive checks?
 
+### [E] Exercise 7 {#exercise7_multiple_regression}
 
+Go back to the Simpson's paradox [section](#simpsons_paradox).
+
+- Verify that the coefficient for $X$ disappears when you add $Z$ to the model for the pipe and collider as well.
 
 ## TODOS
 
