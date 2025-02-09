@@ -854,6 +854,7 @@ Go back to the Simpson's paradox [section](#simpsons_paradox).
 
 ## TODOS
 
+- Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 - Add more Bayesian model checks, chapter 6 Gelman.
 - If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
   $R^2$. We will verify this when we have more than 2 explanatory variables. 
