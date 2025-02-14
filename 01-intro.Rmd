@@ -478,14 +478,14 @@ graphically that the parameters are independent from each other.
 
 We also see in the correlation matrix, the correlation of the parameters is $\sim 0$.
 In the [context of a joint normal distribution](https://en.wikipedia.org/wiki/Correlation#Correlation_and_independence), 
-this means that the parameters are independent. 
+this means that the parameters are also independent. 
 
 And, it is not an accident that the posterior looks like this. Using quadratic approximation,
 we used the bivariate normal distribution to **approximate** the posterior.
 
 ## Classical approach for the simplest model
 
-We have seen, how we could use domain and prior knowledge to fit a very simple model
+We have seen, how we could use prior knowledge to fit a very simple model
 for body heights of a population (!Kung San) in the Bayesian framework.
 
 Now, let's start at the same point in the classical framework.
@@ -496,7 +496,7 @@ The classical approach to fit a regression line is the so-called
 
 There are hundreds of [videos online](https://www.youtube.com/results?search_query=linear+regression) 
 explaining this method in great detail
-with animations. Maybe watch these videos, when we add a predictor to the mean model,
+with animations. Maybe watch these videos later, when we add a predictor to the mean model,
 since most of instructional videos start at the simple linear regression using 
 two parameters (intercept ($\beta_0$ or $\alpha$) and slope ($\beta_1$)).
 
@@ -553,7 +553,8 @@ $$ \sum_{i=1}^{n} (height_i - c) = 0$$
 $$ \sum_{i=1}^{n} height_i - n \cdot c = 0$$
 $$ \hat{c} = \frac{1}{n} \sum_{i=1}^{n} height_i = \overline{height_i}$$
 
-The hat over the $c$ indicates that this is the estimated value of $c$.
+The hat over the $c$ indicates that this is the estimated value of the 
+true but unknown $c$.
 Everytime we estimate a parameter, we put a hat over it.
 
 And voilà, we have estimated the parameter $c$ of the model, which is just the 
@@ -585,10 +586,11 @@ Let's look at the **R-output** of the model estimation:
 $r_i = height_i - \hat{c}$. A univariate 5-point summary is given.
 - `Coefficients`: The estimated coefficients of the model. In this case, there is just the intercept.
    We get the 
-  - `Std. Error` of the estimate, i.e. the [standard error](https://en.wikipedia.org/wiki/Standard_error) of the mean, 
+  - `Std. Error` of the estimate, i.e. the [standard error (SE)](https://en.wikipedia.org/wiki/Standard_error) of the mean, 
     which is (according to the Central Limit Theorem) 
     $$\frac{\sigma}{\sqrt{n}}$$ and can be estimated by the sample 
     standard deviation divided by the square root of the sample size.
+    $\hat{SE} = \frac{s}{\sqrt{n}}$
   - the `t value` and the `Pr(>|t|)` which is the $p$-value of the (Wald-)test of 
     the null hypothesis that the 
     coefficient is zero ($H_0: \text{intercept}=0$). 
@@ -644,13 +646,14 @@ The dashed vertical red lines show two residuals (one $>0$, the other $<0$), the
 and the estimated height. The model-estimated heights ($\widehat{heights_i}$) 
 are all identical and nothing but the mean of all heights.
 
-Peter Westfall explains in his excellent book a conditional distribution 
-approach to regression. I highly recommend reading the first chapters.
+Peter Westfall explains in his excellent book a **conditional distribution 
+approach** to regression, which is just what happens in the classical linear regression model.
+I **highly recommend** reading the first chapters.
 
 **What does this mean in this context?**
 This means, that for every fixed value of the predictor (which we formally do not have),
 the distribution of the response is normal with mean $\hat{c}$ and standard deviation $\sigma$.
-Since, we do not have a predictor, we can say, that the distribution of the heights is normal with mean $\hat{c}$
+Since, we do not have a predictor (apart from the intercept), we can say, that the distribution of the heights is normal with mean $\hat{c}$
 and standard deviation $\sigma$. This is what we assumed in the model. It can also directly seen
 in the formula:
 
@@ -659,6 +662,35 @@ $$ height_i = c + \varepsilon_i $$
 If you add a normally distributed random variable ($\varepsilon_i$) to a constant ($c$), 
 the result is a normally distributed. No surprise here.
 
+We can also create new data (heights) from this model and compare the distributions
+of the actual data versus the model simulated data, since we have estimated the 
+parameter $c$ and the standard deviation $\sigma$. 
+
+```{r, echo=TRUE, , message=FALSE, warning=FALSE}
+c_hat <- mean(d2$height)
+sigma_hat <- sqrt(sum(mod$residuals^2) / (nrow(d2) - 1))
+
+# simulate heights from model
+heights_sim <- rnorm(nrow(d2), c_hat, sigma_hat) # as many as in orig.
+
+# Convert to data frames for plotting
+df_actual <- data.frame(height = d2$height, type = "Actual Heights")
+df_simulated <- data.frame(height = heights_sim, type = "Simulated Heights")
+
+# Combine the datasets
+df_combined <- rbind(df_actual, df_simulated)
+
+ggplot(df_combined, aes(x = height, fill = type)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Comparison of Actual and Model-Simulated Heights",
+       x = "Height",
+       y = "Density") +
+  scale_fill_manual(values = c("blue", "red")) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+One can repeat the simulation and see how the distributions changes to get 
+a feeling for the variability of the model/data.
 
 ## Exercises
 
