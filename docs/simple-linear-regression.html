@@ -297,7 +297,7 @@ There are many loss functions one could use, maybe we will see some
 later. For now, we punish quadratically.</p>
 <p>We <strong>always</strong> visualize the data first to improve our understanding.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="simple-linear-regression.html#cb41-1" tabindex="-1"></a><span class="fu">plot</span>(d2<span class="sc">$</span>height <span class="sc">~</span> d2<span class="sc">$</span>weight)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>It’s not often, that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
 The higher the weight, the higher the height; with some deviations of course and
@@ -322,8 +322,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-d740f2755e4f9f94fa9a" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-d740f2755e4f9f94fa9a">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-0daf03c46199b8415dd7" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0daf03c46199b8415dd7">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
@@ -373,7 +373,7 @@ definition says.</p>
 <span id="cb42-18"><a href="simple-linear-regression.html#cb42-18" tabindex="-1"></a>        <span class="at">from =</span> <span class="fu">min</span>(d2<span class="sc">$</span>weight), <span class="at">to =</span> <span class="fu">max</span>(d2<span class="sc">$</span>weight),</span>
 <span id="cb42-19"><a href="simple-linear-regression.html#cb42-19" tabindex="-1"></a>        <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.2</span>))</span>
 <span id="cb42-20"><a href="simple-linear-regression.html#cb42-20" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>This linear relationship defined with the chosen priors seems rather
 non-restrictive. According to our priors,
 one could see very steeply rising or falling lines. We could at least make
@@ -402,7 +402,7 @@ for the prior of <span class="math inline">\(\beta\)</span> which can only take 
 <span id="cb43-18"><a href="simple-linear-regression.html#cb43-18" tabindex="-1"></a>        <span class="at">from =</span> <span class="fu">min</span>(d2<span class="sc">$</span>weight), <span class="at">to =</span> <span class="fu">max</span>(d2<span class="sc">$</span>weight),</span>
 <span id="cb43-19"><a href="simple-linear-regression.html#cb43-19" tabindex="-1"></a>        <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.2</span>))</span>
 <span id="cb43-20"><a href="simple-linear-regression.html#cb43-20" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>This seems definitely more realistic.</p>
 </div>
 <div id="fit-model" class="section level3 hasAnchor" number="3.1.3">
@@ -465,7 +465,7 @@ display of the model structure. There is no connection.</li>
 <span id="cb51-3"><a href="simple-linear-regression.html#cb51-3" tabindex="-1"></a>a_quap <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>a)</span>
 <span id="cb51-4"><a href="simple-linear-regression.html#cb51-4" tabindex="-1"></a>b_quap <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>b)</span>
 <span id="cb51-5"><a href="simple-linear-regression.html#cb51-5" tabindex="-1"></a><span class="fu">curve</span>(a_quap <span class="sc">+</span> b_quap <span class="sc">*</span> (x <span class="sc">-</span> xbar), <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 </div>
 <div id="credible-bands" class="section level3 hasAnchor" number="3.1.5">
 <h3><span class="header-section-number">3.1.5</span> Credible bands<a href="simple-linear-regression.html#credible-bands" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -487,7 +487,7 @@ the variability of the estimates.</p>
 <span id="cb54-5"><a href="simple-linear-regression.html#cb54-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
 <span id="cb54-6"><a href="simple-linear-regression.html#cb54-6" tabindex="-1"></a>  <span class="fu">points</span>(weight.seq, mu[i, ], <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.1</span>))</span>
 <span id="cb54-7"><a href="simple-linear-regression.html#cb54-7" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p>The <code>link</code> function fixes the weight at the values in <code>weight.seq</code> and
 draws samples from the posterior distribution of the parameters. We will do
 the analog thing in the frequentist framework.</p>
@@ -498,7 +498,7 @@ the analog thing in the frequentist framework.</p>
 <span id="cb55-4"><a href="simple-linear-regression.html#cb55-4" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, d2, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.5</span>))</span>
 <span id="cb55-5"><a href="simple-linear-regression.html#cb55-5" tabindex="-1"></a><span class="fu">lines</span>(weight.seq, mu.mean)</span>
 <span id="cb55-6"><a href="simple-linear-regression.html#cb55-6" tabindex="-1"></a><span class="fu">shade</span>(mu.PI, weight.seq)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>As we can see, we are pretty sure about the mean of height which
 we wanted to model in the first place.
 <strong>Mean modeling is one thing, individual prediction is another</strong>.
@@ -527,7 +527,7 @@ around the mean (at a certain weight). We do this with <code>sim</code>.</p>
 <span id="cb58-12"><a href="simple-linear-regression.html#cb58-12" tabindex="-1"></a></span>
 <span id="cb58-13"><a href="simple-linear-regression.html#cb58-13" tabindex="-1"></a><span class="co"># Draw PI (prediction interval) region for simulated heights</span></span>
 <span id="cb58-14"><a href="simple-linear-regression.html#cb58-14" tabindex="-1"></a><span class="fu">shade</span>(height.PI, weight.seq)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>The lighter and wider shaded region is where the model expects to find 89%
 of the heights of a person with a certain weight.</p>
 <p>This part is <strong>sometimes a bit desillusioning</strong> when seen for the first time:
@@ -535,7 +535,7 @@ Draw a horizontal line at 150 cm and see how many weights (according to
 the individual prediction) are compatible with this height. Weights
 from 30 to 50 kg are compatible with this height according to the
 89% prediction interval:</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>The higher the credibility, the wider the interval,
 the wider the range of compatible weights.
 In our example, more than 60% of the weight-range are
@@ -626,7 +626,7 @@ are negatively correlated (see <a href="simple-linear-regression.html#exercise6_
 <pre><code>## The following object is masked from &#39;package:MASS&#39;:
 ## 
 ##     area</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>In the case above, the errors are <strong>not conditionally independent</strong>.
 If we condition on <span class="math inline">\(X=2\)</span> and <span class="math inline">\(X=4.5\)</span>, the errors are correlated (<span class="math inline">\(r \sim -0.3\)</span>),
 which they should not be.</p>
@@ -799,7 +799,7 @@ into two parts:</p>
 explains the concept nicely.</p>
 <p>Let’s visualize our regression result:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>The blue dotted line is the distance from
 the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
@@ -856,7 +856,7 @@ which reduces <span class="math inline">\(R^2\)</span> to <span class="math inli
 overlap and it is hard to distinguish between weights when seeing the height.
 With a very low <span class="math inline">\(R^2\)</span>, the height prediction does not really change and we could just as well
 use the mean model.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <p>In the left plot, given <span class="math inline">\(X = x_{low}\)</span> gives a a rather strongly shifted normal distribution of
 potentially observable heights for this weight compared to <span class="math inline">\(X=x_{high}\)</span>.
 We would have a lower missclassification error when trying to distinguish heights
@@ -942,13 +942,13 @@ As guidance, we could check the assumptions in the following order:</p>
 <p>First, we <strong>plot the data</strong>, as we did already above. We can add a
 a smoothing line to the raw data as well:</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <p>It looks like this relationship is describable in a linear way.
 No apparent curvature or patches.
 A refined version of the scatterplot of the raw data is The
 <strong>residual scatter plot</strong> (<span class="math inline">\(x_i, e_i\)</span>):</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>Compared to the scatterplot above, the residuals plot magnifies
 possible curvature. The reason is that the range of residuals
 is smaller than the range of the heights.</p>
@@ -962,7 +962,7 @@ You get the (<span class="math inline">\(\hat{y_i}, e_i\)</span>) plot in R with
 <p>This assumption means that the variance of the residuals is constant.
 If it is violated, the spread around a hypothetical regression line is not constant.
 We look at the residual scatter plot again:</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <p>Look for a changes in patterns of vertical variability. Note, that you
 often do not have as many data points near the end of the range of the predictor.
 Here are some examples of heteroskedasticity:
@@ -981,7 +981,7 @@ with a smoothing line:</p>
 ##  $ age   : num  63 63 65 41 51 35 32 27 19 54 ...
 ##  $ male  : int  1 0 0 1 0 1 0 1 0 1 ...</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>This will probably not be a perfectly horizontal line, since
 there are less points at the end of the range of the predictor.
 For instance, There are less people with extreme weights in the data set.</p>
@@ -1003,7 +1003,7 @@ very likely that I was tall yesterday.</p>
 A <span class="math inline">\(lag=1\)</span> means I compare the residuals with the ones right next to me and check if
 they are correlated.</p>
 <pre><code>## cor= 0.01858044</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>It least with a lag of <span class="math inline">\(1\)</span>, there so no large correlation between the residuals.</p>
 </div>
 <div id="normality_assumption" class="section level4 hasAnchor" number="3.2.6.4">
@@ -1026,7 +1026,7 @@ from the R package <code>car</code>:</p>
 <pre><code>## The following object is masked from &#39;package:rethinking&#39;:
 ## 
 ##     logit</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <pre><code>## 479  94 
 ## 317  72</code></pre>
 <p>With the 97% confidence envelope, we can see if the residuals are
@@ -1035,7 +1035,7 @@ We could again use simulation to see how the Q-Q Plot changes
 to get a better feeling (see <a href="simple-linear-regression.html#exercise9_simpl_lin_reg">exercise 9</a>).</p>
 <p>Another convenient way to check model assumptions (for a wide class of models)
 is to use the <code>check_model</code> function from the <code>performance</code> package:</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>In this case, everything looks fine. Let’s go through the plots and explain them:</p>
 <div id="posterior-predictive-check-upper-left" class="section level5 hasAnchor" number="3.2.6.4.1">
 <h5><span class="header-section-number">3.2.6.4.1</span> Posterior predictive check (upper left)<a href="simple-linear-regression.html#posterior-predictive-check-upper-left" class="anchor-section" aria-label="Anchor link to header"></a></h5>
@@ -1054,11 +1054,11 @@ A scatter plot is also a nice way to check of the model predictions
 are in line with the observed data. One could repeat this process
 multiple times to get a feeling for the variability of the model predictions.</p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <p>The simulated and original data (green) fit nicely together.
 This lends some credibility to the model.
 And now the density plots of the model created data (blue) and the observed data (green):</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <p>As you can see, the densities of the observed and simulated data are broadly similar.
 One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
 Depending on the context, this might be a problem or not. Let’s accept the model for now.</p>
@@ -1089,9 +1089,9 @@ that relates the leverage (<span class="math inline">\(h_{ii}\)</span>), the Coo
 and the residuals. Holding Cook`s distant constant at 0.5,
 gives you the green dotted line in the plot.</p>
 <p>Let’s create an outlier and see what happens:</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-2.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-52-2.png" width="672" /></p>
 <pre><code>## Cook&#39;s distance =  7.025207</code></pre>
 <p>One single outlier changes the diagnostic plots. Observation 352
 is clearly identified as influential. The one point
@@ -1115,7 +1115,7 @@ Let’s try to replicate it:</p>
 <pre><code>## The following objects are masked from &#39;package:ggplot2&#39;:
 ## 
 ##     stat_qq_line, StatQqLine</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>The normality assumption seems to hold. Not that in the above QQ plot,
 we detrended the residuals and used a bootrap confidence band. Depending
 on the band type, the confidence band can be wider or narrower and include
@@ -1133,7 +1133,7 @@ for the effect sizes (<span class="math inline">\(\beta\)</span>s) using <code>c
 we can bootstrap the whole data set, fit the model and draw regression lines.
 We create <span class="math inline">\(100\)</span> bootrap replicates of our data set <code>d2</code> by drawing with
 replication. For every bootrap replicate, we fit the model and draw the regression line.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>The results is very stable. Neither intercept nor slope change much.</p>
 </div>
 <div id="regression-towards-the-mean" class="section level3 hasAnchor" number="3.2.8">
@@ -1149,7 +1149,7 @@ the (model-)predicted height is less than 1 standard deviation above the mean of
 still larger than the average height. Let’s verify:</p>
 <pre><code>## predicted height= 0.7547479</code></pre>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p>As Gelman points out in his book (Figure 4.2), there is a fine detail:
 The regression line is not the line most people would draw through the data.
 They would draw a line through the main directions of variability

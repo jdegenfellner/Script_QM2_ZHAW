@@ -32,7 +32,7 @@ This **should be a collaborative effort** and will (hopefully)
 never be finished as our insight grows over time.
 
 The script can also be seen as a pointer to great sources which are
-fit to deepen your understanding of the topics. Knowledge is decentralized,
+suited to deepen your understanding of the topics. Knowledge is decentralized,
 and there are many great resources out there.
 
 For the working setup with R, please 
@@ -48,6 +48,28 @@ The complete code for this script can be found
 - (Free) [Understanding Regression Analysis: A Conditional Distribution Approach](https://vdoc.pub/documents/understanding-regression-analysis-a-conditional-distribution-approach-84oqjr8sqva0)
 - (Free online-access via ZHAW Library) [Data Analysis Using Regression and Multilevel/Hierarchical Models](http://www.stat.columbia.edu/~gelman/arm/)
 - (Free) [Doing Bayesian Data Analysis](https://nyu-cdsc.github.io/learningr/assets/kruschke_bayesian_in_R.pdf)
+
+```{r, echo=FALSE}
+library(gridExtra)
+library(ggplot2)
+library(png)
+library(grid)
+
+# Load images (ensure they are in the "images/" subfolder)
+img1 <- rasterGrob(readPNG("./images/Cover_Stat_Reth.png"), interpolate=TRUE)
+img2 <- rasterGrob(readPNG("./images/Cover_Westfall.png"), interpolate=TRUE)
+img3 <- rasterGrob(readPNG("./images/Cover_Gelman.png"), interpolate=TRUE)
+img4 <- rasterGrob(readPNG("./images/Cover_Kruschke.png"), interpolate=TRUE)
+
+# Create plots with labels
+p1 <- ggplot() + annotation_custom(img1) + theme_void()
+p2 <- ggplot() + annotation_custom(img2) + theme_void()
+p3 <- ggplot() + annotation_custom(img3) + theme_void()
+p4 <- ggplot() + annotation_custom(img4) + theme_void()
+
+# Arrange in 2x2 grid
+grid.arrange(p1, p2, p3, p4, ncol=2)
+```
 
 
 ## If you need a good reason to buy good books...
