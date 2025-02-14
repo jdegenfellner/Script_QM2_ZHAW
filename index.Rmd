@@ -12,7 +12,7 @@ github-repo: rstudio/bookdown-demo
 description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
 ---
 
-# Introduction {#intro0}
+# Preamble {#intro0}
 
 This script is a continuation of 
 [the first one](https://jdegenfellner.github.io/Script_QM1_ZHAW/) for Quantitative Methods 1 
@@ -33,7 +33,7 @@ never be finished as our insight grows over time.
 
 The script can also be seen as a pointer to great sources which are
 fit to deepen your understanding of the topics. Knowledge is decentralized,
-and there are many great ressources out there.
+and there are many great resources out there.
 
 For the working setup with R, please 
 see [this](https://jdegenfellner.github.io/Script_QM1_ZHAW/index.html#section) 

@@ -226,7 +226,7 @@ $171.1$ cm. We choose the same $\sigma$ for the prior of the normal
 as in the book not to deviate too much from the example at hand.
 
 Next comes our **model definition in the Bayesian framework**, which
-I often find more intuitive than the frequentist approach:
+I often find more intuitive than the Frequentist approach:
 
 \[
 h_i \sim \text{Normal}(\mu, \sigma)
@@ -642,6 +642,8 @@ the result is a normally distributed. No surprise here.
 
 ## Exercises
 
+[E] Easy, [M] Medium, [H] Hard
+
 ### [E] Exercise 1 {#exercise1_Intro}
 
 Use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) data to 
@@ -661,7 +663,7 @@ Verify analytically that the `Residual standard error` is identical with
 the sample standard deviation of the heights.
 
 ### [M] Exercise 4 {#exercise4_Intro}
-Repeat the Bayesian and frequentist estimation of the simple model using a different data set about 
+Repeat the Bayesian and Frequentist estimation of the simple model using a different data set about 
 [chicken weights](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ChickWeight.html),
 which is included in R.
 
