@@ -586,7 +586,7 @@ visit [this video](https://www.youtube.com/watch?v=jEEJNz0RK4Q&ab_channel=COCCma
 There are literally hundreds of videos on the topic. Choose wisely. Not all are good.
 If in doubt, use our recommended books as reading materials. This is the most reliable source.
 A hint along the way: Be very sceptical if you ask GPT about information, 
-although for this special case one has a good chance of getting a good answer due to 
+although for this special case one has a good chance of getting a decent answer due to 
 the vast amount of training data. 
 
 One has to minimize the sum of squared differences between the true heights and 
@@ -721,7 +721,7 @@ many times, the true but unknown value of the parameter will
 be in the interval in 96% of the cases**
 
 We can also use the simple [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)). 
-The advantage of this tequique is that we can basically always use it,
+The advantage of this technique is that we can basically always use it,
 no matter how compliated the estimator is. We do not need formulae.
 We simply
 
@@ -741,7 +741,6 @@ for (i in 1:B) {
   boot_coefs[i, ] <- coef(boot_mod)
 }
 #head(boot_coefs)
-quantile(boot_coefs, c(0.02, 0.98), na.rm = TRUE)
 t(apply(boot_coefs, 2, quantile, c(0.02, 0.98)))
 ```
 The CIs are quite similar to the ones from the `confint` function.
@@ -871,6 +870,8 @@ is the distance from the regression line to the point (unexplained variance).
 We see that it adds up. I find this fact quite fascinating.
 One finds additivity by considering not determinisic values, but variances.
 Thank you [Ronald Fisher](https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.).
+
+See [exercise 13](#exercise13_simpl_lin_reg).
 
 ### $R^2$ - Coefficient of Determination
 [$R^2$](https://en.wikipedia.org/wiki/Coefficient_of_determination)
@@ -1721,3 +1722,9 @@ Go back to the Bayesian simple regression model for height [above](#simple_lin_r
 - Plot the posterior distribution using `plot(model)`.
 - Interpret the regression coefficient $\beta$.
 
+### [M] Exercise 13 {#exercise13_simpl_lin_reg}
+
+Go back to the [ANOVA section](#analysis_of_variance).
+
+- Calculate SSE, SST and SSR for the regression of height on weight.
+- How many degrees of freedom does each term have?

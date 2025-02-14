@@ -219,6 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.10" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise10_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.10</b> [M] Exercise 10</a></li>
 <li class="chapter" data-level="3.3.11" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise11_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.11</b> [E] Exercise 11</a></li>
 <li class="chapter" data-level="3.3.12" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise12_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.12</b> [M] Exercise 12</a></li>
+<li class="chapter" data-level="3.3.13" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise13_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.13</b> [M] Exercise 13</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression</a>
@@ -333,8 +334,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-7a637fe6276f4f65a1d9" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-7a637fe6276f4f65a1d9">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-71025e848b2c06a68cbb" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-71025e848b2c06a68cbb">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
@@ -698,7 +699,7 @@ visit <a href="https://www.youtube.com/watch?v=jEEJNz0RK4Q&amp;ab_channel=COCCma
 There are literally hundreds of videos on the topic. Choose wisely. Not all are good.
 If in doubt, use our recommended books as reading materials. This is the most reliable source.
 A hint along the way: Be very sceptical if you ask GPT about information,
-although for this special case one has a good chance of getting a good answer due to
+although for this special case one has a good chance of getting a decent answer due to
 the vast amount of training data.</p>
 <p>One has to minimize the sum of squared differences between the true heights and
 the model-predicted heights in order to find <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
@@ -789,7 +790,7 @@ the results from the <code>lm</code> function. The dot in red marks the spot
 many times, the true but unknown value of the parameter will
 be in the interval in 96% of the cases</strong></p>
 <p>We can also use the simple <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)">bootstrap</a>.
-The advantage of this tequique is that we can basically always use it,
+The advantage of this technique is that we can basically always use it,
 no matter how compliated the estimator is. We do not need formulae.
 We simply</p>
 <ul>
@@ -808,20 +809,17 @@ We simply</p>
 <span id="cb71-8"><a href="simple-linear-regression.html#cb71-8" tabindex="-1"></a>  boot_coefs[i, ] <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot_mod)</span>
 <span id="cb71-9"><a href="simple-linear-regression.html#cb71-9" tabindex="-1"></a>}</span>
 <span id="cb71-10"><a href="simple-linear-regression.html#cb71-10" tabindex="-1"></a><span class="co">#head(boot_coefs)</span></span>
-<span id="cb71-11"><a href="simple-linear-regression.html#cb71-11" tabindex="-1"></a><span class="fu">quantile</span>(boot_coefs, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<pre><code>##          2%         98% 
-##   0.8343242 117.0319290</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="simple-linear-regression.html#cb73-1" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">apply</span>(boot_coefs, <span class="dv">2</span>, quantile, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>)))</span></code></pre></div>
+<span id="cb71-11"><a href="simple-linear-regression.html#cb71-11" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">apply</span>(boot_coefs, <span class="dv">2</span>, quantile, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>)))</span></code></pre></div>
 <pre><code>##               2%         98%
 ## [1,] 110.1862455 117.4516455
 ## [2,]   0.8229982   0.9859997</code></pre>
 <p>The CIs are quite similar to the ones from the <code>confint</code> function.</p>
 <p>In the Bayesian setting, we used the centered weight variable. Let’s to this here too for
 comparison and use 89% coverage probability.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="simple-linear-regression.html#cb75-1" tabindex="-1"></a>d2<span class="sc">$</span>weight_centered <span class="ot">&lt;-</span> d2<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
-<span id="cb75-2"><a href="simple-linear-regression.html#cb75-2" tabindex="-1"></a>mod_centered <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight_centered, <span class="at">data =</span> d2)</span>
-<span id="cb75-3"><a href="simple-linear-regression.html#cb75-3" tabindex="-1"></a><span class="co">#summary(mod_centered)</span></span>
-<span id="cb75-4"><a href="simple-linear-regression.html#cb75-4" tabindex="-1"></a><span class="fu">confint</span>(mod_centered, <span class="at">level =</span> <span class="fl">0.89</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="simple-linear-regression.html#cb73-1" tabindex="-1"></a>d2<span class="sc">$</span>weight_centered <span class="ot">&lt;-</span> d2<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
+<span id="cb73-2"><a href="simple-linear-regression.html#cb73-2" tabindex="-1"></a>mod_centered <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight_centered, <span class="at">data =</span> d2)</span>
+<span id="cb73-3"><a href="simple-linear-regression.html#cb73-3" tabindex="-1"></a><span class="co">#summary(mod_centered)</span></span>
+<span id="cb73-4"><a href="simple-linear-regression.html#cb73-4" tabindex="-1"></a><span class="fu">confint</span>(mod_centered, <span class="at">level =</span> <span class="fl">0.89</span>)</span></code></pre></div>
 <pre><code>##                      5.5 %      94.5 %
 ## (Intercept)     154.162715 155.0314698
 ## weight_centered   0.837658   0.9724002</code></pre>
@@ -858,6 +856,7 @@ is the distance from the regression line to the point (unexplained variance).
 We see that it adds up. I find this fact quite fascinating.
 One finds additivity by considering not determinisic values, but variances.
 Thank you <a href="https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.">Ronald Fisher</a>.</p>
+<p>See <a href="simple-linear-regression.html#exercise13_simpl_lin_reg">exercise 13</a>.</p>
 </div>
 <div id="r2---coefficient-of-determination" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> <span class="math inline">\(R^2\)</span> - Coefficient of Determination<a href="simple-linear-regression.html#r2---coefficient-of-determination" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -921,34 +920,34 @@ the other is in the 10% quantile. What is the probability that the
 height of the person in the 90% quantile is higher than the height of the other person?
 We could calculate this relatively easy using theorems about additivity of normal distributions.
 Since we are all about application, we simulate this:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="simple-linear-regression.html#cb79-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb79-2"><a href="simple-linear-regression.html#cb79-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
-<span id="cb79-3"><a href="simple-linear-regression.html#cb79-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
-<span id="cb79-4"><a href="simple-linear-regression.html#cb79-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
-<span id="cb79-5"><a href="simple-linear-regression.html#cb79-5" tabindex="-1"></a><span class="co"># Simulate heights for the two quantiles</span></span>
-<span id="cb79-6"><a href="simple-linear-regression.html#cb79-6" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb79-7"><a href="simple-linear-regression.html#cb79-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb79-8"><a href="simple-linear-regression.html#cb79-8" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
-<span id="cb79-9"><a href="simple-linear-regression.html#cb79-9" tabindex="-1"></a><span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="simple-linear-regression.html#cb77-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb77-2"><a href="simple-linear-regression.html#cb77-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb77-3"><a href="simple-linear-regression.html#cb77-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb77-4"><a href="simple-linear-regression.html#cb77-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
+<span id="cb77-5"><a href="simple-linear-regression.html#cb77-5" tabindex="-1"></a><span class="co"># Simulate heights for the two quantiles</span></span>
+<span id="cb77-6"><a href="simple-linear-regression.html#cb77-6" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb77-7"><a href="simple-linear-regression.html#cb77-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb77-8"><a href="simple-linear-regression.html#cb77-8" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
+<span id="cb77-9"><a href="simple-linear-regression.html#cb77-9" tabindex="-1"></a><span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared</span></code></pre></div>
 <pre><code>## [1] 0.5696444</code></pre>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="simple-linear-regression.html#cb81-1" tabindex="-1"></a>x_low_high <span class="ot">&lt;-</span> <span class="fu">quantile</span>(d2<span class="sc">$</span>weight, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
-<span id="cb81-2"><a href="simple-linear-regression.html#cb81-2" tabindex="-1"></a>x_low_high</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="simple-linear-regression.html#cb79-1" tabindex="-1"></a>x_low_high <span class="ot">&lt;-</span> <span class="fu">quantile</span>(d2<span class="sc">$</span>weight, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
+<span id="cb79-2"><a href="simple-linear-regression.html#cb79-2" tabindex="-1"></a>x_low_high</span></code></pre></div>
 <pre><code>##      10%      90% 
 ## 36.48581 54.01997</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="simple-linear-regression.html#cb83-1" tabindex="-1"></a>mean1 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">1</span>]</span>
-<span id="cb83-2"><a href="simple-linear-regression.html#cb83-2" tabindex="-1"></a>mean2 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">2</span>]</span>
-<span id="cb83-3"><a href="simple-linear-regression.html#cb83-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fl">5.086</span>  <span class="co"># Standard deviation for both distributions</span></span>
-<span id="cb83-4"><a href="simple-linear-regression.html#cb83-4" tabindex="-1"></a>simulated_heights <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb83-5"><a href="simple-linear-regression.html#cb83-5" tabindex="-1"></a>  <span class="co"># conditional normal distribution according to the model</span></span>
-<span id="cb83-6"><a href="simple-linear-regression.html#cb83-6" tabindex="-1"></a>  <span class="at">x_low =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span> mean1, <span class="at">sd =</span> sd),</span>
-<span id="cb83-7"><a href="simple-linear-regression.html#cb83-7" tabindex="-1"></a>  <span class="at">x_high =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span>  mean2, <span class="at">sd =</span> sd)</span>
-<span id="cb83-8"><a href="simple-linear-regression.html#cb83-8" tabindex="-1"></a>)</span>
-<span id="cb83-9"><a href="simple-linear-regression.html#cb83-9" tabindex="-1"></a></span>
-<span id="cb83-10"><a href="simple-linear-regression.html#cb83-10" tabindex="-1"></a><span class="co"># Calculate the probability that the height of the person in the 90% quantile is higher</span></span>
-<span id="cb83-11"><a href="simple-linear-regression.html#cb83-11" tabindex="-1"></a><span class="co"># than the height of the person in the 10% quantile</span></span>
-<span id="cb83-12"><a href="simple-linear-regression.html#cb83-12" tabindex="-1"></a>simulated_heights <span class="sc">%&gt;%</span></span>
-<span id="cb83-13"><a href="simple-linear-regression.html#cb83-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">higher_height =</span> x_high <span class="sc">&gt;</span> x_low) <span class="sc">%&gt;%</span></span>
-<span id="cb83-14"><a href="simple-linear-regression.html#cb83-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">mean</span>(higher_height))</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="simple-linear-regression.html#cb81-1" tabindex="-1"></a>mean1 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">1</span>]</span>
+<span id="cb81-2"><a href="simple-linear-regression.html#cb81-2" tabindex="-1"></a>mean2 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">2</span>]</span>
+<span id="cb81-3"><a href="simple-linear-regression.html#cb81-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fl">5.086</span>  <span class="co"># Standard deviation for both distributions</span></span>
+<span id="cb81-4"><a href="simple-linear-regression.html#cb81-4" tabindex="-1"></a>simulated_heights <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb81-5"><a href="simple-linear-regression.html#cb81-5" tabindex="-1"></a>  <span class="co"># conditional normal distribution according to the model</span></span>
+<span id="cb81-6"><a href="simple-linear-regression.html#cb81-6" tabindex="-1"></a>  <span class="at">x_low =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span> mean1, <span class="at">sd =</span> sd),</span>
+<span id="cb81-7"><a href="simple-linear-regression.html#cb81-7" tabindex="-1"></a>  <span class="at">x_high =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span>  mean2, <span class="at">sd =</span> sd)</span>
+<span id="cb81-8"><a href="simple-linear-regression.html#cb81-8" tabindex="-1"></a>)</span>
+<span id="cb81-9"><a href="simple-linear-regression.html#cb81-9" tabindex="-1"></a></span>
+<span id="cb81-10"><a href="simple-linear-regression.html#cb81-10" tabindex="-1"></a><span class="co"># Calculate the probability that the height of the person in the 90% quantile is higher</span></span>
+<span id="cb81-11"><a href="simple-linear-regression.html#cb81-11" tabindex="-1"></a><span class="co"># than the height of the person in the 10% quantile</span></span>
+<span id="cb81-12"><a href="simple-linear-regression.html#cb81-12" tabindex="-1"></a>simulated_heights <span class="sc">%&gt;%</span></span>
+<span id="cb81-13"><a href="simple-linear-regression.html#cb81-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">higher_height =</span> x_high <span class="sc">&gt;</span> x_low) <span class="sc">%&gt;%</span></span>
+<span id="cb81-14"><a href="simple-linear-regression.html#cb81-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">mean</span>(higher_height))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   `mean(higher_height)`
 ##                   &lt;dbl&gt;
@@ -1334,6 +1333,14 @@ is taller than a person in the 10% quantile of the weight change if you change</
 <li>Estimate the regression model as we did in the section using <code>quap</code>.</li>
 <li>Plot the posterior distribution using <code>plot(model)</code>.</li>
 <li>Interpret the regression coefficient <span class="math inline">\(\beta\)</span>.</li>
+</ul>
+</div>
+<div id="exercise13_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.13">
+<h3><span class="header-section-number">3.3.13</span> [M] Exercise 13<a href="simple-linear-regression.html#exercise13_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Go back to the <a href="simple-linear-regression.html#analysis_of_variance">ANOVA section</a>.</p>
+<ul>
+<li>Calculate SSE, SST and SSR for the regression of height on weight.</li>
+<li>How many degrees of freedom does each term have?</li>
 </ul>
 
 </div>

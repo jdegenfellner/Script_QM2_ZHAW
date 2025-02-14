@@ -60,6 +60,7 @@ exercise9_simpl_lin_reg
 exercise10_simpl_lin_reg
 exercise11_simpl_lin_reg
 exercise12_simpl_lin_reg
+exercise13_simpl_lin_reg
 multiple-linear-regression
 linear-regression-with-2-predictors-in-the-baysian-framework
 meaning-of-linear
