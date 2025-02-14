@@ -15,6 +15,7 @@ exercise2_Intro
 exercise3_Intro
 exercise4_Intro
 exercise5_Intro
+exercise6_Intro
 addendum
 bivariate_normal
 simple-linear-regression
