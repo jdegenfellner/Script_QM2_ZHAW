@@ -334,8 +334,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-71025e848b2c06a68cbb" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-71025e848b2c06a68cbb">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-ec35c814efe44780a2a5" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-ec35c814efe44780a2a5">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
@@ -939,14 +939,14 @@ Since we are all about application, we simulate this:</p>
 <span id="cb81-3"><a href="simple-linear-regression.html#cb81-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fl">5.086</span>  <span class="co"># Standard deviation for both distributions</span></span>
 <span id="cb81-4"><a href="simple-linear-regression.html#cb81-4" tabindex="-1"></a>simulated_heights <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb81-5"><a href="simple-linear-regression.html#cb81-5" tabindex="-1"></a>  <span class="co"># conditional normal distribution according to the model</span></span>
-<span id="cb81-6"><a href="simple-linear-regression.html#cb81-6" tabindex="-1"></a>  <span class="at">x_low =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span> mean1, <span class="at">sd =</span> sd),</span>
-<span id="cb81-7"><a href="simple-linear-regression.html#cb81-7" tabindex="-1"></a>  <span class="at">x_high =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span>  mean2, <span class="at">sd =</span> sd)</span>
+<span id="cb81-6"><a href="simple-linear-regression.html#cb81-6" tabindex="-1"></a>  <span class="at">low_heights =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span> mean1, <span class="at">sd =</span> sd),</span>
+<span id="cb81-7"><a href="simple-linear-regression.html#cb81-7" tabindex="-1"></a>  <span class="at">high_heights =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span>  mean2, <span class="at">sd =</span> sd)</span>
 <span id="cb81-8"><a href="simple-linear-regression.html#cb81-8" tabindex="-1"></a>)</span>
 <span id="cb81-9"><a href="simple-linear-regression.html#cb81-9" tabindex="-1"></a></span>
 <span id="cb81-10"><a href="simple-linear-regression.html#cb81-10" tabindex="-1"></a><span class="co"># Calculate the probability that the height of the person in the 90% quantile is higher</span></span>
 <span id="cb81-11"><a href="simple-linear-regression.html#cb81-11" tabindex="-1"></a><span class="co"># than the height of the person in the 10% quantile</span></span>
 <span id="cb81-12"><a href="simple-linear-regression.html#cb81-12" tabindex="-1"></a>simulated_heights <span class="sc">%&gt;%</span></span>
-<span id="cb81-13"><a href="simple-linear-regression.html#cb81-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">higher_height =</span> x_high <span class="sc">&gt;</span> x_low) <span class="sc">%&gt;%</span></span>
+<span id="cb81-13"><a href="simple-linear-regression.html#cb81-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">higher_height =</span> high_heights <span class="sc">&gt;</span> low_heights) <span class="sc">%&gt;%</span></span>
 <span id="cb81-14"><a href="simple-linear-regression.html#cb81-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">mean</span>(higher_height))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   `mean(higher_height)`

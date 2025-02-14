@@ -1082,14 +1082,14 @@ mean2 <- 113.8793936 + 0.9050291 * x_low_high[2]
 sd <- 5.086  # Standard deviation for both distributions
 simulated_heights <- tibble(
   # conditional normal distribution according to the model
-  x_low = rnorm(n_sims, mean = mean1, sd = sd),
-  x_high = rnorm(n_sims, mean =  mean2, sd = sd)
+  low_heights = rnorm(n_sims, mean = mean1, sd = sd),
+  high_heights = rnorm(n_sims, mean =  mean2, sd = sd)
 )
 
 # Calculate the probability that the height of the person in the 90% quantile is higher
 # than the height of the person in the 10% quantile
 simulated_heights %>%
-  mutate(higher_height = x_high > x_low) %>%
+  mutate(higher_height = high_heights > low_heights) %>%
   dplyr::summarise(mean(higher_height))
 ```
 
