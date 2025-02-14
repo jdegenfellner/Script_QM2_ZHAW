@@ -19,7 +19,7 @@ exercise6_Intro
 addendum
 bivariate_normal
 simple-linear-regression
-simple-linear-regression-in-the-bayesian-framework
+simple_lin_reg_bayes
 model-definition
 priors
 fit-model
@@ -59,6 +59,7 @@ exercise8_simpl_lin_reg
 exercise9_simpl_lin_reg
 exercise10_simpl_lin_reg
 exercise11_simpl_lin_reg
+exercise12_simpl_lin_reg
 multiple-linear-regression
 linear-regression-with-2-predictors-in-the-baysian-framework
 meaning-of-linear

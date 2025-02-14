@@ -184,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple-linear-regression-in-the-bayesian-framework"><i class="fa fa-check"></i><b>3.1</b> Simple Linear Regression in the Bayesian Framework</a>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#simple_lin_reg_bayes"><i class="fa fa-check"></i><b>3.1</b> Simple Linear Regression in the Bayesian Framework</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#model-definition"><i class="fa fa-check"></i><b>3.1.1</b> Model definition</a></li>
 <li class="chapter" data-level="3.1.2" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#priors"><i class="fa fa-check"></i><b>3.1.2</b> Priors</a></li>
@@ -218,6 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise9_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.9</b> [M] Exercise 9</a></li>
 <li class="chapter" data-level="3.3.10" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise10_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.10</b> [M] Exercise 10</a></li>
 <li class="chapter" data-level="3.3.11" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise11_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.11</b> [E] Exercise 11</a></li>
+<li class="chapter" data-level="3.3.12" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise12_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.12</b> [M] Exercise 12</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression</a>
@@ -270,8 +271,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="simple-linear-regression" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Simple Linear Regression<a href="simple-linear-regression.html#simple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="simple-linear-regression-in-the-bayesian-framework" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Simple Linear Regression in the Bayesian Framework<a href="simple-linear-regression.html#simple-linear-regression-in-the-bayesian-framework" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="simple_lin_reg_bayes" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Simple Linear Regression in the Bayesian Framework<a href="simple-linear-regression.html#simple_lin_reg_bayes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will now add one covariate/explanatory variable to the model.
 Refer to <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking</a>
 “4.4 Linear prediction” or “4.4 Adding a predictor” as it’s called in the online version of the book.</p>
@@ -283,6 +284,13 @@ Formally, one wants to <em>predict</em> body heights from body weights.</p>
 <p>Here and in the frequentist framework, we will see that it is <strong>not the same</strong>
 problem (and therefore results in a different statistical model)
 <strong>to predict body weights from body heights or vice versa</strong>.</p>
+<p>We remember the following:</p>
+<ul>
+<li>Regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(X\)</span>, which is equivalent to predict <span class="math inline">\(Y\)</span> from <span class="math inline">\(X\)</span>.
+We know X and want to predict Y.</li>
+<li>Regress <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>, which is equivalent to predict <span class="math inline">\(X\)</span> from <span class="math inline">\(Y\)</span>.
+We know Y and want to predict X.</li>
+</ul>
 <p>The word “predictor” is important here. It is a technical term
 and describes a variable that we know (in our case weight) and with
 which we want to “guess as good as possible” the value of the
@@ -293,13 +301,15 @@ And not only that, but if you are twice as far away from the true value,
 you should be penalized four times as much. This is the idea behind
 the squared error <a href="https://en.wikipedia.org/wiki/Loss_function">loss function</a>
 and the core of the least squares method.
-What if we would punish differently you ask?
-There are many loss functions one could use, maybe we will see some
-later. For now, we punish quadratically.</p>
-<p>We <strong>always</strong> visualize the data first to improve our understanding.</p>
+What if we would punish differently, you ask?
+There are many loss functions one could use
+(for instance the <a href="https://en.wikipedia.org/wiki/Huber_loss">Huber loss</a>),
+maybe we will see some later. For now, we punish quadratically.</p>
+<p>We <strong>always</strong> visualize the data first to improve our understanding.
+First comes descriptive statistics, then one can think about modeling.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="simple-linear-regression.html#cb42-1" tabindex="-1"></a><span class="fu">plot</span>(d2<span class="sc">$</span>height <span class="sc">~</span> d2<span class="sc">$</span>weight)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>It’s not often, that you see such a clean plot.
+<p>It’s not often that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
 The higher the weight, the higher the height; with some deviations of course and
 we decide that normally distributed errors are a good idea.
@@ -323,9 +333,10 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-71845466ac07b97a7400" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-71845466ac07b97a7400">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
-<p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>.
+<div class="grViz html-widget html-fill-item" id="htmlwidget-e3a7724d473f9038fb9a" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-e3a7724d473f9038fb9a">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
+(compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.</p>
 <ul>
@@ -341,16 +352,20 @@ determined by that specific normal distribution. Note, that we could
 easily adapt the distribtion to any distribution we like.</li>
 <li>The prior for <span class="math inline">\(\sigma\)</span> is unchanged.</li>
 <li><span class="math inline">\(x_i - \bar{x}\)</span> is the deviation of the weight from the mean weight, thereby <strong>we
-center</strong> the weight variable. This is a common practice in regression analysis.</li>
+center</strong> the weight variable. This is a common practice in regression analysis.
+A value <span class="math inline">\(x_i - \bar{x} &gt; 0\)</span> implies that the person is heavier than the average.</li>
 </ul>
 <p>The linear model is quite popular in applied statistics and one
-reason is probably the rather straightforward interpretation of the coefficients.</p>
+reason is probably the rather straightforward interpretation of the coefficients:
+A one unit increase in weight is on average (in the mean) associated with
+a <span class="math inline">\(\beta\)</span> unit increase/decrease (depending if <span class="math inline">\(\beta\)</span> is <span class="math inline">\(&gt;0\)</span> or <span class="math inline">\(&lt;0\)</span>) in height.</p>
 </div>
 <div id="priors" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> Priors<a href="simple-linear-regression.html#priors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We want to plot our priors to get a feeling <strong>what
+<p>We want to plot our prior predictions to get a feeling <strong>what
 the model would predict without seeing the data</strong>.
-This is a kind of “sanity check” to see if the priors are reasonable.
+This is a kind of “sanity check” to see if the priors and
+the model definition are reasonable.
 Again, we just draw from the assumed distributions for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 100 times and draw the corresponding lines. Just as the model
 definition says.</p>
@@ -359,9 +374,9 @@ definition says.</p>
 <span id="cb43-3"><a href="simple-linear-regression.html#cb43-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="fl">171.1</span>, <span class="dv">20</span>)</span>
 <span id="cb43-4"><a href="simple-linear-regression.html#cb43-4" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">10</span>)</span>
 <span id="cb43-5"><a href="simple-linear-regression.html#cb43-5" tabindex="-1"></a></span>
-<span id="cb43-6"><a href="simple-linear-regression.html#cb43-6" tabindex="-1"></a><span class="co"># Assume d2$weight is defined, e.g., using some dataset or simulation</span></span>
-<span id="cb43-7"><a href="simple-linear-regression.html#cb43-7" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
-<span id="cb43-8"><a href="simple-linear-regression.html#cb43-8" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="simple-linear-regression.html#cb43-6" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
+<span id="cb43-7"><a href="simple-linear-regression.html#cb43-7" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="simple-linear-regression.html#cb43-8" tabindex="-1"></a><span class="co"># start with empty plot</span></span>
 <span id="cb43-9"><a href="simple-linear-regression.html#cb43-9" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="dv">400</span>),</span>
 <span id="cb43-10"><a href="simple-linear-regression.html#cb43-10" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;weight&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;height&quot;</span>)</span>
 <span id="cb43-11"><a href="simple-linear-regression.html#cb43-11" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)  <span class="co"># horizontal line at 0</span></span>
@@ -377,8 +392,9 @@ definition says.</p>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>This linear relationship defined with the chosen priors seems rather
 non-restrictive. According to our priors,
-one could see very steeply rising or falling lines. We could at least make
-the priors for the slope (<span class="math inline">\(\beta\)</span>) non-negative. One possibility to do this
+one could see very steeply rising or falling relationships between weight and expected heights.
+We could at least make the priors for the slope (<span class="math inline">\(\beta\)</span>) non-negative.
+One possibility to do this
 is to use a <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">log-normal distribution</a>
 for the prior of <span class="math inline">\(\beta\)</span> which can only take non-negative values.</p>
 <p><span class="math display">\[ \beta \sim \text{Log-Normal}(0, 1) \]</span></p>
@@ -388,23 +404,23 @@ for the prior of <span class="math inline">\(\beta\)</span> which can only take 
 <span id="cb44-3"><a href="simple-linear-regression.html#cb44-3" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N, <span class="fl">171.1</span>, <span class="dv">20</span>)</span>
 <span id="cb44-4"><a href="simple-linear-regression.html#cb44-4" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(N, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb44-5"><a href="simple-linear-regression.html#cb44-5" tabindex="-1"></a></span>
-<span id="cb44-6"><a href="simple-linear-regression.html#cb44-6" tabindex="-1"></a><span class="co"># Assume d2$weight is defined, e.g., using some dataset or simulation</span></span>
-<span id="cb44-7"><a href="simple-linear-regression.html#cb44-7" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
-<span id="cb44-8"><a href="simple-linear-regression.html#cb44-8" tabindex="-1"></a></span>
-<span id="cb44-9"><a href="simple-linear-regression.html#cb44-9" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="dv">400</span>),</span>
-<span id="cb44-10"><a href="simple-linear-regression.html#cb44-10" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;weight&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;height&quot;</span>)</span>
-<span id="cb44-11"><a href="simple-linear-regression.html#cb44-11" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)  <span class="co"># horizontal line at 0</span></span>
-<span id="cb44-12"><a href="simple-linear-regression.html#cb44-12" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">272</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>)  <span class="co"># horizontal line at 272</span></span>
-<span id="cb44-13"><a href="simple-linear-regression.html#cb44-13" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;b ~ dlnorm(0, 1)&quot;</span>)</span>
-<span id="cb44-14"><a href="simple-linear-regression.html#cb44-14" tabindex="-1"></a></span>
-<span id="cb44-15"><a href="simple-linear-regression.html#cb44-15" tabindex="-1"></a><span class="co"># Overlay the 100 lines</span></span>
-<span id="cb44-16"><a href="simple-linear-regression.html#cb44-16" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
-<span id="cb44-17"><a href="simple-linear-regression.html#cb44-17" tabindex="-1"></a>  <span class="fu">curve</span>(a[i] <span class="sc">+</span> b[i] <span class="sc">*</span> (x <span class="sc">-</span> xbar),</span>
-<span id="cb44-18"><a href="simple-linear-regression.html#cb44-18" tabindex="-1"></a>        <span class="at">from =</span> <span class="fu">min</span>(d2<span class="sc">$</span>weight), <span class="at">to =</span> <span class="fu">max</span>(d2<span class="sc">$</span>weight),</span>
-<span id="cb44-19"><a href="simple-linear-regression.html#cb44-19" tabindex="-1"></a>        <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.2</span>))</span>
-<span id="cb44-20"><a href="simple-linear-regression.html#cb44-20" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb44-6"><a href="simple-linear-regression.html#cb44-6" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
+<span id="cb44-7"><a href="simple-linear-regression.html#cb44-7" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="simple-linear-regression.html#cb44-8" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="dv">400</span>),</span>
+<span id="cb44-9"><a href="simple-linear-regression.html#cb44-9" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;weight&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;height&quot;</span>)</span>
+<span id="cb44-10"><a href="simple-linear-regression.html#cb44-10" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)  <span class="co"># horizontal line at 0</span></span>
+<span id="cb44-11"><a href="simple-linear-regression.html#cb44-11" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">272</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>)  <span class="co"># horizontal line at 272</span></span>
+<span id="cb44-12"><a href="simple-linear-regression.html#cb44-12" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">&quot;b ~ dlnorm(0, 1)&quot;</span>)</span>
+<span id="cb44-13"><a href="simple-linear-regression.html#cb44-13" tabindex="-1"></a></span>
+<span id="cb44-14"><a href="simple-linear-regression.html#cb44-14" tabindex="-1"></a><span class="co"># Overlay the 100 lines</span></span>
+<span id="cb44-15"><a href="simple-linear-regression.html#cb44-15" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb44-16"><a href="simple-linear-regression.html#cb44-16" tabindex="-1"></a>  <span class="fu">curve</span>(a[i] <span class="sc">+</span> b[i] <span class="sc">*</span> (x <span class="sc">-</span> xbar),</span>
+<span id="cb44-17"><a href="simple-linear-regression.html#cb44-17" tabindex="-1"></a>        <span class="at">from =</span> <span class="fu">min</span>(d2<span class="sc">$</span>weight), <span class="at">to =</span> <span class="fu">max</span>(d2<span class="sc">$</span>weight),</span>
+<span id="cb44-18"><a href="simple-linear-regression.html#cb44-18" tabindex="-1"></a>        <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(<span class="st">&quot;black&quot;</span>, <span class="fl">0.2</span>))</span>
+<span id="cb44-19"><a href="simple-linear-regression.html#cb44-19" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<p>This seems definitely more realistic.</p>
+<p>This seems definitely more realistic. There is some sort of positive linear relationship
+between weight and expected height.</p>
 </div>
 <div id="fit-model" class="section level3 hasAnchor" number="3.1.3">
 <h3><span class="header-section-number">3.1.3</span> Fit model<a href="simple-linear-regression.html#fit-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -425,12 +441,24 @@ for the prior of <span class="math inline">\(\beta\)</span> which can only take 
 <span id="cb45-14"><a href="simple-linear-regression.html#cb45-14" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
 <span id="cb45-15"><a href="simple-linear-regression.html#cb45-15" tabindex="-1"></a>    ) ,</span>
 <span id="cb45-16"><a href="simple-linear-regression.html#cb45-16" tabindex="-1"></a><span class="at">data =</span> d2)</span></code></pre></div>
-<p>Let’s look at the <strong>marginal distributions</strong> of the parameters:</p>
+<p>Note that the model definition was now directly included in the <code>quap</code> function.
+Let’s look at the <strong>marginal distributions</strong> of the parameters:</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="simple-linear-regression.html#cb46-1" tabindex="-1"></a><span class="fu">precis</span>(mod)</span></code></pre></div>
 <pre><code>##              mean         sd        5.5%       94.5%
 ## a     154.5972120 0.27033045 154.1651717 155.0292523
 ## b       0.9050131 0.04192754   0.8380048   0.9720214
 ## sigma   5.0718673 0.19115323   4.7663675   5.3773671</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="simple-linear-regression.html#cb48-1" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>Note, that the credible intervals in the plot of the coefficients are
+hardly noticable. The reason is that the intercept <span class="math inline">\(a\)</span> is rather large,
+whereas <span class="math inline">\(b\)</span> and sigma are comparativly small. The plot is scaled to the
+largest parameter.</p>
+<p>We can improve this by centering the height variable as well. Or,
+we could standardize both weight and height. This would change the interpretation
+of the <span class="math inline">\(\beta\)</span> parameter. It would then be the expected change in standard deviations
+when changing weight by one standard deviation.
+See <a href="simple-linear-regression.html#exercise12_simpl_lin_reg">exercise 12</a>.</p>
 <p>The analysis yields estimates for all our parameters of the model: <span class="math inline">\(\alpha\)</span>,
 <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma\)</span>. The estimates are the mean of the posterior distribution.</p>
 <p>See <a href="simple-linear-regression.html#exercise2_simpl_lin_reg">exercise 2</a>.</p>
@@ -444,10 +472,10 @@ respectively the correlation between the parameters as we did before
 in the intercept model. Remember, these are the correlations of
 parameters in the multivariate (because three paremeters simulatenously)
 posterior distribution.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="simple-linear-regression.html#cb48-1" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">vcov</span>(mod))</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="simple-linear-regression.html#cb49-1" tabindex="-1"></a><span class="fu">diag</span>(<span class="fu">vcov</span>(mod))</span></code></pre></div>
 <pre><code>##           a           b       sigma 
 ## 0.073078550 0.001757918 0.036539558</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="simple-linear-regression.html#cb50-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov2cor</span>(<span class="fu">vcov</span>(mod)),<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="simple-linear-regression.html#cb51-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cov2cor</span>(<span class="fu">vcov</span>(mod)),<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##       a b sigma
 ## a     1 0     0
 ## b     0 1     0
@@ -460,45 +488,62 @@ display of the model structure. There is no connection.</li>
 </div>
 <div id="result" class="section level3 hasAnchor" number="3.1.4">
 <h3><span class="header-section-number">3.1.4</span> Result<a href="simple-linear-regression.html#result" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Graphical end result</strong> of fitting the model:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="simple-linear-regression.html#cb52-1" tabindex="-1"></a><span class="fu">plot</span>(d2<span class="sc">$</span>height <span class="sc">~</span> d2<span class="sc">$</span>weight, <span class="at">col =</span> rangi2)</span>
-<span id="cb52-2"><a href="simple-linear-regression.html#cb52-2" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(mod)</span>
-<span id="cb52-3"><a href="simple-linear-regression.html#cb52-3" tabindex="-1"></a>a_quap <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>a)</span>
-<span id="cb52-4"><a href="simple-linear-regression.html#cb52-4" tabindex="-1"></a>b_quap <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>b)</span>
-<span id="cb52-5"><a href="simple-linear-regression.html#cb52-5" tabindex="-1"></a><span class="fu">curve</span>(a_quap <span class="sc">+</span> b_quap <span class="sc">*</span> (x <span class="sc">-</span> xbar), <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><strong>Graphical end result</strong> of fitting the model:
+We plot the marginal posterior distributions of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>,
+and also the raw data with the found regression line.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="simple-linear-regression.html#cb53-1" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(mod)</span>
+<span id="cb53-2"><a href="simple-linear-regression.html#cb53-2" tabindex="-1"></a><span class="fu">dens</span>(post<span class="sc">$</span>a, <span class="at">col =</span> rangi2)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="simple-linear-regression.html#cb54-1" tabindex="-1"></a><span class="fu">dens</span>(post<span class="sc">$</span>b, <span class="at">col =</span> rangi2)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-2.png" width="672" /></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="simple-linear-regression.html#cb55-1" tabindex="-1"></a><span class="co"># both posteror plots seem symmetric</span></span>
+<span id="cb55-2"><a href="simple-linear-regression.html#cb55-2" tabindex="-1"></a><span class="co"># we use the mean as point estimate</span></span>
+<span id="cb55-3"><a href="simple-linear-regression.html#cb55-3" tabindex="-1"></a><span class="co"># for a and b.</span></span>
+<span id="cb55-4"><a href="simple-linear-regression.html#cb55-4" tabindex="-1"></a>a_quap <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>a)</span>
+<span id="cb55-5"><a href="simple-linear-regression.html#cb55-5" tabindex="-1"></a>b_quap <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>b)</span>
+<span id="cb55-6"><a href="simple-linear-regression.html#cb55-6" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="simple-linear-regression.html#cb55-7" tabindex="-1"></a><span class="fu">plot</span>(d2<span class="sc">$</span>height <span class="sc">~</span> d2<span class="sc">$</span>weight, <span class="at">col =</span> rangi2)</span>
+<span id="cb55-8"><a href="simple-linear-regression.html#cb55-8" tabindex="-1"></a><span class="fu">curve</span>(a_quap <span class="sc">+</span> b_quap <span class="sc">*</span> (x <span class="sc">-</span> xbar), <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-3.png" width="672" /></p>
 </div>
 <div id="credible-bands" class="section level3 hasAnchor" number="3.1.5">
 <h3><span class="header-section-number">3.1.5</span> Credible bands<a href="simple-linear-regression.html#credible-bands" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We could draw again and again from the posterior distribution
 and calculate the means like above. Plotting the regression lines
 with the respective parameters <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> would indicate
-the variability of the estimates.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="simple-linear-regression.html#cb53-1" tabindex="-1"></a><span class="co"># Define a sequence of weights for predictions</span></span>
-<span id="cb53-2"><a href="simple-linear-regression.html#cb53-2" tabindex="-1"></a>weight.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">25</span>, <span class="at">to =</span> <span class="dv">70</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
-<span id="cb53-3"><a href="simple-linear-regression.html#cb53-3" tabindex="-1"></a></span>
-<span id="cb53-4"><a href="simple-linear-regression.html#cb53-4" tabindex="-1"></a><span class="co"># Use the model to compute mu for each weight</span></span>
-<span id="cb53-5"><a href="simple-linear-regression.html#cb53-5" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">link</span>(mod, <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">weight =</span> weight.seq))</span>
-<span id="cb53-6"><a href="simple-linear-regression.html#cb53-6" tabindex="-1"></a><span class="fu">str</span>(mu)</span></code></pre></div>
+the variability of the estimates.
+Note that we do not draw from the data (as one does in bootstrap resampling),
+but from the posterior distribution.
+The <code>link</code> function does this for us. It takes the posterior distribution We
+have just fit, samples <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> from it, calculates the mean and then
+samples from this normal distribution for the mean at a given weight.
+Refer to pages 98-106 in the current version of the book Statistical Rethinking
+for all details.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="simple-linear-regression.html#cb56-1" tabindex="-1"></a><span class="co"># Define a sequence of weights for predictions</span></span>
+<span id="cb56-2"><a href="simple-linear-regression.html#cb56-2" tabindex="-1"></a>weight.seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">25</span>, <span class="at">to =</span> <span class="dv">70</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb56-3"><a href="simple-linear-regression.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="simple-linear-regression.html#cb56-4" tabindex="-1"></a><span class="co"># Use the model to compute mu for each weight</span></span>
+<span id="cb56-5"><a href="simple-linear-regression.html#cb56-5" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">link</span>(mod, <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">weight =</span> weight.seq))</span>
+<span id="cb56-6"><a href="simple-linear-regression.html#cb56-6" tabindex="-1"></a><span class="fu">str</span>(mu)</span></code></pre></div>
 <pre><code>##  num [1:1000, 1:46] 138 136 137 136 137 ...</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="simple-linear-regression.html#cb55-1" tabindex="-1"></a><span class="co"># Visualize the distribution of mu values</span></span>
-<span id="cb55-2"><a href="simple-linear-regression.html#cb55-2" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, d2, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>)  <span class="co"># Hide raw data with type = &quot;n&quot;</span></span>
-<span id="cb55-3"><a href="simple-linear-regression.html#cb55-3" tabindex="-1"></a></span>
-<span id="cb55-4"><a href="simple-linear-regression.html#cb55-4" tabindex="-1"></a><span class="co"># Loop over samples and plot each mu value</span></span>
-<span id="cb55-5"><a href="simple-linear-regression.html#cb55-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb55-6"><a href="simple-linear-regression.html#cb55-6" tabindex="-1"></a>  <span class="fu">points</span>(weight.seq, mu[i, ], <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.1</span>))</span>
-<span id="cb55-7"><a href="simple-linear-regression.html#cb55-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="simple-linear-regression.html#cb58-1" tabindex="-1"></a><span class="co"># Visualize the distribution of mu values</span></span>
+<span id="cb58-2"><a href="simple-linear-regression.html#cb58-2" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, d2, <span class="at">type =</span> <span class="st">&quot;n&quot;</span>)  <span class="co"># Hide raw data with type = &quot;n&quot;</span></span>
+<span id="cb58-3"><a href="simple-linear-regression.html#cb58-3" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="simple-linear-regression.html#cb58-4" tabindex="-1"></a><span class="co"># Loop over samples and plot each mu value</span></span>
+<span id="cb58-5"><a href="simple-linear-regression.html#cb58-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb58-6"><a href="simple-linear-regression.html#cb58-6" tabindex="-1"></a>  <span class="fu">points</span>(weight.seq, mu[i, ], <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.1</span>))</span>
+<span id="cb58-7"><a href="simple-linear-regression.html#cb58-7" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>The <code>link</code> function fixes the weight at the values in <code>weight.seq</code> and
 draws samples from the posterior distribution of the parameters. We will do
 the analog thing in the frequentist framework.</p>
 <p>We can also draw a nice shade for the regression line:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="simple-linear-regression.html#cb56-1" tabindex="-1"></a><span class="co"># Summarize the distribution of mu</span></span>
-<span id="cb56-2"><a href="simple-linear-regression.html#cb56-2" tabindex="-1"></a>mu.mean <span class="ot">&lt;-</span> <span class="fu">apply</span>(mu, <span class="dv">2</span>, mean)</span>
-<span id="cb56-3"><a href="simple-linear-regression.html#cb56-3" tabindex="-1"></a>mu.PI <span class="ot">&lt;-</span> <span class="fu">apply</span>(mu, <span class="dv">2</span>, PI, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
-<span id="cb56-4"><a href="simple-linear-regression.html#cb56-4" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, d2, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.5</span>))</span>
-<span id="cb56-5"><a href="simple-linear-regression.html#cb56-5" tabindex="-1"></a><span class="fu">lines</span>(weight.seq, mu.mean)</span>
-<span id="cb56-6"><a href="simple-linear-regression.html#cb56-6" tabindex="-1"></a><span class="fu">shade</span>(mu.PI, weight.seq)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="simple-linear-regression.html#cb59-1" tabindex="-1"></a><span class="co"># Summarize the distribution of mu</span></span>
+<span id="cb59-2"><a href="simple-linear-regression.html#cb59-2" tabindex="-1"></a>mu.mean <span class="ot">&lt;-</span> <span class="fu">apply</span>(mu, <span class="dv">2</span>, mean)</span>
+<span id="cb59-3"><a href="simple-linear-regression.html#cb59-3" tabindex="-1"></a>mu.PI <span class="ot">&lt;-</span> <span class="fu">apply</span>(mu, <span class="dv">2</span>, PI, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
+<span id="cb59-4"><a href="simple-linear-regression.html#cb59-4" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, d2, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.5</span>))</span>
+<span id="cb59-5"><a href="simple-linear-regression.html#cb59-5" tabindex="-1"></a><span class="fu">lines</span>(weight.seq, mu.mean)</span>
+<span id="cb59-6"><a href="simple-linear-regression.html#cb59-6" tabindex="-1"></a><span class="fu">shade</span>(mu.PI, weight.seq)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>As we can see, we are pretty sure about the mean of height which
 we wanted to model in the first place.
@@ -510,24 +555,24 @@ tells us that a person’s weight is distributed <em>around</em> the mean
 <p>To get to an <strong>individual prediction</strong>, we need to consider the uncertainty
 of the parameter estimation <em>and</em> the uncertainty from the Gaussian distribution
 around the mean (at a certain weight). We do this with <code>sim</code>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="simple-linear-regression.html#cb57-1" tabindex="-1"></a><span class="co"># Simulate heights from the posterior</span></span>
-<span id="cb57-2"><a href="simple-linear-regression.html#cb57-2" tabindex="-1"></a>sim.height <span class="ot">&lt;-</span> <span class="fu">sim</span>(mod, <span class="at">data =</span> <span class="fu">list</span>(<span class="at">weight =</span> weight.seq))</span>
-<span id="cb57-3"><a href="simple-linear-regression.html#cb57-3" tabindex="-1"></a><span class="fu">str</span>(sim.height)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simple-linear-regression.html#cb60-1" tabindex="-1"></a><span class="co"># Simulate heights from the posterior</span></span>
+<span id="cb60-2"><a href="simple-linear-regression.html#cb60-2" tabindex="-1"></a>sim.height <span class="ot">&lt;-</span> <span class="fu">sim</span>(mod, <span class="at">data =</span> <span class="fu">list</span>(<span class="at">weight =</span> weight.seq))</span>
+<span id="cb60-3"><a href="simple-linear-regression.html#cb60-3" tabindex="-1"></a><span class="fu">str</span>(sim.height)</span></code></pre></div>
 <pre><code>##  num [1:1000, 1:46] 138 130 130 147 136 ...</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="simple-linear-regression.html#cb59-1" tabindex="-1"></a><span class="co"># Compute the 89% prediction interval for simulated heights</span></span>
-<span id="cb59-2"><a href="simple-linear-regression.html#cb59-2" tabindex="-1"></a>height.PI <span class="ot">&lt;-</span> <span class="fu">apply</span>(sim.height, <span class="dv">2</span>, PI, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
-<span id="cb59-3"><a href="simple-linear-regression.html#cb59-3" tabindex="-1"></a></span>
-<span id="cb59-4"><a href="simple-linear-regression.html#cb59-4" tabindex="-1"></a><span class="co"># Plot the raw data</span></span>
-<span id="cb59-5"><a href="simple-linear-regression.html#cb59-5" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, d2, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.5</span>))</span>
-<span id="cb59-6"><a href="simple-linear-regression.html#cb59-6" tabindex="-1"></a></span>
-<span id="cb59-7"><a href="simple-linear-regression.html#cb59-7" tabindex="-1"></a><span class="co"># Draw MAP (mean a posteriori) line</span></span>
-<span id="cb59-8"><a href="simple-linear-regression.html#cb59-8" tabindex="-1"></a><span class="fu">lines</span>(weight.seq, mu.mean)</span>
-<span id="cb59-9"><a href="simple-linear-regression.html#cb59-9" tabindex="-1"></a></span>
-<span id="cb59-10"><a href="simple-linear-regression.html#cb59-10" tabindex="-1"></a><span class="co"># Draw HPDI (highest posterior density interval) region for mu</span></span>
-<span id="cb59-11"><a href="simple-linear-regression.html#cb59-11" tabindex="-1"></a><span class="fu">shade</span>(mu.PI, weight.seq)</span>
-<span id="cb59-12"><a href="simple-linear-regression.html#cb59-12" tabindex="-1"></a></span>
-<span id="cb59-13"><a href="simple-linear-regression.html#cb59-13" tabindex="-1"></a><span class="co"># Draw PI (prediction interval) region for simulated heights</span></span>
-<span id="cb59-14"><a href="simple-linear-regression.html#cb59-14" tabindex="-1"></a><span class="fu">shade</span>(height.PI, weight.seq)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="simple-linear-regression.html#cb62-1" tabindex="-1"></a><span class="co"># Compute the 89% prediction interval for simulated heights</span></span>
+<span id="cb62-2"><a href="simple-linear-regression.html#cb62-2" tabindex="-1"></a>height.PI <span class="ot">&lt;-</span> <span class="fu">apply</span>(sim.height, <span class="dv">2</span>, PI, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
+<span id="cb62-3"><a href="simple-linear-regression.html#cb62-3" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="simple-linear-regression.html#cb62-4" tabindex="-1"></a><span class="co"># Plot the raw data</span></span>
+<span id="cb62-5"><a href="simple-linear-regression.html#cb62-5" tabindex="-1"></a><span class="fu">plot</span>(height <span class="sc">~</span> weight, d2, <span class="at">col =</span> <span class="fu">col.alpha</span>(rangi2, <span class="fl">0.5</span>))</span>
+<span id="cb62-6"><a href="simple-linear-regression.html#cb62-6" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="simple-linear-regression.html#cb62-7" tabindex="-1"></a><span class="co"># Draw MAP (mean a posteriori) line</span></span>
+<span id="cb62-8"><a href="simple-linear-regression.html#cb62-8" tabindex="-1"></a><span class="fu">lines</span>(weight.seq, mu.mean)</span>
+<span id="cb62-9"><a href="simple-linear-regression.html#cb62-9" tabindex="-1"></a></span>
+<span id="cb62-10"><a href="simple-linear-regression.html#cb62-10" tabindex="-1"></a><span class="co"># Draw HPDI (highest posterior density interval) region for mu</span></span>
+<span id="cb62-11"><a href="simple-linear-regression.html#cb62-11" tabindex="-1"></a><span class="fu">shade</span>(mu.PI, weight.seq)</span>
+<span id="cb62-12"><a href="simple-linear-regression.html#cb62-12" tabindex="-1"></a></span>
+<span id="cb62-13"><a href="simple-linear-regression.html#cb62-13" tabindex="-1"></a><span class="co"># Draw PI (prediction interval) region for simulated heights</span></span>
+<span id="cb62-14"><a href="simple-linear-regression.html#cb62-14" tabindex="-1"></a><span class="fu">shade</span>(height.PI, weight.seq)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>The lighter and wider shaded region is where the model expects to find 89%
 of the heights of a person with a certain weight.</p>
@@ -541,7 +586,7 @@ from 30 to 50 kg are compatible with this height according to the
 the wider the range of compatible weights.
 In our example, more than 60% of the weight-range are
 plausible to predict a height of 150 cm.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="simple-linear-regression.html#cb60-1" tabindex="-1"></a>(<span class="dv">50</span> <span class="sc">-</span> <span class="dv">30</span>) <span class="sc">/</span> (<span class="fu">range</span>(d2<span class="sc">$</span>weight)[<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight)[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="simple-linear-regression.html#cb63-1" tabindex="-1"></a>(<span class="dv">50</span> <span class="sc">-</span> <span class="dv">30</span>) <span class="sc">/</span> (<span class="fu">range</span>(d2<span class="sc">$</span>weight)[<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">range</span>(d2<span class="sc">$</span>weight)[<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## [1] 0.6265362</code></pre>
 <p>On the other hand: We did not model the relationship this way.
 We modeled <strong>height depending on weight</strong> and not the other way around.
@@ -669,12 +714,12 @@ the model-predicted heights in order to find <span class="math inline">\(\beta_0
 </ul>
 <p>Interpretation of <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>: see <a href="simple-linear-regression.html#exercise3_simpl_lin_reg">exercise 3</a>.</p>
 <p>Let’s <strong>use R again to solve the problem</strong>:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="simple-linear-regression.html#cb64-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb64-2"><a href="simple-linear-regression.html#cb64-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
-<span id="cb64-3"><a href="simple-linear-regression.html#cb64-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
-<span id="cb64-4"><a href="simple-linear-regression.html#cb64-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
-<span id="cb64-5"><a href="simple-linear-regression.html#cb64-5" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
-<span id="cb64-6"><a href="simple-linear-regression.html#cb64-6" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="simple-linear-regression.html#cb67-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb67-2"><a href="simple-linear-regression.html#cb67-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb67-3"><a href="simple-linear-regression.html#cb67-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb67-4"><a href="simple-linear-regression.html#cb67-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
+<span id="cb67-5"><a href="simple-linear-regression.html#cb67-5" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
+<span id="cb67-6"><a href="simple-linear-regression.html#cb67-6" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = height ~ weight, data = d2)
@@ -730,7 +775,7 @@ the results from the <code>lm</code> function. The dot in red marks the spot
 <div id="confidence_intervals_frequentist" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Confidence Intervals of coefficients (frequentist)<a href="simple-linear-regression.html#confidence_intervals_frequentist" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can get CI’s conveniently with the <code>confint</code> function:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="simple-linear-regression.html#cb66-1" tabindex="-1"></a><span class="fu">confint</span>(mod, <span class="at">level =</span> <span class="fl">0.96</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="simple-linear-regression.html#cb69-1" tabindex="-1"></a><span class="fu">confint</span>(mod, <span class="at">level =</span> <span class="fl">0.96</span>)</span></code></pre></div>
 <pre><code>##                    2 %        98 %
 ## (Intercept) 109.939864 117.8189232
 ## weight        0.818351   0.9917072</code></pre>
@@ -748,30 +793,30 @@ We simply</p>
 <li>store the coefficients.</li>
 <li>The 2% and 98% quantiles of the coefficients constitute the 96% bootstrap confidence interval.</li>
 </ul>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="simple-linear-regression.html#cb68-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb68-2"><a href="simple-linear-regression.html#cb68-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(d2)</span>
-<span id="cb68-3"><a href="simple-linear-regression.html#cb68-3" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb68-4"><a href="simple-linear-regression.html#cb68-4" tabindex="-1"></a>boot_coefs <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> B, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb68-5"><a href="simple-linear-regression.html#cb68-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
-<span id="cb68-6"><a href="simple-linear-regression.html#cb68-6" tabindex="-1"></a>  boot_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb68-7"><a href="simple-linear-regression.html#cb68-7" tabindex="-1"></a>  boot_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2[boot_idx, ])</span>
-<span id="cb68-8"><a href="simple-linear-regression.html#cb68-8" tabindex="-1"></a>  boot_coefs[i, ] <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot_mod)</span>
-<span id="cb68-9"><a href="simple-linear-regression.html#cb68-9" tabindex="-1"></a>}</span>
-<span id="cb68-10"><a href="simple-linear-regression.html#cb68-10" tabindex="-1"></a><span class="co">#head(boot_coefs)</span></span>
-<span id="cb68-11"><a href="simple-linear-regression.html#cb68-11" tabindex="-1"></a><span class="fu">quantile</span>(boot_coefs, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="simple-linear-regression.html#cb71-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb71-2"><a href="simple-linear-regression.html#cb71-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(d2)</span>
+<span id="cb71-3"><a href="simple-linear-regression.html#cb71-3" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb71-4"><a href="simple-linear-regression.html#cb71-4" tabindex="-1"></a>boot_coefs <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">nrow =</span> B, <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb71-5"><a href="simple-linear-regression.html#cb71-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb71-6"><a href="simple-linear-regression.html#cb71-6" tabindex="-1"></a>  boot_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb71-7"><a href="simple-linear-regression.html#cb71-7" tabindex="-1"></a>  boot_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2[boot_idx, ])</span>
+<span id="cb71-8"><a href="simple-linear-regression.html#cb71-8" tabindex="-1"></a>  boot_coefs[i, ] <span class="ot">&lt;-</span> <span class="fu">coef</span>(boot_mod)</span>
+<span id="cb71-9"><a href="simple-linear-regression.html#cb71-9" tabindex="-1"></a>}</span>
+<span id="cb71-10"><a href="simple-linear-regression.html#cb71-10" tabindex="-1"></a><span class="co">#head(boot_coefs)</span></span>
+<span id="cb71-11"><a href="simple-linear-regression.html#cb71-11" tabindex="-1"></a><span class="fu">quantile</span>(boot_coefs, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>##          2%         98% 
 ##   0.8343242 117.0319290</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="simple-linear-regression.html#cb70-1" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">apply</span>(boot_coefs, <span class="dv">2</span>, quantile, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="simple-linear-regression.html#cb73-1" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">apply</span>(boot_coefs, <span class="dv">2</span>, quantile, <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.98</span>)))</span></code></pre></div>
 <pre><code>##               2%         98%
 ## [1,] 110.1862455 117.4516455
 ## [2,]   0.8229982   0.9859997</code></pre>
 <p>The CIs are quite similar to the ones from the <code>confint</code> function.</p>
 <p>In the Bayesian setting, we used the centered weight variable. Let’s to this here too for
 comparison and use 89% coverage probability.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="simple-linear-regression.html#cb72-1" tabindex="-1"></a>d2<span class="sc">$</span>weight_centered <span class="ot">&lt;-</span> d2<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
-<span id="cb72-2"><a href="simple-linear-regression.html#cb72-2" tabindex="-1"></a>mod_centered <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight_centered, <span class="at">data =</span> d2)</span>
-<span id="cb72-3"><a href="simple-linear-regression.html#cb72-3" tabindex="-1"></a><span class="co">#summary(mod_centered)</span></span>
-<span id="cb72-4"><a href="simple-linear-regression.html#cb72-4" tabindex="-1"></a><span class="fu">confint</span>(mod_centered, <span class="at">level =</span> <span class="fl">0.89</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="simple-linear-regression.html#cb75-1" tabindex="-1"></a>d2<span class="sc">$</span>weight_centered <span class="ot">&lt;-</span> d2<span class="sc">$</span>weight <span class="sc">-</span> <span class="fu">mean</span>(d2<span class="sc">$</span>weight)</span>
+<span id="cb75-2"><a href="simple-linear-regression.html#cb75-2" tabindex="-1"></a>mod_centered <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight_centered, <span class="at">data =</span> d2)</span>
+<span id="cb75-3"><a href="simple-linear-regression.html#cb75-3" tabindex="-1"></a><span class="co">#summary(mod_centered)</span></span>
+<span id="cb75-4"><a href="simple-linear-regression.html#cb75-4" tabindex="-1"></a><span class="fu">confint</span>(mod_centered, <span class="at">level =</span> <span class="fl">0.89</span>)</span></code></pre></div>
 <pre><code>##                      5.5 %      94.5 %
 ## (Intercept)     154.162715 155.0314698
 ## weight_centered   0.837658   0.9724002</code></pre>
@@ -871,34 +916,34 @@ the other is in the 10% quantile. What is the probability that the
 height of the person in the 90% quantile is higher than the height of the other person?
 We could calculate this relatively easy using theorems about additivity of normal distributions.
 Since we are all about application, we simulate this:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="simple-linear-regression.html#cb76-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb76-2"><a href="simple-linear-regression.html#cb76-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
-<span id="cb76-3"><a href="simple-linear-regression.html#cb76-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
-<span id="cb76-4"><a href="simple-linear-regression.html#cb76-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
-<span id="cb76-5"><a href="simple-linear-regression.html#cb76-5" tabindex="-1"></a><span class="co"># Simulate heights for the two quantiles</span></span>
-<span id="cb76-6"><a href="simple-linear-regression.html#cb76-6" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb76-7"><a href="simple-linear-regression.html#cb76-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb76-8"><a href="simple-linear-regression.html#cb76-8" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
-<span id="cb76-9"><a href="simple-linear-regression.html#cb76-9" tabindex="-1"></a><span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="simple-linear-regression.html#cb79-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb79-2"><a href="simple-linear-regression.html#cb79-2" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb79-3"><a href="simple-linear-regression.html#cb79-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb79-4"><a href="simple-linear-regression.html#cb79-4" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d[d<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>, ]</span>
+<span id="cb79-5"><a href="simple-linear-regression.html#cb79-5" tabindex="-1"></a><span class="co"># Simulate heights for the two quantiles</span></span>
+<span id="cb79-6"><a href="simple-linear-regression.html#cb79-6" tabindex="-1"></a>n_sims <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb79-7"><a href="simple-linear-regression.html#cb79-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb79-8"><a href="simple-linear-regression.html#cb79-8" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(height <span class="sc">~</span> weight, <span class="at">data =</span> d2)</span>
+<span id="cb79-9"><a href="simple-linear-regression.html#cb79-9" tabindex="-1"></a><span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared</span></code></pre></div>
 <pre><code>## [1] 0.5696444</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="simple-linear-regression.html#cb78-1" tabindex="-1"></a>x_low_high <span class="ot">&lt;-</span> <span class="fu">quantile</span>(d2<span class="sc">$</span>weight, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
-<span id="cb78-2"><a href="simple-linear-regression.html#cb78-2" tabindex="-1"></a>x_low_high</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="simple-linear-regression.html#cb81-1" tabindex="-1"></a>x_low_high <span class="ot">&lt;-</span> <span class="fu">quantile</span>(d2<span class="sc">$</span>weight, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span>
+<span id="cb81-2"><a href="simple-linear-regression.html#cb81-2" tabindex="-1"></a>x_low_high</span></code></pre></div>
 <pre><code>##      10%      90% 
 ## 36.48581 54.01997</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="simple-linear-regression.html#cb80-1" tabindex="-1"></a>mean1 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">1</span>]</span>
-<span id="cb80-2"><a href="simple-linear-regression.html#cb80-2" tabindex="-1"></a>mean2 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">2</span>]</span>
-<span id="cb80-3"><a href="simple-linear-regression.html#cb80-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fl">5.086</span>  <span class="co"># Standard deviation for both distributions</span></span>
-<span id="cb80-4"><a href="simple-linear-regression.html#cb80-4" tabindex="-1"></a>simulated_heights <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb80-5"><a href="simple-linear-regression.html#cb80-5" tabindex="-1"></a>  <span class="co"># conditional normal distribution according to the model</span></span>
-<span id="cb80-6"><a href="simple-linear-regression.html#cb80-6" tabindex="-1"></a>  <span class="at">x_low =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span> mean1, <span class="at">sd =</span> sd),</span>
-<span id="cb80-7"><a href="simple-linear-regression.html#cb80-7" tabindex="-1"></a>  <span class="at">x_high =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span>  mean2, <span class="at">sd =</span> sd)</span>
-<span id="cb80-8"><a href="simple-linear-regression.html#cb80-8" tabindex="-1"></a>)</span>
-<span id="cb80-9"><a href="simple-linear-regression.html#cb80-9" tabindex="-1"></a></span>
-<span id="cb80-10"><a href="simple-linear-regression.html#cb80-10" tabindex="-1"></a><span class="co"># Calculate the probability that the height of the person in the 90% quantile is higher</span></span>
-<span id="cb80-11"><a href="simple-linear-regression.html#cb80-11" tabindex="-1"></a><span class="co"># than the height of the person in the 10% quantile</span></span>
-<span id="cb80-12"><a href="simple-linear-regression.html#cb80-12" tabindex="-1"></a>simulated_heights <span class="sc">%&gt;%</span></span>
-<span id="cb80-13"><a href="simple-linear-regression.html#cb80-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">higher_height =</span> x_high <span class="sc">&gt;</span> x_low) <span class="sc">%&gt;%</span></span>
-<span id="cb80-14"><a href="simple-linear-regression.html#cb80-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">mean</span>(higher_height))</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="simple-linear-regression.html#cb83-1" tabindex="-1"></a>mean1 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">1</span>]</span>
+<span id="cb83-2"><a href="simple-linear-regression.html#cb83-2" tabindex="-1"></a>mean2 <span class="ot">&lt;-</span> <span class="fl">113.8793936</span> <span class="sc">+</span> <span class="fl">0.9050291</span> <span class="sc">*</span> x_low_high[<span class="dv">2</span>]</span>
+<span id="cb83-3"><a href="simple-linear-regression.html#cb83-3" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fl">5.086</span>  <span class="co"># Standard deviation for both distributions</span></span>
+<span id="cb83-4"><a href="simple-linear-regression.html#cb83-4" tabindex="-1"></a>simulated_heights <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb83-5"><a href="simple-linear-regression.html#cb83-5" tabindex="-1"></a>  <span class="co"># conditional normal distribution according to the model</span></span>
+<span id="cb83-6"><a href="simple-linear-regression.html#cb83-6" tabindex="-1"></a>  <span class="at">x_low =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span> mean1, <span class="at">sd =</span> sd),</span>
+<span id="cb83-7"><a href="simple-linear-regression.html#cb83-7" tabindex="-1"></a>  <span class="at">x_high =</span> <span class="fu">rnorm</span>(n_sims, <span class="at">mean =</span>  mean2, <span class="at">sd =</span> sd)</span>
+<span id="cb83-8"><a href="simple-linear-regression.html#cb83-8" tabindex="-1"></a>)</span>
+<span id="cb83-9"><a href="simple-linear-regression.html#cb83-9" tabindex="-1"></a></span>
+<span id="cb83-10"><a href="simple-linear-regression.html#cb83-10" tabindex="-1"></a><span class="co"># Calculate the probability that the height of the person in the 90% quantile is higher</span></span>
+<span id="cb83-11"><a href="simple-linear-regression.html#cb83-11" tabindex="-1"></a><span class="co"># than the height of the person in the 10% quantile</span></span>
+<span id="cb83-12"><a href="simple-linear-regression.html#cb83-12" tabindex="-1"></a>simulated_heights <span class="sc">%&gt;%</span></span>
+<span id="cb83-13"><a href="simple-linear-regression.html#cb83-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">higher_height =</span> x_high <span class="sc">&gt;</span> x_low) <span class="sc">%&gt;%</span></span>
+<span id="cb83-14"><a href="simple-linear-regression.html#cb83-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">mean</span>(higher_height))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   `mean(higher_height)`
 ##                   &lt;dbl&gt;
@@ -1274,6 +1319,16 @@ is taller than a person in the 10% quantile of the weight change if you change</
 <ul>
 <li>the true slope of the regression line</li>
 <li>the true <span class="math inline">\(\sigma\)</span>, i.e. if you add more noise and have a lower <span class="math inline">\(R^2\)</span>?</li>
+</ul>
+</div>
+<div id="exercise12_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.12">
+<h3><span class="header-section-number">3.3.12</span> [M] Exercise 12<a href="simple-linear-regression.html#exercise12_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Go back to the Bayesian simple regression model for height <a href="simple-linear-regression.html#simple_lin_reg_bayes">above</a>.</p>
+<ul>
+<li>Standardize weights and heights in the data set <code>d2</code>.</li>
+<li>Estimate the regression model as we did in the section using <code>quap</code>.</li>
+<li>Plot the posterior distribution using <code>plot(model)</code>.</li>
+<li>Interpret the regression coefficient <span class="math inline">\(\beta\)</span>.</li>
 </ul>
 
 </div>

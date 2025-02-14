@@ -5,7 +5,7 @@ output:
 ---
 # Simple Linear Regression
 
-## Simple Linear Regression in the Bayesian Framework
+## Simple Linear Regression in the Bayesian Framework {#simple_lin_reg_bayes}
 
 We will now add one covariate/explanatory variable to the model. 
 Refer to [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf) 
@@ -22,6 +22,13 @@ Here and in the frequentist framework, we will see that it is **not the same**
 problem (and therefore results in a different statistical model) 
 **to predict body weights from body heights or vice versa**.
 
+We remember the following:
+
+- Regress $Y$ on $X$, which is equivalent to predict $Y$ from $X$.
+  We know X and want to predict Y.
+- Regress $X$ on $Y$, which is equivalent to predict $X$ from $Y$.
+  We know Y and want to predict X.
+
 The word "predictor" is important here. It is a technical term
 and describes a variable that we know (in our case weight) and with 
 which we want to "guess as good as possible" the value of the 
@@ -32,17 +39,19 @@ And not only that, but if you are twice as far away from the true value,
 you should be penalized four times as much. This is the idea behind
 the squared error [loss function](https://en.wikipedia.org/wiki/Loss_function) 
 and the core of the least squares method.
-What if we would punish differently you ask?
-There are many loss functions one could use, maybe we will see some
-later. For now, we punish quadratically.
+What if we would punish differently, you ask?
+There are many loss functions one could use 
+(for instance the [Huber loss](https://en.wikipedia.org/wiki/Huber_loss)), 
+maybe we will see some later. For now, we punish quadratically.
 
 We **always** visualize the data first to improve our understanding.
+First comes descriptive statistics, then one can think about modeling.
 
 ```{r}
 plot(d2$height ~ d2$weight)
 ```
 
-It's not often, that you see such a clean plot.
+It's not often that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
 The higher the weight, the higher the height; with some deviations of course and
 we decide that normally distributed errors are a good idea.
@@ -94,7 +103,8 @@ digraph model {
 ")
 ```
 
-There are now additional lines for the priors of $\alpha$ and $\beta$.
+There are now additional lines for the priors of $\alpha$ and $\beta$ 
+(compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
 One starts at the top and ends up with the heights.
 
@@ -111,15 +121,19 @@ One starts at the top and ends up with the heights.
 - The prior for $\sigma$ is unchanged.
 - $x_i - \bar{x}$ is the deviation of the weight from the mean weight, thereby **we
   center** the weight variable. This is a common practice in regression analysis.
+  A value $x_i - \bar{x} > 0$ implies that the person is heavier than the average.
 
 The linear model is quite popular in applied statistics and one
-reason is probably the rather straightforward interpretation of the coefficients.
+reason is probably the rather straightforward interpretation of the coefficients:
+A one unit increase in weight is on average (in the mean) associated with 
+a $\beta$ unit increase/decrease (depending if $\beta$ is $>0$ or $<0$) in height.
 
 ### Priors
 
-We want to plot our priors to get a feeling **what 
+We want to plot our prior predictions to get a feeling **what 
 the model would predict without seeing the data**.
-This is a kind of "sanity check" to see if the priors are reasonable.
+This is a kind of "sanity check" to see if the priors and 
+the model definition are reasonable.
 Again, we just draw from the assumed distributions for $\alpha$ and $\beta$
 100 times and draw the corresponding lines. Just as the model 
 definition says.
@@ -130,9 +144,9 @@ N <- 100  # 100 lines
 a <- rnorm(N, 171.1, 20)
 b <- rnorm(N, 0, 10)
 
-# Assume d2$weight is defined, e.g., using some dataset or simulation
 xbar <- mean(d2$weight)
 
+# start with empty plot
 plot(NULL, xlim = range(d2$weight), ylim = c(-100, 400),
      xlab = "weight", ylab = "height")
 abline(h = 0, lty = 2)  # horizontal line at 0
@@ -149,8 +163,9 @@ for (i in 1:N) {
 
 This linear relationship defined with the chosen priors seems rather 
 non-restrictive. According to our priors,
-one could see very steeply rising or falling lines. We could at least make 
-the priors for the slope ($\beta$) non-negative. One possibility to do this 
+one could see very steeply rising or falling relationships between weight and expected heights. 
+We could at least make the priors for the slope ($\beta$) non-negative. 
+One possibility to do this 
 is to use a [log-normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) 
 for the prior of $\beta$ which can only take non-negative values.
 
@@ -164,7 +179,6 @@ N <- 100  # 100 lines
 a <- rnorm(N, 171.1, 20)
 b <- rlnorm(N, 0, 1)
 
-# Assume d2$weight is defined, e.g., using some dataset or simulation
 xbar <- mean(d2$weight)
 
 plot(NULL, xlim = range(d2$weight), ylim = c(-100, 400),
@@ -181,7 +195,8 @@ for (i in 1:N) {
 }
 ```
 
-This seems definitely more realistic.
+This seems definitely more realistic. There is some sort of positive linear relationship
+between weight and expected height.
 
 ### Fit model
 
@@ -206,11 +221,24 @@ mod <- quap(
 data = d2)
 ```
 
+Note that the model definition was now directly included in the `quap` function.
 Let's look at the **marginal distributions** of the parameters:
 
 ```{r}
 precis(mod)
+plot(mod)
 ```
+
+Note, that the credible intervals in the plot of the coefficients are 
+hardly noticable. The reason is that the intercept $a$ is rather large,
+whereas $b$ and sigma are comparativly small. The plot is scaled to the
+largest parameter.
+
+We can improve this by centering the height variable as well. Or,
+we could standardize both weight and height. This would change the interpretation
+of the $\beta$ parameter. It would then be the expected change in standard deviations
+when changing weight by one standard deviation. 
+See [exercise 12](#exercise12_simpl_lin_reg).
 
 The analysis yields estimates for all our parameters of the model: $\alpha$,
 $\beta$ and $\sigma$. The estimates are the mean of the posterior distribution.
@@ -241,12 +269,21 @@ round(cov2cor(vcov(mod)),2)
 ### Result
 
 **Graphical end result** of fitting the model:
+We plot the marginal posterior distributions of $\alpha$ and $\beta$,
+and also the raw data with the found regression line.
 
 ```{r}
-plot(d2$height ~ d2$weight, col = rangi2)
 post <- extract.samples(mod)
+dens(post$a, col = rangi2)
+dens(post$b, col = rangi2)
+
+# both posteror plots seem symmetric
+# we use the mean as point estimate
+# for a and b.
 a_quap <- mean(post$a)
 b_quap <- mean(post$b)
+
+plot(d2$height ~ d2$weight, col = rangi2)
 curve(a_quap + b_quap * (x - xbar), add = TRUE)
 ```
 
@@ -256,6 +293,13 @@ We could draw again and again from the posterior distribution
 and calculate the means like above. Plotting the regression lines
 with the respective parameters $\alpha$, $\beta$ would indicate
 the variability of the estimates.
+Note that we do not draw from the data (as one does in bootstrap resampling),
+but from the posterior distribution.
+The `link` function does this for us. It takes the posterior distribution We
+have just fit, samples $\alpha$ and $\beta$ from it, calculates the mean and then
+samples from this normal distribution for the mean at a given weight.
+Refer to pages 98-106 in the current version of the book Statistical Rethinking
+for all details.
 
 ```{r}
 # Define a sequence of weights for predictions
@@ -291,6 +335,7 @@ shade(mu.PI, weight.seq)
 
 As we can see, we are pretty sure about the mean of height which 
 we wanted to model in the first place.
+
 **Mean modeling is one thing, individual prediction is another**.
 Given a certain weight of a person, what is the height of the same person?
 The first line in the model definition ($height_i \sim Normal(\mu_i, \sigma)$)
@@ -1659,3 +1704,13 @@ is taller than a person in the 10% quantile of the weight change if you change
 
 - the true slope of the regression line
 - the true $\sigma$, i.e. if you add more noise and have a lower $R^2$?
+
+### [M] Exercise 12 {#exercise12_simpl_lin_reg}
+
+Go back to the Bayesian simple regression model for height [above](#simple_lin_reg_bayes).
+
+- Standardize weights and heights in the data set `d2`.
+- Estimate the regression model as we did in the section using `quap`.
+- Plot the posterior distribution using `plot(model)`.
+- Interpret the regression coefficient $\beta$.
+
