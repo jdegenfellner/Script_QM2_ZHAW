@@ -7,8 +7,9 @@ output:
 
 ## What is statistical modeling and what do we need this for?
 
-Typically, one simplifies the complex reality (and loses information) in order to make it better
-understandable, mathematically treatable and to make predictions. 
+Typically, one simplifies the complex reality (and loses information) 
+in order to make it better
+**understandable** (explainable), mathematically treatable and to make **predictions**. 
 
 Underlying our models, there are theories which should be [falsifiable](https://en.wikipedia.org/wiki/Falsifiability)
 and testable.
@@ -17,7 +18,7 @@ electric current (I) at a resistence (R) in a circuit and find that [Ohm's law](
 This [**law**](https://en.wikipedia.org/wiki/Scientific_law)
 can be tested over and over again and if one would find a single valid counterexample, 
 the law would be falsified. It is also true that the law is probably not 100% accularate,
-but an extremely good approximation of reality. Real-world measurements carry 
+but an extremely precise approximation of reality. Real-world measurements carry 
 measurement errors and when plotting the data, one would see that the data points
 might not lie exactly on a straight line. This is not a problem.
 

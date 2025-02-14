@@ -72,7 +72,7 @@ grid.arrange(p1, p2, p3, p4, ncol=2)
 ```
 
 
-## If you need a good reason to buy good books...
+## If you need a good reason to buy great books...
 
 Think of the total costs of your education. You want to extract maximum 
 benefit from it. In the US, an education costs [a lot](https://www.finaid.ucsb.edu/docs/default-source/default-document-library/2024-2025-undergrad-coa.pdf?sfvrsn=fb791f8a_4).
