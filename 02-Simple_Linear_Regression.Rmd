@@ -333,6 +333,10 @@ lines(weight.seq, mu.mean)
 shade(mu.PI, weight.seq)
 ```
 
+The function `PI` from the `rethinking` package calculates the 89% percentile interval 
+for the mean of the height at a certain weight. The `apply` function 
+apples this function to each columns (hence the `2`) of the matrix `mu`.
+
 As we can see, we are pretty sure about the mean of height which 
 we wanted to model in the first place.
 
@@ -366,6 +370,9 @@ shade(mu.PI, weight.seq)
 # Draw PI (prediction interval) region for simulated heights
 shade(height.PI, weight.seq)
 ```
+
+Here, the `PI` function is applied to the simulated heights and calculates the 89%
+percentile interval for each weight.
 
 The lighter and wider shaded region is where the model expects to find 89%
 of the heights of a person with a certain weight. 
@@ -455,7 +462,7 @@ $$ h_i = \beta_0 + \beta_1 x_i + \varepsilon_i $$
 
 where
 
-- $\varepsilon_i$ is the error term with $\varepsilon_i \sim N(0, \sigma), \forall i$
+- $\varepsilon_i$ is the error term with $\varepsilon_i \sim N(0, \sigma^2), \forall i$
 - $\beta_0$ is the unknown but fixed intercept
 - $\beta_1$ is the unknown but fixed slope
 
@@ -490,9 +497,9 @@ is attempted to be modeled.
   This assumption is violated when the true relationship is not linear or the
   data at least suggest that it is not linear, like [here](https://www.alexanderdemos.org/Class5_files/figure-html/unnamed-chunk-2-1.png).
 
-- **The errors are homoscedastic** (constant variance $\sigma$). This means the
+- **The errors are homoscedastic** (constant variance $\sigma^2$). This means the
   variances of all conditional distributions $p(y|x)$ are constant ($=\sigma^2$).
-  This assumption is violated if points are [spreading out more and more
+  This assumption is (for instance) violated if points are [spreading out more and more
   around the regression line](https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png), 
   indicating that the errors are getting larger.
 
@@ -500,7 +507,7 @@ is attempted to be modeled.
   distributions $p(y|x)$ are normal distributions. It could well be, that
   the errors are not nicely normally distributed around the regression line,
   for instance if we have a lot of outliers upwards and the distribution 
-  is skewed, like [here](https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html).
+  is skewed, like [here (Figure 5.20)](https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html).
 
 - The **errors are independent** of each other. 
   The potentially observable $\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})$

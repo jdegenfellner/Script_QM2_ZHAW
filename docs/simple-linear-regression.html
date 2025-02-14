@@ -333,8 +333,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-e3a7724d473f9038fb9a" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-e3a7724d473f9038fb9a">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-7a637fe6276f4f65a1d9" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-7a637fe6276f4f65a1d9">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
@@ -545,9 +545,12 @@ the analog thing in the frequentist framework.</p>
 <span id="cb59-5"><a href="simple-linear-regression.html#cb59-5" tabindex="-1"></a><span class="fu">lines</span>(weight.seq, mu.mean)</span>
 <span id="cb59-6"><a href="simple-linear-regression.html#cb59-6" tabindex="-1"></a><span class="fu">shade</span>(mu.PI, weight.seq)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>The function <code>PI</code> from the <code>rethinking</code> package calculates the 89% percentile interval
+for the mean of the height at a certain weight. The <code>apply</code> function
+apples this function to each columns (hence the <code>2</code>) of the matrix <code>mu</code>.</p>
 <p>As we can see, we are pretty sure about the mean of height which
-we wanted to model in the first place.
-<strong>Mean modeling is one thing, individual prediction is another</strong>.
+we wanted to model in the first place.</p>
+<p><strong>Mean modeling is one thing, individual prediction is another</strong>.
 Given a certain weight of a person, what is the height of the same person?
 The first line in the model definition (<span class="math inline">\(height_i \sim Normal(\mu_i, \sigma)\)</span>)
 tells us that a person’s weight is distributed <em>around</em> the mean
@@ -574,6 +577,8 @@ around the mean (at a certain weight). We do this with <code>sim</code>.</p>
 <span id="cb62-13"><a href="simple-linear-regression.html#cb62-13" tabindex="-1"></a><span class="co"># Draw PI (prediction interval) region for simulated heights</span></span>
 <span id="cb62-14"><a href="simple-linear-regression.html#cb62-14" tabindex="-1"></a><span class="fu">shade</span>(height.PI, weight.seq)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p>Here, the <code>PI</code> function is applied to the simulated heights and calculates the 89%
+percentile interval for each weight.</p>
 <p>The lighter and wider shaded region is where the model expects to find 89%
 of the heights of a person with a certain weight.</p>
 <p>This part is <strong>sometimes a bit desillusioning</strong> when seen for the first time:
@@ -616,7 +621,7 @@ I recommend reading the first couple of chapters from <a href="https://www.routl
 <p><span class="math display">\[ h_i = \beta_0 + \beta_1 x_i + \varepsilon_i \]</span></p>
 <p>where</p>
 <ul>
-<li><span class="math inline">\(\varepsilon_i\)</span> is the error term with <span class="math inline">\(\varepsilon_i \sim N(0, \sigma), \forall i\)</span></li>
+<li><span class="math inline">\(\varepsilon_i\)</span> is the error term with <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2), \forall i\)</span></li>
 <li><span class="math inline">\(\beta_0\)</span> is the unknown but fixed intercept</li>
 <li><span class="math inline">\(\beta_1\)</span> is the unknown but fixed slope</li>
 </ul>
@@ -647,16 +652,16 @@ In the case of the linear model, the assumption is <span class="math inline">\(\
 The <strong>expectation</strong> of <span class="math inline">\(Y\)</span> (height) depends linearly on <span class="math inline">\(x\)</span> (weight).
 This assumption is violated when the true relationship is not linear or the
 data at least suggest that it is not linear, like <a href="https://www.alexanderdemos.org/Class5_files/figure-html/unnamed-chunk-2-1.png">here</a>.</p></li>
-<li><p><strong>The errors are homoscedastic</strong> (constant variance <span class="math inline">\(\sigma\)</span>). This means the
+<li><p><strong>The errors are homoscedastic</strong> (constant variance <span class="math inline">\(\sigma^2\)</span>). This means the
 variances of all conditional distributions <span class="math inline">\(p(y|x)\)</span> are constant (<span class="math inline">\(=\sigma^2\)</span>).
-This assumption is violated if points are <a href="https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png">spreading out more and more
+This assumption is (for instance) violated if points are <a href="https://www.investopedia.com/thmb/n9S9lWMv6X9-sKC2DtAOtUTPSik=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Heteroskedasticity22-ce5acc2acef6494d91935588b0599579.png">spreading out more and more
 around the regression line</a>,
 indicating that the errors are getting larger.</p></li>
 <li><p><strong>Normality</strong>. For the classical linear regression model all the conditional
 distributions <span class="math inline">\(p(y|x)\)</span> are normal distributions. It could well be, that
 the errors are not nicely normally distributed around the regression line,
 for instance if we have a lot of outliers upwards and the distribution
-is skewed, like <a href="https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html">here</a>.</p></li>
+is skewed, like <a href="https://www.bookdown.org/rwnahhas/RMPH/mlr-normality.html">here (Figure 5.20)</a>.</p></li>
 <li><p>The <strong>errors are independent</strong> of each other.
 The potentially observable <span class="math inline">\(\varepsilon_i = Y_i - f(\mathbf{x_i}, \mathbf{\beta})\)</span>
 is uncorrelated with <span class="math inline">\(\varepsilon_j = Y_j - f(\mathbf{x_j}, \mathbf{\beta})\)</span> for
