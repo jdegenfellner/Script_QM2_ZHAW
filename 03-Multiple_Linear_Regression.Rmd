@@ -852,12 +852,17 @@ Go back to the Simpson's paradox [section](#simpsons_paradox).
 - Verify that the coefficient for $X$ disappears when you add $Z$ to the model for the pipe.
 - What happens in the case of the collider?
 
+### [M] Exercise 8 {#exercise8_multiple_regression}
+
+- Take a data set of your choosing with many columns, say 10 or so, either from the internet 
+  or from R (if available)
+- Fit a model for an arbitrary outcome, add more and more variables to predict the outcome
+  and verify that the $R^2$ increases.
+
 ## TODOS
 
 - Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 - Add more Bayesian model checks, chapter 6 Gelman.
-- If you add a lot of variables to your regression model, you can get an arbitrarily large ($\le 1$)
-  $R^2$. We will verify this when we have more than 2 explanatory variables. 
 - maybe create animation of points wiggling to get a feeling for the variability
 - Show by simulation what Gelman talks about with significant p values. So I scan the data
   for significant p values and then simulate data with the same effect size and see how often
@@ -886,3 +891,4 @@ Go back to the Simpson's paradox [section](#simpsons_paradox).
 - What about papers?
 - Simulate a cohort of Master thesis with small sample sizes and assume 
   that there is a true but unknown effect.
+- AIC, BIC, cross-validation, Model selection (best subset, leaps....)

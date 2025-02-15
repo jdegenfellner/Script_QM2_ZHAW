@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-02-14" />
+<meta name="date" content="2025-02-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -247,6 +247,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.5" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercise5_multiple_regression"><i class="fa fa-check"></i><b>4.3.5</b> [E] Exercise 5</a></li>
 <li class="chapter" data-level="4.3.6" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercise6_multiple_regression"><i class="fa fa-check"></i><b>4.3.6</b> [M] Exercise 6</a></li>
 <li class="chapter" data-level="4.3.7" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercise7_multiple_regression"><i class="fa fa-check"></i><b>4.3.7</b> [E] Exercise 7</a></li>
+<li class="chapter" data-level="4.3.8" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercise8_multiple_regression"><i class="fa fa-check"></i><b>4.3.8</b> [M] Exercise 8</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#todos"><i class="fa fa-check"></i><b>4.4</b> TODOS</a></li>
 </ul></li>
@@ -334,8 +335,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-42e593600222493053dd" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-42e593600222493053dd">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-6e082f61f320d946cfd5" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-6e082f61f320d946cfd5">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
