@@ -68,7 +68,7 @@ adding_transformed_predictor
 adding_predictor_bayes
 check_model_bayes
 linear-regression-with-2-predictors-in-the-frequentist-framework
-adding-a-transformed-predictor-to-the-model
+adding_transformed_predictor_freq
 interpretation-of-output-and-coefficients
 checking-model-assumptions
 adding_predictor_freq
@@ -86,4 +86,5 @@ exercise5_multiple_regression
 exercise6_multiple_regression
 exercise7_multiple_regression
 exercise8_multiple_regression
+exercise9_multiple_regression
 todos

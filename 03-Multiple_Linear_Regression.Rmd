@@ -292,8 +292,8 @@ and then model the pain intensity for the people who have pain) or use a differe
 Note that we did not explicitely assume normally distributed errors in the model definition above,
 so we won't check this here but in the Frequentist framework below.
 
-## Linear regression with 2 Predictors in the Frequentist Framework
-### Adding a transformed predictor to the model
+## Linear regression with 2 Predictors in the Frequentist Framework 
+### Adding a transformed predictor to the model {#adding_transformed_predictor_freq}
 
 No, let's fit the same model as above in the frequentist framework.
 
@@ -310,7 +310,7 @@ and show you the [normal equations](https://en.wikipedia.org/wiki/Linear_least_s
 but I will spare you for now.
 Note that the least squares algorithm for fitting the curve works for all
 kinds of functions. We could also fit an exponential curve using the same
-technique.
+technique (see [exercise 9](#exercise9_multiple_regression)).
 
 ```{r}
 # scale weight
@@ -867,6 +867,18 @@ Go back to the Simpson's paradox [section](#simpsons_paradox).
   or from R (if available)
 - Fit a model for an arbitrary outcome, add more and more variables to predict the outcome
   and verify that the $R^2$ increases.
+
+### [M] Exercise 9 {#exercise9_multiple_regression}
+
+Exponential curve fitting. Go back to the [section](#adding_transformed_predictor_freq) about adding a transformed predictor in the Frequentist
+setting. Hint: You can use the `optim` function in R.
+
+- Assume the relationship between weight and height looks like this: 
+  $height_i = \alpha + \beta_1 e^{\beta_2 weight_i}$.
+- Use R and the least squares method to estimate the parameters $\alpha, \beta_1, \beta_2$.
+- Note that the sum of squared errors is this: 
+  $\sum_{i=1}^n (height_i - \alpha - \beta_1 e^{\beta_2 weight_i})^2$.
+- What happens if you do not constrain the parameters $\beta_1$ and $\beta_2$ to be negative?
 
 ## TODOS
 
