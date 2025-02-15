@@ -224,7 +224,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#linear-regression-with-2-predictors-in-the-baysian-framework"><i class="fa fa-check"></i><b>4.1</b> Linear Regression with 2 Predictors in the Baysian Framework</a>
+<li class="chapter" data-level="4.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#linear-regression-with-2-predictors-in-the-bayesian-framework"><i class="fa fa-check"></i><b>4.1</b> Linear Regression with 2 predictors in the Bayesian Framework</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#meaning-of-linear"><i class="fa fa-check"></i><b>4.1.1</b> Meaning of “linear”</a></li>
 <li class="chapter" data-level="4.1.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding_transformed_predictor"><i class="fa fa-check"></i><b>4.1.2</b> Adding a transformed predictor to the model</a></li>
@@ -335,8 +335,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-6e082f61f320d946cfd5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-6e082f61f320d946cfd5">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-83c2ecea6e20e8dddf57" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-83c2ecea6e20e8dddf57">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.

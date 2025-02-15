@@ -3,8 +3,9 @@
 So far, we have dealt with the simple mean model and the model with one predictor
 in the Bayesian and Frequentist framework.
 We will now add another predictor and subsequently an interaction term to the model.
+Finally, we will add more than two predictors to the model.
 
-## Linear Regression with 2 Predictors in the Baysian Framework
+## Linear Regression with 2 predictors in the Bayesian Framework
 
 ### Meaning of "linear"
 What is a linear model? The term "linear" refers to the relationship of the predictors 
@@ -22,10 +23,12 @@ $\beta_2$ is now is the exponent of $e$. It would also not be linear,
 if the coefficients are in a square root or in the denominator of a fraction,
 or in a sine or in a logarithm. You get the idea.
 
-### Adding a transformed predictor to the model {#adding_transformed_predictor}
+Here is an easy way to check if the model is linear: If I change the predictor-value 
+(i.e.,the value of $x_i$, $x_i^2$ or whatever your predictor is) by one unit,
+the change in the (expected value of the) dependent variable is the coefficient in front of 
+the predictor ($\beta_i$).
 
-The world is not flat, although some people on YouTube might tell you otherwise.
-In our context, not all regression is linear.
+### Adding a transformed predictor to the model {#adding_transformed_predictor}
 
 Around 4.5. in the book [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
 there is are lineare regression using a quadratic term for weight. 
@@ -37,6 +40,11 @@ weight and height, we also have to include the linear term for weight ($x_i$).
 Since we do not assume the relationship between weight and height to be linear but
 quadratic (which is a polynomial of degree 2), we call this a 
 [polynomial regression](https://en.wikipedia.org/wiki/Polynomial_regression#:~:text=In%20statistics%2C%20polynomial%20regression%20is,nth%20degree%20polynomial%20in%20x.).
+This [video](https://www.youtube.com/watch?v=QptI-vDle8Y&ab_channel=MikeXCohen) could be instructive. 
+One has to be careful with fitting polynomials to data points since the regression coefficients
+can become quite large. Using a polynomial of high degree implies to have a lot of parameters 
+to estimate. Increasing the degree of the polynomial increases $R^2$ but also the risk of overfitting.
+(see Statistical Rethinking p. 200). So this is - of course - not the final solution to regression problems.
 
 This time, lets look at the whole age range of data from the !Kung San people.
 
@@ -58,7 +66,7 @@ which is often used to capture non-linear relationships.
 The blue line is the usual line from classic linear regression (from the previous chapter).
 Which one describes the data more accurately? 
 In this case it is obvious, a non-linear relationship is present and it might be a good idea 
-to model it. Modeling the relationshiop with a linear trend, leads to bad residuals with structure.
+to model it. Modeling the relationshiop with a linear trend leads to bad residuals with structure.
 We will demonstrate this in the freuqentist setting.
 Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
 
@@ -82,7 +90,7 @@ But, data will show.
 
 How can we interpret the model equations? 
 The model assumes that the **expected** height $\mu_i$ of a person $i$
-depends non-linearly on the weight $x_i$ of the person.
+depends non-linearly (quadratically) on the weight $x_i$ of the person.
 We are in the business of mean-modeling. 
 The prior for $\sigma$ is uniform as before.
 The prior for $\alpha$ is normal with mean $178$ and standard deviation $20$
@@ -128,10 +136,10 @@ b1 <- params["b1", "mean"]     # Coefficient for standardized weight
 b2 <- params["b2", "mean"]     # Coefficient for squared standardized weight
 
 # Generate a sequence of standardized weights for the fitted curve
-weight_fine <- seq(min(d$weight_s), max(d$weight_s), length.out = 200)
+weight_seq <- seq(min(d$weight_s), max(d$weight_s), length.out = 200)
 
 # Calculate the fitted values using the quadratic equation
-height_fitted <- a + b1 * weight_fine + b2 * weight_fine^2
+height_fitted <- a + b1 * weight_seq + b2 * weight_seq^2
 
 # Plot the scatterplot
 plot(d$weight_s, d$height, pch = 16, col = "blue",
@@ -139,14 +147,14 @@ plot(d$weight_s, d$height, pch = 16, col = "blue",
      main = "Scatterplot with Fitted Curve (Standardized Weight)")
 
 # Add the fitted curve
-lines(weight_fine, height_fitted, col = "red", lwd = 2)
+lines(weight_seq, height_fitted, col = "red", lwd = 2)
 
 # Add a legend
 legend("topright", legend = c("Observed data", "Fitted curve"),
        col = c("blue", "red"), pch = c(16, NA), lty = c(NA, 1), lwd = 2)
 ```
 
-This fits much better than the linear model. In the book,
+This fits much better than the linear model without the quadratic term. In the book,
 there is also a polynomial regression with a cubic term for weight.
 Maybe this fits even better (see [exercise 1](#exercise1_multiple_regression)).
 
@@ -196,7 +204,8 @@ For further, more detailed information on model checking, refer to chapter 6 of
 [Gelman's book](https://sites.stat.columbia.edu/gelman/book/BDA3.pdf).
 
 Anyhow, we plot two posterior predictive checks here.
-We test the model within the same data set. We create new observations
+We test the model within the same data set. 
+In order to to this, we create new observations
 by drawing from the posterior distribution and compare these with the acutally 
 observed values. This is called **posterior predictive checks**.
 
@@ -229,7 +238,7 @@ for(i in 1:nrow(df)) lines(rep(df$Y[i], 2), mu_PI[,i], col = rangi2)
 
 As we can see, the model fits the data quite well. The points are close to the dashed line ($y=x$).
 No under- or overestimation is visible. The model seems to capture the relationship between the predictors $X_1$ and $X_2$
-and the dependent variable $Y$ quite well. If there were patches of data points above or below the dashed line,
+and the dependent variable $Y$ quite well - at least in a predictive sense. If there were patches of data points above or below the dashed line,
 we would probably have to reconsider the model definition and think about why these points are not captured by the model.
 
 **Next, we plot the posterior predictive plots** analog to the upper left in the `check_model` output.
@@ -827,7 +836,7 @@ with 3 rows and 4 columns.
 
 Go back to the [section about the interaction term](#interaction_term) in the linear model.
 
-- Use the code provided
+- Use the code provided.
 - Standardise the predictors. How are the $\beta$s changing and what is their interpration now?
 - Change the relative sizes of the true but usually unknown $\beta$s. 
   What happens to the estimates and the graph?
@@ -836,7 +845,7 @@ Go back to the [section about the interaction term](#interaction_term) in the li
 ### [E] Exercise 5 {#exercise5_multiple_regression}
 
 Draw the interaction plot from the [section about the interaction plot](#interaction_plot) 
-for the case when there is not interaction, i.e. $\beta_3 = 0$.
+for the case when there is no interaction, i.e. $\beta_3 = 0$.
 
 ### [M] Exercise 6 {#exercise6_multiple_regression}
 
