@@ -292,7 +292,7 @@ and then model the pain intensity for the people who have pain) or use a differe
 Note that we did not explicitely assume normally distributed errors in the model definition above,
 so we won't check this here but in the Frequentist framework below.
 
-## Linear regression with 2 Predictors in the Frequentist Framework 
+## Linear regression with 2 predictors in the Frequentist Framework 
 ### Adding a transformed predictor to the model {#adding_transformed_predictor_freq}
 
 No, let's fit the same model as above in the frequentist framework.
@@ -303,13 +303,25 @@ $$height_i = \alpha + \beta_1 weight_i + \beta_2 weight_i^2 + \varepsilon_i$$
 whereas
 $$\varepsilon_i \sim N(0, \sigma)$$
 
+And if you build the expectation on both sides for fixed $weight_i$, you get:
+
+$$\mathbb{E}(height_i|weight_i) = \alpha + \beta_1 weight_i + \beta_2 weight_i^2$$
+
+The last line means, the expected height of a person given a certain weight depends 
+quadratically on the weight. The error term $\varepsilon_i$ is on average zero, hence it goes away here.
+The weights are considered fixed and therefore do not change when building the expectation.
+
 We are looking for fixed, but unknown, parameters $\alpha$, $\beta_1$, $\beta_2$ and $\sigma$.
-This is fit again using the `lm` function in R which uses least squares to estimate the parameters.
+The fixed $\sigma$ indicates that the observations *wiggle* around the expected value
+equally strong not matter which weight we have. This is called **homoscedasticity**.
+
+Let's fit the model using the `lm` function in R which uses 
+[least squares](https://en.wikipedia.org/wiki/Least_squares) to estimate the parameters.
 At this point I could torture you with [matrix algebra](https://en.wikipedia.org/wiki/Matrix_(mathematics)) 
 and show you the [normal equations](https://en.wikipedia.org/wiki/Linear_least_squares) for linear regression,
 but I will spare you for now.
 Note that the least squares algorithm for fitting the curve works for all
-kinds of functions. We could also fit an exponential curve using the same
+kinds of functional forms. For example, we could also fit an exponential curve using the same
 technique (see [exercise 9](#exercise9_multiple_regression)).
 
 ```{r}
@@ -318,6 +330,7 @@ d$weight_s <- scale(d$weight)
 # Fit the model
 m4.2 <- lm(height ~ weight_s + I(weight_s^2), data = d)
 summary(m4.2)
+mean(d$height)
 ```
 
 See `?I` in R. This command is used so that R knows that it should 
@@ -326,17 +339,19 @@ We could also create a new variable as before. Whatever you prefer.
 
 #### Interpretation of output and coefficients
 
-- The intercept $\alpha$ is the **model-predicted height** of a person of **average weight**.
-  Note that this is not the average height of the people in the data set, since the 
-  mean model is also a model, but different from ours.
+- The intercept $\alpha$ is the **model-predicted height** of a person of **average weight** 
+  ($weight_s=0$ for a person of average weight).
+  Note that this is not equal to the average height ($138.2636 cm$) of the people in the data set.
 - The residuals have range from $-19.97$ to $19.51$. So, the model maximally
   overestimates the heights by $19.97$ cm and underestimates by $19.51$ cm.
   These numbers are plausible when you look at the scatterplot with the fitted
   curve.
 - The coefficients $\beta_1$ and $\beta_2$ agree with the Bayes estimates.
-  Specifically, $\beta_2$ is non-zero indicating curvature.
+  Specifically, $\beta_2$ is non-zero indicating curvature. You cannot directly interpret the coefficients
+  as in the non-quadratic case since, for instance, you cannot change $weight^2$ by one unit
+  and hold $weight$ constant at the same time. Refer to Peter Westfall's book section 9.1. for all the details.
 - If you like $p$-values: All the hypotheses that the coefficients are zero
-  are rejected. The $p$-values are very small. The data can not be explained
+  are rejected. The $p$-values are very small. The values of the test statistics can not be explained
   by chance alone. On the other hand, for at least $\beta_1$ and
   and the global test this is not a surprise when you look at the scatterplot.
 - The $R^2$ is a whopping $0.96$ which could be a sign of overfitting, but
