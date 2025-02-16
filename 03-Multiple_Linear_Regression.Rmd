@@ -894,6 +894,7 @@ setting. Hint: You can use the `optim` function in R.
 - Note that the sum of squared errors is this: 
   $\sum_{i=1}^n (height_i - \alpha - \beta_1 e^{\beta_2 weight_i})^2$.
 - What happens if you do not constrain the parameters $\beta_1$ and $\beta_2$ to be negative?
+- Calculate the $R^2$ for this model.
 
 ## TODOS
 
