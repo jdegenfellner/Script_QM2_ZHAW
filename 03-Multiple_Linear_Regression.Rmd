@@ -5,6 +5,10 @@ in the Bayesian and Frequentist framework.
 We will now add another predictor and subsequently an interaction term to the model.
 Finally, we will add more than two predictors to the model.
 
+If you feel confused at any point: As Richard McElreath repeatedly says:
+This is normal, it means you are paying attention. I also refer to the
+great [Richard Feynman](https://www.youtube.com/watch?v=lytxafTXg6c&ab_channel=sdfhsfh).
+
 ## Linear Regression with 2 predictors in the Bayesian Framework
 
 ### Meaning of "linear"
@@ -66,7 +70,7 @@ which is often used to capture non-linear relationships.
 The blue line is the usual line from classic linear regression (from the previous chapter).
 Which one describes the data more accurately? 
 In this case it is obvious, a non-linear relationship is present and it might be a good idea 
-to model it. Modeling the relationshiop with a linear trend leads to bad residuals with structure.
+to model it. Modeling the relationship with a linear trend leads to bad residuals with structure.
 We will demonstrate this in the freuqentist setting.
 Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
 
@@ -205,7 +209,7 @@ For further, more detailed information on model checking, refer to chapter 6 of
 
 Anyhow, we plot two posterior predictive checks here.
 We test the model within the same data set. 
-In order to to this, we create new observations
+In order to do this, we create new observations
 by drawing from the posterior distribution and compare these with the acutally 
 observed values. This is called **posterior predictive checks**.
 
@@ -295,7 +299,7 @@ so we won't check this here but in the Frequentist framework below.
 ## Linear regression with 2 predictors in the Frequentist Framework 
 ### Adding a transformed predictor to the model {#adding_transformed_predictor_freq}
 
-No, let's fit the same model as above in the frequentist framework.
+No, let's fit the same model as above in the Frequentist framework.
 
 The model is:
 
@@ -309,6 +313,10 @@ $$\mathbb{E}(height_i|weight_i) = \alpha + \beta_1 weight_i + \beta_2 weight_i^2
 
 The last line means, the expected height of a person given a certain weight depends 
 quadratically on the weight. The error term $\varepsilon_i$ is on average zero, hence it goes away here.
+Remember the [law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers#Weak_law): 
+The sample mean $\bar{\varepsilon_i}$ approaches the expected value $\mathbb{E}(\varepsilon_i)=0$ 
+as the sample size increases. If you drew many samples and average over the error terms,
+the average will approach zero.
 The weights are considered fixed and therefore do not change when building the expectation.
 
 We are looking for fixed, but unknown, parameters $\alpha$, $\beta_1$, $\beta_2$ and $\sigma$.
@@ -331,6 +339,7 @@ d$weight_s <- scale(d$weight)
 m4.2 <- lm(height ~ weight_s + I(weight_s^2), data = d)
 summary(m4.2)
 mean(d$height)
+confint(m4.2, level = 0.94)
 ```
 
 See `?I` in R. This command is used so that R knows that it should 
@@ -354,6 +363,11 @@ We could also create a new variable as before. Whatever you prefer.
   are rejected. The $p$-values are very small. The values of the test statistics can not be explained
   by chance alone. On the other hand, for at least $\beta_1$ and
   and the global test this is not a surprise when you look at the scatterplot.
+  After having fit many models, you would have guessed that all three parameters 
+  are solidly non-zero. The intercept is not zero since a person of average weight probably
+  has non-zero height. $\beta_1$ is non-zero since you can easily imagine a linear
+  trend line with positive slope going through the data, and $\beta_2$ is non-zero
+  since there is clearly (non-trivial) curvature in the scatterplot.
 - The $R^2$ is a whopping $0.96$ which could be a sign of overfitting, but
   in this case we conclude that the true relationship is caputured rather well.
   [Overfitting](https://en.wikipedia.org/wiki/Overfitting) would occur if 
@@ -499,7 +513,7 @@ all subsets of predictors. If that is not possible, one could use clever algorti
 - What is also not a good idea is to select variables depending on the $p$-values of the coefficients.
 - **Leaving variables out**, that are important, can lead to biased estimates of the coefficients 
   ([omitted variable bias](https://en.wikipedia.org/wiki/Omitted-variable_bias)).
-- But also **adding variables** can hurt conclusions from the model (see Statistical Rethinking 6.2).
+- Importantly, also **adding variables** can hurt conclusions from the model (see Statistical Rethinking 6.2).
 
 
 ### Interaction Term $X_1 \times X_2$ {#interaction_term}
@@ -696,7 +710,7 @@ See [exercise 5](#exercise5_multiple_regression).
 
 If we had one or both predictors already categorical, we would not have to discretize them before.
 
-### Simpsons Paradox {#simpsons_paradox}
+### Simpsons Paradox and what happens when you just throw variables into multiple regression {#simpsons_paradox}
 
 The [Simpsons paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) is a phenomenon, 
 in which a trend appears in several different groups of data but disappears 
@@ -898,17 +912,19 @@ setting. Hint: You can use the `optim` function in R.
 
 ## TODOS
 
+- Violations of model assumptions and how to fix them.
+- Model the quadratic/cubic relationship between weight and height using a line
+  and show residuals.
 - Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 - Add more Bayesian model checks, chapter 6 Gelman.
-- maybe create animation of points wiggling to get a feeling for the variability
 - Show by simulation what Gelman talks about with significant p values. So I scan the data
   for significant p values and then simulate data with the same effect size and see how often
   I get significant p values. Especially the next effect would be probably smaller,
   especially, if one did p-hacking! Calculate a priori probability for replication (def?).
 - Variability of confidence interval borders (draw from X...)
-- Logistic Regression
+- Logistic Regression, Poisson, ...
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
-- Chapter about ICCs, but maybe reduced
+- Chapter about Reliability, Validity and ICCs (incl. simulation of what an ICC of 0.9 or so means), but maybe reduced
 - clearer difference between prediction and explanation. why do we need causal inference and
   why do we have to be careful when we throw predictors into a model, how sure can we be that
   the model does what we want it to do?
@@ -918,14 +934,8 @@ setting. Hint: You can use the `optim` function in R.
 - What about 2 interactions?
 - Which variables should I include in a model and why?
 - Emphasize individual prediction (if not already) - cant get below $\sigma$ in prediction
-- Include information of Kahnemans book, Thinking fast and slow. Specifically, regression
-  is better than intuition. Intuition only works in a valid environment, where patterns
-  can be obeserved. In non-valid environments, the wrong patterns are learned. Furthermore,
-  regression using some simple scores is better than expert intuition. Also Meehl is mentioned 
-  by Kahneman.
-- What to do if regression assumptions are violated?
 - What about a real life data set?
 - What about papers?
 - Simulate a cohort of Master thesis with small sample sizes and assume 
   that there is a true but unknown effect.
-- AIC, BIC, cross-validation, Model selection (best subset, leaps....)
+- AIC, BIC, cross-validation, Model selection (best subset, leaps....), Variable selection

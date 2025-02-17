@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-02-16" />
+<meta name="date" content="2025-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -236,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.2" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#adding_predictor_freq"><i class="fa fa-check"></i><b>4.2.2</b> Adding another predictor to the model</a></li>
 <li class="chapter" data-level="4.2.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#interaction_term"><i class="fa fa-check"></i><b>4.2.3</b> Interaction Term <span class="math inline">\(X_1 \times X_2\)</span></a></li>
 <li class="chapter" data-level="4.2.4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#interaction_plot"><i class="fa fa-check"></i><b>4.2.4</b> Using an interaction plot to see a potential interaction</a></li>
-<li class="chapter" data-level="4.2.5" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#simpsons_paradox"><i class="fa fa-check"></i><b>4.2.5</b> Simpsons Paradox</a></li>
+<li class="chapter" data-level="4.2.5" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#simpsons_paradox"><i class="fa fa-check"></i><b>4.2.5</b> Simpsons Paradox and what happens when you just throw variables into multiple regression</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html#exercises-2"><i class="fa fa-check"></i><b>4.3</b> Exercises</a>
 <ul>
@@ -276,6 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 3</span> Simple Linear Regression<a href="simple-linear-regression.html#simple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="simple_lin_reg_bayes" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Simple Linear Regression in the Bayesian Framework<a href="simple-linear-regression.html#simple_lin_reg_bayes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You can watch <a href="https://www.youtube.com/watch?v=14mkCpJ7tKs&amp;ab_channel=VeryNormal">this video</a> as primer.</p>
 <p>We will now add one covariate/explanatory variable to the model.
 Refer to <a href="https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf">Statistical Rethinking</a>
 “4.4 Linear prediction” or “4.4 Adding a predictor” as it’s called in the online version of the book.</p>
@@ -336,8 +337,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-eca18930214153541422" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-eca18930214153541422">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-cb234185967d61e67e37" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-cb234185967d61e67e37">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
