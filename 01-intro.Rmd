@@ -696,6 +696,8 @@ a feeling for the variability of the model/data.
 
 [E] Easy, [M] Medium, [H] Hard
 
+(Some) solutions to exercises can be found in the git-repo [here](https://github.com/jdegenfellner/Script_QM2_ZHAW/tree/main/Solutions_Exercises).
+
 ### [E] Exercise 1 {#exercise1_Intro}
 
 Use the [Swiss body heights](https://www.bfs.admin.ch/asset/de/30305714) data to 

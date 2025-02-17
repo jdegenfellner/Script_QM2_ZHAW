@@ -835,6 +835,10 @@ See [exercise 7](#exercise7_multiple_regression).
 
 ## Exercises
 
+[E] Easy, [M] Medium, [H] Hard
+
+(Some) solutions to exercises can be found in the git-repo [here](https://github.com/jdegenfellner/Script_QM2_ZHAW/tree/main/Solutions_Exercises).
+
 ### [M] Exercise 1 {#exercise1_multiple_regression}
 
 - Fit a model with a cubic term for weight and height of the !Kung San people.
@@ -913,8 +917,6 @@ setting. Hint: You can use the `optim` function in R.
 ## TODOS
 
 - Violations of model assumptions and how to fix them.
-- Model the quadratic/cubic relationship between weight and height using a line
-  and show residuals.
 - Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 - Add more Bayesian model checks, chapter 6 Gelman.
 - Show by simulation what Gelman talks about with significant p values. So I scan the data
@@ -925,15 +927,11 @@ setting. Hint: You can use the `optim` function in R.
 - Logistic Regression, Poisson, ...
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 - Chapter about Reliability, Validity and ICCs (incl. simulation of what an ICC of 0.9 or so means), but maybe reduced
-- clearer difference between prediction and explanation. why do we need causal inference and
-  why do we have to be careful when we throw predictors into a model, how sure can we be that
-  the model does what we want it to do?
 - causal terror of richards book, fork, pipe, collider
 - Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt), 
   ist diese Situation möglich?
 - What about 2 interactions?
 - Which variables should I include in a model and why?
-- Emphasize individual prediction (if not already) - cant get below $\sigma$ in prediction
 - What about a real life data set?
 - What about papers?
 - Simulate a cohort of Master thesis with small sample sizes and assume 

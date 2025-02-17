@@ -1612,7 +1612,7 @@ to another problem (as we have seen): It minimizes the sum of squared residuals,
 which are defined via the **vertical** distances to the line.
 See [exercise 8](#exercise8_simpl_lin_reg).
 
-### Random X vs fixed X
+### Random X vs. fixed X
 
 A detail that is not mentioned often in introductory statistics courses
 is the question of whether the predictor variable $X$ is random or fixed.
@@ -1631,6 +1631,10 @@ We want to make clear what the confidence intervals from `confint` of a model me
 [exercise 14](#exercise14_simpl_lin_reg).
 
 ## Exercises
+
+[E] Easy, [M] Medium, [H] Hard
+
+(Some) solutions to exercises can be found in the git-repo [here](https://github.com/jdegenfellner/Script_QM2_ZHAW/tree/main/Solutions_Exercises).
 
 ### [E] Exercise 1 {#exercise1_simpl_lin_reg}
 
@@ -1689,7 +1693,7 @@ Go to the model assumptions in the classical regression model ([Model Assumption
 - Draw the $\hat{y_i}, |e_i|$ plot.
 - Repeat the simulation and look at the variability of the plot.
 
-### [H] Exercise 8 {#exercise8_simpl_lin_reg}
+### [E] Exercise 8 {#exercise8_simpl_lin_reg}
 
 - Go to p.36 in Westfall's book and read Appendix A.
 - Pay close attention to the explanation about regression toward the mean.
@@ -1740,7 +1744,7 @@ Go back to the [ANOVA section](#analysis_of_variance).
 
 - How many degrees of freedom does each term have?
 
-### Exercise 14 {#exercise14_simpl_lin_reg}
+### [M] Exercise 14 {#exercise14_simpl_lin_reg}
 
 When we fit a simple linear regression model (Frequentist), we get confidence intervals for the coefficients
 using the command `confint`. As stated previously, these are frequentist CIs. That means,

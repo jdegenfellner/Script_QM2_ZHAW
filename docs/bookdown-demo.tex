@@ -125,7 +125,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-14}
+\date{2025-02-17}
 
 \begin{document}
 \maketitle
@@ -647,9 +647,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##             mean        sd       5.5%      94.5%
-## mu    154.604090 0.4119982 153.945637 155.262542
-## sigma   7.731405 0.2913927   7.265703   8.197106
+##           mean        sd       5.5%      94.5%
+## mu    154.6041 0.4119925 153.945656 155.262544
+## sigma   7.7313 0.2913828   7.265614   8.196986
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 155.1816 7.656471
-## 2 155.2900 8.025153
-## 3 154.7600 7.463876
-## 4 154.9991 7.641914
-## 5 153.7301 8.054677
-## 6 154.6874 7.798704
+## 1 154.6741 7.811505
+## 2 154.6858 8.015744
+## 3 155.0142 7.979912
+## 4 154.3785 8.214095
+## 5 154.7704 8.136090
+## 6 154.2880 7.826631
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697424866 0.0001536329
-## sigma 0.0001536329 0.0849097199
+## mu    0.1697378558 0.0001538395
+## sigma 0.0001538395 0.0849039447
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16974249 0.08490972
+## 0.16973786 0.08490394
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001279706
-## sigma 0.001279706 1.000000000
+## mu    1.000000000 0.001281488
+## sigma 0.001281488 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1034,6 +1034,8 @@ a feeling for the variability of the model/data.
 
 {[}E{]} Easy, {[}M{]} Medium, {[}H{]} Hard
 
+(Some) solutions to exercises can be found in the git-repo \href{https://github.com/jdegenfellner/Script_QM2_ZHAW/tree/main/Solutions_Exercises}{here}.
+
 \subsection{{[}E{]} Exercise 1}\label{exercise1_Intro}
 
 Use the \href{https://www.bfs.admin.ch/asset/de/30305714}{Swiss body heights} data to
@@ -1208,6 +1210,8 @@ Looks good.
 
 \section{Simple Linear Regression in the Bayesian Framework}\label{simple_lin_reg_bayes}
 
+You can watch \href{https://www.youtube.com/watch?v=14mkCpJ7tKs&ab_channel=VeryNormal}{this video} as primer.
+
 We will now add one covariate/explanatory variable to the model.
 Refer to \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical Rethinking}
 ``4.4 Linear prediction'' or ``4.4 Adding a predictor'' as it's called in the online version of the book.
@@ -1295,7 +1299,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMH9gzi/filed1ec762f6683/widgetd1ec21f35f13.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e518f3bf6f/widget153e52a9d1d35.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2608,7 +2612,7 @@ to another problem (as we have seen): It minimizes the sum of squared residuals,
 which are defined via the \textbf{vertical} distances to the line.
 See \hyperref[exercise8_simpl_lin_reg]{exercise 8}.
 
-\subsection{Random X vs fixed X}\label{random-x-vs-fixed-x}
+\subsection{Random X vs.~fixed X}\label{random-x-vs.-fixed-x}
 
 A detail that is not mentioned often in introductory statistics courses
 is the question of whether the predictor variable \(X\) is random or fixed.
@@ -2617,12 +2621,20 @@ In our case, we did not specify the weights of the people in the !Kung San data 
 In an \emph{experimental} setting, we could have controlled the weights of the people.
 We could have for instance only included people with weights at certain steps (50 kg, 60 kg, 70 kg).
 In the latter case, we could consider X as fixed. In the former case, we consider X as random.
+If we would draw another sample from the population, we would get different weights again.
 Further reading: \href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall} 1.5.
 
 There are many more details we could look into, but we wanted to give a first
 practical introduction to regression analysis with less emphasis on theory and proofs behind it.
 
+We want to make clear what the confidence intervals from \texttt{confint} of a model mean. For this see
+\hyperref[exercise14_simpl_lin_reg]{exercise 14}.
+
 \section{Exercises}\label{exercises-1}
+
+{[}E{]} Easy, {[}M{]} Medium, {[}H{]} Hard
+
+(Some) solutions to exercises can be found in the git-repo \href{https://github.com/jdegenfellner/Script_QM2_ZHAW/tree/main/Solutions_Exercises}{here}.
 
 \subsection{{[}E{]} Exercise 1}\label{exercise1_simpl_lin_reg}
 
@@ -2704,7 +2716,7 @@ You can get those by filtering residuals that are \(>0.5\) and \(<0.5\).
   Repeat the simulation and look at the variability of the plot.
 \end{itemize}
 
-\subsection{{[}H{]} Exercise 8}\label{exercise8_simpl_lin_reg}
+\subsection{{[}E{]} Exercise 8}\label{exercise8_simpl_lin_reg}
 
 \begin{itemize}
 \tightlist
@@ -2782,11 +2794,37 @@ Go back to the Bayesian simple regression model for height \hyperref[simple_lin_
 Go back to the \hyperref[analysis_of_variance]{ANOVA section}.
 
 \begin{itemize}
-\tightlist
 \item
   Calculate SSE, SST and SSR for the regression of height on weight.
 \item
   How many degrees of freedom does each term have?
+\end{itemize}
+
+\subsection{{[}M{]} Exercise 14}\label{exercise14_simpl_lin_reg}
+
+When we fit a simple linear regression model (Frequentist), we get confidence intervals for the coefficients
+using the command \texttt{confint}. As stated previously, these are frequentist CIs. That means,
+if we draw data from the true (but usually unknown) data generating process, we would expect
+that the true value of the coefficient (intercept and slope) lies in the CI in X\% of the cases.
+
+\begin{itemize}
+\tightlist
+\item
+  Simulate data from the true data generating process of the simple linear regression model.
+\item
+  Fit the model and get the confidence intervals for the coefficients.
+\item
+  Repeat this process 1000 times and see how many times the true value of the coefficients
+  lies in the CI.
+\end{itemize}
+
+Changing the distribution of the covariate \(x\) should not change the results, since
+we only get a different amount of data points agross the range of \(x\).
+
+\begin{itemize}
+\tightlist
+\item
+  Verify this statement by changing the distribution of \(x\).
 \end{itemize}
 
 \chapter{Multiple Linear Regression}\label{multiple-linear-regression}
@@ -2794,8 +2832,13 @@ Go back to the \hyperref[analysis_of_variance]{ANOVA section}.
 So far, we have dealt with the simple mean model and the model with one predictor
 in the Bayesian and Frequentist framework.
 We will now add another predictor and subsequently an interaction term to the model.
+Finally, we will add more than two predictors to the model.
 
-\section{Linear Regression with 2 Predictors in the Baysian Framework}\label{linear-regression-with-2-predictors-in-the-baysian-framework}
+If you feel confused at any point: As Richard McElreath repeatedly says:
+This is normal, it means you are paying attention. I also refer to the
+great \href{https://www.youtube.com/watch?v=lytxafTXg6c&ab_channel=sdfhsfh}{Richard Feynman}.
+
+\section{Linear Regression with 2 predictors in the Bayesian Framework}\label{linear-regression-with-2-predictors-in-the-bayesian-framework}
 
 \subsection{Meaning of ``linear''}\label{meaning-of-linear}
 
@@ -2814,10 +2857,12 @@ This model is not a linear model anymore:
 if the coefficients are in a square root or in the denominator of a fraction,
 or in a sine or in a logarithm. You get the idea.
 
-\subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor}
+Here is an easy way to check if the model is linear: If I change the predictor-value
+(i.e.,the value of \(x_i\), \(x_i^2\) or whatever your predictor is) by one unit,
+the change in the (expected value of the) dependent variable is the coefficient in front of
+the predictor (\(\beta_i\)).
 
-The world is not flat, although some people on YouTube might tell you otherwise.
-In our context, not all regression is linear.
+\subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor}
 
 Around 4.5. in the book \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical Rethinking}
 there is are lineare regression using a quadratic term for weight.
@@ -2829,6 +2874,11 @@ weight and height, we also have to include the linear term for weight (\(x_i\)).
 Since we do not assume the relationship between weight and height to be linear but
 quadratic (which is a polynomial of degree 2), we call this a
 \href{https://en.wikipedia.org/wiki/Polynomial_regression\#:~:text=In\%20statistics\%2C\%20polynomial\%20regression\%20is,nth\%20degree\%20polynomial\%20in\%20x.}{polynomial regression}.
+This \href{https://www.youtube.com/watch?v=QptI-vDle8Y&ab_channel=MikeXCohen}{video} could be instructive.
+One has to be careful with fitting polynomials to data points since the regression coefficients
+can become quite large. Using a polynomial of high degree implies to have a lot of parameters
+to estimate. Increasing the degree of the polynomial increases \(R^2\) but also the risk of overfitting.
+(see Statistical Rethinking p.~200). So this is - of course - not the final solution to regression problems.
 
 This time, lets look at the whole age range of data from the !Kung San people.
 
@@ -2859,7 +2909,7 @@ which is often used to capture non-linear relationships.
 The blue line is the usual line from classic linear regression (from the previous chapter).
 Which one describes the data more accurately?
 In this case it is obvious, a non-linear relationship is present and it might be a good idea
-to model it. Modeling the relationshiop with a linear trend, leads to bad residuals with structure.
+to model it. Modeling the relationship with a linear trend leads to bad residuals with structure.
 We will demonstrate this in the freuqentist setting.
 Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
 
@@ -2883,7 +2933,7 @@ But, data will show.
 
 How can we interpret the model equations?
 The model assumes that the \textbf{expected} height \(\mu_i\) of a person \(i\)
-depends non-linearly on the weight \(x_i\) of the person.
+depends non-linearly (quadratically) on the weight \(x_i\) of the person.
 We are in the business of mean-modeling.
 The prior for \(\sigma\) is uniform as before.
 The prior for \(\alpha\) is normal with mean \(178\) and standard deviation \(20\)
@@ -2941,10 +2991,10 @@ Let's look at the fit using the mean estimates of the posterior distribution:
 \NormalTok{b2 }\OtherTok{\textless{}{-}}\NormalTok{ params[}\StringTok{"b2"}\NormalTok{, }\StringTok{"mean"}\NormalTok{]     }\CommentTok{\# Coefficient for squared standardized weight}
 
 \CommentTok{\# Generate a sequence of standardized weights for the fitted curve}
-\NormalTok{weight\_fine }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s), }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s), }\AttributeTok{length.out =} \DecValTok{200}\NormalTok{)}
+\NormalTok{weight\_seq }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s), }\FunctionTok{max}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s), }\AttributeTok{length.out =} \DecValTok{200}\NormalTok{)}
 
 \CommentTok{\# Calculate the fitted values using the quadratic equation}
-\NormalTok{height\_fitted }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b1 }\SpecialCharTok{*}\NormalTok{ weight\_fine }\SpecialCharTok{+}\NormalTok{ b2 }\SpecialCharTok{*}\NormalTok{ weight\_fine}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{height\_fitted }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ b1 }\SpecialCharTok{*}\NormalTok{ weight\_seq }\SpecialCharTok{+}\NormalTok{ b2 }\SpecialCharTok{*}\NormalTok{ weight\_seq}\SpecialCharTok{\^{}}\DecValTok{2}
 
 \CommentTok{\# Plot the scatterplot}
 \FunctionTok{plot}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s, d}\SpecialCharTok{$}\NormalTok{height, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{,}
@@ -2952,7 +3002,7 @@ Let's look at the fit using the mean estimates of the posterior distribution:
      \AttributeTok{main =} \StringTok{"Scatterplot with Fitted Curve (Standardized Weight)"}\NormalTok{)}
 
 \CommentTok{\# Add the fitted curve}
-\FunctionTok{lines}\NormalTok{(weight\_fine, height\_fitted, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(weight\_seq, height\_fitted, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
 
 \CommentTok{\# Add a legend}
 \FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"Observed data"}\NormalTok{, }\StringTok{"Fitted curve"}\NormalTok{),}
@@ -2962,7 +3012,7 @@ Let's look at the fit using the mean estimates of the posterior distribution:
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf}}
 
-This fits much better than the linear model. In the book,
+This fits much better than the linear model without the quadratic term. In the book,
 there is also a polynomial regression with a cubic term for weight.
 Maybe this fits even better (see \hyperref[exercise1_multiple_regression]{exercise 1}).
 
@@ -3021,7 +3071,8 @@ For further, more detailed information on model checking, refer to chapter 6 of
 \href{https://sites.stat.columbia.edu/gelman/book/BDA3.pdf}{Gelman's book}.
 
 Anyhow, we plot two posterior predictive checks here.
-We test the model within the same data set. We create new observations
+We test the model within the same data set.
+In order to do this, we create new observations
 by drawing from the posterior distribution and compare these with the acutally
 observed values. This is called \textbf{posterior predictive checks}.
 
@@ -3058,7 +3109,7 @@ close to it. We could also compare these two plots with the mean-model (see \hyp
 
 As we can see, the model fits the data quite well. The points are close to the dashed line (\(y=x\)).
 No under- or overestimation is visible. The model seems to capture the relationship between the predictors \(X_1\) and \(X_2\)
-and the dependent variable \(Y\) quite well. If there were patches of data points above or below the dashed line,
+and the dependent variable \(Y\) quite well - at least in a predictive sense. If there were patches of data points above or below the dashed line,
 we would probably have to reconsider the model definition and think about why these points are not captured by the model.
 
 \textbf{Next, we plot the posterior predictive plots} analog to the upper left in the \texttt{check\_model} output.
@@ -3137,11 +3188,11 @@ and then model the pain intensity for the people who have pain) or use a differe
 Note that we did not explicitely assume normally distributed errors in the model definition above,
 so we won't check this here but in the Frequentist framework below.
 
-\section{Linear regression with 2 Predictors in the Frequentist Framework}\label{linear-regression-with-2-predictors-in-the-frequentist-framework}
+\section{Linear regression with 2 predictors in the Frequentist Framework}\label{linear-regression-with-2-predictors-in-the-frequentist-framework}
 
-\subsection{Adding a transformed predictor to the model}\label{adding-a-transformed-predictor-to-the-model}
+\subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor_freq}
 
-No, let's fit the same model as above in the frequentist framework.
+No, let's fit the same model as above in the Frequentist framework.
 
 The model is:
 
@@ -3149,14 +3200,30 @@ The model is:
 whereas
 \[\varepsilon_i \sim N(0, \sigma)\]
 
+And if you build the expectation on both sides for fixed \(weight_i\), you get:
+
+\[\mathbb{E}(height_i|weight_i) = \alpha + \beta_1 weight_i + \beta_2 weight_i^2\]
+
+The last line means, the expected height of a person given a certain weight depends
+quadratically on the weight. The error term \(\varepsilon_i\) is on average zero, hence it goes away here.
+Remember the \href{https://en.wikipedia.org/wiki/Law_of_large_numbers\#Weak_law}{law of large numbers}:
+The sample mean \(\bar{\varepsilon_i}\) approaches the expected value \(\mathbb{E}(\varepsilon_i)=0\)
+as the sample size increases. If you drew many samples and average over the error terms,
+the average will approach zero.
+The weights are considered fixed and therefore do not change when building the expectation.
+
 We are looking for fixed, but unknown, parameters \(\alpha\), \(\beta_1\), \(\beta_2\) and \(\sigma\).
-This is fit again using the \texttt{lm} function in R which uses least squares to estimate the parameters.
+The fixed \(\sigma\) indicates that the observations \emph{wiggle} around the expected value
+equally strong not matter which weight we have. This is called \textbf{homoscedasticity}.
+
+Let's fit the model using the \texttt{lm} function in R which uses
+\href{https://en.wikipedia.org/wiki/Least_squares}{least squares} to estimate the parameters.
 At this point I could torture you with \href{https://en.wikipedia.org/wiki/Matrix_(mathematics)}{matrix algebra}
 and show you the \href{https://en.wikipedia.org/wiki/Linear_least_squares}{normal equations} for linear regression,
 but I will spare you for now.
 Note that the least squares algorithm for fitting the curve works for all
-kinds of functions. We could also fit an exponential curve using the same
-technique.
+kinds of functional forms. For example, we could also fit an exponential curve using the same
+technique (see \hyperref[exercise9_multiple_regression]{exercise 9}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3190,6 +3257,29 @@ technique.
 ## F-statistic:  5952 on 2 and 541 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{height)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 138.2636
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{confint}\NormalTok{(m4}\FloatTok{.2}\NormalTok{, }\AttributeTok{level =} \FloatTok{0.94}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                      3 %       97 %
+## (Intercept)   145.954018 147.366836
+## weight_s       20.866788  21.962979
+## I(weight_s^2)  -8.944251  -7.880337
+\end{verbatim}
+
 See \texttt{?I} in R. This command is used so that R knows that it should
 treat the ``\^{}2'' as ``square'' and not as formula syntax.
 We could also create a new variable as before. Whatever you prefer.
@@ -3199,9 +3289,9 @@ We could also create a new variable as before. Whatever you prefer.
 \begin{itemize}
 \tightlist
 \item
-  The intercept \(\alpha\) is the \textbf{model-predicted height} of a person of \textbf{average weight}.
-  Note that this is not the average height of the people in the data set, since the
-  mean model is also a model, but different from ours.
+  The intercept \(\alpha\) is the \textbf{model-predicted height} of a person of \textbf{average weight}
+  (\(weight_s=0\) for a person of average weight).
+  Note that this is not equal to the average height (\(138.2636 cm\)) of the people in the data set.
 \item
   The residuals have range from \(-19.97\) to \(19.51\). So, the model maximally
   overestimates the heights by \(19.97\) cm and underestimates by \(19.51\) cm.
@@ -3209,12 +3299,19 @@ We could also create a new variable as before. Whatever you prefer.
   curve.
 \item
   The coefficients \(\beta_1\) and \(\beta_2\) agree with the Bayes estimates.
-  Specifically, \(\beta_2\) is non-zero indicating curvature.
+  Specifically, \(\beta_2\) is non-zero indicating curvature. You cannot directly interpret the coefficients
+  as in the non-quadratic case since, for instance, you cannot change \(weight^2\) by one unit
+  and hold \(weight\) constant at the same time. Refer to Peter Westfall's book section 9.1. for all the details.
 \item
   If you like \(p\)-values: All the hypotheses that the coefficients are zero
-  are rejected. The \(p\)-values are very small. The data can not be explained
+  are rejected. The \(p\)-values are very small. The values of the test statistics can not be explained
   by chance alone. On the other hand, for at least \(\beta_1\) and
   and the global test this is not a surprise when you look at the scatterplot.
+  After having fit many models, you would have guessed that all three parameters
+  are solidly non-zero. The intercept is not zero since a person of average weight probably
+  has non-zero height. \(\beta_1\) is non-zero since you can easily imagine a linear
+  trend line with positive slope going through the data, and \(\beta_2\) is non-zero
+  since there is clearly (non-trivial) curvature in the scatterplot.
 \item
   The \(R^2\) is a whopping \(0.96\) which could be a sign of overfitting, but
   in this case we conclude that the true relationship is caputured rather well.
@@ -3381,7 +3478,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMH9gzi/filed1ec44b9797c/widgetd1ec6cd6df23.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e522107a09/widget153e567bbf657.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3453,7 +3550,7 @@ all subsets of predictors. If that is not possible, one could use clever algorti
   \textbf{Leaving variables out}, that are important, can lead to biased estimates of the coefficients
   (\href{https://en.wikipedia.org/wiki/Omitted-variable_bias}{omitted variable bias}).
 \item
-  But also \textbf{adding variables} can hurt conclusions from the model (see Statistical Rethinking 6.2).
+  Importantly, also \textbf{adding variables} can hurt conclusions from the model (see Statistical Rethinking 6.2).
 \end{itemize}
 
 \subsection{\texorpdfstring{Interaction Term \(X_1 \times X_2\)}{Interaction Term X\_1 \textbackslash times X\_2}}\label{interaction_term}
@@ -3573,7 +3670,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMH9gzi/filed1ec313bbe90/widgetd1ec495bf930.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e564666134/widget153e57d77d06a.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -3719,7 +3816,7 @@ See \hyperref[exercise5_multiple_regression]{exercise 5}.
 
 If we had one or both predictors already categorical, we would not have to discretize them before.
 
-\subsection{Simpsons Paradox}\label{simpsons_paradox}
+\subsection{Simpsons Paradox and what happens when you just throw variables into multiple regression}\label{simpsons_paradox}
 
 The \href{https://en.wikipedia.org/wiki/Simpson\%27s_paradox}{Simpsons paradox} is a phenomenon,
 in which a trend appears in several different groups of data but disappears
@@ -3950,6 +4047,10 @@ See \hyperref[exercise7_multiple_regression]{exercise 7}.
 
 \section{Exercises}\label{exercises-2}
 
+{[}E{]} Easy, {[}M{]} Medium, {[}H{]} Hard
+
+(Some) solutions to exercises can be found in the git-repo \href{https://github.com/jdegenfellner/Script_QM2_ZHAW/tree/main/Solutions_Exercises}{here}.
+
 \subsection{{[}M{]} Exercise 1}\label{exercise1_multiple_regression}
 
 \begin{itemize}
@@ -4000,7 +4101,7 @@ Go back to the \hyperref[interaction_term]{section about the interaction term} i
 \begin{itemize}
 \tightlist
 \item
-  Use the code provided
+  Use the code provided.
 \item
   Standardise the predictors. How are the \(\beta\)s changing and what is their interpration now?
 \item
@@ -4013,7 +4114,7 @@ Go back to the \hyperref[interaction_term]{section about the interaction term} i
 \subsection{{[}E{]} Exercise 5}\label{exercise5_multiple_regression}
 
 Draw the interaction plot from the \hyperref[interaction_plot]{section about the interaction plot}
-for the case when there is not interaction, i.e.~\(\beta_3 = 0\).
+for the case when there is no interaction, i.e.~\(\beta_3 = 0\).
 
 \subsection{{[}M{]} Exercise 6}\label{exercise6_multiple_regression}
 
@@ -4039,19 +4140,49 @@ Go back to the Simpson's paradox \hyperref[simpsons_paradox]{section}.
   What happens in the case of the collider?
 \end{itemize}
 
+\subsection{{[}M{]} Exercise 8}\label{exercise8_multiple_regression}
+
+\begin{itemize}
+\tightlist
+\item
+  Take a data set of your choosing with many columns, say 10 or so, either from the internet
+  or from R (if available)
+\item
+  Fit a model for an arbitrary outcome, add more and more variables to predict the outcome
+  and verify that the \(R^2\) increases.
+\end{itemize}
+
+\subsection{{[}M{]} Exercise 9}\label{exercise9_multiple_regression}
+
+Exponential curve fitting. Go back to the \hyperref[adding_transformed_predictor_freq]{section} about adding a transformed predictor in the Frequentist
+setting. Hint: You can use the \texttt{optim} function in R.
+
+\begin{itemize}
+\tightlist
+\item
+  Assume the relationship between weight and height looks like this:
+  \(height_i = \alpha + \beta_1 e^{\beta_2 weight_i}\).
+\item
+  Use R and the least squares method to estimate the parameters \(\alpha, \beta_1, \beta_2\).
+\item
+  Note that the sum of squared errors is this:
+  \(\sum_{i=1}^n (height_i - \alpha - \beta_1 e^{\beta_2 weight_i})^2\).
+\item
+  What happens if you do not constrain the parameters \(\beta_1\) and \(\beta_2\) to be negative?
+\item
+  Calculate the \(R^2\) for this model.
+\end{itemize}
+
 \section{TODOS}\label{todos}
 
 \begin{itemize}
 \tightlist
 \item
+  Violations of model assumptions and how to fix them.
+\item
   Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 \item
   Add more Bayesian model checks, chapter 6 Gelman.
-\item
-  If you add a lot of variables to your regression model, you can get an arbitrarily large (\(\le 1\))
-  \(R^2\). We will verify this when we have more than 2 explanatory variables.
-\item
-  maybe create animation of points wiggling to get a feeling for the variability
 \item
   Show by simulation what Gelman talks about with significant p values. So I scan the data
   for significant p values and then simulate data with the same effect size and see how often
@@ -4060,15 +4191,11 @@ Go back to the Simpson's paradox \hyperref[simpsons_paradox]{section}.
 \item
   Variability of confidence interval borders (draw from X\ldots)
 \item
-  Logistic Regression
+  Logistic Regression, Poisson, \ldots{}
 \item
   Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 \item
-  Chapter about ICCs, but maybe reduced
-\item
-  clearer difference between prediction and explanation. why do we need causal inference and
-  why do we have to be careful when we throw predictors into a model, how sure can we be that
-  the model does what we want it to do?
+  Chapter about Reliability, Validity and ICCs (incl.~simulation of what an ICC of 0.9 or so means), but maybe reduced
 \item
   causal terror of richards book, fork, pipe, collider
 \item
@@ -4079,22 +4206,14 @@ Go back to the Simpson's paradox \hyperref[simpsons_paradox]{section}.
 \item
   Which variables should I include in a model and why?
 \item
-  Emphasize individual prediction (if not already) - cant get below \(\sigma\) in prediction
-\item
-  Include information of Kahnemans book, Thinking fast and slow. Specifically, regression
-  is better than intuition. Intuition only works in a valid environment, where patterns
-  can be obeserved. In non-valid environments, the wrong patterns are learned. Furthermore,
-  regression using some simple scores is better than expert intuition. Also Meehl is mentioned
-  by Kahneman.
-\item
-  What to do if regression assumptions are violated?
-\item
   What about a real life data set?
 \item
   What about papers?
 \item
   Simulate a cohort of Master thesis with small sample sizes and assume
   that there is a true but unknown effect.
+\item
+  AIC, BIC, cross-validation, Model selection (best subset, leaps\ldots.), Variable selection
 \end{itemize}
 
 \bibliography{book.bib,packages.bib}

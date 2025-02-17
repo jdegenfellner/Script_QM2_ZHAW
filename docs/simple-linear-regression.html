@@ -203,7 +203,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#check-regression-assumptions"><i class="fa fa-check"></i><b>3.2.6</b> Check regression assumptions</a></li>
 <li class="chapter" data-level="3.2.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#bootstrap-fit"><i class="fa fa-check"></i><b>3.2.7</b> Bootstrap fit</a></li>
 <li class="chapter" data-level="3.2.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#regression-towards-the-mean"><i class="fa fa-check"></i><b>3.2.8</b> Regression towards the mean</a></li>
-<li class="chapter" data-level="3.2.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#random-x-vs-fixed-x"><i class="fa fa-check"></i><b>3.2.9</b> Random X vs fixed X</a></li>
+<li class="chapter" data-level="3.2.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#random-x-vs.-fixed-x"><i class="fa fa-check"></i><b>3.2.9</b> Random X vs. fixed X</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercises-1"><i class="fa fa-check"></i><b>3.3</b> Exercises</a>
 <ul>
@@ -214,12 +214,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.5" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise5_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.5</b> [M] Exercise 5</a></li>
 <li class="chapter" data-level="3.3.6" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise6_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.6</b> [H] Exercise 6</a></li>
 <li class="chapter" data-level="3.3.7" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise7_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.7</b> [M] Exercise 7</a></li>
-<li class="chapter" data-level="3.3.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise8_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.8</b> [H] Exercise 8</a></li>
+<li class="chapter" data-level="3.3.8" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise8_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.8</b> [E] Exercise 8</a></li>
 <li class="chapter" data-level="3.3.9" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise9_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.9</b> [M] Exercise 9</a></li>
 <li class="chapter" data-level="3.3.10" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise10_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.10</b> [M] Exercise 10</a></li>
 <li class="chapter" data-level="3.3.11" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise11_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.11</b> [E] Exercise 11</a></li>
 <li class="chapter" data-level="3.3.12" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise12_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.12</b> [M] Exercise 12</a></li>
 <li class="chapter" data-level="3.3.13" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise13_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.13</b> [M] Exercise 13</a></li>
+<li class="chapter" data-level="3.3.14" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise14_simpl_lin_reg"><i class="fa fa-check"></i><b>3.3.14</b> [M] Exercise 14</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i><b>4</b> Multiple Linear Regression</a>
@@ -337,8 +338,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-cb234185967d61e67e37" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-cb234185967d61e67e37">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-c09edd4f31c82dab8934" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c09edd4f31c82dab8934">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
@@ -1216,8 +1217,8 @@ to another problem (as we have seen): It minimizes the sum of squared residuals,
 which are defined via the <strong>vertical</strong> distances to the line.
 See <a href="simple-linear-regression.html#exercise8_simpl_lin_reg">exercise 8</a>.</p>
 </div>
-<div id="random-x-vs-fixed-x" class="section level3 hasAnchor" number="3.2.9">
-<h3><span class="header-section-number">3.2.9</span> Random X vs fixed X<a href="simple-linear-regression.html#random-x-vs-fixed-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="random-x-vs.-fixed-x" class="section level3 hasAnchor" number="3.2.9">
+<h3><span class="header-section-number">3.2.9</span> Random X vs. fixed X<a href="simple-linear-regression.html#random-x-vs.-fixed-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A detail that is not mentioned often in introductory statistics courses
 is the question of whether the predictor variable <span class="math inline">\(X\)</span> is random or fixed.
 In our case, we did not specify the weights of the people in the !Kung San data set.
@@ -1225,13 +1226,18 @@ In our case, we did not specify the weights of the people in the !Kung San data 
 In an <em>experimental</em> setting, we could have controlled the weights of the people.
 We could have for instance only included people with weights at certain steps (50 kg, 60 kg, 70 kg).
 In the latter case, we could consider X as fixed. In the former case, we consider X as random.
+If we would draw another sample from the population, we would get different weights again.
 Further reading: <a href="https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4">Westfall</a> 1.5.</p>
 <p>There are many more details we could look into, but we wanted to give a first
 practical introduction to regression analysis with less emphasis on theory and proofs behind it.</p>
+<p>We want to make clear what the confidence intervals from <code>confint</code> of a model mean. For this see
+<a href="simple-linear-regression.html#exercise14_simpl_lin_reg">exercise 14</a>.</p>
 </div>
 </div>
 <div id="exercises-1" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Exercises<a href="simple-linear-regression.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>[E] Easy, [M] Medium, [H] Hard</p>
+<p>(Some) solutions to exercises can be found in the git-repo <a href="https://github.com/jdegenfellner/Script_QM2_ZHAW/tree/main/Solutions_Exercises">here</a>.</p>
 <div id="exercise1_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> [E] Exercise 1<a href="simple-linear-regression.html#exercise1_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the model from above:</p>
@@ -1294,7 +1300,7 @@ You can get those by filtering residuals that are <span class="math inline">\(&g
 </ul>
 </div>
 <div id="exercise8_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.8">
-<h3><span class="header-section-number">3.3.8</span> [H] Exercise 8<a href="simple-linear-regression.html#exercise8_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">3.3.8</span> [E] Exercise 8<a href="simple-linear-regression.html#exercise8_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Go to p.36 in Westfall’s book and read Appendix A.</li>
 <li>Pay close attention to the explanation about regression toward the mean.</li>
@@ -1346,8 +1352,26 @@ is taller than a person in the 10% quantile of the weight change if you change</
 <h3><span class="header-section-number">3.3.13</span> [M] Exercise 13<a href="simple-linear-regression.html#exercise13_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Go back to the <a href="simple-linear-regression.html#analysis_of_variance">ANOVA section</a>.</p>
 <ul>
-<li>Calculate SSE, SST and SSR for the regression of height on weight.</li>
-<li>How many degrees of freedom does each term have?</li>
+<li><p>Calculate SSE, SST and SSR for the regression of height on weight.</p></li>
+<li><p>How many degrees of freedom does each term have?</p></li>
+</ul>
+</div>
+<div id="exercise14_simpl_lin_reg" class="section level3 hasAnchor" number="3.3.14">
+<h3><span class="header-section-number">3.3.14</span> [M] Exercise 14<a href="simple-linear-regression.html#exercise14_simpl_lin_reg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When we fit a simple linear regression model (Frequentist), we get confidence intervals for the coefficients
+using the command <code>confint</code>. As stated previously, these are frequentist CIs. That means,
+if we draw data from the true (but usually unknown) data generating process, we would expect
+that the true value of the coefficient (intercept and slope) lies in the CI in X% of the cases.</p>
+<ul>
+<li>Simulate data from the true data generating process of the simple linear regression model.</li>
+<li>Fit the model and get the confidence intervals for the coefficients.</li>
+<li>Repeat this process 1000 times and see how many times the true value of the coefficients
+lies in the CI.</li>
+</ul>
+<p>Changing the distribution of the covariate <span class="math inline">\(x\)</span> should not change the results, since
+we only get a different amount of data points agross the range of <span class="math inline">\(x\)</span>.</p>
+<ul>
+<li>Verify this statement by changing the distribution of <span class="math inline">\(x\)</span>.</li>
 </ul>
 
 </div>
