@@ -309,6 +309,10 @@ The $Y_i$ are independently normally distributed *conditioned* on the predictors
 having the values $X_i = x_i$. Each conditional distribution has an expected value ($\mu$)
 that is a linear function of the predictors and a constant variance $\sigma^2$.
 
+If the assumptions of the classical linear regression model are met, the least squares
+estimators (OLS) are the best (smallest variance) linear unbiased (on average correct) estimators 
+(so-called: BLUE) of the parameters.
+
 ### Adding a transformed predictor to the model {#adding_transformed_predictor_freq}
 
 No, let's fit the same model as above in the Frequentist framework.
@@ -794,13 +798,28 @@ These graphs are called DAGs - directed acyclic graphs. *Directed* because of th
 [dagitty](https://www.dagitty.net/), which is also [implemented in R](https://cran.r-project.org/web/packages/dagitty/index.html).
 
 #### Pipe
-In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. $X$ and $Y$ are also associated.
-But if we condition on $Z$, the association between $X$ and $Y$ disappears. This is the pipe.
+In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. 
+$X$ and $Y$ are not directly associated, but through $Z$ (see graph below).
+If we condition on $Z$, the association between $X$ and $Y$ disappears. This is the pipe.
 This means, if we **know** the value of $Z$, $X$ does not give us any *additional* information about $Y$.
 
 This can be seen in the scatterplot: Once we are within $Z=0$ (black dots) or $Z=1$ (red dots), 
 $X$ does not give us any information about $Y$,
 i.e., the point cloud is horizontal and there is no correlation.
+
+The `inv_logit` function is the inverse of the logit function.
+It assigns higher probability of $Z$ being $1$ if X has a higher value.
+Let's plot this for understanding:
+
+```{r}
+x <- seq(-3, 3, 0.1)
+plot(x, inv_logit(x), type = "l", col = "blue", lwd = 2, xlab = "X", ylab = "P(Z=1|X)")
+```
+
+Higher $X$ values lead to higher probabilities of $Z=1$. 
+As you can see, more red dots are on the right side of the plot.
+
+Now to the pipe and a mini simulation for it:
 
 ```{r}
 # pipe
@@ -811,6 +830,10 @@ library(ggdag)
 dag <- dagitty( 'dag {
   X -> Z -> Y
 }' )
+
+dagitty::coordinates( dag ) <-
+  list( x=c(X=0, Y=2, Z=1),
+        y=c(X=0, Y=0, Z=0) )
 
 ggdag(dag) + 
   theme_dag()
@@ -835,7 +858,6 @@ cor(X[Z==1],Y[Z==1])
 cor(X[Z==0],Y[Z==0])
 ```
 
-
 Or in the framework of Simpsons paradox:
 
 ```{r}
@@ -845,17 +867,39 @@ N <- 1000
 X <- rnorm(N)
 Z <- rbern(N,inv_logit(X))
 Y <- rnorm(N,(2*Z-1))
-mod1 <- lm(Y ~ X)
+mod1 <- lm(Y ~ X) # without conditioning on Z
 summary(mod1)
-mod2 <- lm(Y ~ X + Z)
+mod2 <- lm(Y ~ X + Z) # with conditioning on Z
 summary(mod2)
 ```
 
-Adding $Z$ to the model makes the coefficient for $X$ disappear. 
+Adding $Z$ to the model (i.e., conditioning on $Z$) makes the coefficient for $X$ disappear. 
+Knowing $Z$ means that $X$ does not give us any additional information about $Y$.
 See [exercise 7](#exercise7_multiple_regression).
 
+$Z$ is also called a [**mediator**](https://en.wikipedia.org/wiki/Mediation_(statistics)).
+
+We could easily verify that $Z$ constitutes a mediator by using Baron and 
+Kenny's 1986 approach (see Wiki):
+
+```{r}
+summary(lm(Y ~ X))# Step 1
+summary(lm(Z ~ X))# Step 2
+summary(lm(Y ~ X + Z))# Step 3
+```
+
+Both coefficients for $X$ are "significant" in steps 1 and 2.
+The coefficients for $Z$ in step 3 is "significant" and the coefficient for
+$X$ is smaller compared to step 1. And not to forget: the very small $p$-values are strongly
+related to the very large smaple size and a strict cutoff ($\alpha = 0.05$) makes no sense.
+
+
 #### Fork
-..........
+
+In health science, this is the classical [confounder](https://en.wikipedia.org/wiki/Confounding).
+$Z$ is associated with $X$ and $Y$. $X$ and $Y$ are *actually* not associated (no arrow) but an association is 
+still shown. But if we condition on $Z$, the association between $X$ and $Y$ disappears. The assocation is 
+spurious in this case and *adjusting* for the confounder yields the correct result. 
 
 ```{r}
 # fork
@@ -864,6 +908,10 @@ See [exercise 7](#exercise7_multiple_regression).
 dag <- dagitty( 'dag {
   X <- Z -> Y
 }' )
+
+dagitty::coordinates( dag ) <-
+  list( x=c(X=0, Y=2, Z=1),
+        y=c(X=0.5, Y=0.5, Z=0) )
 
 ggdag(dag) + theme_dag()
 
@@ -881,12 +929,38 @@ cor(X[Z==1],Y[Z==1])
 cor(X[Z==0],Y[Z==0])
 ```
 
+In the example, we know that $Z$ is associated with both $X$ and $Y$ (per construction).
+As you can see in the definitions of $X$, $Y$ and $Z$, $X$ and $Y$ would not be associated 
+weren't it for $Z$. 
+
+
+
 #### Collider
-.........
+This is rather interesting. $X$ is associated with $Z$ and $Y$ is associated 
+with $Z$. This can be seen in the toy example below, where $X$ and $Y$ are used
+for the definition of $Z$. As you can see, $Z$ is defined as a **sum 
+score** of $X$ and $Y$. Sum scores are *very* often used in health sciences (and others).
+The higher the sum score, the higher the probability that $Z=1$.
+Now, *if* we know the value of $Z$, $X$ and $Y$ are negatively associated (see graph). 
+The reason for this association is that there is a compensatory effect. In order to get a high 
+score, you can either have a high value of $X$ or a high value of $Y$ or both.
+This induces the negative correlation.
 
 ```{r}
 # collider
 # X -> Z <- Y
+
+#dag
+dag <- dagitty( 'dag {
+  X -> Z <- Y
+}' )
+
+dagitty::coordinates( dag ) <-
+  list( x=c(X=0, Y=2, Z=1),
+        y=c(X=0, Y=0, Z=1) )
+
+ggdag(dag) + theme_dag()
+
 N <- 1000
 X <- rnorm(N)
 Y <- rnorm(N)
@@ -896,6 +970,9 @@ plot( X , Y , col=cols[Z+1] , pch=16 )
 abline(lm(Y[Z==1]~X[Z==1]),col=2,lwd=3)
 abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
 abline(lm(Y~X),lwd=3,lty=3)
+
+cor(Y[Z==1], X[Z==1])
+cor(Y[Z==0], X[Z==0])
 ```
 
 ## More than 2 predictors
@@ -959,8 +1036,7 @@ Go back to the model assumptions checks [above](#check_model_bayes).
 
 Go back to the Simpson's paradox [section](#simpsons_paradox).
 
-- Verify that the coefficient for $X$ disappears when you add $Z$ to the model for the pipe.
-- What happens in the case of the collider?
+- Invent your own example for the pipe, fork and collider.
 
 ### [M] Exercise 8 {#exercise8_multiple_regression}
 
