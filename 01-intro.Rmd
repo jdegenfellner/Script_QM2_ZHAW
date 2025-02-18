@@ -763,7 +763,8 @@ chapter "4.7 Gemeinsame Verteilungen".
 Maybe [this video](https://www.youtube.com/watch?v=SP2GKq8xJ5I&ab_channel=StatisticsNinja) 
 also helps.
 
-The bivariate normal distribution is a generalization of the normal distribution to two dimensions.
+The [bivariate normal distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) 
+is a generalization of the normal distribution to two dimensions.
 Now, we look at the distribution of two random variables $X$ and $Y$ **at the same time**.
 
 Instead of one Gaussian curve, we have a 
