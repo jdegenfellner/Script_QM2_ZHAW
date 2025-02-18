@@ -132,7 +132,7 @@ I recommend reading chapter 21 ("Intuitions vs. Formulas") of Daniel Kahneman's 
 In my optinion, we should never be afraid to test our statistical models (as honestly as possible) against reality.
 We could for instance ask ourselves: 
 
-- "How much better does this model estimate and outcome than the arithmetic mean? 
+- "How much better does this model estimate an outcome than the arithmetic mean? 
   (i.e., the linear model with just an intercept)"
 
 - "How much better does this model classify than random guessing?"
@@ -342,16 +342,16 @@ dens(prior_h)
 ```
 
 The prior is not itself a Gaussian distribution, but a distribution of
-relative plausibilities of different heights, before seeing the data.
+relative plausibilities of different heights, **before** seeing the data.
 
-Note how created the model predictions for heights. 
+Note how we have created the model predictions for heights. 
 We first drew $\mu$ and $\sigma$ independently 
 (there is no arrow between $\mu$ and $\sigma$) from the priors.
 Then we drew heights from the normal distribution using the drawn parameters.
 You just follow the model structure.
 
 Now, there are a couple of different ways to estimtate the model incorporating 
-the new data. For didactic reasons, grid approximation is often used (as in the book).
+the new data. For didactic reasons, grid approximation is often used (as in the books).
 For many parameters, this approach becomes more and more infeasible (due to combinatorial explosion). 
 
 We will skip that for now and use quadratic approximation instead which
@@ -740,6 +740,20 @@ For example, suppose the random variable $X$ is symmetrically distributed about 
 and $Y = X^2$. Then $\mathit{Y}$ is completely determined by $X$, so that 
 $\mathit{X}$ and $\mathit{Y}$ are perfectly dependent, but their correlation is zero. 
 
+### [H] Exercise 7 {#exercise7_Intro}
+Go to the [section](#bivariate_normal) aobut the bivariate normal distribution below.
+
+- How do you get the correlation matrix from the covariance matrix ($\Sigma$)?
+  $$
+  \Sigma =
+  \begin{bmatrix}
+  0.75 & 0.5 \\
+  0.5 & 0.75
+  \end{bmatrix}
+  $$
+  Hint: For the bivariate normal distribution, the correlation matrix is defined [here](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Bivariate_case).
+
+
 ## Addendum {#addendum}
 
 ### The bivariate normal distribution {#bivariate_normal}
@@ -849,6 +863,7 @@ library(MASS)
 # Define the parameters of the bivariate normal distribution
 mu <- c(0, 0)                       # Mean
 sigma <- matrix(c(0.75, 0.5, 0.5, 0.75), ncol = 2) # Covariance matrix
+cov2cor(sigma)  # Convert covariance matrix to correlation matrix
 
 # Define the bounds of the square
 highlight_x <- c(0.5, 2)
