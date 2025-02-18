@@ -789,10 +789,10 @@ Richard McElreath has 3 cool examples on
 that show what happens if you include variables the wrong way and explains this in a 
 [video](https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath).
 
-We will look at these 3 examples below - **the pipe, the fork and the collider**. These are causal graphs showing the 
+We will look at these below - **the pipe, the fork and the collider**. These are causal graphs showing the 
 relationships between the variables. One is interested in the **effect** of X on Y.
 In this case, it is truly an *effect*, since we create the models in such a way that changing
-one varible, changes the other - which is indicated by an arrow in the graph.
+one variable, changes the other - which is indicated by an arrow in the graph.
 These graphs are called DAGs - directed acyclic graphs. *Directed* because of the arrows,
 *acyclic* because there are no cycles in the graph. One nice tool for drawing them is
 [dagitty](https://www.dagitty.net/), which is also [implemented in R](https://cran.r-project.org/web/packages/dagitty/index.html).
@@ -800,7 +800,7 @@ These graphs are called DAGs - directed acyclic graphs. *Directed* because of th
 #### Pipe
 In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. 
 $X$ and $Y$ are not directly associated, but through $Z$ (see graph below).
-If we condition on $Z$, the association between $X$ and $Y$ disappears. This is the pipe.
+If we condition on $Z$, the association between $X$ and $Y$ *disappears*.
 This means, if we **know** the value of $Z$, $X$ does not give us any *additional* information about $Y$.
 
 This can be seen in the scatterplot: Once we are within $Z=0$ (black dots) or $Z=1$ (red dots), 
@@ -817,7 +817,7 @@ plot(x, inv_logit(x), type = "l", col = "blue", lwd = 2, xlab = "X", ylab = "P(Z
 ```
 
 Higher $X$ values lead to higher probabilities of $Z=1$. 
-As you can see, more red dots are on the right side of the plot.
+As you can see, more red dots are on the right side of the scatterplot below.
 
 Now to the pipe and a mini simulation for it:
 
@@ -898,7 +898,8 @@ related to the very large smaple size and a strict cutoff ($\alpha = 0.05$) make
 
 In health science, this is the classical [confounder](https://en.wikipedia.org/wiki/Confounding).
 $Z$ is associated with $X$ and $Y$. $X$ and $Y$ are *actually* not associated (no arrow) but an association is 
-still shown. But if we condition on $Z$, the association between $X$ and $Y$ disappears. The assocation is 
+still shown: `cor(X,Y) = 0.5097437`. 
+But if we condition on $Z$, the association between $X$ and $Y$ disappears. The assocation is 
 spurious in this case and *adjusting* for the confounder yields the correct result. 
 
 ```{r}
@@ -927,6 +928,7 @@ abline(lm(Y~X),lwd=3,lty=3)
 
 cor(X[Z==1],Y[Z==1])
 cor(X[Z==0],Y[Z==0])
+cor(X,Y)
 ```
 
 In the example, we know that $Z$ is associated with both $X$ and $Y$ (per construction).
@@ -936,9 +938,9 @@ weren't it for $Z$.
 
 
 #### Collider {#collider}
-This is rather interesting. $X$ is associated with $Z$ and $Y$ is associated 
+This is rather interesting. $X$ and $Y$ are independently associated 
 with $Z$. This can be seen in the toy example below, where $X$ and $Y$ are used
-for the definition of $Z$. As you can see, $Z$ is defined as a **sum 
+for the definition of $Z$. $Z$ is defined as a **sum 
 score** of $X$ and $Y$. Sum scores are *very* often used in health sciences (and others).
 The higher the sum score, the higher the probability that $Z=1$.
 Now, *if* we know the value of $Z$, $X$ and $Y$ are negatively associated (see graph). 
@@ -982,14 +984,14 @@ If you think of Simpsons paradox again, conditioning on $Z$ *creates* an associa
 which would otherwise be independent (by definition). So by learning the value of $Z$, we can learn something
 from $X$ about $Y$. On the one hand, adding $Z$ to the model creates an association where there is none,
 on the other hand, *prediction* of $Y$ is better with $Z$ in the model! In prediction, we largely
-do not care about the causal structure of the data. We just want to predict $Y$ as accurate as possible.
+do not care about the causal structure of the data. We just want to predict $Y$ as accurately as possible.
 
-This is also called [Berkson's paradox](https://en.wikipedia.org/wiki/Berkson%27s_paradox).
+The sum score example is also called [Berkson's paradox](https://en.wikipedia.org/wiki/Berkson%27s_paradox).
 Let's check if this also works for three variables in a sum score 
 in [exercise 10](#exercise10_multiple_regression).
 
 ## More than 2 predictors
-
+.........
 
 ## Exercises
 
@@ -1075,6 +1077,7 @@ setting. Hint: You can use the `optim` function in R.
 
 Let's try to verify if Berkson's paradox (which we have mentioned in the 
 [collider-section](#collider)) also works for three variables in a sum score.
+
 - Now, we assume some college admits only applicants in the top 20% of a score 
   consisting of the sum of three variables: $W, X, Z$ (grade point average, math score, verbal score).
 - All three scores are individually normally distributed with mean 100 and standard deviation 15.

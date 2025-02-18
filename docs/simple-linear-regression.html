@@ -341,8 +341,8 @@ h_i &amp;\sim&amp; \text{Normal}(\mu_i, \sigma)\\
 \sigma &amp;\sim&amp; \text{Uniform}(0, 50)
 \end{eqnarray*}\]</span></p>
 <p>Visualization of the <strong>model structure</strong>:</p>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-057ffb6697cea9517e94" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-057ffb6697cea9517e94">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-dc2d241988776ef44dfc" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-dc2d241988776ef44dfc">{"x":{"diagram":"\ndigraph model {\n  graph [layout = dot, rankdir = TB]\n\n  # Nodes for variables\n  node [shape = ellipse, style = filled, fillcolor = lightblue]\n  alpha [label = \"α ~ Normal(171.1, 20)\"]\n  beta [label = \"β ~ Normal(0, 10)\"]\n  sigma [label = \"σ ~ Uniform(0, 50)\"]\n  mu [label = \"μ_i = α + β(x_i - x̄)\"]\n  h_i [label = \"h[i] ~ Normal(μ_i, σ)\"]\n\n  # Connections\n  alpha -> mu\n  beta -> mu\n  mu -> h_i\n  sigma -> h_i\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 <p>There are now additional lines for the priors of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 (compared to the simple mean model before).
 The model structure also shows the way to simulate from the prior.
