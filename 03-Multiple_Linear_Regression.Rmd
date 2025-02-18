@@ -776,7 +776,7 @@ model without thinking about it, is not a good idea.
 ### What happens when you just throw variables into multiple regression? {#throwing_variables}
 
 This sub-chapter is **important**. I can guarantee you that not too many applied 
-scientist estimating regression models know about this.
+scientists using regression models know about this.
 
 A first taste of causality.
 
@@ -785,12 +785,13 @@ Richard McElreath has 3 cool examples on
 that show what happens if you include variables the wrong way and explains this in a 
 [video](https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath).
 
-We will look at these 3 examples below - the **pipe, the fork, the collider**. These are causal graphs showing the 
+We will look at these 3 examples below - **the pipe, the fork and the collider**. These are causal graphs showing the 
 relationships between the variables. One is interested in the **effect** of X on Y.
-In this case, it is truly an effect, since we create the models in such a way that changing
+In this case, it is truly an *effect*, since we create the models in such a way that changing
 one varible, changes the other - which is indicated by an arrow in the graph.
 These graphs are called DAGs - directed acyclic graphs. *Directed* because of the arrows,
-*acyclic* because there are no cycles in the graph.
+*acyclic* because there are no cycles in the graph. One nice tool for drawing them is
+[dagitty](https://www.dagitty.net/), which is also [implemented in R](https://cran.r-project.org/web/packages/dagitty/index.html).
 
 #### Pipe
 In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. $X$ and $Y$ are also associated.
@@ -896,6 +897,8 @@ abline(lm(Y[Z==1]~X[Z==1]),col=2,lwd=3)
 abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
 abline(lm(Y~X),lwd=3,lty=3)
 ```
+
+## More than 2 predictors
 
 
 ## Exercises
