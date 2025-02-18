@@ -297,6 +297,18 @@ Note that we did not explicitely assume normally distributed errors in the model
 so we won't check this here but in the Frequentist framework below.
 
 ## Linear regression with 2 predictors in the Frequentist Framework 
+
+To reiterate from the last chapter:
+In full, the **classical linear regression model** can be written as 
+(see p. 21-22 in Westfall):
+
+$$ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)$$
+for $i = 1, \dots, n$.
+
+The $Y_i$ are independently normally distributed *conditioned* on the predictors 
+having the values $X_i = x_i$. Each conditional distribution has an expected value ($\mu$)
+that is a linear function of the predictors and a constant variance $\sigma^2$.
+
 ### Adding a transformed predictor to the model {#adding_transformed_predictor_freq}
 
 No, let's fit the same model as above in the Frequentist framework.
@@ -617,7 +629,7 @@ m4.5 <- lm(Y ~ X1 + X2, data = d) # without interaction
 anova(m4.5, m4.4)
 ```
 
-One can show that the following test statistic is F distributed under the null hypothesis:
+One can show that the following test statistic is $F$ distributed under the null hypothesis:
 
 $$ F = \frac{\left(RSS_{\text{Model 1}} - RSS_{\text{Model 2}}\right) / \left(df_{\text{Model 1}} - df_{\text{Model 2}}\right)}{RSS_{\text{Model 2}} / df_{\text{Model 2}}}$$
 
@@ -632,7 +644,7 @@ the interaction term is zero ($\beta_3=0$). Model 1 RSS has 97 degrees of freedo
 and 3 parameters to estimate ($\beta_0, \beta_1, \beta_2$). Model 2 has 96 degrees of freedom, since
 we have 100 data points and 4 parameters to estimate ($\beta_0, \beta_1, \beta_2, \beta_3$).
 
-Let's verify the value of the F statistic:
+Let's verify the value of the $F$ statistic:
 
 ```{r}
 RSS_model1 <- sum(residuals(m4.5)^2)
@@ -645,7 +657,7 @@ F
 RSS_model1 - RSS_model2
 ```
 
-In the numerator of the F statistic, we have the change in the residual sum of squares 
+In the numerator of the $F$ statistic, we have the change in the residual sum of squares 
 (from the small (model 1) model to the larger one (model 2), `Sum of Sq`)
 per additional parameter in the model (one additional parameter $\beta_3$). 
 
@@ -704,13 +716,14 @@ interaction.plot(d$X2_cat, d$X1_cat, d$Y)
 ```
 
 There seems to be an intercation of the predictors with respect to $Y$. The lines are not parallel.
-If there was no interaction, the change in $Y$ with respect to $X_1$ would be the same for all levels of $X_2$.
+If there was no interaction, the change in $Y$ with respect to $X_2$ would be the same 
+for all levels of $X_1$.
 This seems not to be the case here.
 See [exercise 5](#exercise5_multiple_regression).
 
 If we had one or both predictors already categorical, we would not have to discretize them before.
 
-### Simpsons Paradox and what happens when you just throw variables into multiple regression {#simpsons_paradox}
+### Simpsons Paradox {#simpsons_paradox}
 
 The [Simpsons paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) is a phenomenon, 
 in which a trend appears in several different groups of data but disappears 
@@ -754,19 +767,52 @@ ggplot(d, aes(x = training, y = strength, color = age)) +
 
 - **Why Does This Happen?**
    - This paradox occurs because the relationship between the grouping variable (`age`) and the independent variable (`training`) creates a confounding effect.
-   - In this case:
-     - **Children** tend to have higher training values overall, while **adults** tend to have lower training values.
-     - The overall regression line reflects the imbalance between these groups rather than the true within-group relationships.
+   - In this case: Children tend to have higher training values overall, 
+     while adults tend to have lower training values.
 
-This (fictitious) example illustrates the importance of considering group-level differences when analyzing data. 
-In multiple regression this might not be so straightforward, since we cannot just plot the data and see the effect
-as in our toy example. We will discuss this later.
+This (fictitious) example shows that throwing variables into a multiple regression 
+model without thinking about it, is not a good idea.
 
-Richard McElreath also has a nice example for this on [github](https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r)
-and explains this in a [video](https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath).
+### What happens when you just throw variables into multiple regression? {#throwing_variables}
+
+This sub-chapter is **important**. I can guarantee you that not too many applied 
+scientist estimating regression models know about this.
+
+A first taste of causality.
+
+Richard McElreath has 3 cool examples on 
+[github](https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r)
+that show what happens if you include variables the wrong way and explains this in a 
+[video](https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath).
+
+We will look at these 3 examples below - the **pipe, the fork, the collider**. These are causal graphs showing the 
+relationships between the variables. One is interested in the **effect** of X on Y.
+In this case, it is truly an effect, since we create the models in such a way that changing
+one varible, changes the other - which is indicated by an arrow in the graph.
+These graphs are called DAGs - directed acyclic graphs. *Directed* because of the arrows,
+*acyclic* because there are no cycles in the graph.
+
+#### Pipe
+In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. $X$ and $Y$ are also associated.
+But if we condition on $Z$, the association between $X$ and $Y$ disappears. This is the pipe.
+This means, if we **know** the value of $Z$, $X$ does not give us any *additional* information about $Y$.
+
+This can be seen in the scatterplot: Once we are within $Z=0$ (black dots) or $Z=1$ (red dots), 
+$X$ does not give us any information about $Y$,
+i.e., the point cloud is horizontal and there is no correlation.
 
 ```{r}
-library(rethinking)
+# pipe
+library(dagitty)
+library(tidyverse)
+library(ggdag)
+
+dag <- dagitty( 'dag {
+  X -> Z -> Y
+}' )
+
+ggdag(dag) + 
+  theme_dag()
 
 # d-separation plots
 a <- 0.7
@@ -784,8 +830,42 @@ abline(lm(Y[Z==1]~X[Z==1]),col=2,lwd=3)
 abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
 abline(lm(Y~X),lwd=3,lty=3)
 
+cor(X[Z==1],Y[Z==1])
+cor(X[Z==0],Y[Z==0])
+```
+
+
+Or in the framework of Simpsons paradox:
+
+```{r}
+library(rethinking)
+
+N <- 1000
+X <- rnorm(N)
+Z <- rbern(N,inv_logit(X))
+Y <- rnorm(N,(2*Z-1))
+mod1 <- lm(Y ~ X)
+summary(mod1)
+mod2 <- lm(Y ~ X + Z)
+summary(mod2)
+```
+
+Adding $Z$ to the model makes the coefficient for $X$ disappear. 
+See [exercise 7](#exercise7_multiple_regression).
+
+#### Fork
+..........
+
+```{r}
 # fork
 # X <- Z -> Y
+
+dag <- dagitty( 'dag {
+  X <- Z -> Y
+}' )
+
+ggdag(dag) + theme_dag()
+
 N <- 1000
 Z <- rbern(N)
 X <- rnorm(N,2*Z-1)
@@ -796,6 +876,14 @@ abline(lm(Y[Z==1]~X[Z==1]),col=2,lwd=3)
 abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
 abline(lm(Y~X),lwd=3,lty=3)
 
+cor(X[Z==1],Y[Z==1])
+cor(X[Z==0],Y[Z==0])
+```
+
+#### Collider
+.........
+
+```{r}
 # collider
 # X -> Z <- Y
 N <- 1000
@@ -809,29 +897,6 @@ abline(lm(Y[Z==0]~X[Z==0]),col=1,lwd=3)
 abline(lm(Y~X),lwd=3,lty=3)
 ```
 
-- Pipe: In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. $X$ and $Y$ are also associated.
-  But if we condition on $Z$, the association between $X$ and $Y$ disappears. This is the pipe.
-  This means, if we **know** the value of $Z$, $X$ does not give us any information about $Y$.
-  This can be seen in the first plot: Once we are within $Z=0$ or $Z=1$, $X$ does not give us any information about $Y$,
-  i.e., the point cloud is horizontal and there is no correlation.
-
-  Or in the framework of Simpsons paradox:
-
-```{r}
-# pipe
-N <- 1000
-X <- rnorm(N)
-Z <- rbern(N,inv_logit(X))
-Y <- rnorm(N,(2*Z-1))
-mod1 <- lm(Y ~ X)
-summary(mod1)
-mod2 <- lm(Y ~ X + Z)
-summary(mod2)
-```
-
-Adding $Z$ to the model makes the coefficient for $X$ disappear. 
-
-See [exercise 7](#exercise7_multiple_regression).
 
 ## Exercises
 
@@ -916,6 +981,7 @@ setting. Hint: You can use the `optim` function in R.
 
 ## TODOS
 
+- `check_model` for 2 and more predictors...
 - Violations of model assumptions and how to fix them.
 - Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 - Add more Bayesian model checks, chapter 6 Gelman.

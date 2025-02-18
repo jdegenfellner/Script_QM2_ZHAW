@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  17 FEB 2025 14:40
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  17 FEB 2025 14:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -902,7 +902,7 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type
 
 [34]
 Overfull \hbox (400.5pt too wide) in paragraph at lines 1303--1303
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e518f3bf6f/widget153e52a9d1d35.html screenshot completed[] 
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574d52bc45be/widget1574d4686e761.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
@@ -1288,8 +1288,8 @@ Underfull \vbox (badness 1248) has occurred while \output is active []
 
 
 [90]
-Overfull \hbox (400.5pt too wide) in paragraph at lines 3482--3482
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e522107a09/widget153e567bbf657.html screenshot completed[] 
+Overfull \hbox (395.25pt too wide) in paragraph at lines 3482--3482
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574dcddb0d5/widget1574d2e84768c.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pdf)
@@ -1318,8 +1318,8 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
 [93]
 
 [94]
-Overfull \hbox (400.5pt too wide) in paragraph at lines 3674--3674
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e564666134/widget153e57d77d06a.html screenshot completed[] 
+Overfull \hbox (395.25pt too wide) in paragraph at lines 3674--3674
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574d268c72c/widget1574d2cec1af0.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pdf)

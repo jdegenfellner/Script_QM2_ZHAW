@@ -647,9 +647,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##           mean        sd       5.5%      94.5%
-## mu    154.6041 0.4119925 153.945656 155.262544
-## sigma   7.7313 0.2913828   7.265614   8.196986
+##             mean        sd       5.5%      94.5%
+## mu    154.603808 0.4119493 153.945433 155.262182
+## sigma   7.730487 0.2913063   7.264924   8.196051
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.6741 7.811505
-## 2 154.6858 8.015744
-## 3 155.0142 7.979912
-## 4 154.3785 8.214095
-## 5 154.7704 8.136090
-## 6 154.2880 7.826631
+## 1 154.4298 7.746984
+## 2 154.6450 7.533921
+## 3 154.7493 7.798503
+## 4 154.8317 7.477707
+## 5 154.8705 7.979073
+## 6 154.1648 7.932372
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697378558 0.0001538395
-## sigma 0.0001538395 0.0849039447
+## mu    0.1697022056 0.0001473602
+## sigma 0.0001473602 0.0848593685
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973786 0.08490394
+## 0.16970221 0.08485937
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001281488
-## sigma 0.001281488 1.000000000
+## mu    1.000000000 0.001227967
+## sigma 0.001227967 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1299,7 +1299,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e518f3bf6f/widget153e52a9d1d35.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574d52bc45be/widget1574d4686e761.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -3478,7 +3478,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e522107a09/widget153e567bbf657.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574dcddb0d5/widget1574d2e84768c.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3670,7 +3670,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp09HrVY/file153e564666134/widget153e57d77d06a.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574d268c72c/widget1574d2cec1af0.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4177,6 +4177,8 @@ setting. Hint: You can use the \texttt{optim} function in R.
 
 \begin{itemize}
 \tightlist
+\item
+  \texttt{check\_model} for 2 and more predictors\ldots{}
 \item
   Violations of model assumptions and how to fix them.
 \item
