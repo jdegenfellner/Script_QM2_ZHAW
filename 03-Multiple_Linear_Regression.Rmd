@@ -935,7 +935,7 @@ weren't it for $Z$.
 
 
 
-#### Collider
+#### Collider {#collider}
 This is rather interesting. $X$ is associated with $Z$ and $Y$ is associated 
 with $Z$. This can be seen in the toy example below, where $X$ and $Y$ are used
 for the definition of $Z$. As you can see, $Z$ is defined as a **sum 
@@ -943,7 +943,7 @@ score** of $X$ and $Y$. Sum scores are *very* often used in health sciences (and
 The higher the sum score, the higher the probability that $Z=1$.
 Now, *if* we know the value of $Z$, $X$ and $Y$ are negatively associated (see graph). 
 The reason for this association is that there is a compensatory effect. In order to get a high 
-score, you can either have a high value of $X$ or a high value of $Y$ or both.
+score, you can either have a high value of $X$ or $Y$ or both.
 This induces the negative correlation.
 
 ```{r}
@@ -974,6 +974,10 @@ abline(lm(Y~X),lwd=3,lty=3)
 cor(Y[Z==1], X[Z==1])
 cor(Y[Z==0], X[Z==0])
 ```
+
+This is also called [Berkson's paradox](https://en.wikipedia.org/wiki/Berkson%27s_paradox).
+Let's check if this also works for three variables in a sum score 
+in [exercise 10](#exercise10_multiple_regression).
 
 ## More than 2 predictors
 
@@ -1058,11 +1062,22 @@ setting. Hint: You can use the `optim` function in R.
 - What happens if you do not constrain the parameters $\beta_1$ and $\beta_2$ to be negative?
 - Calculate the $R^2$ for this model.
 
+### [E] Exercise 10 {#exercise10_multiple_regression}
+
+Let's try to verify if Berkson's paradox (which we have mentioned in the 
+[collider-section](#collider)) also works for three variables in a sum score.
+- Now, we assume some college admits only applicants in the top 20% of a score 
+  consisting of the sum of three variables: $W, X, Z$ (grade point average, math score, verbal score).
+- All three scores are individually normally distributed with mean 100 and standard deviation 15.
+- Calculate the correlation matrix `cor()` of all students and the admitted students.
+- Are any of the three variables correlated?
+- Plot a scatterplot of the math score and the verbal score und color the points according 
+  to being admitted or not. You can add trendlines for the two groups.
+
 ## TODOS
 
 - `check_model` for 2 and more predictors...
 - Violations of model assumptions and how to fix them.
-- Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 - Add more Bayesian model checks, chapter 6 Gelman.
 - Show by simulation what Gelman talks about with significant p values. So I scan the data
   for significant p values and then simulate data with the same effect size and see how often

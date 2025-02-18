@@ -93,4 +93,5 @@ exercise6_multiple_regression
 exercise7_multiple_regression
 exercise8_multiple_regression
 exercise9_multiple_regression
+exercise10_multiple_regression
 todos
