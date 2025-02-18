@@ -654,7 +654,7 @@ I **highly recommend** reading the first chapters.
 This means, that for every fixed value of the predictor (which we formally do not have),
 the distribution of the response is normal with mean $\hat{c}$ and standard deviation $\sigma$.
 Since, we do not have a predictor (apart from the intercept), we can say, that the distribution of the heights is normal with mean $\hat{c}$
-and standard deviation $\sigma$. This is what we assumed in the model. It can also directly seen
+and standard deviation $\sigma$. This is what we assumed in the model. It can also be directly seen
 in the formula:
 
 $$ height_i = c + \varepsilon_i $$
@@ -689,6 +689,7 @@ ggplot(df_combined, aes(x = height, fill = type)) +
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5))
 ```
+
 One can repeat the simulation and see how the distributions changes to get 
 a feeling for the variability of the model/data.
 
