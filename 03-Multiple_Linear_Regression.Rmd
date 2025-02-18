@@ -777,7 +777,7 @@ ggplot(d, aes(x = training, y = strength, color = age)) +
 This (fictitious) example shows that throwing variables into a multiple regression 
 model without thinking about it, is not a good idea.
 
-### What happens when you just throw variables into multiple regression? {#throwing_variables}
+## What happens when you just throw variables into multiple regression? {#throwing_variables}
 
 This sub-chapter is **important**. I can guarantee you that not too many applied 
 scientists using regression models know about this.
@@ -797,7 +797,7 @@ These graphs are called DAGs - directed acyclic graphs. *Directed* because of th
 *acyclic* because there are no cycles in the graph. One nice tool for drawing them is
 [dagitty](https://www.dagitty.net/), which is also [implemented in R](https://cran.r-project.org/web/packages/dagitty/index.html).
 
-#### Pipe
+### Pipe
 In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. 
 $X$ and $Y$ are not directly associated, but through $Z$ (see graph below).
 If we condition on $Z$, the association between $X$ and $Y$ *disappears*.
@@ -894,7 +894,7 @@ $X$ is smaller compared to step 1. And not to forget: the very small $p$-values 
 related to the very large smaple size and a strict cutoff ($\alpha = 0.05$) makes no sense.
 
 
-#### Fork
+### Fork
 
 In health science, this is the classical [confounder](https://en.wikipedia.org/wiki/Confounding).
 $Z$ is associated with $X$ and $Y$. $X$ and $Y$ are *actually* not associated (no arrow) but an association is 
@@ -937,7 +937,7 @@ weren't it for $Z$.
 
 
 
-#### Collider {#collider}
+### Collider {#collider}
 This is rather interesting. $X$ and $Y$ are independently associated 
 with $Z$. This can be seen in the toy example below, where $X$ and $Y$ are used
 for the definition of $Z$. $Z$ is defined as a **sum 
@@ -990,8 +990,125 @@ The sum score example is also called [Berkson's paradox](https://en.wikipedia.or
 Let's check if this also works for three variables in a sum score 
 in [exercise 10](#exercise10_multiple_regression).
 
+### Multicollinearity {#multicollinearity}
+Westfall section 8.4 and McElreath section 6.1 cover this topic.
+[Multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity) means that there is a strong
+correlation between two or more predictors. *Perfect* multicollinearity it is when the correlation is 1.
+For example, if you accidentally include the same variable twice in the model, or when you include
+the elements of a sum score and the sum score itself as predictors in the model. R just gives you 
+an *NA* if you do this in `lm`. 
+
+#### Example from McElreath 6.1 {#mcElreath_6.1}
+The code creates body heights and leg lengths (left and right) for 100 people.
+
+`runif` draws a uniform random number between 40 and 50% of height as leg length, hence on average 45%.
+The slope in the linear regression should therefore be around the average height divided by the average leg length:
+$\frac{10}{0.45 \cdot 10} \sim 2.2$.
+
+```{r}
+library(rethinking)
+
+N <- 100
+set.seed(909)
+height <- rnorm(N, 10, 2)
+leg_prop <- runif(N, 0.4, 0.5)
+leg_left <- leg_prop * height + rnorm(N, 0, 0.02)
+leg_right <- leg_prop * height + rnorm(N, 0, 0.02)
+
+d <- data.frame(height = height, leg_left = leg_left, leg_right = leg_right)
+cor(d$leg_left, d$leg_right)
+
+m4.6 <- quap(
+  alist(
+    height ~ dnorm(mu, sigma),
+    mu <- a + bl * leg_left + br * leg_right,
+    a ~ dnorm(10, 100),
+    bl ~ dnorm(2, 10),
+    br ~ dnorm(2, 10),
+    sigma ~ dexp(1)
+  ),    data = d
+)
+precis(m4.6)
+plot(precis(m4.6))
+```
+
+With the given regression model, one asks the question: "What is the value of knowing each leg's length, after 
+already knowing the other leg's length?" The answer is: "Not much.", since they are highly correlated.
+Both coefficients are not around the expected $\beta$ and the credible intervals are wide and include the 
+credible value $0$.
+
+```{r}
+post <- extract.samples(m4.6)
+plot( bl ~ br, post, col=col.alpha(rangi2,0.1), pch = 16 )
+```
+
+Since the two coefficients are almost perfectly multicollinear 
+(`cor(d$leg_left, d$leg_right)=0.9997458`), knowing one leg's length does not 
+give us any additional information about the other leg's length.
+Leaving out the right leg length would give the correct result ([exercise 11](#exercise11_multiple_regression)).
+
+
+#### Example from Westfall 8.4
+
+In the example below, the second prector $X2$ is a perfect linear function of the first predictor $X1$.
+
+```{r}
+# Westfall 8.4.
+set.seed(12345)
+X1 = rnorm(100)
+X2 = 2*X1 -1     # Perfect collinearity
+Y = 1 + 2*X1 + 3*X2 + rnorm(100,0,1)
+summary(lm(Y~X1+X2))
+```
+
+Let's look at a 3D plot:
+
+```{r}
+library(plotly)
+
+# Generate data
+set.seed(42)
+X1 <- rnorm(100)
+X2 <- 2 * X1 - 1  # Perfect collinearity
+Y  <- 1 + 2 * X1 + 3 * X2 + rnorm(100, 0, 1)
+
+# Create the 3D scatter plot with vertical lines
+plot_ly() %>%
+  add_markers(x = X1, y = X2, z = Y, 
+              marker = list(color = Y, colorscale = "Viridis", size = 5),
+              name = "Data Points") %>%
+  layout(title = "3D Scatter Plot",
+         scene = list(xaxis = list(title = "X1"),
+                      yaxis = list(title = "X2"),
+                      zaxis = list(title = "Y")))
+#VIF(lm(Y ~ X1 + X2)) # error
+#check_model(lm(Y ~ X1 + X2)) # error
+```
+
+
+There is no unique solution for a plane in this case.
+Infinitely many planes can be defined using the "line" in space.
+If anything, a perfectly vertical plane could go through with $SSE = 0$,
+but such a plane would not tell us how $Y$ changes with $X1$ and $X2$,
+since any $Y$ value could be assigned to any credible combination of $X1$ and $X2$ values.
+The problem collapses into the simple linear regression problem.
+One could just plug in the formula for $X2$ into the model, which yields the identical result:
+
+```{r}
+set.seed(12345)
+X1 = rnorm(100)
+# Y = 1 + 2*X1 + 3*(2*X1 -1) + rnorm(100,0,1) = 
+Y = -2 + 8*X1 + rnorm(100,0,1)
+summary(lm(Y ~ X1))
+```
+
+In reality, you only have one parameter ($X1$ or $X2$) in the case of perfect multicollinearity.
+
 ## More than 2 predictors
 .........
+
+
+
 
 ## Exercises
 
@@ -1085,6 +1202,15 @@ Let's try to verify if Berkson's paradox (which we have mentioned in the
 - Are any of the three variables correlated?
 - Plot a scatterplot of the math score and the verbal score und color the points according 
   to being admitted or not. You can add trendlines for the two groups.
+
+### [E] Exercise 11 {#exercise11_multiple_regression}
+
+Go back to the multicollinearity [section](#multicollinearity) and the [example](#mcElreath_6.1) 
+from McElreath 6.1.
+
+- Verify that the coefficient is correct when leaving out the right leg length from the model.
+
+
 
 ## TODOS
 

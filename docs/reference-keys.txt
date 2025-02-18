@@ -82,6 +82,9 @@ throwing_variables
 pipe
 fork
 collider
+multicollinearity
+mcElreath_6.1
+example-from-westfall-8.4
 more-than-2-predictors
 exercises-2
 exercise1_multiple_regression
@@ -94,4 +97,5 @@ exercise7_multiple_regression
 exercise8_multiple_regression
 exercise9_multiple_regression
 exercise10_multiple_regression
+exercise11_multiple_regression
 todos
