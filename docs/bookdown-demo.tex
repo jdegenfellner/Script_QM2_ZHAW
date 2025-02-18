@@ -125,7 +125,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-17}
+\date{2025-02-18}
 
 \begin{document}
 \maketitle
@@ -648,8 +648,8 @@ The \texttt{precis}function displays concise parameter estimate information
 
 \begin{verbatim}
 ##             mean        sd       5.5%      94.5%
-## mu    154.603808 0.4119493 153.945433 155.262182
-## sigma   7.730487 0.2913063   7.264924   8.196051
+## mu    154.603873 0.4120540 153.945331 155.262415
+## sigma   7.732454 0.2914916   7.266594   8.198314
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.4298 7.746984
-## 2 154.6450 7.533921
-## 3 154.7493 7.798503
-## 4 154.8317 7.477707
-## 5 154.8705 7.979073
-## 6 154.1648 7.932372
+## 1 154.3619 8.418411
+## 2 154.8352 7.964641
+## 3 155.4047 8.022112
+## 4 154.2573 7.696360
+## 5 154.8606 7.888425
+## 6 154.8083 7.732550
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697022056 0.0001473602
-## sigma 0.0001473602 0.0848593685
+## mu    0.1697885206 0.0001489406
+## sigma 0.0001489406 0.0849673653
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16970221 0.08485937
+## 0.16978852 0.08496737
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001227967
-## sigma 0.001227967 1.000000000
+## mu    1.000000000 0.001240032
+## sigma 0.001240032 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1299,7 +1299,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574d52bc45be/widget1574d4686e761.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjX5Tut/file506e45b09dcc/widget506e4e47dfd2.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -3190,6 +3190,21 @@ so we won't check this here but in the Frequentist framework below.
 
 \section{Linear regression with 2 predictors in the Frequentist Framework}\label{linear-regression-with-2-predictors-in-the-frequentist-framework}
 
+To reiterate from the last chapter:
+In full, the \textbf{classical linear regression model} can be written as
+(see p.~21-22 in Westfall):
+
+\[ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)\]
+for \(i = 1, \dots, n\).
+
+The \(Y_i\) are independently normally distributed \emph{conditioned} on the predictors
+having the values \(X_i = x_i\). Each conditional distribution has an expected value (\(\mu\))
+that is a linear function of the predictors and a constant variance \(\sigma^2\).
+
+If the assumptions of the classical linear regression model are met, the least squares
+estimators (OLS) are the best (smallest variance) linear unbiased (on average correct) estimators
+(so-called: BLUE) of the parameters.
+
 \subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor_freq}
 
 No, let's fit the same model as above in the Frequentist framework.
@@ -3478,7 +3493,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574dcddb0d5/widget1574d2e84768c.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjX5Tut/file506e2c15aefd/widget506e43937aa7.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3670,7 +3685,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpj9F7oh/file1574d268c72c/widget1574d2cec1af0.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjX5Tut/file506e3ae6923a/widget506e778a3c0b.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -3704,7 +3719,7 @@ residual sum of squares is statistically interesting.
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
-One can show that the following test statistic is F distributed under the null hypothesis:
+One can show that the following test statistic is \(F\) distributed under the null hypothesis:
 
 \[ F = \frac{\left(RSS_{\text{Model 1}} - RSS_{\text{Model 2}}\right) / \left(df_{\text{Model 1}} - df_{\text{Model 2}}\right)}{RSS_{\text{Model 2}} / df_{\text{Model 2}}}\]
 
@@ -3719,7 +3734,7 @@ the interaction term is zero (\(\beta_3=0\)). Model 1 RSS has 97 degrees of free
 and 3 parameters to estimate (\(\beta_0, \beta_1, \beta_2\)). Model 2 has 96 degrees of freedom, since
 we have 100 data points and 4 parameters to estimate (\(\beta_0, \beta_1, \beta_2, \beta_3\)).
 
-Let's verify the value of the F statistic:
+Let's verify the value of the \(F\) statistic:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3747,7 +3762,7 @@ Let's verify the value of the F statistic:
 ## [1] 36316.28
 \end{verbatim}
 
-In the numerator of the F statistic, we have the change in the residual sum of squares
+In the numerator of the \(F\) statistic, we have the change in the residual sum of squares
 (from the small (model 1) model to the larger one (model 2), \texttt{Sum\ of\ Sq})
 per additional parameter in the model (one additional parameter \(\beta_3\)).
 
@@ -3810,13 +3825,14 @@ there might be an interaction.
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf}}
 
 There seems to be an intercation of the predictors with respect to \(Y\). The lines are not parallel.
-If there was no interaction, the change in \(Y\) with respect to \(X_1\) would be the same for all levels of \(X_2\).
+If there was no interaction, the change in \(Y\) with respect to \(X_2\) would be the same
+for all levels of \(X_1\).
 This seems not to be the case here.
 See \hyperref[exercise5_multiple_regression]{exercise 5}.
 
 If we had one or both predictors already categorical, we would not have to discretize them before.
 
-\subsection{Simpsons Paradox and what happens when you just throw variables into multiple regression}\label{simpsons_paradox}
+\subsection{Simpsons Paradox}\label{simpsons_paradox}
 
 The \href{https://en.wikipedia.org/wiki/Simpson\%27s_paradox}{Simpsons paradox} is a phenomenon,
 in which a trend appears in several different groups of data but disappears
@@ -3889,29 +3905,102 @@ the more muscle strength. But if we combine the groups, we will see a decreasing
   \item
     This paradox occurs because the relationship between the grouping variable (\texttt{age}) and the independent variable (\texttt{training}) creates a confounding effect.
   \item
-    In this case:
-
-    \begin{itemize}
-    \tightlist
-    \item
-      \textbf{Children} tend to have higher training values overall, while \textbf{adults} tend to have lower training values.
-    \item
-      The overall regression line reflects the imbalance between these groups rather than the true within-group relationships.
-    \end{itemize}
+    In this case: Children tend to have higher training values overall,
+    while adults tend to have lower training values.
   \end{itemize}
 \end{itemize}
 
-This (fictitious) example illustrates the importance of considering group-level differences when analyzing data.
-In multiple regression this might not be so straightforward, since we cannot just plot the data and see the effect
-as in our toy example. We will discuss this later.
+This (fictitious) example shows that throwing variables into a multiple regression
+model without thinking about it, is not a good idea.
 
-Richard McElreath also has a nice example for this on \href{https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r}{github}
-and explains this in a \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath}{video}.
+\subsection{What happens when you just throw variables into multiple regression?}\label{throwing_variables}
+
+This sub-chapter is \textbf{important}. I can guarantee you that not too many applied
+scientists using regression models know about this.
+
+A first taste of causality.
+
+Richard McElreath has 3 cool examples on
+\href{https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r}{github}
+that show what happens if you include variables the wrong way and explains this in a
+\href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath}{video}.
+
+We will look at these 3 examples below - \textbf{the pipe, the fork and the collider}. These are causal graphs showing the
+relationships between the variables. One is interested in the \textbf{effect} of X on Y.
+In this case, it is truly an \emph{effect}, since we create the models in such a way that changing
+one varible, changes the other - which is indicated by an arrow in the graph.
+These graphs are called DAGs - directed acyclic graphs. \emph{Directed} because of the arrows,
+\emph{acyclic} because there are no cycles in the graph. One nice tool for drawing them is
+\href{https://www.dagitty.net/}{dagitty}, which is also \href{https://cran.r-project.org/web/packages/dagitty/index.html}{implemented in R}.
+
+\subsubsection{Pipe}\label{pipe}
+
+In this setting \(X\) is associated with \(Z\) and \(Z\) is associated with \(Y\).
+\(X\) and \(Y\) are not directly associated, but through \(Z\) (see graph below).
+If we condition on \(Z\), the association between \(X\) and \(Y\) disappears. This is the pipe.
+This means, if we \textbf{know} the value of \(Z\), \(X\) does not give us any \emph{additional} information about \(Y\).
+
+This can be seen in the scatterplot: Once we are within \(Z=0\) (black dots) or \(Z=1\) (red dots),
+\(X\) does not give us any information about \(Y\),
+i.e., the point cloud is horizontal and there is no correlation.
+
+The \texttt{inv\_logit} function is the inverse of the logit function.
+It assigns higher probability of \(Z\) being \(1\) if X has a higher value.
+Let's plot this for understanding:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(rethinking)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(x, }\FunctionTok{inv\_logit}\NormalTok{(x), }\AttributeTok{type =} \StringTok{"l"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"X"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"P(Z=1|X)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf}}
+
+Higher \(X\) values lead to higher probabilities of \(Z=1\).
+As you can see, more red dots are on the right side of the plot.
+
+Now to the pipe and a mini simulation for it:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# pipe}
+\FunctionTok{library}\NormalTok{(dagitty)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(ggdag)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'ggdag'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:stats':
+## 
+##     filter
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dag }\OtherTok{\textless{}{-}} \FunctionTok{dagitty}\NormalTok{( }\StringTok{\textquotesingle{}dag \{}
+\StringTok{  X {-}\textgreater{} Z {-}\textgreater{} Y}
+\StringTok{\}\textquotesingle{}}\NormalTok{ )}
+
+\NormalTok{dagitty}\SpecialCharTok{::}\FunctionTok{coordinates}\NormalTok{( dag ) }\OtherTok{\textless{}{-}}
+  \FunctionTok{list}\NormalTok{( }\AttributeTok{x=}\FunctionTok{c}\NormalTok{(}\AttributeTok{X=}\DecValTok{0}\NormalTok{, }\AttributeTok{Y=}\DecValTok{2}\NormalTok{, }\AttributeTok{Z=}\DecValTok{1}\NormalTok{),}
+        \AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\AttributeTok{X=}\DecValTok{0}\NormalTok{, }\AttributeTok{Y=}\DecValTok{0}\NormalTok{, }\AttributeTok{Z=}\DecValTok{0}\NormalTok{) )}
+
+\FunctionTok{ggdag}\NormalTok{(dag) }\SpecialCharTok{+} 
+  \FunctionTok{theme\_dag}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-74-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# d{-}separation plots}
 \NormalTok{a }\OtherTok{\textless{}{-}} \FloatTok{0.7}
 \NormalTok{cols }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{( }\FunctionTok{col.alpha}\NormalTok{(}\DecValTok{1}\NormalTok{,a) , }\FunctionTok{col.alpha}\NormalTok{(}\DecValTok{2}\NormalTok{,a) )}
@@ -3930,12 +4019,217 @@ and explains this in a \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_chan
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-74-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(X[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{],Y[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.007540748
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(X[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{],Y[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.02629344
+\end{verbatim}
+
+Or in the framework of Simpsons paradox:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rbern}\NormalTok{(N,}\FunctionTok{inv\_logit}\NormalTok{(X))}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N,(}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Z}\DecValTok{{-}1}\NormalTok{))}
+\NormalTok{mod1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X) }\CommentTok{\# without conditioning on Z}
+\FunctionTok{summary}\NormalTok{(mod1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7717 -0.8634 -0.0037  0.9204  3.5437 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.00123    0.04210  -0.029    0.977    
+## X            0.46041    0.04296  10.718   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.331 on 998 degrees of freedom
+## Multiple R-squared:  0.1032, Adjusted R-squared:  0.1023 
+## F-statistic: 114.9 on 1 and 998 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X }\SpecialCharTok{+}\NormalTok{ Z) }\CommentTok{\# with conditioning on Z}
+\FunctionTok{summary}\NormalTok{(mod2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X + Z)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2979 -0.6399  0.0011  0.7047  2.8701 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.98781    0.04662 -21.190   <2e-16 ***
+## X            0.02121    0.03542   0.599    0.549    
+## Z            1.97980    0.06941  28.523   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9883 on 997 degrees of freedom
+## Multiple R-squared:  0.5062, Adjusted R-squared:  0.5052 
+## F-statistic:   511 on 2 and 997 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Adding \(Z\) to the model (i.e., conditioning on \(Z\)) makes the coefficient for \(X\) disappear.
+Knowing \(Z\) means that \(X\) does not give us any additional information about \(Y\).
+See \hyperref[exercise7_multiple_regression]{exercise 7}.
+
+\(Z\) is also called a \href{https://en.wikipedia.org/wiki/Mediation_(statistics)}{\textbf{mediator}}.
+
+We could easily verify that \(Z\) constitutes a mediator by using Baron and
+Kenny's 1986 approach (see Wiki):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X))}\CommentTok{\# Step 1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.7717 -0.8634 -0.0037  0.9204  3.5437 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.00123    0.04210  -0.029    0.977    
+## X            0.46041    0.04296  10.718   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.331 on 998 degrees of freedom
+## Multiple R-squared:  0.1032, Adjusted R-squared:  0.1023 
+## F-statistic: 114.9 on 1 and 998 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Z }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X))}\CommentTok{\# Step 2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Z ~ X)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.97876 -0.40728 -0.00555  0.41502  1.09581 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.49832    0.01425   34.96   <2e-16 ***
+## X            0.22184    0.01454   15.25   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4507 on 998 degrees of freedom
+## Multiple R-squared:  0.189,  Adjusted R-squared:  0.1882 
+## F-statistic: 232.6 on 1 and 998 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X }\SpecialCharTok{+}\NormalTok{ Z))}\CommentTok{\# Step 3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X + Z)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2979 -0.6399  0.0011  0.7047  2.8701 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.98781    0.04662 -21.190   <2e-16 ***
+## X            0.02121    0.03542   0.599    0.549    
+## Z            1.97980    0.06941  28.523   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9883 on 997 degrees of freedom
+## Multiple R-squared:  0.5062, Adjusted R-squared:  0.5052 
+## F-statistic:   511 on 2 and 997 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Both coefficients for \(X\) are ``significant'' in steps 1 and 2.
+The coefficients for \(Z\) in step 3 is ``significant'' and the coefficient for
+\(X\) is smaller compared to step 1. And not to forget: the very small \(p\)-values are strongly
+related to the very large smaple size and a strict cutoff (\(\alpha = 0.05\)) makes no sense.
+
+\subsubsection{Fork}\label{fork}
+
+In health science, this is the classical \href{https://en.wikipedia.org/wiki/Confounding}{confounder}.
+\(Z\) is associated with \(X\) and \(Y\). \(X\) and \(Y\) are \emph{actually} not associated (no arrow) but an association is
+still shown. But if we condition on \(Z\), the association between \(X\) and \(Y\) disappears. The assocation is
+spurious in this case and \emph{adjusting} for the confounder yields the correct result.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# fork}
 \CommentTok{\# X \textless{}{-} Z {-}\textgreater{} Y}
+
+\NormalTok{dag }\OtherTok{\textless{}{-}} \FunctionTok{dagitty}\NormalTok{( }\StringTok{\textquotesingle{}dag \{}
+\StringTok{  X \textless{}{-} Z {-}\textgreater{} Y}
+\StringTok{\}\textquotesingle{}}\NormalTok{ )}
+
+\NormalTok{dagitty}\SpecialCharTok{::}\FunctionTok{coordinates}\NormalTok{( dag ) }\OtherTok{\textless{}{-}}
+  \FunctionTok{list}\NormalTok{( }\AttributeTok{x=}\FunctionTok{c}\NormalTok{(}\AttributeTok{X=}\DecValTok{0}\NormalTok{, }\AttributeTok{Y=}\DecValTok{2}\NormalTok{, }\AttributeTok{Z=}\DecValTok{1}\NormalTok{),}
+        \AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\AttributeTok{X=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{Y=}\FloatTok{0.5}\NormalTok{, }\AttributeTok{Z=}\DecValTok{0}\NormalTok{) )}
+
+\FunctionTok{ggdag}\NormalTok{(dag) }\SpecialCharTok{+} \FunctionTok{theme\_dag}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-77-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
 \NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rbern}\NormalTok{(N)}
 \NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N,}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Z}\DecValTok{{-}1}\NormalTok{)}
@@ -3948,12 +4242,66 @@ and explains this in a \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_chan
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-73-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-77-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(X[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{],Y[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.05903899
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(X[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{],Y[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.03401368
+\end{verbatim}
+
+In the example, we know that \(Z\) is associated with both \(X\) and \(Y\) (per construction).
+As you can see in the definitions of \(X\), \(Y\) and \(Z\), \(X\) and \(Y\) would not be associated
+weren't it for \(Z\).
+
+\subsubsection{Collider}\label{collider}
+
+This is rather interesting. \(X\) is associated with \(Z\) and \(Y\) is associated
+with \(Z\). This can be seen in the toy example below, where \(X\) and \(Y\) are used
+for the definition of \(Z\). As you can see, \(Z\) is defined as a \textbf{sum
+score} of \(X\) and \(Y\). Sum scores are \emph{very} often used in health sciences (and others).
+The higher the sum score, the higher the probability that \(Z=1\).
+Now, \emph{if} we know the value of \(Z\), \(X\) and \(Y\) are negatively associated (see graph).
+The reason for this association is that there is a compensatory effect. In order to get a high
+score, you can either have a high value of \(X\) or \(Y\) or both.
+This induces the negative correlation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# collider}
 \CommentTok{\# X {-}\textgreater{} Z \textless{}{-} Y}
+
+\CommentTok{\#dag}
+\NormalTok{dag }\OtherTok{\textless{}{-}} \FunctionTok{dagitty}\NormalTok{( }\StringTok{\textquotesingle{}dag \{}
+\StringTok{  X {-}\textgreater{} Z \textless{}{-} Y}
+\StringTok{\}\textquotesingle{}}\NormalTok{ )}
+
+\NormalTok{dagitty}\SpecialCharTok{::}\FunctionTok{coordinates}\NormalTok{( dag ) }\OtherTok{\textless{}{-}}
+  \FunctionTok{list}\NormalTok{( }\AttributeTok{x=}\FunctionTok{c}\NormalTok{(}\AttributeTok{X=}\DecValTok{0}\NormalTok{, }\AttributeTok{Y=}\DecValTok{2}\NormalTok{, }\AttributeTok{Z=}\DecValTok{1}\NormalTok{),}
+        \AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\AttributeTok{X=}\DecValTok{0}\NormalTok{, }\AttributeTok{Y=}\DecValTok{0}\NormalTok{, }\AttributeTok{Z=}\DecValTok{1}\NormalTok{) )}
+
+\FunctionTok{ggdag}\NormalTok{(dag) }\SpecialCharTok{+} \FunctionTok{theme\_dag}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
 \NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
 \NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
@@ -3966,28 +4314,31 @@ and explains this in a \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_chan
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-73-3.pdf}}
-
-\begin{itemize}
-\item
-  Pipe: In this setting \(X\) is associated with \(Z\) and \(Z\) is associated with \(Y\). \(X\) and \(Y\) are also associated.
-  But if we condition on \(Z\), the association between \(X\) and \(Y\) disappears. This is the pipe.
-  This means, if we \textbf{know} the value of \(Z\), \(X\) does not give us any information about \(Y\).
-  This can be seen in the first plot: Once we are within \(Z=0\) or \(Z=1\), \(X\) does not give us any information about \(Y\),
-  i.e., the point cloud is horizontal and there is no correlation.
-
-  Or in the framework of Simpsons paradox:
-\end{itemize}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# pipe}
-\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
-\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
-\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rbern}\NormalTok{(N,}\FunctionTok{inv\_logit}\NormalTok{(X))}
-\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N,(}\DecValTok{2}\SpecialCharTok{*}\NormalTok{Z}\DecValTok{{-}1}\NormalTok{))}
-\NormalTok{mod1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X)}
-\FunctionTok{summary}\NormalTok{(mod1)}
+\FunctionTok{cor}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{], X[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.326671
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{], X[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.1768203
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X)) }\CommentTok{\# mod1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3998,24 +4349,21 @@ and explains this in a \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_chan
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.1686 -0.9507 -0.0105  0.9292  3.7899 
+## -3.3892 -0.6079 -0.0269  0.6462  3.1038 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) -0.004706   0.042844   -0.11    0.913    
-## X            0.432429   0.041339   10.46   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -0.01882    0.03055  -0.616    0.538
+## X            0.04061    0.02948   1.378    0.169
 ## 
-## Residual standard error: 1.355 on 998 degrees of freedom
-## Multiple R-squared:  0.09881,    Adjusted R-squared:  0.0979 
-## F-statistic: 109.4 on 1 and 998 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.9662 on 998 degrees of freedom
+## Multiple R-squared:  0.001898,   Adjusted R-squared:  0.0008978 
+## F-statistic: 1.898 on 1 and 998 DF,  p-value: 0.1686
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mod2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X }\SpecialCharTok{+}\NormalTok{ Z)}
-\FunctionTok{summary}\NormalTok{(mod2)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X }\SpecialCharTok{+}\NormalTok{ Z)) }\CommentTok{\# mod2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4025,25 +4373,33 @@ and explains this in a \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_chan
 ## lm(formula = Y ~ X + Z)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -3.4382 -0.6174 -0.0548  0.6945  3.0373 
+##      Min       1Q   Median       3Q      Max 
+## -3.03484 -0.55761  0.02022  0.55813  2.41336 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) -1.017412   0.046595 -21.835   <2e-16 ***
-## X           -0.004415   0.033723  -0.131    0.896    
-## Z            2.055013   0.069907  29.396   <2e-16 ***
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.33787    0.03215  -10.51  < 2e-16 ***
+## X           -0.19963    0.02906   -6.87 1.13e-11 ***
+## Z            1.21398    0.06840   17.75  < 2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.9921 on 997 degrees of freedom
-## Multiple R-squared:  0.5172, Adjusted R-squared:  0.5163 
-## F-statistic: 534.1 on 2 and 997 DF,  p-value: < 2.2e-16
+## Residual standard error: 0.8427 on 997 degrees of freedom
+## Multiple R-squared:  0.2415, Adjusted R-squared:   0.24 
+## F-statistic: 158.7 on 2 and 997 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-Adding \(Z\) to the model makes the coefficient for \(X\) disappear.
+If you think of Simpsons paradox again, conditioning on \(Z\) \emph{creates} an association between \(X\) and \(Y\),
+which would otherwise be independent (by definition). So by learning the value of \(Z\), we can learn something
+from \(X\) about \(Y\). On the one hand, adding \(Z\) to the model creates an association where there is none,
+on the other hand, \emph{prediction} of \(Y\) is better with \(Z\) in the model! In prediction, we largely
+do not care about the causal structure of the data. We just want to predict \(Y\) as accurate as possible.
 
-See \hyperref[exercise7_multiple_regression]{exercise 7}.
+This is also called \href{https://en.wikipedia.org/wiki/Berkson\%27s_paradox}{Berkson's paradox}.
+Let's check if this also works for three variables in a sum score
+in \hyperref[exercise10_multiple_regression]{exercise 10}.
+
+\section{More than 2 predictors}\label{more-than-2-predictors}
 
 \section{Exercises}\label{exercises-2}
 
@@ -4135,9 +4491,7 @@ Go back to the Simpson's paradox \hyperref[simpsons_paradox]{section}.
 \begin{itemize}
 \tightlist
 \item
-  Verify that the coefficient for \(X\) disappears when you add \(Z\) to the model for the pipe.
-\item
-  What happens in the case of the collider?
+  Invent your own example for the pipe, fork and collider.
 \end{itemize}
 
 \subsection{{[}M{]} Exercise 8}\label{exercise8_multiple_regression}
@@ -4173,6 +4527,18 @@ setting. Hint: You can use the \texttt{optim} function in R.
   Calculate the \(R^2\) for this model.
 \end{itemize}
 
+\subsection{{[}E{]} Exercise 10}\label{exercise10_multiple_regression}
+
+Let's try to verify if Berkson's paradox (which we have mentioned in the
+\hyperref[collider]{collider-section}) also works for three variables in a sum score.
+- Now, we assume some college admits only applicants in the top 20\% of a score
+consisting of the sum of three variables: \(W, X, Z\) (grade point average, math score, verbal score).
+- All three scores are individually normally distributed with mean 100 and standard deviation 15.
+- Calculate the correlation matrix \texttt{cor()} of all students and the admitted students.
+- Are any of the three variables correlated?
+- Plot a scatterplot of the math score and the verbal score und color the points according
+to being admitted or not. You can add trendlines for the two groups.
+
 \section{TODOS}\label{todos}
 
 \begin{itemize}
@@ -4181,8 +4547,6 @@ setting. Hint: You can use the \texttt{optim} function in R.
   \texttt{check\_model} for 2 and more predictors\ldots{}
 \item
   Violations of model assumptions and how to fix them.
-\item
-  Clarify what of pipe, collider and fork is relevant for the simposons paradox.
 \item
   Add more Bayesian model checks, chapter 6 Gelman.
 \item

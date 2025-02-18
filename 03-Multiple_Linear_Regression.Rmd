@@ -973,7 +973,16 @@ abline(lm(Y~X),lwd=3,lty=3)
 
 cor(Y[Z==1], X[Z==1])
 cor(Y[Z==0], X[Z==0])
+
+summary(lm(Y ~ X)) # mod1
+summary(lm(Y ~ X + Z)) # mod2
 ```
+
+If you think of Simpsons paradox again, conditioning on $Z$ *creates* an association between $X$ and $Y$,
+which would otherwise be independent (by definition). So by learning the value of $Z$, we can learn something
+from $X$ about $Y$. On the one hand, adding $Z$ to the model creates an association where there is none,
+on the other hand, *prediction* of $Y$ is better with $Z$ in the model! In prediction, we largely
+do not care about the causal structure of the data. We just want to predict $Y$ as accurate as possible.
 
 This is also called [Berkson's paradox](https://en.wikipedia.org/wiki/Berkson%27s_paradox).
 Let's check if this also works for three variables in a sum score 
