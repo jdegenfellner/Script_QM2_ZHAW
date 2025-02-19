@@ -483,7 +483,7 @@ this means that the parameters are also independent.
 And, it is not an accident that the posterior looks like this. Using quadratic approximation,
 we used the bivariate normal distribution to **approximate** the posterior.
 
-## Classical approach for the simplest model
+## Classical approach for the simplest model {#classical_simple_mean_model}
 
 We have seen, how we could use prior knowledge to fit a very simple model
 for body heights of a population (!Kung San) in the Bayesian framework.
@@ -713,9 +713,9 @@ determine
 Why do we **not** need a hypothesis test to know that the population mean of body heights is not zero?
 Give 2 reasons.
 
-### [M] Exercise 3 {#exercise3_Intro}
+### [H] Exercise 3 {#exercise3_Intro}
 Verify analytically that the `Residual standard error` is identical with 
-the sample standard deviation of the heights.
+the sample standard deviation of the heights in [the simple mean model above](#classical_simple_mean_model).
 
 ### [M] Exercise 4 {#exercise4_Intro}
 Repeat the Bayesian and Frequentist estimation of the simple model using a different data set about 

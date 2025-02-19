@@ -8,7 +8,7 @@ individual-vs.-population-prediction
 practical-use-of-statistical-models
 start-at-the-beginning
 a-simple-model-for-adult-body-heights-in-the-bayesian-framework
-classical-approach-for-the-simplest-model
+classical_simple_mean_model
 exercises
 exercise1_Intro
 exercise2_Intro
