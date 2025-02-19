@@ -733,7 +733,7 @@ which is included in R.
   and see how the 3D plot changes.
 - Plot the scatter plot of the $X$ and $Y$ values and compare it to the 3D plot.
   Does this make sense?
-- Why is scatter plot elliptical?
+- Why is the scatter plot elliptical?
 
 ### [M] Exercise 6 {#exercise6_Intro}
 

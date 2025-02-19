@@ -648,8 +648,8 @@ The \texttt{precis}function displays concise parameter estimate information
 
 \begin{verbatim}
 ##             mean        sd       5.5%      94.5%
-## mu    154.603675 0.4120135 153.945198 155.262152
-## sigma   7.731694 0.2914200   7.265948   8.197439
+## mu    154.604269 0.4119868 153.945834 155.262703
+## sigma   7.731192 0.2913727   7.265522   8.196862
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.4841 7.711116
-## 2 155.1774 7.709211
-## 3 154.4502 7.894851
-## 4 154.4978 7.729160
-## 5 153.7434 7.929766
-## 6 154.4634 7.089858
+## 1 155.4406 7.538016
+## 2 154.5763 8.229384
+## 3 153.4762 7.740209
+## 4 155.1879 7.754695
+## 5 155.0511 7.364208
+## 6 154.7377 7.540398
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697551059 0.0001445506
-## sigma 0.0001445506 0.0849255932
+## mu    0.1697331611 0.0001575445
+## sigma 0.0001575445 0.0848980624
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16975511 0.08492559
+## 0.16973316 0.08489806
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001203897
-## sigma 0.001203897 1.000000000
+## mu    1.000000000 0.001312415
+## sigma 0.001312415 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -765,7 +765,7 @@ this means that the parameters are also independent.
 And, it is not an accident that the posterior looks like this. Using quadratic approximation,
 we used the bivariate normal distribution to \textbf{approximate} the posterior.
 
-\section{Classical approach for the simplest model}\label{classical-approach-for-the-simplest-model}
+\section{Classical approach for the simplest model}\label{classical_simple_mean_model}
 
 We have seen, how we could use prior knowledge to fit a very simple model
 for body heights of a population (!Kung San) in the Bayesian framework.
@@ -1058,10 +1058,10 @@ determine
 Why do we \textbf{not} need a hypothesis test to know that the population mean of body heights is not zero?
 Give 2 reasons.
 
-\subsection{{[}M{]} Exercise 3}\label{exercise3_Intro}
+\subsection{{[}H{]} Exercise 3}\label{exercise3_Intro}
 
 Verify analytically that the \texttt{Residual\ standard\ error} is identical with
-the sample standard deviation of the heights.
+the sample standard deviation of the heights in \hyperref[classical_simple_mean_model]{the simple mean model above}.
 
 \subsection{{[}M{]} Exercise 4}\label{exercise4_Intro}
 
@@ -1079,18 +1079,34 @@ which is included in R.
 
 \subsection{{[}M{]} Exercise 5}\label{exercise5_Intro}
 
-Try to verify the simulation of probability in the \hyperref[addendum]{addendum} below.
+\begin{itemize}
+\tightlist
+\item
+  Try to understand/verify the code in the \hyperref[addendum]{addendum} below.
+\item
+  Change the parameters \(\mu = (\mu_X, \mu_Y)\) and \(\Sigma\) of the bivariate normal distribution
+  and see how the 3D plot changes.
+\item
+  Plot the scatter plot of the \(X\) and \(Y\) values and compare it to the 3D plot.
+  Does this make sense?
+\item
+  Why is the scatter plot elliptical?
+\end{itemize}
 
 \subsection{{[}M{]} Exercise 6}\label{exercise6_Intro}
 
 Independence of two random variables \(X\) and \(Y\) implies that the
 correlation between them is zero.
-A correlation of zero does not necessarily imply independence. Verify this
-counterexample:
+A correlation of zero does not necessarily imply independence.
 
-For example, suppose the random variable \(X\) is symmetrically distributed about zero,
-and \(Y = X^2\). Then \(\mathit{Y}\) is completely determined by \(X\), so that
-\(\mathit{X}\) and \(\mathit{Y}\) are perfectly dependent, but their correlation is zero.
+\begin{itemize}
+\tightlist
+\item
+  Verify this counterexample:
+  For example, suppose the random variable \(X\) is symmetrically distributed about zero,
+  and \(Y = X^2\). Then \(\mathit{Y}\) is completely determined by \(X\), so that
+  \(\mathit{X}\) and \(\mathit{Y}\) are perfectly dependent, but their correlation is zero.
+\end{itemize}
 
 \subsection{{[}H{]} Exercise 7}\label{exercise7_Intro}
 
@@ -1107,7 +1123,8 @@ Go to the \hyperref[bivariate_normal]{section} aobut the bivariate normal distri
   0.5 & 0.75
   \end{bmatrix}
   \]
-  Hint: For the bivariate normal distribution, the correlation matrix is defined \href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution\#Bivariate_case}{here}.
+  Hint: For the bivariate normal distribution, the correlation matrix is defined
+  \href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution\#Bivariate_case}{here}.
 \end{itemize}
 
 \section{Addendum}\label{addendum}
@@ -1330,7 +1347,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb7ca73015/widgetbbb73445b930.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc45188820d/widget4fc459124d4c.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -1603,7 +1620,7 @@ with the respective parameters \(\alpha\), \(\beta\) would indicate
 the variability of the estimates.
 Note that we do not draw from the data (as one does in bootstrap resampling),
 but from the posterior distribution.
-The \texttt{link} function does this for us. It takes the posterior distribution We
+The \texttt{link} function does this for us. It takes the posterior distribution we
 have just fit, samples \(\alpha\) and \(\beta\) from it, calculates the mean and then
 samples from this normal distribution for the mean at a given weight.
 Refer to pages 98-106 in the current version of the book Statistical Rethinking
@@ -2006,7 +2023,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb72885e055/widgetbbb76d4b013b.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc41f23a2c6/widget4fc45c938522.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -3538,7 +3555,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb73a19d556/widgetbbb776051ee6.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc418fa1854/widget4fc44b533f9b.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3730,7 +3747,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb77f075d56/widgetbbb73c80fa41.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc4549f4657/widget4fc424c32528.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4605,7 +4622,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb71e351437/widgetbbb72ec2365f.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc46a072be0/widget4fc47cd1b581.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -4826,6 +4843,8 @@ from McElreath 6.1.
 \tightlist
 \item
   \texttt{check\_model} for 2 and more predictors\ldots{}
+\item
+  Factors, caterical variables in model\ldots{}
 \item
   Violations of model assumptions and how to fix them.
 \item
