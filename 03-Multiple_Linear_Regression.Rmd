@@ -1215,6 +1215,7 @@ from McElreath 6.1.
 ## TODOS
 
 - `check_model` for 2 and more predictors...
+- Factors, caterical variables in model...
 - Violations of model assumptions and how to fix them.
 - Add more Bayesian model checks, chapter 6 Gelman.
 - Show by simulation what Gelman talks about with significant p values. So I scan the data

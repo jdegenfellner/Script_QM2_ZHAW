@@ -297,7 +297,7 @@ with the respective parameters $\alpha$, $\beta$ would indicate
 the variability of the estimates.
 Note that we do not draw from the data (as one does in bootstrap resampling),
 but from the posterior distribution.
-The `link` function does this for us. It takes the posterior distribution We
+The `link` function does this for us. It takes the posterior distribution we
 have just fit, samples $\alpha$ and $\beta$ from it, calculates the mean and then
 samples from this normal distribution for the mean at a given weight.
 Refer to pages 98-106 in the current version of the book Statistical Rethinking
