@@ -728,18 +728,23 @@ which is included in R.
 
 ### [M] Exercise 5 {#exercise5_Intro}
 
-Try to verify the simulation of probability in the [addendum](#addendum) below.
+- Try to understand/verify the simulation of probability in the [addendum](#addendum) below.
+- Change the parameters $\mu = (\mu_X, \mu_Y)$ and $\Sigma$ of the bivariate normal distribution 
+  and see how the 3D plot changes.
+- Plot the scatter plot of the $X$ and $Y$ values and compare it to the 3D plot.
+  Does this make sense?
+- Why is scatter plot elliptical?
 
 ### [M] Exercise 6 {#exercise6_Intro}
 
 Independence of two random variables $X$ and $Y$ implies that the 
 correlation between them is zero.
-A correlation of zero does not necessarily imply independence. Verify this
-counterexample:
+A correlation of zero does not necessarily imply independence. 
 
-For example, suppose the random variable $X$ is symmetrically distributed about zero, 
-and $Y = X^2$. Then $\mathit{Y}$ is completely determined by $X$, so that 
-$\mathit{X}$ and $\mathit{Y}$ are perfectly dependent, but their correlation is zero. 
+- Verify this counterexample:
+  For example, suppose the random variable $X$ is symmetrically distributed about zero, 
+  and $Y = X^2$. Then $\mathit{Y}$ is completely determined by $X$, so that 
+  $\mathit{X}$ and $\mathit{Y}$ are perfectly dependent, but their correlation is zero. 
 
 ### [H] Exercise 7 {#exercise7_Intro}
 Go to the [section](#bivariate_normal) aobut the bivariate normal distribution below.
@@ -752,7 +757,8 @@ Go to the [section](#bivariate_normal) aobut the bivariate normal distribution b
   0.5 & 0.75
   \end{bmatrix}
   $$
-  Hint: For the bivariate normal distribution, the correlation matrix is defined [here](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Bivariate_case).
+  Hint: For the bivariate normal distribution, the correlation matrix is defined 
+  [here](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Bivariate_case).
 
 
 ## Addendum {#addendum}
