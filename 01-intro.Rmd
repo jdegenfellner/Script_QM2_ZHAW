@@ -728,7 +728,7 @@ which is included in R.
 
 ### [M] Exercise 5 {#exercise5_Intro}
 
-- Try to understand/verify the simulation of probability in the [addendum](#addendum) below.
+- Try to understand/verify the code in the [addendum](#addendum) below.
 - Change the parameters $\mu = (\mu_X, \mu_Y)$ and $\Sigma$ of the bivariate normal distribution 
   and see how the 3D plot changes.
 - Plot the scatter plot of the $X$ and $Y$ values and compare it to the 3D plot.
