@@ -658,7 +658,7 @@ the results from the `lm` function. The dot in red marks the spot
 
 **---COMPILE CODE AT DEOPLOYMENT (takes a bit)---**
 
-```{r, echo=FALSE, eval=FALSE}
+```{r, echo=FALSE, eval=TRUE}
 library(pacman)
 p_load(plotly, tidyverse, rethinking)
 data(Howell1)

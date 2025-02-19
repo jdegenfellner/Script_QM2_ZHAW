@@ -125,7 +125,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-18}
+\date{2025-02-19}
 
 \begin{document}
 \maketitle
@@ -335,7 +335,7 @@ We could for instance ask ourselves:
 
 \begin{itemize}
 \item
-  ``How much better does this model estimate and outcome than the arithmetic mean?
+  ``How much better does this model estimate an outcome than the arithmetic mean?
   (i.e., the linear model with just an intercept)''
 \item
   ``How much better does this model classify than random guessing?''
@@ -586,16 +586,16 @@ from the normal distribution using the drawn parameters.
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-7-1.pdf}}
 
 The prior is not itself a Gaussian distribution, but a distribution of
-relative plausibilities of different heights, before seeing the data.
+relative plausibilities of different heights, \textbf{before} seeing the data.
 
-Note how created the model predictions for heights.
+Note how we have created the model predictions for heights.
 We first drew \(\mu\) and \(\sigma\) independently
 (there is no arrow between \(\mu\) and \(\sigma\)) from the priors.
 Then we drew heights from the normal distribution using the drawn parameters.
 You just follow the model structure.
 
 Now, there are a couple of different ways to estimtate the model incorporating
-the new data. For didactic reasons, grid approximation is often used (as in the book).
+the new data. For didactic reasons, grid approximation is often used (as in the books).
 For many parameters, this approach becomes more and more infeasible (due to combinatorial explosion).
 
 We will skip that for now and use quadratic approximation instead which
@@ -648,8 +648,8 @@ The \texttt{precis}function displays concise parameter estimate information
 
 \begin{verbatim}
 ##             mean        sd       5.5%      94.5%
-## mu    154.603873 0.4120540 153.945331 155.262415
-## sigma   7.732454 0.2914916   7.266594   8.198314
+## mu    154.603675 0.4120135 153.945198 155.262152
+## sigma   7.731694 0.2914200   7.265948   8.197439
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.3619 8.418411
-## 2 154.8352 7.964641
-## 3 155.4047 8.022112
-## 4 154.2573 7.696360
-## 5 154.8606 7.888425
-## 6 154.8083 7.732550
+## 1 154.4841 7.711116
+## 2 155.1774 7.709211
+## 3 154.4502 7.894851
+## 4 154.4978 7.729160
+## 5 153.7434 7.929766
+## 6 154.4634 7.089858
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697885206 0.0001489406
-## sigma 0.0001489406 0.0849673653
+## mu    0.1697551059 0.0001445506
+## sigma 0.0001445506 0.0849255932
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16978852 0.08496737
+## 0.16975511 0.08492559
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001240032
-## sigma 0.001240032 1.000000000
+## mu    1.000000000 0.001203897
+## sigma 0.001203897 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -988,7 +988,7 @@ I \textbf{highly recommend} reading the first chapters.
 This means, that for every fixed value of the predictor (which we formally do not have),
 the distribution of the response is normal with mean \(\hat{c}\) and standard deviation \(\sigma\).
 Since, we do not have a predictor (apart from the intercept), we can say, that the distribution of the heights is normal with mean \(\hat{c}\)
-and standard deviation \(\sigma\). This is what we assumed in the model. It can also directly seen
+and standard deviation \(\sigma\). This is what we assumed in the model. It can also be directly seen
 in the formula:
 
 \[ height_i = c + \varepsilon_i \]
@@ -1027,6 +1027,7 @@ parameter \(c\) and the standard deviation \(\sigma\).
 \end{Shaded}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf}}
+
 One can repeat the simulation and see how the distributions changes to get
 a feeling for the variability of the model/data.
 
@@ -1091,6 +1092,24 @@ For example, suppose the random variable \(X\) is symmetrically distributed abou
 and \(Y = X^2\). Then \(\mathit{Y}\) is completely determined by \(X\), so that
 \(\mathit{X}\) and \(\mathit{Y}\) are perfectly dependent, but their correlation is zero.
 
+\subsection{{[}H{]} Exercise 7}\label{exercise7_Intro}
+
+Go to the \hyperref[bivariate_normal]{section} aobut the bivariate normal distribution below.
+
+\begin{itemize}
+\tightlist
+\item
+  How do you get the correlation matrix from the covariance matrix (\(\Sigma\))?
+  \[
+  \Sigma =
+  \begin{bmatrix}
+  0.75 & 0.5 \\
+  0.5 & 0.75
+  \end{bmatrix}
+  \]
+  Hint: For the bivariate normal distribution, the correlation matrix is defined \href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution\#Bivariate_case}{here}.
+\end{itemize}
+
 \section{Addendum}\label{addendum}
 
 \subsection{The bivariate normal distribution}\label{bivariate_normal}
@@ -1100,7 +1119,8 @@ chapter ``4.7 Gemeinsame Verteilungen''.
 Maybe \href{https://www.youtube.com/watch?v=SP2GKq8xJ5I&ab_channel=StatisticsNinja}{this video}
 also helps.
 
-The bivariate normal distribution is a generalization of the normal distribution to two dimensions.
+The \href{https://en.wikipedia.org/wiki/Multivariate_normal_distribution}{bivariate normal distribution}
+is a generalization of the normal distribution to two dimensions.
 Now, we look at the distribution of two random variables \(X\) and \(Y\) \textbf{at the same time}.
 
 Instead of one Gaussian curve, we have a
@@ -1177,7 +1197,18 @@ if \(0.1526\) is a plausible value for the probability:
 \CommentTok{\# Define the parameters of the bivariate normal distribution}
 \NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)                       }\CommentTok{\# Mean}
 \NormalTok{sigma }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.75}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{), }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\CommentTok{\# Covariance matrix}
+\FunctionTok{cov2cor}\NormalTok{(sigma)  }\CommentTok{\# Convert covariance matrix to correlation matrix}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 1.0000000 0.6666667
+## [2,] 0.6666667 1.0000000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Define the bounds of the square}
 \NormalTok{highlight\_x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
 \NormalTok{highlight\_y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{2}\NormalTok{)}
@@ -1299,7 +1330,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjX5Tut/file506e45b09dcc/widget506e4e47dfd2.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb7ca73015/widgetbbb73445b930.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -1966,6 +1997,20 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 
 \textbf{---COMPILE CODE AT DEOPLOYMENT (takes a bit)---}
 
+\begin{verbatim}
+## Intercept beta_0:  113.8794
+\end{verbatim}
+
+\begin{verbatim}
+## Slope beta_1:  0.9050291
+\end{verbatim}
+
+\begin{verbatim}
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb72885e055/widgetbbb76d4b013b.html screenshot completed
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
+
 \subsection{Confidence Intervals of coefficients (frequentist)}\label{confidence_intervals_frequentist}
 
 You can get CI's conveniently with the \texttt{confint} function:
@@ -1979,7 +2024,7 @@ You can get CI's conveniently with the \texttt{confint} function:
 \begin{verbatim}
 ##                    2 %        98 %
 ## (Intercept) 109.939864 117.8189232
-## weight        0.818351   0.9917072
+## x             0.818351   0.9917072
 \end{verbatim}
 
 Remember, these are frequenetist confidence intervals.
@@ -3493,7 +3538,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjX5Tut/file506e2c15aefd/widget506e43937aa7.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb73a19d556/widgetbbb776051ee6.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3685,7 +3730,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpjX5Tut/file506e3ae6923a/widget506e778a3c0b.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb77f075d56/widgetbbb73c80fa41.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -3913,7 +3958,7 @@ the more muscle strength. But if we combine the groups, we will see a decreasing
 This (fictitious) example shows that throwing variables into a multiple regression
 model without thinking about it, is not a good idea.
 
-\subsection{What happens when you just throw variables into multiple regression?}\label{throwing_variables}
+\section{What happens when you just throw variables into multiple regression?}\label{throwing_variables}
 
 This sub-chapter is \textbf{important}. I can guarantee you that not too many applied
 scientists using regression models know about this.
@@ -3925,19 +3970,19 @@ Richard McElreath has 3 cool examples on
 that show what happens if you include variables the wrong way and explains this in a
 \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath}{video}.
 
-We will look at these 3 examples below - \textbf{the pipe, the fork and the collider}. These are causal graphs showing the
+We will look at these below - \textbf{the pipe, the fork and the collider}. These are causal graphs showing the
 relationships between the variables. One is interested in the \textbf{effect} of X on Y.
 In this case, it is truly an \emph{effect}, since we create the models in such a way that changing
-one varible, changes the other - which is indicated by an arrow in the graph.
+one variable, changes the other - which is indicated by an arrow in the graph.
 These graphs are called DAGs - directed acyclic graphs. \emph{Directed} because of the arrows,
 \emph{acyclic} because there are no cycles in the graph. One nice tool for drawing them is
 \href{https://www.dagitty.net/}{dagitty}, which is also \href{https://cran.r-project.org/web/packages/dagitty/index.html}{implemented in R}.
 
-\subsubsection{Pipe}\label{pipe}
+\subsection{Pipe}\label{pipe}
 
 In this setting \(X\) is associated with \(Z\) and \(Z\) is associated with \(Y\).
 \(X\) and \(Y\) are not directly associated, but through \(Z\) (see graph below).
-If we condition on \(Z\), the association between \(X\) and \(Y\) disappears. This is the pipe.
+If we condition on \(Z\), the association between \(X\) and \(Y\) \emph{disappears}.
 This means, if we \textbf{know} the value of \(Z\), \(X\) does not give us any \emph{additional} information about \(Y\).
 
 This can be seen in the scatterplot: Once we are within \(Z=0\) (black dots) or \(Z=1\) (red dots),
@@ -3958,7 +4003,7 @@ Let's plot this for understanding:
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf}}
 
 Higher \(X\) values lead to higher probabilities of \(Z=1\).
-As you can see, more red dots are on the right side of the plot.
+As you can see, more red dots are on the right side of the scatterplot below.
 
 Now to the pipe and a mini simulation for it:
 
@@ -4202,11 +4247,12 @@ The coefficients for \(Z\) in step 3 is ``significant'' and the coefficient for
 \(X\) is smaller compared to step 1. And not to forget: the very small \(p\)-values are strongly
 related to the very large smaple size and a strict cutoff (\(\alpha = 0.05\)) makes no sense.
 
-\subsubsection{Fork}\label{fork}
+\subsection{Fork}\label{fork}
 
 In health science, this is the classical \href{https://en.wikipedia.org/wiki/Confounding}{confounder}.
 \(Z\) is associated with \(X\) and \(Y\). \(X\) and \(Y\) are \emph{actually} not associated (no arrow) but an association is
-still shown. But if we condition on \(Z\), the association between \(X\) and \(Y\) disappears. The assocation is
+still shown: \texttt{cor(X,Y)\ =\ 0.5097437}.
+But if we condition on \(Z\), the association between \(X\) and \(Y\) disappears. The assocation is
 spurious in this case and \emph{adjusting} for the confounder yields the correct result.
 
 \begin{Shaded}
@@ -4264,15 +4310,25 @@ spurious in this case and \emph{adjusting} for the confounder yields the correct
 ## [1] -0.03401368
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(X,Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5097437
+\end{verbatim}
+
 In the example, we know that \(Z\) is associated with both \(X\) and \(Y\) (per construction).
 As you can see in the definitions of \(X\), \(Y\) and \(Z\), \(X\) and \(Y\) would not be associated
 weren't it for \(Z\).
 
-\subsubsection{Collider}\label{collider}
+\subsection{Collider}\label{collider}
 
-This is rather interesting. \(X\) is associated with \(Z\) and \(Y\) is associated
+This is rather interesting. \(X\) and \(Y\) are independently associated
 with \(Z\). This can be seen in the toy example below, where \(X\) and \(Y\) are used
-for the definition of \(Z\). As you can see, \(Z\) is defined as a \textbf{sum
+for the definition of \(Z\). \(Z\) is defined as a \textbf{sum
 score} of \(X\) and \(Y\). Sum scores are \emph{very} often used in health sciences (and others).
 The higher the sum score, the higher the probability that \(Z=1\).
 Now, \emph{if} we know the value of \(Z\), \(X\) and \(Y\) are negatively associated (see graph).
@@ -4393,13 +4449,218 @@ If you think of Simpsons paradox again, conditioning on \(Z\) \emph{creates} an 
 which would otherwise be independent (by definition). So by learning the value of \(Z\), we can learn something
 from \(X\) about \(Y\). On the one hand, adding \(Z\) to the model creates an association where there is none,
 on the other hand, \emph{prediction} of \(Y\) is better with \(Z\) in the model! In prediction, we largely
-do not care about the causal structure of the data. We just want to predict \(Y\) as accurate as possible.
+do not care about the causal structure of the data. We just want to predict \(Y\) as accurately as possible.
 
-This is also called \href{https://en.wikipedia.org/wiki/Berkson\%27s_paradox}{Berkson's paradox}.
+The sum score example is also called \href{https://en.wikipedia.org/wiki/Berkson\%27s_paradox}{Berkson's paradox}.
 Let's check if this also works for three variables in a sum score
 in \hyperref[exercise10_multiple_regression]{exercise 10}.
 
+\subsection{Multicollinearity}\label{multicollinearity}
+
+Westfall section 8.4 and McElreath section 6.1 cover this topic.
+\href{https://en.wikipedia.org/wiki/Multicollinearity}{Multicollinearity} means that there is a strong
+correlation between two or more predictors. \emph{Perfect} multicollinearity it is when the correlation is 1.
+For example, if you accidentally include the same variable twice in the model, or when you include
+the elements of a sum score and the sum score itself as predictors in the model. R just gives you
+an \emph{NA} if you do this in \texttt{lm}.
+
+\subsubsection{Example from McElreath 6.1}\label{mcElreath_6.1}
+
+The code creates body heights and leg lengths (left and right) for 100 people.
+
+\texttt{runif} draws a uniform random number between 40 and 50\% of height as leg length, hence on average 45\%.
+The slope in the linear regression should therefore be around the average height divided by the average leg length:
+\(\frac{10}{0.45 \cdot 10} \sim 2.2\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{100}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{909}\NormalTok{)}
+\NormalTok{height }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N, }\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{leg\_prop }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(N, }\FloatTok{0.4}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{leg\_left }\OtherTok{\textless{}{-}}\NormalTok{ leg\_prop }\SpecialCharTok{*}\NormalTok{ height }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(N, }\DecValTok{0}\NormalTok{, }\FloatTok{0.02}\NormalTok{)}
+\NormalTok{leg\_right }\OtherTok{\textless{}{-}}\NormalTok{ leg\_prop }\SpecialCharTok{*}\NormalTok{ height }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(N, }\DecValTok{0}\NormalTok{, }\FloatTok{0.02}\NormalTok{)}
+
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{height =}\NormalTok{ height, }\AttributeTok{leg\_left =}\NormalTok{ leg\_left, }\AttributeTok{leg\_right =}\NormalTok{ leg\_right)}
+\FunctionTok{cor}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{leg\_left, d}\SpecialCharTok{$}\NormalTok{leg\_right)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9997458
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m4}\FloatTok{.6} \OtherTok{\textless{}{-}} \FunctionTok{quap}\NormalTok{(}
+  \FunctionTok{alist}\NormalTok{(}
+\NormalTok{    height }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma),}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ bl }\SpecialCharTok{*}\NormalTok{ leg\_left }\SpecialCharTok{+}\NormalTok{ br }\SpecialCharTok{*}\NormalTok{ leg\_right,}
+\NormalTok{    a }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{100}\NormalTok{),}
+\NormalTok{    bl }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    br }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{),}
+\NormalTok{    sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{  ),    }\AttributeTok{data =}\NormalTok{ d}
+\NormalTok{)}
+\FunctionTok{precis}\NormalTok{(m4}\FloatTok{.6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            mean         sd       5.5%     94.5%
+## a     0.9811938 0.28396068  0.5273698 1.4350178
+## bl    0.2138475 2.52707954 -3.8249137 4.2526087
+## br    1.7817046 2.53129314 -2.2637907 5.8271999
+## sigma 0.6171141 0.04343629  0.5476945 0.6865337
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{precis}\NormalTok{(m4}\FloatTok{.6}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf}}
+
+With the given regression model, one asks the question: ``What is the value of knowing each leg's length, after
+already knowing the other leg's length?'' The answer is: ``Not much.'', since they are highly correlated.
+Both coefficients are not around the expected \(\beta\) and the credible intervals are wide and include the
+credible value \(0\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{post }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m4}\FloatTok{.6}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{( bl }\SpecialCharTok{\textasciitilde{}}\NormalTok{ br, post, }\AttributeTok{col=}\FunctionTok{col.alpha}\NormalTok{(rangi2,}\FloatTok{0.1}\NormalTok{), }\AttributeTok{pch =} \DecValTok{16}\NormalTok{ )}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-80-1.pdf}}
+
+Since the two coefficients are almost perfectly multicollinear
+(\texttt{cor(d\$leg\_left,\ d\$leg\_right)=0.9997458}), knowing one leg's length does not
+give us any additional information about the other leg's length.
+Leaving out the right leg length would give the correct result (\hyperref[exercise11_multiple_regression]{exercise 11}).
+
+\subsubsection{Example from Westfall 8.4}\label{example-from-westfall-8.4}
+
+In the example below, the second prector \(X2\) is a perfect linear function of the first predictor \(X1\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Westfall 8.4.}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{X1 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{X2 }\OtherTok{=} \DecValTok{2}\SpecialCharTok{*}\NormalTok{X1 }\SpecialCharTok{{-}}\DecValTok{1}     \CommentTok{\# Perfect collinearity}
+\NormalTok{Y }\OtherTok{=} \DecValTok{1} \SpecialCharTok{+} \DecValTok{2}\SpecialCharTok{*}\NormalTok{X1 }\SpecialCharTok{+} \DecValTok{3}\SpecialCharTok{*}\NormalTok{X2 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\NormalTok{X1}\SpecialCharTok{+}\NormalTok{X2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X1 + X2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.20347 -0.60278 -0.01114  0.61898  2.60970 
+## 
+## Coefficients: (1 not defined because of singularities)
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -1.97795    0.10353  -19.11   <2e-16 ***
+## X1           8.09454    0.09114   88.82   <2e-16 ***
+## X2                NA         NA      NA       NA    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.011 on 98 degrees of freedom
+## Multiple R-squared:  0.9877, Adjusted R-squared:  0.9876 
+## F-statistic:  7888 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+Let's look at a 3D plot:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(plotly)}
+
+\CommentTok{\# Generate data}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{X1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{X2 }\OtherTok{\textless{}{-}} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{{-}} \DecValTok{1}  \CommentTok{\# Perfect collinearity}
+\NormalTok{Y  }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{+} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ X1 }\SpecialCharTok{+} \DecValTok{3} \SpecialCharTok{*}\NormalTok{ X2 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Create the 3D scatter plot with vertical lines}
+\FunctionTok{plot\_ly}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{add\_markers}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X1, }\AttributeTok{y =}\NormalTok{ X2, }\AttributeTok{z =}\NormalTok{ Y, }
+              \AttributeTok{marker =} \FunctionTok{list}\NormalTok{(}\AttributeTok{color =}\NormalTok{ Y, }\AttributeTok{colorscale =} \StringTok{"Viridis"}\NormalTok{, }\AttributeTok{size =} \DecValTok{5}\NormalTok{),}
+              \AttributeTok{name =} \StringTok{"Data Points"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{layout}\NormalTok{(}\AttributeTok{title =} \StringTok{"3D Scatter Plot"}\NormalTok{,}
+         \AttributeTok{scene =} \FunctionTok{list}\NormalTok{(}\AttributeTok{xaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"X1"}\NormalTok{),}
+                      \AttributeTok{yaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"X2"}\NormalTok{),}
+                      \AttributeTok{zaxis =} \FunctionTok{list}\NormalTok{(}\AttributeTok{title =} \StringTok{"Y"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpcINJCx/filebbb71e351437/widgetbbb72ec2365f.html screenshot completed
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#VIF(lm(Y \textasciitilde{} X1 + X2)) \# error}
+\CommentTok{\#check\_model(lm(Y \textasciitilde{} X1 + X2)) \# error}
+\end{Highlighting}
+\end{Shaded}
+
+There is no unique solution for a plane in this case.
+Infinitely many planes can be defined using the ``line'' in space.
+If anything, a perfectly vertical plane could go through with \(SSE = 0\),
+but such a plane would not tell us how \(Y\) changes with \(X1\) and \(X2\),
+since any \(Y\) value could be assigned to any credible combination of \(X1\) and \(X2\) values.
+The problem collapses into the simple linear regression problem.
+One could just plug in the formula for \(X2\) into the model, which yields the identical result:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{X1 }\OtherTok{=} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\CommentTok{\# Y = 1 + 2*X1 + 3*(2*X1 {-}1) + rnorm(100,0,1) = }
+\NormalTok{Y }\OtherTok{=} \SpecialCharTok{{-}}\DecValTok{2} \SpecialCharTok{+} \DecValTok{8}\SpecialCharTok{*}\NormalTok{X1 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ X1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.20347 -0.60278 -0.01114  0.61898  2.60970 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -1.97795    0.10353  -19.11   <2e-16 ***
+## X1           8.09454    0.09114   88.82   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.011 on 98 degrees of freedom
+## Multiple R-squared:  0.9877, Adjusted R-squared:  0.9876 
+## F-statistic:  7888 on 1 and 98 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+In reality, you only have one parameter (\(X1\) or \(X2\)) in the case of perfect multicollinearity.
+
 \section{More than 2 predictors}\label{more-than-2-predictors}
+
+\ldots\ldots\ldots{}
 
 \section{Exercises}\label{exercises-2}
 
@@ -4531,13 +4792,33 @@ setting. Hint: You can use the \texttt{optim} function in R.
 
 Let's try to verify if Berkson's paradox (which we have mentioned in the
 \hyperref[collider]{collider-section}) also works for three variables in a sum score.
-- Now, we assume some college admits only applicants in the top 20\% of a score
-consisting of the sum of three variables: \(W, X, Z\) (grade point average, math score, verbal score).
-- All three scores are individually normally distributed with mean 100 and standard deviation 15.
-- Calculate the correlation matrix \texttt{cor()} of all students and the admitted students.
-- Are any of the three variables correlated?
-- Plot a scatterplot of the math score and the verbal score und color the points according
-to being admitted or not. You can add trendlines for the two groups.
+
+\begin{itemize}
+\tightlist
+\item
+  Now, we assume some college admits only applicants in the top 20\% of a score
+  consisting of the sum of three variables: \(W, X, Z\) (grade point average, math score, verbal score).
+\item
+  All three scores are individually normally distributed with mean 100 and standard deviation 15.
+\item
+  Calculate the correlation matrix \texttt{cor()} of all students and the admitted students.
+\item
+  Are any of the three variables correlated?
+\item
+  Plot a scatterplot of the math score and the verbal score und color the points according
+  to being admitted or not. You can add trendlines for the two groups.
+\end{itemize}
+
+\subsection{{[}E{]} Exercise 11}\label{exercise11_multiple_regression}
+
+Go back to the multicollinearity \hyperref[multicollinearity]{section} and the \hyperref[mcElreath_6.1]{example}
+from McElreath 6.1.
+
+\begin{itemize}
+\tightlist
+\item
+  Verify that the coefficient is correct when leaving out the right leg length from the model.
+\end{itemize}
 
 \section{TODOS}\label{todos}
 
@@ -4580,6 +4861,8 @@ to being admitted or not. You can add trendlines for the two groups.
   that there is a true but unknown effect.
 \item
   AIC, BIC, cross-validation, Model selection (best subset, leaps\ldots.), Variable selection
+\item
+  More on bias variance tradeoff, show for polynomial regression?
 \end{itemize}
 
 \bibliography{book.bib,packages.bib}
