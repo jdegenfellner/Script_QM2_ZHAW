@@ -7,7 +7,8 @@ mu <- c(1, -1)  # Mean vector X and Y
 var_x <- 0.6
 var_y <- 1.2
 covar_xy <- 0.5
-sigma <- matrix(c(var_x, covar_xy, 0.5, var_y), ncol = 2) # Covariance matrix
+sigma <- matrix(c(var_x, covar_xy, 
+                  covar_xy, var_y), ncol = 2) # Covariance matrix
 # See Exercise 7 how to get the correlation matrix!
 cov2cor(sigma)  # Convert covariance matrix to correlation matrix
 
@@ -38,7 +39,7 @@ fig <- plot_ly() %>%
   add_surface(x = x, y = y, z = z, showscale = FALSE, opacity = 0.6) %>%
   add_surface(x = x, y = y, z = z_highlight,
               colorscale = "Viridis", opacity = 0.9) %>%
-  layout(scene = list(
+  plotly::layout(scene = list(
     xaxis = list(title = "Y"),
     yaxis = list(title = "X"),
     zaxis = list(title = "Density")

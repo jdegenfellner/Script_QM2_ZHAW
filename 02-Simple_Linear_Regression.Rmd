@@ -36,7 +36,7 @@ and describes a variable that we know (in our case weight) and with
 which we want to "guess as good as possible" the value of the 
 dependent variable (in our case height). "As good as possible"
 means that we put a penalty on an error. The farer our prediction
-is aways from the true value ($y_i$), the higher the penalty.
+is away from the true value ($y_i$), the higher the penalty.
 And not only that, but if you are twice as far away from the true value,
 you should be penalized four times as much. This is the idea behind
 the squared error [loss function](https://en.wikipedia.org/wiki/Loss_function) 
@@ -119,7 +119,7 @@ One starts at the top and ends up with the heights.
 - $\beta$ is the slope of the line and we use the normal distribution as prior for it,
   hence it can be positive or negative and how plausible each value is, is
   determined by that specific normal distribution. Note, that we could 
-  easily adapt the distribtion to any distribution we like.
+  easily adapt the distribution to any distribution we like.
 - The prior for $\sigma$ is unchanged.
 - $x_i - \bar{x}$ is the deviation of the weight from the mean weight, thereby **we
   center** the weight variable. This is a common practice in regression analysis.
