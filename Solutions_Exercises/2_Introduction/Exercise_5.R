@@ -7,6 +7,7 @@ mu <- c(1, -1)  # Mean vector X and Y
 var_x <- 0.6
 var_y <- 1.2
 covar_xy <- 0.5
+(correlation = covar_xy / sqrt(var_x * var_y)) # Correlation
 sigma <- matrix(c(var_x, covar_xy, 
                   covar_xy, var_y), ncol = 2) # Covariance matrix
 # See Exercise 7 how to get the correlation matrix!

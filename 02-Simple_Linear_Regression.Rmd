@@ -1669,7 +1669,7 @@ in the classical framework.
 - Does this make sense with respect to the estimates given, specifically with respect
 to $\beta_1$?
 
-### [M] Exercise 4 {#exercise4_simpl_lin_reg}
+### [H] Exercise 4 {#exercise4_simpl_lin_reg}
 
 Verify the statement above in the text for high and low values of $R^2$.
 
