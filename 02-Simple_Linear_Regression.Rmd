@@ -20,7 +20,7 @@ before and we have mentioned how great this statistic is as measure of location 
 Now, we want to model **how** body height and weight are **related**.
 Formally, one wants to *predict* body heights from body weights.
 
-Here and in the frequentist framework, we will see that it is **not the same**
+Here and in the Frequentist framework, we will see that it is **not the same**
 problem (and therefore results in a different statistical model) 
 **to predict body weights from body heights or vice versa**.
 
@@ -322,7 +322,7 @@ for (i in 1:100) {
 
 The `link` function fixes the weight at the values in `weight.seq` and
 draws samples from the posterior distribution of the parameters. We will do 
-the analog thing in the frequentist framework.
+the analog thing in the Frequentist framework.
 
 We can also draw a nice shade for the regression line:
 
@@ -452,7 +452,7 @@ and see what changes.
 
 ## Simple Linear Regression in the Frequentist Framework
 
-We will now do the same analysis in the frequentist framework while introducing
+We will now do the same analysis in the Frequentist framework while introducing
 some foundational theory along the way.
 I recommend reading the first couple of chapters from [Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4).
 
@@ -708,7 +708,7 @@ fig <- fig %>% add_trace(
 fig
 ```
 
-### Confidence Intervals of coefficients (frequentist) {#confidence_intervals_frequentist}
+### Confidence Intervals of coefficients (Frequentist) {#confidence_intervals_frequentist}
 
 You can get CI's conveniently with the `confint` function:
 
@@ -716,11 +716,11 @@ You can get CI's conveniently with the `confint` function:
 confint(mod, level = 0.96)
 ```
 
-Remember, these are frequenetist confidence intervals. 
+Remember, these are Frequentist confidence intervals. 
 
 **If one repeats the experiment
 many times, the true but unknown value of the parameter will 
-be in the interval in 96% of the cases**
+be in the interval in 96% of the cases.**
 
 We can also use the simple [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)). 
 The advantage of this technique is that we can basically always use it,
@@ -1747,7 +1747,7 @@ Go back to the [ANOVA section](#analysis_of_variance).
 ### [M] Exercise 14 {#exercise14_simpl_lin_reg}
 
 When we fit a simple linear regression model (Frequentist), we get confidence intervals for the coefficients
-using the command `confint`. As stated previously, these are frequentist CIs. That means,
+using the command `confint`. As stated previously, these are Frequentist CIs. That means,
 if we draw data from the true (but usually unknown) data generating process, we would expect
 that the true value of the coefficient (intercept and slope) lies in the CI in X% of the cases.
 
