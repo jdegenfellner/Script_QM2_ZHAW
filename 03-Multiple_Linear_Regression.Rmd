@@ -1237,3 +1237,4 @@ from McElreath 6.1.
   that there is a true but unknown effect.
 - AIC, BIC, cross-validation, Model selection (best subset, leaps....), Variable selection
 - More on bias variance tradeoff, show for polynomial regression?
+- include eLearning tasks in script.
