@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  19 FEB 2025 19:48
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  22 FEB 2025 18:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -888,7 +888,7 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type
 
 [34]
 Overfull \hbox (390.0pt too wide) in paragraph at lines 1351--1351
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc45188820d/widget4fc459124d4c.html screenshot completed[] 
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb314dd0fe12/widgetdb3153d877a7.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
@@ -984,8 +984,8 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
 [49]
 
 [50]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 2027--2027
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc41f23a2c6/widget4fc45c938522.html screenshot completed[] 
+Overfull \hbox (384.75pt too wide) in paragraph at lines 2027--2027
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31299ed78/widgetdb3147b5629d.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file (type pdf)
@@ -1276,7 +1276,7 @@ Underfull \vbox (badness 1248) has occurred while \output is active []
 
 [90]
 Overfull \hbox (390.0pt too wide) in paragraph at lines 3559--3559
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc418fa1854/widget4fc44b533f9b.html screenshot completed[] 
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb3160f3056a/widgetdb3172e8a3df.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pdf)
@@ -1305,8 +1305,8 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
 [93]
 
 [94]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 3751--3751
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc4549f4657/widget4fc424c32528.html screenshot completed[] 
+Overfull \hbox (384.75pt too wide) in paragraph at lines 3751--3751
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb317f125989/widgetdb31db4728c.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pdf)
@@ -1459,8 +1459,8 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [115]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 4626--4626
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc46a072be0/widget4fc47cd1b581.html screenshot completed[] 
+Overfull \hbox (384.75pt too wide) in paragraph at lines 4626--4626
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31a33b01e/widgetdb31476f86cd.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type pdf)

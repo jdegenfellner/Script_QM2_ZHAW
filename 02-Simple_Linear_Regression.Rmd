@@ -345,7 +345,7 @@ we wanted to model in the first place.
 **Mean modeling is one thing, individual prediction is another**.
 Given a certain weight of a person, what is the height of the same person?
 The first line in the model definition ($height_i \sim Normal(\mu_i, \sigma)$)
-tells us that a person's weight is distributed *around* the mean
+tells us that a person's height is distributed *around* the mean
 (which linearly depends on weight) and is not necessary the mean itself.
 
 To get to an **individual prediction**, we need to consider the uncertainty 

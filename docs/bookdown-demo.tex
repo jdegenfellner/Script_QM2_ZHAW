@@ -125,7 +125,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-19}
+\date{2025-02-22}
 
 \begin{document}
 \maketitle
@@ -647,9 +647,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##             mean        sd       5.5%      94.5%
-## mu    154.604269 0.4119868 153.945834 155.262703
-## sigma   7.731192 0.2913727   7.265522   8.196862
+##            mean        sd       5.5%      94.5%
+## mu    154.60306 0.4119920 153.944619 155.261505
+## sigma   7.73129 0.2913819   7.265605   8.196975
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 155.4406 7.538016
-## 2 154.5763 8.229384
-## 3 153.4762 7.740209
-## 4 155.1879 7.754695
-## 5 155.0511 7.364208
-## 6 154.7377 7.540398
+## 1 154.2737 8.065098
+## 2 154.7944 7.862400
+## 3 154.6538 7.764220
+## 4 154.5054 7.789826
+## 5 154.5238 7.491634
+## 6 155.3820 7.861480
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697331611 0.0001575445
-## sigma 0.0001575445 0.0848980624
+## mu    0.1697373748 0.0001310513
+## sigma 0.0001310513 0.0849034139
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973316 0.08489806
+## 0.16973737 0.08490341
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001312415
-## sigma 0.001312415 1.000000000
+## mu    1.000000000 0.001091666
+## sigma 0.001091666 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1271,7 +1271,7 @@ before and we have mentioned how great this statistic is as measure of location 
 Now, we want to model \textbf{how} body height and weight are \textbf{related}.
 Formally, one wants to \emph{predict} body heights from body weights.
 
-Here and in the frequentist framework, we will see that it is \textbf{not the same}
+Here and in the Frequentist framework, we will see that it is \textbf{not the same}
 problem (and therefore results in a different statistical model)
 \textbf{to predict body weights from body heights or vice versa}.
 
@@ -1292,7 +1292,7 @@ and describes a variable that we know (in our case weight) and with
 which we want to ``guess as good as possible'' the value of the
 dependent variable (in our case height). ``As good as possible''
 means that we put a penalty on an error. The farer our prediction
-is aways from the true value (\(y_i\)), the higher the penalty.
+is away from the true value (\(y_i\)), the higher the penalty.
 And not only that, but if you are twice as far away from the true value,
 you should be penalized four times as much. This is the idea behind
 the squared error \href{https://en.wikipedia.org/wiki/Loss_function}{loss function}
@@ -1347,7 +1347,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc45188820d/widget4fc459124d4c.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb314dd0fe12/widgetdb3153d877a7.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -1372,7 +1372,7 @@ One starts at the top and ends up with the heights.
   \(\beta\) is the slope of the line and we use the normal distribution as prior for it,
   hence it can be positive or negative and how plausible each value is, is
   determined by that specific normal distribution. Note, that we could
-  easily adapt the distribtion to any distribution we like.
+  easily adapt the distribution to any distribution we like.
 \item
   The prior for \(\sigma\) is unchanged.
 \item
@@ -1657,7 +1657,7 @@ for all details.
 
 The \texttt{link} function fixes the weight at the values in \texttt{weight.seq} and
 draws samples from the posterior distribution of the parameters. We will do
-the analog thing in the frequentist framework.
+the analog thing in the Frequentist framework.
 
 We can also draw a nice shade for the regression line:
 
@@ -1684,7 +1684,7 @@ we wanted to model in the first place.
 \textbf{Mean modeling is one thing, individual prediction is another}.
 Given a certain weight of a person, what is the height of the same person?
 The first line in the model definition (\(height_i \sim Normal(\mu_i, \sigma)\))
-tells us that a person's weight is distributed \emph{around} the mean
+tells us that a person's height is distributed \emph{around} the mean
 (which linearly depends on weight) and is not necessary the mean itself.
 
 To get to an \textbf{individual prediction}, we need to consider the uncertainty
@@ -1778,7 +1778,7 @@ and see what changes.
 
 \section{Simple Linear Regression in the Frequentist Framework}\label{simple-linear-regression-in-the-frequentist-framework}
 
-We will now do the same analysis in the frequentist framework while introducing
+We will now do the same analysis in the Frequentist framework while introducing
 some foundational theory along the way.
 I recommend reading the first couple of chapters from \href{https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4}{Westfall}.
 
@@ -2023,12 +2023,12 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc41f23a2c6/widget4fc45c938522.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31299ed78/widgetdb3147b5629d.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
 
-\subsection{Confidence Intervals of coefficients (frequentist)}\label{confidence_intervals_frequentist}
+\subsection{Confidence Intervals of coefficients (Frequentist)}\label{confidence_intervals_frequentist}
 
 You can get CI's conveniently with the \texttt{confint} function:
 
@@ -2044,11 +2044,11 @@ You can get CI's conveniently with the \texttt{confint} function:
 ## x             0.818351   0.9917072
 \end{verbatim}
 
-Remember, these are frequenetist confidence intervals.
+Remember, these are Frequentist confidence intervals.
 
 \textbf{If one repeats the experiment
 many times, the true but unknown value of the parameter will
-be in the interval in 96\% of the cases}
+be in the interval in 96\% of the cases.}
 
 We can also use the simple \href{https://en.wikipedia.org/wiki/Bootstrapping_(statistics)}{bootstrap}.
 The advantage of this technique is that we can basically always use it,
@@ -2747,7 +2747,7 @@ in the classical framework.
   to \(\beta_1\)?
 \end{itemize}
 
-\subsection{{[}M{]} Exercise 4}\label{exercise4_simpl_lin_reg}
+\subsection{{[}H{]} Exercise 4}\label{exercise4_simpl_lin_reg}
 
 Verify the statement above in the text for high and low values of \(R^2\).
 
@@ -2865,7 +2865,7 @@ Go back to the \hyperref[analysis_of_variance]{ANOVA section}.
 \subsection{{[}M{]} Exercise 14}\label{exercise14_simpl_lin_reg}
 
 When we fit a simple linear regression model (Frequentist), we get confidence intervals for the coefficients
-using the command \texttt{confint}. As stated previously, these are frequentist CIs. That means,
+using the command \texttt{confint}. As stated previously, these are Frequentist CIs. That means,
 if we draw data from the true (but usually unknown) data generating process, we would expect
 that the true value of the coefficient (intercept and slope) lies in the CI in X\% of the cases.
 
@@ -3555,7 +3555,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc418fa1854/widget4fc44b533f9b.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb3160f3056a/widgetdb3172e8a3df.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3747,7 +3747,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc4549f4657/widget4fc424c32528.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb317f125989/widgetdb31db4728c.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4622,7 +4622,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp9uS9y5/file4fc46a072be0/widget4fc47cd1b581.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31a33b01e/widgetdb31476f86cd.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -4882,6 +4882,8 @@ from McElreath 6.1.
   AIC, BIC, cross-validation, Model selection (best subset, leaps\ldots.), Variable selection
 \item
   More on bias variance tradeoff, show for polynomial regression?
+\item
+  include eLearning tasks in script.
 \end{itemize}
 
 \bibliography{book.bib,packages.bib}
