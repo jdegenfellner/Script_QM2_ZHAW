@@ -32,7 +32,7 @@ Here is an easy way to check if the model is linear: If I change the predictor-v
 the change in the (expected value of the) dependent variable is the coefficient in front of 
 the predictor ($\beta_i$).
 
-### Adding a transformed predictor to the model {#adding_transformed_predictor}
+### Adding a transformed predictor to the model {#adding_transformed_predictor_bayes}
 
 Around 4.5. in the book [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
 there is are lineare regression using a quadratic term for weight. 
@@ -202,7 +202,9 @@ Maybe this fits even better (see [exercise 1](#exercise1_multiple_regression)).
 Since the !Kung San data set has already such a high $R^2$ with the quadratic term 
 (and possibly higher with the cubic term), we will use the created data set from 
 [below](#adding_predictor_freq) in the frequentist setting
-to estimate the coefficients of the model with two predictors.
+to estimate the coefficients of the model with two predictors here as well.
+We *have* the true but (usually) unknown data generating 
+mechnisms (for didactic reasons).
 
 We use rather uniformative priors and fit the model using `quap`:
 
@@ -235,8 +237,7 @@ Andrew Gelman mentions in some of his talks (see [here](https://sites.stat.colum
 that many Bayesians he met do not check their models, since they reflect subjective probability.
 As I said in the introduction, one should not be afraid to check model predictions against the observed
 and probably new data. If a model for predicting BMI performs much worse on a new data set,
-we can probably conclude that the model does not reflect the general relationship between the predictors
-and the dependent variable. We **do not ask** the question if a model is true or false, but if it is useful or
+we should adapt. We **do not ask** the question if a model is true or false, but if it is useful or
 how badly the model assumptions are violated.
 
 For further, more detailed information on model checking, refer to chapter 6 of 
@@ -346,11 +347,11 @@ that is a linear function of the predictors and a constant variance $\sigma^2$.
 
 If the assumptions of the classical linear regression model are met, the least squares
 estimators (OLS) are the best (smallest variance) linear unbiased (on average correct) estimators 
-(so-called: BLUE) of the parameters.
+- so-called: **BLUE** - of the parameters.
 
 ### Adding a transformed predictor to the model {#adding_transformed_predictor_freq}
 
-No, let's fit the same model as above in the Frequentist framework.
+No, let's fit the same model as [above](#adding_transformed_predictor_bayes) in the Bayesian framework.
 
 The model is:
 
@@ -366,8 +367,10 @@ The last line means, the expected height of a person given a certain weight depe
 quadratically on the weight. The error term $\varepsilon_i$ is on average zero, hence it goes away here.
 Remember the [law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers#Weak_law): 
 The sample mean $\bar{\varepsilon_i}$ approaches the expected value $\mathbb{E}(\varepsilon_i)=0$ 
-as the sample size increases. If you drew many samples and average over the error terms,
-the average will approach zero.
+as the sample size increases. If you drew many samples (from the true model) 
+and average over the error terms, the average will approach zero. 
+Think of [this](https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Wiggle_in_simple_linear_regression.R) animated 
+graph if you need a dynamic image of the regression model.
 The weights are considered fixed and therefore do not change when building the expectation.
 
 We are looking for fixed, but unknown, parameters $\alpha$, $\beta_1$, $\beta_2$ and $\sigma$.
@@ -397,11 +400,12 @@ See `?I` in R. This command is used so that R knows that it should
 treat the "^2" as "square" and not as formula syntax.
 We could also create a new variable as before. Whatever you prefer.
 
-#### Interpretation of output and coefficients
+#### Interpretation of output and coefficients {#interpretation_output_freq_quadratic}
 
 - The intercept $\alpha$ is the **model-predicted height** of a person of **average weight** 
   ($weight_s=0$ for a person of average weight).
-  Note that this is not equal to the average height ($138.2636 cm$) of the people in the data set.
+  Note that this is not equal to the average height ($138.2636~cm$) of the people in the data set 
+  (see [exercise 12](#exercise12_multiple_regression)).
 - The residuals have range from $-19.97$ to $19.51$. So, the model maximally
   overestimates the heights by $19.97$ cm and underestimates by $19.51$ cm.
   These numbers are plausible when you look at the scatterplot with the fitted
@@ -422,8 +426,7 @@ We could also create a new variable as before. Whatever you prefer.
 - The $R^2$ is a whopping $0.96$ which could be a sign of overfitting, but
   in this case we conclude that the true relationship is caputured rather well.
   [Overfitting](https://en.wikipedia.org/wiki/Overfitting) would occur if 
-  our curve would wiggle around the data points,
-  so we would fit the data too much to the noise in the data than
+  our curve would rather fit the noise in the data than
   the underying trend.
 
 #### Checking model assumptions
@@ -538,7 +541,7 @@ This is, of course, a very idealized situation. There is no curvature in the pla
 no interaction, no outliers, no heteroscadasticity. It's the simplest case of multiple regression
 with 2 predictors. Reality is - usually - more complicated.
 
-Let's look at summary output and check model assumptions:
+Let's look at the summary output and check model assumptions:
 
 ```{r}
 summary(m4.3)
@@ -546,22 +549,22 @@ check_model(m4.3)
 ```
 
 We could repeat this simulation to get a feeling for the variability.
-The posterior predictive checks look nice. In this case, we *know* that the model is true
-and with this knowledge we can assess the diagnostic plots in front of us.
+The posterior predictive checks look nice. In this case, we *know* that the model is true.
 
 #### Adding variables to the model and why
 
 This is a very complex question. We will go into it in later chapters and the next course (Methodenvertiefung).
 At this point we can say this:
-Depending on the goal at hand (prediction or explanation), we add variables to the model and probably use 
-other models apart from linear regression.
+We add variables to the model (and probably use 
+other models apart from linear regression) *depending* on the goal at hand (prediction or explanation).
 Prediction seems to be easier than explanation. For instance, within linear models and 
 just a handful of predictors, one can even brute force the problem by searching through
 all subsets of predictors. If that is not possible, one could use clever algortithms, like 
 [best subest selection](https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/). 
 
-- What is **not** a good idea is to throw all variables into the model and hope for the best.
-- What is also not a good idea is to select variables depending on the $p$-values of the coefficients.
+- What is **not** a good idea is to throw all variables into the model and hope for the best - 
+  especially if we want to learn the true relationships between the variables.
+- What is also not a good idea is to select variables depending on the $p$-values of the coefficients (Westfall Chapter 11).
 - **Leaving variables out**, that are important, can lead to biased estimates of the coefficients 
   ([omitted variable bias](https://en.wikipedia.org/wiki/Omitted-variable_bias)).
 - Importantly, also **adding variables** can hurt conclusions from the model (see Statistical Rethinking 6.2).
@@ -589,7 +592,7 @@ $$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2 + 0.89 x_1 \times
 $$ i = 1 \ldots n$$
 
 The second equation states that the conditional expectation of $Y_i$ given $X_1=x_1$ and $X_2=x_2$ 
-is a function of $x_1$ and $x_2$ and their interaction $x_1 \times x_2$. We are in a different situation now.
+is a function of $x_1$ and $x_2$ and their interaction $x_1 \times x_2$ (i.e., the product). We are in a different situation now.
 Set for instance $x_2$ to a certain value, say $x_2 = 7$. Then the relationship (in expectation) 
 between $Y$ and $X_1$ is:
 
@@ -655,7 +658,8 @@ plot_ly() %>%
 ```
 
 The term `X1 * X2` is a shortcut for `X1 + X2 + X1:X2` where `X1:X2` is the interaction term.
-R automatically includes the main effects of the predictors when an interaction term is included.
+R automatically includes the main effects of the predictors when an interaction 
+term is included (variable inclusion principle).
 The true but usually unknown $\beta$s are estimated quite precisely.
 
 #### Formal test for interaction
@@ -668,7 +672,7 @@ m4.5 <- lm(Y ~ X1 + X2, data = d) # without interaction
 anova(m4.5, m4.4)
 ```
 
-One can show that the following test statistic is $F$ distributed under the null hypothesis:
+One can show that the following test statistic is $F$ distributed under the null hypothesis (that $\beta_3=0$):
 
 $$ F = \frac{\left(RSS_{\text{Model 1}} - RSS_{\text{Model 2}}\right) / \left(df_{\text{Model 1}} - df_{\text{Model 2}}\right)}{RSS_{\text{Model 2}} / df_{\text{Model 2}}}$$
 
@@ -728,8 +732,8 @@ zero when the number of variables equals the number of data points (see [exercis
 Chronologically before we include an interaction term in the model, we can use an interaction plot
 to see if there is a potential interaction between the predictors.
 We can just create a catorical predictor out of the continuous predictors.
-We just categorize the predictors into quartiles and plot the means of the dependent variable ($Y$).
-If the lines are parallel, there is no interaction. If the lines are not parallel, 
+Just categorize the predictors into quartiles and plot the means of the dependent variable ($Y$).
+If the lines are parallel, there is probably no interaction. If the lines are not parallel, 
 there might be an interaction.
 
 ```{r}
@@ -754,7 +758,7 @@ d$X1_cat <- cut(d$X1,
 interaction.plot(d$X2_cat, d$X1_cat, d$Y)
 ```
 
-There seems to be an intercation of the predictors with respect to $Y$. The lines are not parallel.
+There seems to be an interaction of the predictors with respect to $Y$. The lines are not parallel.
 If there was no interaction, the change in $Y$ with respect to $X_2$ would be the same 
 for all levels of $X_1$.
 This seems not to be the case here.
@@ -768,7 +772,7 @@ The [Simpsons paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox) is a p
 in which a trend appears in several different groups of data but disappears 
 or reverses when these groups are combined. I agree with the criticism that this is not really 
 a paradox but a failure to consider confounding variables adequately. Let's quickly invent an example.
-We are interested in the relationship hours of muscle training and strength (not based on evidence)
+We are interested in the relationship *hours of muscle training* and *strength* (not based on evidence)
 in children vs. adults. Within both groups there will be an increasing relationship. The more training,
 the more muscle strength. But if we combine the groups, we will see a decreasing relationship.
 
@@ -801,13 +805,16 @@ ggplot(d, aes(x = training, y = strength, color = age)) +
    - Similarly, in the group of **adults** (red line), strength also **increases** with training.
 
 - **Overall Trend**:
-   - When both groups are combined, the overall regression line (black, dashed) shows a **negative slope**, suggesting that **strength decreases** with training. 
+   - When both groups are combined and the categorical variable *age* is neglected, 
+     the overall regression line (black, dashed) shows a **negative slope**, suggesting that **strength decreases** with training. 
    - This overall trend is opposite to the trends observed within the individual groups.
 
 - **Why Does This Happen?**
    - This paradox occurs because the relationship between the grouping variable (`age`) and the independent variable (`training`) creates a confounding effect.
    - In this case: Children tend to have higher training values overall, 
-     while adults tend to have lower training values.
+     while adults tend to have lower training values. *Age* is associated with both *strength* and *training* and 
+     is therefore a [*confounder*](https://en.wikipedia.org/wiki/Confounding) in the relationship between *training* and *strength*. 
+     Not adjusting (=including it in the regression model as predictor) for *age* leads to a misleading association.
 
 This (fictitious) example shows that throwing variables into a multiple regression 
 model without thinking about it, is not a good idea.
@@ -821,8 +828,13 @@ A first taste of causality.
 
 Richard McElreath has 3 cool examples on 
 [github](https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r)
-that show what happens if you include variables the wrong way and explains this in a 
+that show what happens in the context of *explanation* if you include variables the wrong 
+way and explains this in a 
 [video](https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath).
+
+Not only can it hurt to add variables to the model in an explanatory (causal) context,
+but also in a predictive context. The model can become unstable and the predictions
+can become worse. This is called [overfitting](https://en.wikipedia.org/wiki/Overfitting).
 
 We will look at these below - **the pipe, the fork and the collider**. These are causal graphs showing the 
 relationships between the variables. One is interested in the **effect** of X on Y.
@@ -1245,6 +1257,11 @@ from McElreath 6.1.
 
 - Verify that the coefficient is correct when leaving out the right leg length from the model.
 
+### [M] Exercise 12 {#exercise12_multiple_regression}
+
+Go backt to the interpretation of the intercept in the quadratic height model [above](#interpretation_output_freq_quadratic).
+
+- Why is the intercept not equal to the sample mean of the heights?
 
 
 ## TODOS
