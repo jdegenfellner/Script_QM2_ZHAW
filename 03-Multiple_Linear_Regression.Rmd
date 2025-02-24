@@ -124,8 +124,14 @@ m4.1 <- quap(
     sigma ~ dunif(0, 50)
   ), data = d)
 precis(m4.1)
+plot(precis(m4.1, pars = c("b1", "b2", "sigma")))
 ```
+
 $\beta_2$ is indeed negative. 
+In the estimate-plot above I have left out the intercept $\alpha$ to 
+make the other coefficients more visible. As you can see, the credible intervals
+are very tight. Using prior knowledge an data, the model is very sure about the 
+coefficients.
 We get our **[joint distribution](https://en.wikipedia.org/wiki/Joint_probability_distribution)** 
 of the **four model parameters**.
 Let's look at the fit using the mean estimates of the posterior distribution:
@@ -157,10 +163,38 @@ lines(weight_seq, height_fitted, col = "red", lwd = 2)
 # Add a legend
 legend("topright", legend = c("Observed data", "Fitted curve"),
        col = c("blue", "red"), pch = c(16, NA), lty = c(NA, 1), lwd = 2)
+
+       # ======== Simulate Heights from Posterior ========
+
+# Prepare new data with the same number of rows as the original data
+new_data <- data.frame(weight_s = d$weight_s, weight_s2 = d$weight_s2)
+
+# Simulate height values from the posterior (same number as original data)
+sim_heights <- sim(m4.1, data = new_data, n = nrow(d))  # Posterior samples
+
+# Extract random samples from simulated heights
+height_samples <- apply(sim_heights, 2, function(x) sample(x, 1))
+
+# ======== Plot Observed vs. Simulated Heights ========
+
+# Plot observed data
+plot(d$weight_s, d$height, pch = 16, col = "blue",
+     xlab = "Standardized Weight", ylab = "Height (cm)",
+     main = "Observed vs. Simulated Heights")
+
+# Add simulated height points
+points(d$weight_s, height_samples, pch = 16, col = "red")
+
+# Add legend
+legend("topright", legend = c("Observed Data", "Simulated Data"),
+       col = c("blue", "red"), pch = c(16, 16))
+
 ```
 
 This fits much better than the linear model without the quadratic term. In the book,
 there is also a polynomial regression with a cubic term for weight.
+The second plot shows the original heights and simulated heights from the 
+posterior distribution in one plot. This fits quite well.
 Maybe this fits even better (see [exercise 1](#exercise1_multiple_regression)).
 
 ### Adding another predictor to the model {#adding_predictor_bayes}
