@@ -832,17 +832,19 @@ that show what happens in the context of *explanation* if you include variables 
 way and explains this in a 
 [video](https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath).
 
-Not only can it hurt to add variables to the model in an explanatory (causal) context,
-but also in a predictive context. The model can become unstable and the predictions
-can become worse. This is called [overfitting](https://en.wikipedia.org/wiki/Overfitting).
-
 We will look at these below - **the pipe, the fork and the collider**. These are causal graphs showing the 
 relationships between the variables. One is interested in the **effect** of X on Y.
 In this case, it is truly an *effect*, since we create the models in such a way that changing
 one variable, changes the other - which is indicated by an arrow in the graph.
 These graphs are called DAGs - directed acyclic graphs. *Directed* because of the arrows,
 *acyclic* because there are no cycles in the graph. One nice tool for drawing them is
-[dagitty](https://www.dagitty.net/), which is also [implemented in R](https://cran.r-project.org/web/packages/dagitty/index.html).
+[dagitty](https://www.dagitty.net/), which is also 
+[implemented in R](https://cran.r-project.org/web/packages/dagitty/index.html).
+The [online drawing tool](https://www.dagitty.net/dags.html) is handy.
+
+Note: Not only can it hurt to add variables to the model in an explanatory (causal) context,
+but also in a predictive context. The model can become unstable and the predictions
+can become worse. This is called [overfitting](https://en.wikipedia.org/wiki/Overfitting).
 
 ### Pipe
 In this setting $X$ is associated with $Z$ and $Z$ is associated with $Y$. 
@@ -885,7 +887,6 @@ dagitty::coordinates( dag ) <-
 ggdag(dag) + 
   theme_dag()
 
-# d-separation plots
 a <- 0.7
 cols <- c( col.alpha(1,a) , col.alpha(2,a) )
 
@@ -940,8 +941,16 @@ The coefficients for $Z$ in step 3 is "significant" and the coefficient for
 $X$ is smaller compared to step 1. And not to forget: the very small $p$-values are strongly
 related to the very large smaple size and a strict cutoff ($\alpha = 0.05$) makes no sense.
 
+**Example**: *Hours of studying* is associated with *exam performance*.
+This observation makes sense. A mediator in this context: *understanding/knowledge*.
+One could study for hours inefficiently with low levels of concentration
+and achieve low exam performance or one could study for a comparatively
+low number of hours and achieve good results. If we know that a person has gained the
+*understanding/knowledge*, the *hours of studying* do not give us any additional 
+information with respect to *exam performance*.
 
-### Fork
+
+### Fork {#fork}
 
 In health science, this is the classical [confounder](https://en.wikipedia.org/wiki/Confounding).
 $Z$ is associated with $X$ and $Y$. $X$ and $Y$ are *actually* not associated (no arrow) but an association is 
@@ -982,7 +991,12 @@ In the example, we know that $Z$ is associated with both $X$ and $Y$ (per constr
 As you can see in the definitions of $X$, $Y$ and $Z$, $X$ and $Y$ would not be associated 
 weren't it for $Z$. 
 
-
+**Example**: *Carrying lighters* is (spuriously) associated with *lung cancer*. Obviously, *carrying a lighter*
+does *not* cause lung cancer. *Carrying a lighter* is associated with *smoking*, since smokers need to light their
+cigarrettes and how often do non-smokers carry a lighter just for fun? 
+*Smoking* is (causally) associated with *lung cancer*. If you just look at the association between
+*carrying a ligher* and *lung cancer*, you would find an association. But if you condition on *smoking*, the association
+disappears. See [exercise 13](#exercise13_multiple_regression).
 
 ### Collider {#collider}
 This is rather interesting. $X$ and $Y$ are independently associated 
@@ -1031,7 +1045,7 @@ If you think of Simpsons paradox again, conditioning on $Z$ *creates* an associa
 which would otherwise be independent (by definition). So by learning the value of $Z$, we can learn something
 from $X$ about $Y$. On the one hand, adding $Z$ to the model creates an association where there is none,
 on the other hand, *prediction* of $Y$ is better with $Z$ in the model! In prediction, we largely
-do not care about the causal structure of the data. We just want to predict $Y$ as accurately as possible.
+do not care about the causal structure. We just want to predict $Y$ as accurately as possible.
 
 The sum score example is also called [Berkson's paradox](https://en.wikipedia.org/wiki/Berkson%27s_paradox).
 Let's check if this also works for three variables in a sum score 
@@ -1263,11 +1277,20 @@ Go backt to the interpretation of the intercept in the quadratic height model [a
 
 - Why is the intercept not equal to the sample mean of the heights?
 
+### [H] Exercise 13 {#exercise13_multiple_regression}
+
+Go back to the section about the [fork](#fork) and the example about smoking at the end.
+
+- Draw a DAG for this example.
+- Create data in R, where you assume that the probability of carrying a lighter is higher in smokers,
+  the probability of lung cancer is higher in smokers.
+- Show that the association between carrying a lighter and lung cancer disappears when conditioning on smoking.
+- You may also invent an example relevant to the field of physiotherapy.
 
 ## TODOS
 
 - `check_model` for 2 and more predictors...
-- Factors, caterical variables in model...
+- Factors, categorical variables in model...
 - Violations of model assumptions and how to fix them.
 - Add more Bayesian model checks, chapter 6 Gelman.
 - Show by simulation what Gelman talks about with significant p values. So I scan the data
