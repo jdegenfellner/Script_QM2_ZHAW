@@ -87,14 +87,15 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma) \\
 \end{eqnarray*}
 
 The prior for $\beta_1$ is log-normal, because we can reasonably assume
-the the overall linear trend is positive. The prior for $\beta_2$ is normal, because
-we are not so sure. If we thought back to our school days to the topic of 
+the the overall linear trend is positive. 
+The prior for $\beta_2$ is normal, because
+we are not so sure about the sign yet. If we thought back to our school days to the topic of 
 "curve discussion" or parabolas, we could probably also assume that $\beta_2$ is negative.
 But, data will show.
 
 How can we interpret the model equations? 
 The model assumes that the **expected** height $\mu_i$ of a person $i$
-depends non-linearly (quadratically) on the weight $x_i$ of the person.
+depends non-linearly (quadratically) on the (standardized) weight $x_i$ of the person.
 We are in the business of mean-modeling. 
 The prior for $\sigma$ is uniform as before.
 The prior for $\alpha$ is normal with mean $178$ and standard deviation $20$
@@ -103,7 +104,7 @@ because this is what we can expect from body heights in our experience.
 Let's **fit the model**:
 
 We standardize the weight again and add the squared weights to the data set.
-Standardizing the the predictors is a good idea, especially in polynomial regression
+Standardizing the predictors is a good idea, especially in polynomial regression
 since squares and cubes of large numbers can get huge and cause numerical problems.
 
 Let's fit the model with the quadratic term for weight:
