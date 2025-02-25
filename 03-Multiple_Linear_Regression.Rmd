@@ -1054,7 +1054,7 @@ in [exercise 10](#exercise10_multiple_regression).
 ### Multicollinearity {#multicollinearity}
 Westfall section 8.4 and McElreath section 6.1 cover this topic.
 [Multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity) means that there is a strong
-correlation between two or more predictors. *Perfect* multicollinearity it is when the correlation is 1.
+correlation between two or more predictors. It is *perfect* multicollinearity when the correlation is 1.
 For example, if you accidentally include the same variable twice in the model, or when you include
 the elements of a sum score and the sum score itself as predictors in the model. R just gives you 
 an *NA* if you do this in `lm`. 
@@ -1149,11 +1149,8 @@ plot_ly() %>%
 
 There is no unique solution for a plane in this case.
 Infinitely many planes can be defined using the "line" in space.
-If anything, a perfectly vertical plane could go through with $SSE = 0$,
-but such a plane would not tell us how $Y$ changes with $X1$ and $X2$,
-since any $Y$ value could be assigned to any credible combination of $X1$ and $X2$ values.
 The problem collapses into the simple linear regression problem.
-One could just plug in the formula for $X2$ into the model, which yields the identical result:
+One can just plug in the formula for $X2$ into the model, which yields the identical result:
 
 ```{r}
 set.seed(12345)
