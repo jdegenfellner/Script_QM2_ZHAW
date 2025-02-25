@@ -45,14 +45,18 @@ df %>%
   dplyr::filter(Age >= 20) %>%
   dplyr::select(Age, BMI) %>%
   ggplot(aes(Age, BMI)) +
-  geom_point()
+  geom_point() + 
+  geom_smooth(method = "loess", se = TRUE)
 # not much correlation...  
+cor.test(df_age$Age, df_age$BMI, use = "complete.obs")
 
 # Gender and PyhsActive
-table(df$Gender, df$PhysActive)
+df_age <- df %>% 
+  dplyr::filter(Age >= 20)
+table(df_age$Gender, df_age$PhysActive)
 # add margins to table:
-addmargins(table(df$Gender, df$PhysActive))/sum(table(df$Gender, df$PhysActive))
-chisq.test(table(df$Gender, df$PhysActive))
+addmargins(table(df_age$Gender, df_age$PhysActive))/sum(table(df_age$Gender, df_age$PhysActive))
+chisq.test(table(df_age$Gender, df_age$PhysActive))
 
 df %>% 
   dplyr::filter(Age >= 20) %>%
@@ -79,3 +83,20 @@ df %>%
   geom_smooth(method = "loess", se = TRUE)
   labs(x = "Age", y = "Systolic Blood Pressure (BPSysAve)", title = "Blood Pressure by Age") +
   theme_minimal()
+  
+# age and physical activity
+df %>%
+  dplyr::filter(Age >= 20) %>%
+  ggplot(aes(x = Age, fill = PhysActive)) +
+  geom_density(alpha = 0.5) +
+  labs(x = "Age", y = "Density", title = "Physical Activity by Age") +
+  theme_minimal()
+t.test(df_age$Age ~ df_age$PhysActive)
+
+
+
+# Research question: Influence of Physical Activity on Blood Pressure
+# Estimate the total effect of Physical Activity on Blood Pressure
+# using a linear regression model
+lm(BPSysAve ~ PhysActive, data = df_age) %>% 
+  summary()
