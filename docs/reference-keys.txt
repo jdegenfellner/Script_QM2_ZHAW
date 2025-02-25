@@ -88,6 +88,7 @@ multicollinearity
 mcElreath_6.1
 example-from-westfall-8.4
 more-than-2-predictors
+example_nhanes
 exercises-2
 exercise1_multiple_regression
 exercise2_multiple_regression
@@ -102,4 +103,5 @@ exercise10_multiple_regression
 exercise11_multiple_regression
 exercise12_multiple_regression
 exercise13_multiple_regression
+exercise14_multiple_regression
 todos

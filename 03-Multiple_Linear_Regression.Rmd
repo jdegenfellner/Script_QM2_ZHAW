@@ -1189,6 +1189,7 @@ in Chapter 5 in the Statistical Rethinking book.
   turn data into truth. 
   And: We never want to play *find-the-right-statistical-test-Bingo*.
   Statistical tests should make sense and not just thrown at data.
+  What does the current literature say about the topic?
 
 - **Define goal**: Prediction or explanation? 
   *Prediction*: Use everything and every model type you can get your hands 
@@ -1216,7 +1217,8 @@ in Chapter 5 in the Statistical Rethinking book.
   - The [adjustment sets](https://rdrr.io/cran/dagitty/man/adjustmentSets.html) 
     for the regression model based on a DAG. Which variables should I include
     as covariates in my model, *if* the DAG is correct?
-  - The implied conditional dependencies coming from the DAG. These
+  - The [implied conditional dependencies](https://search.r-project.org/CRAN/refmans/dagitty/html/impliedConditionalIndependencies.html) 
+    coming from the DAG. These
     can be checked with the data. It is not a proof that we have the true
     relationships depicted by the DAG, but it is a good start.
 
@@ -1237,7 +1239,42 @@ in Chapter 5 in the Statistical Rethinking book.
   Posterior predictive check: Check if the model produces new data that looks 
   like the observed data.
 
+- **Interpret and report** the results.
 
+### Example in NHANES data {#example_nhanes}
+
+We will now try to invent a not too exotic example with 
+[NHANES](https://www.cdc.gov/nchs/nhanes/index.html) data.
+The National Health and Nutrition Examination Survey (NHANES) is a large, 
+ongoing study conducted by the CDC to assess the health and nutritional status 
+of the U.S. population. It combines interviews, physical examinations, and 
+laboratory tests to collect data on demographics, diet, chronic diseases, and 
+physical activity. NHANES uses a complex, nationally representative sampling 
+design, making it a valuable resource for public health research and policy 
+development. 
+
+Open data is **great** and NHANES provides all the data to download for free
+without any restrictions or even a registration. For convenience, Randall Pruim
+created an [R package](https://cran.r-project.org/web/packages/NHANES/NHANES.pdf) 
+called `NHANES` that contains a cleaned-up version of the
+NHANES data from 2009-2012. We will use this and ignore the complex sampling
+design for now. 
+
+```{r}
+#install.packages("NHANES")
+library(pacman)
+p_load(NHANES, tidyverse)
+data(NHANES)
+head(NHANES)
+unique(NHANES$SurveyYr)
+
+colnames(NHANES)
+```
+
+The variable descriptions can be found 
+[here](https://cran.r-project.org/web/packages/NHANES/NHANES.pdf).
+As an exercise, please do exploratory data analysis; 
+see [exercise 14](#exercise14_multiple_regression).
 
 
 
@@ -1356,6 +1393,11 @@ Go back to the section about the [fork](#fork) and the example about smoking at 
   the probability of lung cancer is higher in smokers.
 - Show that the association between carrying a lighter and lung cancer disappears when conditioning on smoking.
 - You may also invent an example relevant to the field of physiotherapy.
+
+### [H] Exercise 14 {#exercise14_multiple_regression}
+
+- Perform extensive EDA on the NHANES data set implemented in R. 
+  See [above](#example_nhanes).
 
 ## TODOS
 
