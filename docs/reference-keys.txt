@@ -94,8 +94,9 @@ goal
 eda
 statistical-model
 priors-1
-prior-predictive-checks
+prior_predictive_checks_NHANES
 fit-and-check-model
+fit-model-using-lm
 interpret-and-report-results
 exercises-2
 exercise1_multiple_regression
@@ -112,4 +113,5 @@ exercise11_multiple_regression
 exercise12_multiple_regression
 exercise13_multiple_regression
 exercise14_multiple_regression
+exercise15_multiple_regression
 todos

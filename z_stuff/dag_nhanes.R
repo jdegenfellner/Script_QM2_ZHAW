@@ -184,10 +184,110 @@ adjustmentSets(dag, exposure = "PhysActive", outcome = "BPSysAve")
 
 
 set.seed(123)
-n_sims <- 10^4
+n_sims <- dim(df_age)[1] # 7235
 beta_0_vec <- rnorm(n_sims, 140, 20)
 beta_1_vec <- rnorm(n_sims, 0, 50)
 beta_2_vec <- rnorm(n_sims, 0, 10)
+beta_3_vec <- rnorm(n_sims, 0, 10)
 sigma_vec <- runif(n_sims, 0, 50)
-BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec, sigma_vec)
+BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
 length(BPSysAve_sim) # 10^4
+
+df_sim_vs_obs <- data.frame(
+  BPSysAve_sim = BPSysAve_sim,
+  BPSysAve_obs = df_age$BPSysAve
+)
+df_sim_vs_obs %>%
+  ggplot(aes(x = BPSysAve_sim, y = BPSysAve_obs)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, color = "red") +
+  labs(x = "Simulated Systolic Blood Pressure", y = "Observed Systolic Blood Pressure", title = "Simulated vs. Observed Systolic Blood Pressure") +
+  theme_minimal()
+
+# negative for blood pressure not possible
+
+set.seed(123)
+n_sims <- dim(df_age)[1] # 7235
+beta_0_vec <- rnorm(n_sims, 120, 7)
+beta_1_vec <- rnorm(n_sims, 0, 10)
+beta_2_vec <- rnorm(n_sims, 5, 10)
+beta_3_vec <- rnorm(n_sims, 0, 10)
+sigma_vec <- runif(n_sims, 0, 20)
+BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
+length(BPSysAve_sim) # 10^4
+
+df_sim_vs_obs <- data.frame(
+  BPSysAve_sim = BPSysAve_sim,
+  BPSysAve_obs = df_age$BPSysAve
+)
+df_sim_vs_obs %>%
+  ggplot(aes(x = BPSysAve_sim, y = BPSysAve_obs)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1, color = "red") +
+  labs(x = "Simulated Systolic Blood Pressure", y = "Observed Systolic Blood Pressure", title = "Simulated vs. Observed Systolic Blood Pressure") +
+  theme_minimal()
+
+# Combine observed and simulated values into one long-format data frame
+df_long <- df_sim_vs_obs %>%
+  tidyr::pivot_longer(cols = everything(), names_to = "Type", values_to = "BPSysAve") %>%
+  mutate(Type = factor(Type, levels = c("BPSysAve_obs", "BPSysAve_sim"), labels = c("Observed", "Simulated")))
+
+# Plot densities of both observed and simulated values
+ggplot(df_long, aes(x = BPSysAve, fill = Type)) +
+  geom_density(alpha = 0.5) +  # Semi-transparent density curves
+  labs(
+    x = "Systolic Blood Pressure", 
+    y = "Density", 
+    title = "Observed vs. Simulated Systolic Blood Pressure"
+  ) +
+  scale_fill_manual(values = c("Observed" = "blue", "Simulated" = "red")) +  # Custom colors
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+library(rethinking)
+library(dplyr)
+library(data.table)
+
+# Ensure correct numeric conversion (1-based indexing)
+df <- NHANES # shorter
+df <- as.data.table(df)
+
+# Compute age mean for centering
+Age_mean <- mean(df[Age >= 20,]$Age, na.rm = TRUE)
+
+# Fit Bayesian model
+df <- df %>% dplyr::filter(Age >= 20) %>% 
+  dplyr::select(BPSysAve, PhysActive, Age, Gender, BMI) %>%
+  drop_na()
+dim(df) # 6919    7
+sum(is.na(df)) # 0
+m_NHANES <- quap(
+  alist(
+    BPSysAve ~ dnorm(mu, sigma),  # Use correct variable name
+    mu <- beta_0 + beta_1[PhysActive] + beta_2 * (Age - Age_mean) + beta_3[Gender],
+    beta_0 ~ dnorm(120, 7),
+    beta_1[PhysActive] ~ dnorm(0, 10),  # Explicitly define levels (assuming two levels for PhysActive)
+    beta_2 ~ dnorm(5, 10),
+    beta_3[Gender] ~ dnorm(0, 10),  # Explicitly define levels (assuming two levels for Gender)
+    sigma ~ dunif(0, 20)  # Proper prior for residual standard deviation
+  ),
+  data = df
+)
+
+precis(m_NHANES, depth = 2)
+
+# we want to know the expecte difference for the levels of PhysActive and Gender:
+post <- extract.samples(m_NHANES)
+post$diff_PhysActive <- post$beta_1[,2] - post$beta_1[,1]
+post$diff_G <- post$beta_3[,2] - post$beta_3[,1]
+
+conflicts_prefer(posterior::sd)
+precis(post, depth = 2)
+
+# classical model
+df <- df %>% mutate(Age_center = Age - mean(Age))
+mod <- lm(BPSysAve ~ PhysActive + Age_center + Gender, data = df)
+summary(mod)
+check_model(mod)
+qqPlot(mod)

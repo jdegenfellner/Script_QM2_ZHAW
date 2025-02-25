@@ -1439,29 +1439,141 @@ We center Age again, which makes the interpretation of the intercept easier.
 BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 \mu_i &=& \beta_0 + \beta_1 \cdot PhysActive + \beta_2 \cdot Age_{centered} + \beta_3 \cdot Gender\\
 \beta_0 &\sim& \text{Normal}(140, 20)\\
-\beta_1 &\sim& \text{Normal}(0, 10)\\
+\beta_1 &\sim& \text{Normal}(0, 50)\\
 \beta_2 &\sim& \text{Normal}(0, 10)\\
+\beta_3 &\sim& \text{Normal}(0, 10)\\
 \sigma &\sim& \text{Uniform}(0, 50)
 \end{eqnarray*}
 
 Note, that Age and Gender are not influenced by each other.
 
-#### Prior Predictive Checks
+#### Prior Predictive Checks {#prior_predictive_checks_NHANES}
 Now we simply draw from the priors and thereby generate systolic blood pressure values.
 
 ```{r}
 # Prior predictive checks
 set.seed(123)
-n_sims <- 10^4
+n_sims <- dim(df_age)[1] # 7235 participants
+beta_0_vec <- rnorm(n_sims, 140, 20)
+beta_1_vec <- rnorm(n_sims, 0, 50)
+beta_2_vec <- rnorm(n_sims, 0, 10)
+beta_3_vec <- rnorm(n_sims, 0, 10)
+sigma_vec <- runif(n_sims, 0, 50)
+BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
+```
+
+This yields also negative values for BPSysAve, which is not plausible.
+
+In [exercise 15](#exercise15_multiple_regression) we will play around with the priors 
+until the prior predictive check producues plausible values. 
+This is the result:
+
+```{r}
+set.seed(123)
+n_sims <- dim(df_age)[1] # 7235
+beta_0_vec <- rnorm(n_sims, 120, 7)
+beta_1_vec <- rnorm(n_sims, 0, 10)
+beta_2_vec <- rnorm(n_sims, 5, 10)
+beta_3_vec <- rnorm(n_sims, 0, 10)
+sigma_vec <- runif(n_sims, 0, 20)
+BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
+length(BPSysAve_sim) # 7235
+
+df_sim_vs_obs <- data.frame(
+  BPSysAve_sim = BPSysAve_sim,
+  BPSysAve_obs = df_age$BPSysAve
+)
+
+# Combine observed and simulated values into one long-format data frame
+df_long <- df_sim_vs_obs %>%
+  tidyr::pivot_longer(cols = everything(), 
+  names_to = "Type", values_to = "BPSysAve") %>%
+  mutate(Type = factor(Type, levels = c("BPSysAve_obs", "BPSysAve_sim"), 
+  labels = c("Observed", "Simulated")))
+
+# Plot densities of both observed and simulated values
+ggplot(df_long, aes(x = BPSysAve, fill = Type)) +
+  geom_density(alpha = 0.5) +  # Semi-transparent density curves
+  labs(
+    x = "Systolic Blood Pressure", 
+    y = "Density", 
+    title = "Observed vs. Simulated Systolic Blood Pressure"
+  ) +
+  scale_fill_manual(values = c("Observed" = "blue", "Simulated" = "red")) +  # Custom colors
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+Looks decent.
+
+#### Fit and check model
+ We use `quap` for the model fitting.
+
+```{r}
+# Fit the model
+df <- NHANES # shorter
+df <- df %>%
+  mutate(
+    PhysActive_index = as.integer(as.factor(PhysActive)),  # Convert to factor index (1-based)
+    Gender_index = as.integer(as.factor(Gender))  # Convert to factor index (1-based)
+  )
+library(data.table)
+df <- as.data.table(df)
+
+# Compute age mean for centering
+Age_mean <- mean(df[Age >= 20,]$Age, na.rm = TRUE)
+
+# Fit Bayesian model
+
+df <- df %>% dplyr::filter(Age >= 20) %>% 
+  dplyr::select(BPSysAve, PhysActive, Age, Gender, BMI) %>%
+  drop_na()
+dim(df) # 6919    7
+sum(is.na(df)) # 0
+m_NHANES <- quap(
+  alist(
+    BPSysAve ~ dnorm(mu, sigma), 
+    mu <- beta_0 + beta_1[PhysActive] + beta_2 * (Age - Age_mean) + beta_3[Gender],
+    beta_0 ~ dnorm(120, 7),
+    beta_1[PhysActive] ~ dnorm(0, 10),  
+    beta_2 ~ dnorm(5, 10),
+    beta_3[Gender] ~ dnorm(0, 10),  
+    sigma ~ dunif(0, 20) 
+  ),
+  data = df
+)
+
+precis(m_NHANES, depth = 2)
+
+# We want to know the expected difference for the levels of PhysActive and Gender:
+post <- extract.samples(m_NHANES)
+post$diff_PhysActive <- post$beta_1[,2] - post$beta_1[,1]
+post$diff_G <- post$beta_3[,2] - post$beta_3[,1]
+
+library(conflicted)
+conflicts_prefer(posterior::sd)
+precis(post, depth = 2)
 
 ```
 
+#### Fit model using `lm`
 
-#### Fit and check model
-....
+```{r}
+library(car)
+df <- df %>% mutate(Age_center = Age - mean(Age))
+mod <- lm(BPSysAve ~ PhysActive + Age_center + Gender, data = df)
+summary(mod)
+check_model(mod)
+qqPlot(mod) # bad
+```
+
+Model fit could be better, the model thinks the blood pressure is normally distributed.
+There also seems to be some heteroscadasticity and the residuals are not normally distributed.
+
 
 #### Interpret and report results
 ....
+
 
 ## Exercises
 
@@ -1583,6 +1695,12 @@ Go back to the section about the [fork](#fork) and the example about smoking at 
 
 - Perform extensive EDA on the NHANES data set implemented in R. 
   See [above](#example_nhanes).
+
+### [H] Exercise 15 {#exercise15_multiple_regression}
+
+Go back to the NHANES model [above](#prior_predictive_checks_NHANES).
+
+- Play around with the priors until the prior predictive check produces plausible values.
 
 ## TODOS
 
