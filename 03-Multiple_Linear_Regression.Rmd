@@ -1267,7 +1267,6 @@ p_load(NHANES, tidyverse)
 data(NHANES)
 head(NHANES)
 unique(NHANES$SurveyYr)
-
 colnames(NHANES)
 ```
 
@@ -1276,7 +1275,193 @@ The variable descriptions can be found
 As an exercise, please do exploratory data analysis; 
 see [exercise 14](#exercise14_multiple_regression).
 
+#### Research question 
+Does *Physical activity* (PhysActive) influence the *average systolic 
+blood pressure* (BPSysAve) in adults ($\ge 20$ years)?
 
+We propose the following relationships among the variables 
+(we limit ourselves to 4 covariates):
+
+```{r}
+df <- NHANES # shorter
+
+# Define the DAG
+dag <- dagitty('dag {
+  PhysActive -> BPSysAve
+  Age -> PhysActive
+  Age -> BPSysAve
+  PhysActive -> BMI
+  BMI -> BPSysAve
+  Gender -> PhysActive
+  Gender -> BMI
+  Gender -> BPSysAve
+}')
+
+# Set node coordinates for a nice layout
+dagitty::coordinates(dag) <- list(
+  x = c(PhysActive = 0, BPSysAve = 2, Age = 1, BMI = 1, Gender = 0.5),
+  y = c(PhysActive = 1, BPSysAve = 1, Age = 2, BMI = 1.5, Gender = 2)
+)
+
+# Plot the DAG with larger node labels and bubbles
+ggdag(dag) + 
+  theme_minimal() + 
+  geom_dag_point(size = 20, color = "black") +  # Increase node size
+  geom_dag_text(size = 2.5, color = "white") +    # Increase label size
+  ggtitle("Hypothesized Relationships") + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+This DAG illustrates the hypothesized relationships between physical activity, 
+age, BMI, gender, and blood pressure (BPSysAve). Physical activity directly 
+influences blood pressure, as regular exercise is hypothesized to improve 
+cardiovascular health and lower blood pressure. Age has a direct effect on 
+blood pressure, as arterial stiffness and other age-related physiological changes 
+contribute to higher blood pressure over time. BMI also plays a role, with higher 
+BMI being associated with increased blood pressure due to greater vascular 
+resistance and metabolic factors. Additionally, gender affects blood pressure, 
+as men and women often have different baseline levels due to hormonal and 
+physiological differences.
+
+There are also indirect pathways that contribute to these relationships. 
+Age influences both physical activity and BMI, as older individuals tend to 
+be less active and may experience weight gain due to metabolic changes. 
+BMI and physical activity are also interconnected, physical activity influences BMI, 
+further influencing blood 
+pressure (mediation). Gender plays a role in both BMI and physical activity, 
+as men and women tend to have different average BMI distributions 
+and physical activity levels due to both biological and societal factors.
+
+Note, that we have a very large sample size (10,000 rows). As exercise for later,
+we randomly select 50 to 100 participants and repeat the analysis.
+This would also give us the opportunity to study how well we can
+infer the relationships in the larger sample from the smaller one.
+
+Which variables should be included in the model?
+
+```{r}
+impliedConditionalIndependencies(dag)
+adjustmentSets(dag, exposure = "PhysActive", outcome = "BPSysAve")
+```
+
+The one adjustment set proposed by `dagitty` tells us that we should include
+Age and Gender as covariates in the model, if the DAG is correct.
+Note that we do not include all three covariables in the model, just two of them.
+
+We should probably check the implied conditional independencies to see how this is 
+done:
+
+First, we need to test, if Age and BMI are independent, *if* we condition on Gender and Physical Activity.
+This is the case.
+
+```{r}
+# Age _||_ BMI | Gnder, PhyA
+summary(lm(Age ~ BMI + Gender + PhysActive, data = df %>% dplyr::filter(Age >= 20)))
+```
+
+This implication can be confirmed. 
+Interpretation: If we know the Gender and Physical Activity of a person,
+BMI does not offer any *additional* information about Age.
+
+Second, I would go out on a limb and say that there is no relationship 
+between Age and Gender, at least not statistically relevant.
+
+
+#### Goal
+
+The **goal** is to better understand (explain) the relationship between 
+physical activity and blood pressure while considering Age, BMI and Gender. 
+
+#### EDA
+[Exercise 14](#exercise14_multiple_regression)
+
+#### Statistical model 
+
+The outcome is a continuous variable (blood pressure), the exposure is a binary 
+variable (physical activity yes/no). 
+We could try a **multiple linear regression model** here.
+
+As a first approximation, let's assume BPSysAve is (sufficiently) normally distributed,
+which can be critized. Let's quickly visualize the distribution of BPSysAve:
+
+```{r, warning=FALSE}
+df_age <- df %>% dplyr::filter(Age >= 20)
+df_age %>%
+  ggplot(aes(x = BPSysAve)) +
+  geom_histogram(aes(y = after_stat(density)), 
+  bins = 30, fill = "lightblue", alpha = 0.6) +  # Ensure density scaling
+  geom_density(color = "blue", linewidth = 1) +  # Smoothed density of actual data
+  stat_function(
+    fun = dnorm, 
+    args = list(mean = mean(df_age$BPSysAve, na.rm = TRUE), 
+    sd = sd(df_age$BPSysAve, na.rm = TRUE)), 
+    color = "red", linewidth = 1, linetype = "dashed"
+  ) +  # Theoretical normal curve
+  labs(
+    x = "Systolic Blood Pressure (BPSysAve)", 
+    y = "Density", 
+    title = "Distribution of Systolic Blood Pressure with Normal Curve"
+  ) +
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+#### Priors
+
+Now, let's write down the statistical model.
+We choose vague priors for now since we have a vast data set.
+The advantage of the Bayesian approach remains that we have a fully 
+probabilistic model.
+
+We center Age again, which makes the interpretation of the intercept easier.
+
+- The intercept ($\beta_0$) is the expected value of BPSysAve for a person 
+  of average age, not physically active (reference level of the factor) and 
+  female Gender (reference level of the factor).
+
+- The coefficient for PhysActive ($\beta_1$) is the expected difference in 
+  BPSysAve between a physically active person and a non-physically active person, 
+  holding all other predictors constant. BPSysAve ranges from 78 to 226.
+  If we do not know enough, we can just take a very vague prior for now:
+  $\beta_1 \sim \text{Normal}(0, 50)$. With 95% probability, the effect of
+  physical activity on BPSysAve is between -100 and 100.
+
+- $beta_2$: The expected change in BPSysAve for a one-year increase in Age 
+  (above the mean age), holding all other predictors constant. 
+  $\beta_2 \sim \text{Normal}(0, 10)$. This effect should be comparatively small,
+  since we are dealing with a one-year increase in Age.
+
+- $\sigma$: The standard deviation of the residuals. 
+  $\sigma \sim \text{Uniform}(0, 50)$. We use a vague prior.
+  95% of the residuals are between -100 and 100. This seems plausible
+
+\begin{eqnarray*}
+BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma)\\
+\mu_i &=& \beta_0 + \beta_1 \cdot PhysActive + \beta_2 \cdot Age_{centered} + \beta_3 \cdot Gender\\
+\beta_0 &\sim& \text{Normal}(140, 20)\\
+\beta_1 &\sim& \text{Normal}(0, 10)\\
+\beta_2 &\sim& \text{Normal}(0, 10)\\
+\sigma &\sim& \text{Uniform}(0, 50)
+\end{eqnarray*}
+
+Note, that Age and Gender are not influenced by each other.
+
+#### Prior Predictive Checks
+Now we simply draw from the priors and thereby generate systolic blood pressure values.
+
+```{r}
+# Prior predictive checks
+set.seed(123)
+n_sims <- 10^4
+
+```
+
+
+#### Fit and check model
+....
+
+#### Interpret and report results
+....
 
 ## Exercises
 

@@ -89,6 +89,14 @@ mcElreath_6.1
 example-from-westfall-8.4
 more-than-2-predictors
 example_nhanes
+research-question
+goal
+eda
+statistical-model
+priors-1
+prior-predictive-checks
+fit-and-check-model
+interpret-and-report-results
 exercises-2
 exercise1_multiple_regression
 exercise2_multiple_regression
