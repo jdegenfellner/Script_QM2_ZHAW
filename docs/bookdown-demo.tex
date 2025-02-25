@@ -125,7 +125,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-22}
+\date{2025-02-25}
 
 \begin{document}
 \maketitle
@@ -647,9 +647,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##            mean        sd       5.5%      94.5%
-## mu    154.60306 0.4119920 153.944619 155.261505
-## sigma   7.73129 0.2913819   7.265605   8.196975
+##             mean        sd      5.5%      94.5%
+## mu    154.604058 0.4119898 153.94562 155.262497
+## sigma   7.731249 0.2913780   7.26557   8.196927
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.2737 8.065098
-## 2 154.7944 7.862400
-## 3 154.6538 7.764220
-## 4 154.5054 7.789826
-## 5 154.5238 7.491634
-## 6 155.3820 7.861480
+## 1 154.3194 7.770851
+## 2 154.4164 8.136280
+## 3 155.3979 7.540577
+## 4 154.1492 7.360825
+## 5 154.7672 7.633883
+## 6 154.9407 7.449459
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697373748 0.0001310513
-## sigma 0.0001310513 0.0849034139
+## mu    0.1697356105 0.0001529116
+## sigma 0.0001529116 0.0849011498
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973737 0.08490341
+## 0.16973561 0.08490115
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001091666
-## sigma 0.001091666 1.000000000
+## mu    1.000000000 0.001273788
+## sigma 0.001273788 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1347,7 +1347,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb314dd0fe12/widgetdb3153d877a7.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea7bda406e/widget7bea35bc3548.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2023,7 +2023,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31299ed78/widgetdb3147b5629d.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea323e100e/widget7bea89020e7.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -2889,6 +2889,26 @@ we only get a different amount of data points agross the range of \(x\).
   Verify this statement by changing the distribution of \(x\).
 \end{itemize}
 
+\section{eLearning 1}\label{elearning-1}
+
+eLearning Assignments:
+
+\begin{itemize}
+\tightlist
+\item
+  Review all content from the script, up to and including section 3.1.
+\item
+  Reading assignment on frequentist statistics (exam-relevant!):
+  Chapter 1 (Introduction to Regression Models) from the book
+  Understanding Regression Analysis - A Conditional Distribution Approach.
+\item
+  Research task: Find at least two scientific articles in your field that apply
+  regression (either simple regression with one predictor or multiple regression).
+  We have already searched for journals relevant to your field in QM1.
+  If you send me one of these studies in advance, we could also discuss the
+  applied methods in more detail during the practice sessions.
+\end{itemize}
+
 \chapter{Multiple Linear Regression}\label{multiple-linear-regression}
 
 So far, we have dealt with the simple mean model and the model with one predictor
@@ -2924,7 +2944,7 @@ Here is an easy way to check if the model is linear: If I change the predictor-v
 the change in the (expected value of the) dependent variable is the coefficient in front of
 the predictor (\(\beta_i\)).
 
-\subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor}
+\subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor_bayes}
 
 Around 4.5. in the book \href{https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf}{Statistical Rethinking}
 there is are lineare regression using a quadratic term for weight.
@@ -2988,14 +3008,15 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma) \\
 \end{eqnarray*}
 
 The prior for \(\beta_1\) is log-normal, because we can reasonably assume
-the the overall linear trend is positive. The prior for \(\beta_2\) is normal, because
-we are not so sure. If we thought back to our school days to the topic of
+the the overall linear trend is positive.
+The prior for \(\beta_2\) is normal, because
+we are not so sure about the sign yet. If we thought back to our school days to the topic of
 ``curve discussion'' or parabolas, we could probably also assume that \(\beta_2\) is negative.
 But, data will show.
 
 How can we interpret the model equations?
 The model assumes that the \textbf{expected} height \(\mu_i\) of a person \(i\)
-depends non-linearly (quadratically) on the weight \(x_i\) of the person.
+depends non-linearly (quadratically) on the (standardized) weight \(x_i\) of the person.
 We are in the business of mean-modeling.
 The prior for \(\sigma\) is uniform as before.
 The prior for \(\alpha\) is normal with mean \(178\) and standard deviation \(20\)
@@ -3004,7 +3025,7 @@ because this is what we can expect from body heights in our experience.
 Let's \textbf{fit the model}:
 
 We standardize the weight again and add the squared weights to the data set.
-Standardizing the the predictors is a good idea, especially in polynomial regression
+Standardizing the predictors is a good idea, especially in polynomial regression
 since squares and cubes of large numbers can get huge and cause numerical problems.
 
 Let's fit the model with the quadratic term for weight:
@@ -3036,7 +3057,19 @@ Let's fit the model with the quadratic term for weight:
 ## sigma   5.750550 0.1743749   5.471865   6.029235
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{precis}\NormalTok{(m4}\FloatTok{.1}\NormalTok{, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"b1"}\NormalTok{, }\StringTok{"b2"}\NormalTok{, }\StringTok{"sigma"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-59-1.pdf}}
+
 \(\beta_2\) is indeed negative.
+In the estimate-plot above I have left out the intercept \(\alpha\) to
+make the other coefficients more visible. As you can see, the credible intervals
+are very tight. Using prior knowledge an data, the model is very sure about the
+coefficients.
 We get our \textbf{\href{https://en.wikipedia.org/wiki/Joint_probability_distribution}{joint distribution}}
 of the \textbf{four model parameters}.
 Let's look at the fit using the mean estimates of the posterior distribution:
@@ -3074,8 +3107,41 @@ Let's look at the fit using the mean estimates of the posterior distribution:
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf}}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+       \CommentTok{\# ======== Simulate Heights from Posterior ========}
+
+\CommentTok{\# Prepare new data with the same number of rows as the original data}
+\NormalTok{new\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{weight\_s =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{weight\_s, }\AttributeTok{weight\_s2 =}\NormalTok{ d}\SpecialCharTok{$}\NormalTok{weight\_s2)}
+
+\CommentTok{\# Simulate height values from the posterior (same number as original data)}
+\NormalTok{sim\_heights }\OtherTok{\textless{}{-}} \FunctionTok{sim}\NormalTok{(m4}\FloatTok{.1}\NormalTok{, }\AttributeTok{data =}\NormalTok{ new\_data, }\AttributeTok{n =} \FunctionTok{nrow}\NormalTok{(d))  }\CommentTok{\# Posterior samples}
+
+\CommentTok{\# Extract random samples from simulated heights}
+\NormalTok{height\_samples }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(sim\_heights, }\DecValTok{2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{sample}\NormalTok{(x, }\DecValTok{1}\NormalTok{))}
+
+\CommentTok{\# ======== Plot Observed vs. Simulated Heights ========}
+
+\CommentTok{\# Plot observed data}
+\FunctionTok{plot}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s, d}\SpecialCharTok{$}\NormalTok{height, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Standardized Weight"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Height (cm)"}\NormalTok{,}
+     \AttributeTok{main =} \StringTok{"Observed vs. Simulated Heights"}\NormalTok{)}
+
+\CommentTok{\# Add simulated height points}
+\FunctionTok{points}\NormalTok{(d}\SpecialCharTok{$}\NormalTok{weight\_s, height\_samples, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
+
+\CommentTok{\# Add legend}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"Observed Data"}\NormalTok{, }\StringTok{"Simulated Data"}\NormalTok{),}
+       \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{), }\AttributeTok{pch =} \FunctionTok{c}\NormalTok{(}\DecValTok{16}\NormalTok{, }\DecValTok{16}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf}}
+
 This fits much better than the linear model without the quadratic term. In the book,
 there is also a polynomial regression with a cubic term for weight.
+The second plot shows the original heights and simulated heights from the
+posterior distribution in one plot. This fits quite well.
 Maybe this fits even better (see \hyperref[exercise1_multiple_regression]{exercise 1}).
 
 \subsection{Adding another predictor to the model}\label{adding_predictor_bayes}
@@ -3083,7 +3149,9 @@ Maybe this fits even better (see \hyperref[exercise1_multiple_regression]{exerci
 Since the !Kung San data set has already such a high \(R^2\) with the quadratic term
 (and possibly higher with the cubic term), we will use the created data set from
 \hyperref[adding_predictor_freq]{below} in the frequentist setting
-to estimate the coefficients of the model with two predictors.
+to estimate the coefficients of the model with two predictors here as well.
+We \emph{have} the true but (usually) unknown data generating
+mechnisms (for didactic reasons).
 
 We use rather uniformative priors and fit the model using \texttt{quap}:
 
@@ -3125,8 +3193,7 @@ Andrew Gelman mentions in some of his talks (see \href{https://sites.stat.columb
 that many Bayesians he met do not check their models, since they reflect subjective probability.
 As I said in the introduction, one should not be afraid to check model predictions against the observed
 and probably new data. If a model for predicting BMI performs much worse on a new data set,
-we can probably conclude that the model does not reflect the general relationship between the predictors
-and the dependent variable. We \textbf{do not ask} the question if a model is true or false, but if it is useful or
+we should adapt. We \textbf{do not ask} the question if a model is true or false, but if it is useful or
 how badly the model assumptions are violated.
 
 For further, more detailed information on model checking, refer to chapter 6 of
@@ -3265,11 +3332,11 @@ that is a linear function of the predictors and a constant variance \(\sigma^2\)
 
 If the assumptions of the classical linear regression model are met, the least squares
 estimators (OLS) are the best (smallest variance) linear unbiased (on average correct) estimators
-(so-called: BLUE) of the parameters.
+- so-called: \textbf{BLUE} - of the parameters.
 
 \subsection{Adding a transformed predictor to the model}\label{adding_transformed_predictor_freq}
 
-No, let's fit the same model as above in the Frequentist framework.
+No, let's fit the same model as \hyperref[adding_transformed_predictor_bayes]{above} in the Bayesian framework.
 
 The model is:
 
@@ -3285,8 +3352,10 @@ The last line means, the expected height of a person given a certain weight depe
 quadratically on the weight. The error term \(\varepsilon_i\) is on average zero, hence it goes away here.
 Remember the \href{https://en.wikipedia.org/wiki/Law_of_large_numbers\#Weak_law}{law of large numbers}:
 The sample mean \(\bar{\varepsilon_i}\) approaches the expected value \(\mathbb{E}(\varepsilon_i)=0\)
-as the sample size increases. If you drew many samples and average over the error terms,
-the average will approach zero.
+as the sample size increases. If you drew many samples (from the true model)
+and average over the error terms, the average will approach zero.
+Think of \href{https://github.com/jdegenfellner/ZHAW_Teaching/blob/main/Wiggle_in_simple_linear_regression.R}{this} animated
+graph if you need a dynamic image of the regression model.
 The weights are considered fixed and therefore do not change when building the expectation.
 
 We are looking for fixed, but unknown, parameters \(\alpha\), \(\beta_1\), \(\beta_2\) and \(\sigma\).
@@ -3361,14 +3430,15 @@ See \texttt{?I} in R. This command is used so that R knows that it should
 treat the ``\^{}2'' as ``square'' and not as formula syntax.
 We could also create a new variable as before. Whatever you prefer.
 
-\subsubsection{Interpretation of output and coefficients}\label{interpretation-of-output-and-coefficients}
+\subsubsection{Interpretation of output and coefficients}\label{interpretation_output_freq_quadratic}
 
 \begin{itemize}
 \tightlist
 \item
   The intercept \(\alpha\) is the \textbf{model-predicted height} of a person of \textbf{average weight}
   (\(weight_s=0\) for a person of average weight).
-  Note that this is not equal to the average height (\(138.2636 cm\)) of the people in the data set.
+  Note that this is not equal to the average height (\(138.2636~cm\)) of the people in the data set
+  (see \hyperref[exercise12_multiple_regression]{exercise 12}).
 \item
   The residuals have range from \(-19.97\) to \(19.51\). So, the model maximally
   overestimates the heights by \(19.97\) cm and underestimates by \(19.51\) cm.
@@ -3393,8 +3463,7 @@ We could also create a new variable as before. Whatever you prefer.
   The \(R^2\) is a whopping \(0.96\) which could be a sign of overfitting, but
   in this case we conclude that the true relationship is caputured rather well.
   \href{https://en.wikipedia.org/wiki/Overfitting}{Overfitting} would occur if
-  our curve would wiggle around the data points,
-  so we would fit the data too much to the noise in the data than
+  our curve would rather fit the noise in the data than
   the underying trend.
 \end{itemize}
 
@@ -3555,7 +3624,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb3160f3056a/widgetdb3172e8a3df.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea78896587/widget7bea468bfe4.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3564,7 +3633,7 @@ This is, of course, a very idealized situation. There is no curvature in the pla
 no interaction, no outliers, no heteroscadasticity. It's the simplest case of multiple regression
 with 2 predictors. Reality is - usually - more complicated.
 
-Let's look at summary output and check model assumptions:
+Let's look at the summary output and check model assumptions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3603,15 +3672,14 @@ Let's look at summary output and check model assumptions:
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-67-1.pdf}}
 
 We could repeat this simulation to get a feeling for the variability.
-The posterior predictive checks look nice. In this case, we \emph{know} that the model is true
-and with this knowledge we can assess the diagnostic plots in front of us.
+The posterior predictive checks look nice. In this case, we \emph{know} that the model is true.
 
 \subsubsection{Adding variables to the model and why}\label{adding-variables-to-the-model-and-why}
 
 This is a very complex question. We will go into it in later chapters and the next course (Methodenvertiefung).
 At this point we can say this:
-Depending on the goal at hand (prediction or explanation), we add variables to the model and probably use
-other models apart from linear regression.
+We add variables to the model (and probably use
+other models apart from linear regression) \emph{depending} on the goal at hand (prediction or explanation).
 Prediction seems to be easier than explanation. For instance, within linear models and
 just a handful of predictors, one can even brute force the problem by searching through
 all subsets of predictors. If that is not possible, one could use clever algortithms, like
@@ -3620,9 +3688,10 @@ all subsets of predictors. If that is not possible, one could use clever algorti
 \begin{itemize}
 \tightlist
 \item
-  What is \textbf{not} a good idea is to throw all variables into the model and hope for the best.
+  What is \textbf{not} a good idea is to throw all variables into the model and hope for the best -
+  especially if we want to learn the true relationships between the variables.
 \item
-  What is also not a good idea is to select variables depending on the \(p\)-values of the coefficients.
+  What is also not a good idea is to select variables depending on the \(p\)-values of the coefficients (Westfall Chapter 11).
 \item
   \textbf{Leaving variables out}, that are important, can lead to biased estimates of the coefficients
   (\href{https://en.wikipedia.org/wiki/Omitted-variable_bias}{omitted variable bias}).
@@ -3652,7 +3721,7 @@ for example:
 \[ i = 1 \ldots n\]
 
 The second equation states that the conditional expectation of \(Y_i\) given \(X_1=x_1\) and \(X_2=x_2\)
-is a function of \(x_1\) and \(x_2\) and their interaction \(x_1 \times x_2\). We are in a different situation now.
+is a function of \(x_1\) and \(x_2\) and their interaction \(x_1 \times x_2\) (i.e., the product). We are in a different situation now.
 Set for instance \(x_2\) to a certain value, say \(x_2 = 7\). Then the relationship (in expectation)
 between \(Y\) and \(X_1\) is:
 
@@ -3747,13 +3816,14 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb317f125989/widgetdb31db4728c.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea509face4/widget7bea230fd616.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
 
 The term \texttt{X1\ *\ X2} is a shortcut for \texttt{X1\ +\ X2\ +\ X1:X2} where \texttt{X1:X2} is the interaction term.
-R automatically includes the main effects of the predictors when an interaction term is included.
+R automatically includes the main effects of the predictors when an interaction
+term is included (variable inclusion principle).
 The true but usually unknown \(\beta\)s are estimated quite precisely.
 
 \subsubsection{Formal test for interaction}\label{formal-test-for-interaction}
@@ -3781,7 +3851,7 @@ residual sum of squares is statistically interesting.
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
-One can show that the following test statistic is \(F\) distributed under the null hypothesis:
+One can show that the following test statistic is \(F\) distributed under the null hypothesis (that \(\beta_3=0\)):
 
 \[ F = \frac{\left(RSS_{\text{Model 1}} - RSS_{\text{Model 2}}\right) / \left(df_{\text{Model 1}} - df_{\text{Model 2}}\right)}{RSS_{\text{Model 2}} / df_{\text{Model 2}}}\]
 
@@ -3856,8 +3926,8 @@ zero when the number of variables equals the number of data points (see \hyperre
 Chronologically before we include an interaction term in the model, we can use an interaction plot
 to see if there is a potential interaction between the predictors.
 We can just create a catorical predictor out of the continuous predictors.
-We just categorize the predictors into quartiles and plot the means of the dependent variable (\(Y\)).
-If the lines are parallel, there is no interaction. If the lines are not parallel,
+Just categorize the predictors into quartiles and plot the means of the dependent variable (\(Y\)).
+If the lines are parallel, there is probably no interaction. If the lines are not parallel,
 there might be an interaction.
 
 \begin{Shaded}
@@ -3886,7 +3956,7 @@ there might be an interaction.
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf}}
 
-There seems to be an intercation of the predictors with respect to \(Y\). The lines are not parallel.
+There seems to be an interaction of the predictors with respect to \(Y\). The lines are not parallel.
 If there was no interaction, the change in \(Y\) with respect to \(X_2\) would be the same
 for all levels of \(X_1\).
 This seems not to be the case here.
@@ -3900,7 +3970,7 @@ The \href{https://en.wikipedia.org/wiki/Simpson\%27s_paradox}{Simpsons paradox} 
 in which a trend appears in several different groups of data but disappears
 or reverses when these groups are combined. I agree with the criticism that this is not really
 a paradox but a failure to consider confounding variables adequately. Let's quickly invent an example.
-We are interested in the relationship hours of muscle training and strength (not based on evidence)
+We are interested in the relationship \emph{hours of muscle training} and \emph{strength} (not based on evidence)
 in children vs.~adults. Within both groups there will be an increasing relationship. The more training,
 the more muscle strength. But if we combine the groups, we will see a decreasing relationship.
 
@@ -3955,7 +4025,8 @@ the more muscle strength. But if we combine the groups, we will see a decreasing
   \begin{itemize}
   \tightlist
   \item
-    When both groups are combined, the overall regression line (black, dashed) shows a \textbf{negative slope}, suggesting that \textbf{strength decreases} with training.
+    When both groups are combined and the categorical variable \emph{age} is neglected,
+    the overall regression line (black, dashed) shows a \textbf{negative slope}, suggesting that \textbf{strength decreases} with training.
   \item
     This overall trend is opposite to the trends observed within the individual groups.
   \end{itemize}
@@ -3968,7 +4039,9 @@ the more muscle strength. But if we combine the groups, we will see a decreasing
     This paradox occurs because the relationship between the grouping variable (\texttt{age}) and the independent variable (\texttt{training}) creates a confounding effect.
   \item
     In this case: Children tend to have higher training values overall,
-    while adults tend to have lower training values.
+    while adults tend to have lower training values. \emph{Age} is associated with both \emph{strength} and \emph{training} and
+    is therefore a \href{https://en.wikipedia.org/wiki/Confounding}{\emph{confounder}} in the relationship between \emph{training} and \emph{strength}.
+    Not adjusting (=including it in the regression model as predictor) for \emph{age} leads to a misleading association.
   \end{itemize}
 \end{itemize}
 
@@ -3984,7 +4057,8 @@ A first taste of causality.
 
 Richard McElreath has 3 cool examples on
 \href{https://github.com/rmcelreath/causal_salad_2021/blob/main/1_causal_salad.r}{github}
-that show what happens if you include variables the wrong way and explains this in a
+that show what happens in the context of \emph{explanation} if you include variables the wrong
+way and explains this in a
 \href{https://www.youtube.com/watch?v=KNPYUVmY3NM&ab_channel=RichardMcElreath}{video}.
 
 We will look at these below - \textbf{the pipe, the fork and the collider}. These are causal graphs showing the
@@ -3993,7 +4067,13 @@ In this case, it is truly an \emph{effect}, since we create the models in such a
 one variable, changes the other - which is indicated by an arrow in the graph.
 These graphs are called DAGs - directed acyclic graphs. \emph{Directed} because of the arrows,
 \emph{acyclic} because there are no cycles in the graph. One nice tool for drawing them is
-\href{https://www.dagitty.net/}{dagitty}, which is also \href{https://cran.r-project.org/web/packages/dagitty/index.html}{implemented in R}.
+\href{https://www.dagitty.net/}{dagitty}, which is also
+\href{https://cran.r-project.org/web/packages/dagitty/index.html}{implemented in R}.
+The \href{https://www.dagitty.net/dags.html}{online drawing tool} is handy.
+
+Note: Not only can it hurt to add variables to the model in an explanatory (causal) context,
+but also in a predictive context. The model can become unstable and the predictions
+can become worse. This is called \href{https://en.wikipedia.org/wiki/Overfitting}{overfitting}.
 
 \subsection{Pipe}\label{pipe}
 
@@ -4063,7 +4143,6 @@ Now to the pipe and a mini simulation for it:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# d{-}separation plots}
 \NormalTok{a }\OtherTok{\textless{}{-}} \FloatTok{0.7}
 \NormalTok{cols }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{( }\FunctionTok{col.alpha}\NormalTok{(}\DecValTok{1}\NormalTok{,a) , }\FunctionTok{col.alpha}\NormalTok{(}\DecValTok{2}\NormalTok{,a) )}
 
@@ -4264,6 +4343,14 @@ The coefficients for \(Z\) in step 3 is ``significant'' and the coefficient for
 \(X\) is smaller compared to step 1. And not to forget: the very small \(p\)-values are strongly
 related to the very large smaple size and a strict cutoff (\(\alpha = 0.05\)) makes no sense.
 
+\textbf{Example}: \emph{Hours of studying} is associated with \emph{exam performance}.
+This observation makes sense. A mediator in this context: \emph{understanding/knowledge}.
+One could study for hours inefficiently with low levels of concentration
+and achieve low exam performance or one could study for a comparatively
+low number of hours and achieve good results. If we know that a person has gained the
+\emph{understanding/knowledge}, the \emph{hours of studying} do not give us any additional
+information with respect to \emph{exam performance}.
+
 \subsection{Fork}\label{fork}
 
 In health science, this is the classical \href{https://en.wikipedia.org/wiki/Confounding}{confounder}.
@@ -4340,6 +4427,13 @@ spurious in this case and \emph{adjusting} for the confounder yields the correct
 In the example, we know that \(Z\) is associated with both \(X\) and \(Y\) (per construction).
 As you can see in the definitions of \(X\), \(Y\) and \(Z\), \(X\) and \(Y\) would not be associated
 weren't it for \(Z\).
+
+\textbf{Example}: \emph{Carrying lighters} is (spuriously) associated with \emph{lung cancer}. Obviously, \emph{carrying a lighter}
+does \emph{not} cause lung cancer. \emph{Carrying a lighter} is associated with \emph{smoking}, since smokers need to light their
+cigarrettes and how often do non-smokers carry a lighter just for fun?
+\emph{Smoking} is (causally) associated with \emph{lung cancer}. If you just look at the association between
+\emph{carrying a ligher} and \emph{lung cancer}, you would find an association. But if you condition on \emph{smoking}, the association
+disappears. See \hyperref[exercise13_multiple_regression]{exercise 13}.
 
 \subsection{Collider}\label{collider}
 
@@ -4466,7 +4560,7 @@ If you think of Simpsons paradox again, conditioning on \(Z\) \emph{creates} an 
 which would otherwise be independent (by definition). So by learning the value of \(Z\), we can learn something
 from \(X\) about \(Y\). On the one hand, adding \(Z\) to the model creates an association where there is none,
 on the other hand, \emph{prediction} of \(Y\) is better with \(Z\) in the model! In prediction, we largely
-do not care about the causal structure of the data. We just want to predict \(Y\) as accurately as possible.
+do not care about the causal structure. We just want to predict \(Y\) as accurately as possible.
 
 The sum score example is also called \href{https://en.wikipedia.org/wiki/Berkson\%27s_paradox}{Berkson's paradox}.
 Let's check if this also works for three variables in a sum score
@@ -4476,7 +4570,7 @@ in \hyperref[exercise10_multiple_regression]{exercise 10}.
 
 Westfall section 8.4 and McElreath section 6.1 cover this topic.
 \href{https://en.wikipedia.org/wiki/Multicollinearity}{Multicollinearity} means that there is a strong
-correlation between two or more predictors. \emph{Perfect} multicollinearity it is when the correlation is 1.
+correlation between two or more predictors. It is \emph{perfect} multicollinearity when the correlation is 1.
 For example, if you accidentally include the same variable twice in the model, or when you include
 the elements of a sum score and the sum score itself as predictors in the model. R just gives you
 an \emph{NA} if you do this in \texttt{lm}.
@@ -4622,7 +4716,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31a33b01e/widgetdb31476f86cd.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea2395e803/widget7bea46b32f35.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -4636,11 +4730,8 @@ Let's look at a 3D plot:
 
 There is no unique solution for a plane in this case.
 Infinitely many planes can be defined using the ``line'' in space.
-If anything, a perfectly vertical plane could go through with \(SSE = 0\),
-but such a plane would not tell us how \(Y\) changes with \(X1\) and \(X2\),
-since any \(Y\) value could be assigned to any credible combination of \(X1\) and \(X2\) values.
 The problem collapses into the simple linear regression problem.
-One could just plug in the formula for \(X2\) into the model, which yields the identical result:
+One can just plug in the formula for \(X2\) into the model, which yields the identical result:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4837,6 +4928,33 @@ from McElreath 6.1.
   Verify that the coefficient is correct when leaving out the right leg length from the model.
 \end{itemize}
 
+\subsection{{[}M{]} Exercise 12}\label{exercise12_multiple_regression}
+
+Go backt to the interpretation of the intercept in the quadratic height model \hyperref[interpretation_output_freq_quadratic]{above}.
+
+\begin{itemize}
+\tightlist
+\item
+  Why is the intercept not equal to the sample mean of the heights?
+\end{itemize}
+
+\subsection{{[}H{]} Exercise 13}\label{exercise13_multiple_regression}
+
+Go back to the section about the \hyperref[fork]{fork} and the example about smoking at the end.
+
+\begin{itemize}
+\tightlist
+\item
+  Draw a DAG for this example.
+\item
+  Create data in R, where you assume that the probability of carrying a lighter is higher in smokers,
+  the probability of lung cancer is higher in smokers.
+\item
+  Show that the association between carrying a lighter and lung cancer disappears when conditioning on smoking.
+\item
+  You may also invent an example relevant to the field of physiotherapy.
+\end{itemize}
+
 \section{TODOS}\label{todos}
 
 \begin{itemize}
@@ -4844,7 +4962,9 @@ from McElreath 6.1.
 \item
   \texttt{check\_model} for 2 and more predictors\ldots{}
 \item
-  Factors, caterical variables in model\ldots{}
+  Factors, categorical variables in model\ldots{}
+\item
+  Logistic Regression, Poisson, \ldots{}
 \item
   Violations of model assumptions and how to fix them.
 \item
@@ -4855,15 +4975,9 @@ from McElreath 6.1.
   I get significant p values. Especially the next effect would be probably smaller,
   especially, if one did p-hacking! Calculate a priori probability for replication (def?).
 \item
-  Variability of confidence interval borders (draw from X\ldots)
-\item
-  Logistic Regression, Poisson, \ldots{}
-\item
   Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 \item
   Chapter about Reliability, Validity and ICCs (incl.~simulation of what an ICC of 0.9 or so means), but maybe reduced
-\item
-  causal terror of richards book, fork, pipe, collider
 \item
   Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt),
   ist diese Situation möglich?

@@ -1288,17 +1288,15 @@ Go back to the section about the [fork](#fork) and the example about smoking at 
 
 - `check_model` for 2 and more predictors...
 - Factors, categorical variables in model...
+- Logistic Regression, Poisson, ...
 - Violations of model assumptions and how to fix them.
 - Add more Bayesian model checks, chapter 6 Gelman.
 - Show by simulation what Gelman talks about with significant p values. So I scan the data
   for significant p values and then simulate data with the same effect size and see how often
   I get significant p values. Especially the next effect would be probably smaller,
   especially, if one did p-hacking! Calculate a priori probability for replication (def?).
-- Variability of confidence interval borders (draw from X...)
-- Logistic Regression, Poisson, ...
 - Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
 - Chapter about Reliability, Validity and ICCs (incl. simulation of what an ICC of 0.9 or so means), but maybe reduced
-- causal terror of richards book, fork, pipe, collider
 - Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt), 
   ist diese Situation möglich?
 - What about 2 interactions?

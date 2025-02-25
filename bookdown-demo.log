@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  22 FEB 2025 18:45
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  25 FEB 2025 07:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -888,7 +888,7 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type
 
 [34]
 Overfull \hbox (390.0pt too wide) in paragraph at lines 1351--1351
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb314dd0fe12/widgetdb3153d877a7.html screenshot completed[] 
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea7bda406e/widget7bea35bc3548.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
@@ -985,7 +985,7 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
 
 [50]
 Overfull \hbox (384.75pt too wide) in paragraph at lines 2027--2027
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31299ed78/widgetdb3147b5629d.html screenshot completed[] 
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea323e100e/widget7bea89020e7.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file (type pdf)
@@ -1172,11 +1172,14 @@ Overfull \hbox (65.97234pt too wide) has occurred while \output is active
  []
 
 [77]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-59-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-59-1.pdf>
+
+Underfull \vbox (badness 5475) has occurred while \output is active []
+
+
 
 [78]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf>
-
 
 
 Overfull \hbox (65.97234pt too wide) has occurred while \output is active
@@ -1184,13 +1187,13 @@ Overfull \hbox (65.97234pt too wide) has occurred while \output is active
  []
 
 [79]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf>
+
 
 [80]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf>
 
 
 
@@ -1201,11 +1204,8 @@ Overfull \hbox (65.97234pt too wide) has occurred while \output is active
 [81]
 
 [82]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf>
 
 
 
@@ -1214,6 +1214,9 @@ Overfull \hbox (65.97234pt too wide) has occurred while \output is active
  []
 
 [83]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf>
+
 
 [84]
 
@@ -1225,22 +1228,29 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
 [85]
 
 [86]
-Overfull \hbox (1.5pt too wide) in paragraph at lines 3418--3418
+
+
+Overfull \hbox (87.64235pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 87
+ []
+
+[87]
+Overfull \hbox (1.5pt too wide) in paragraph at lines 3487--3487
 []\TU/lmtt/m/n/10 ## Some of the variables were in matrix-format - probably you used[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 3418--3418
+Overfull \hbox (48.75pt too wide) in paragraph at lines 3487--3487
 []\TU/lmtt/m/n/10 ##   If so, and you get an error, please try `datawizard::standardize()` to[] 
  []
 
 
-Overfull \hbox (1.5pt too wide) in paragraph at lines 3418--3418
+Overfull \hbox (1.5pt too wide) in paragraph at lines 3487--3487
 []\TU/lmtt/m/n/10 ## Some of the variables were in matrix-format - probably you used[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 3418--3418
+Overfull \hbox (48.75pt too wide) in paragraph at lines 3487--3487
 []\TU/lmtt/m/n/10 ##   If so, and you get an error, please try `datawizard::standardize()` to[] 
  []
 
@@ -1251,13 +1261,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-
-Overfull \hbox (87.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 87
- []
-
-[87]
-
 [88]
 
 
@@ -1266,21 +1269,14 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
  []
 
 [89]
-Underfull \vbox (badness 1742) detected at line 3555
+
+[90]
+Underfull \vbox (badness 1742) detected at line 3624
  []
 
 
 Underfull \vbox (badness 1248) has occurred while \output is active []
 
-
-
-[90]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 3559--3559
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb3160f3056a/widgetdb3172e8a3df.html screenshot completed[] 
- []
-
-File: bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf>
 
 
 
@@ -1289,12 +1285,17 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
  []
 
 [91]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-67-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-67-1.pdf>
+Overfull \hbox (384.75pt too wide) in paragraph at lines 3628--3628
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea78896587/widget7bea468bfe4.html screenshot completed[] 
+ []
+
+File: bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf>
 
 
 [92]
-Missing character: There is no 𝛽 (U+1D6FD) in font [lmroman10-bold]:mapping=tex-text;!
+File: bookdown-demo_files/figure-latex/unnamed-chunk-67-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-67-1.pdf>
 
 
 
@@ -1303,10 +1304,19 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
  []
 
 [93]
+Missing character: There is no 𝛽 (U+1D6FD) in font [lmroman10-bold]:mapping=tex-text;!
+
 
 [94]
-Overfull \hbox (384.75pt too wide) in paragraph at lines 3751--3751
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb317f125989/widgetdb31db4728c.html screenshot completed[] 
+
+
+Overfull \hbox (87.64235pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 95
+ []
+
+[95]
+Overfull \hbox (390.0pt too wide) in paragraph at lines 3820--3820
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea509face4/widget7bea230fd616.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pdf)
@@ -1315,13 +1325,6 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-
-
-Overfull \hbox (87.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 95
- []
-
-[95]
 
 [96]
 
@@ -1333,9 +1336,6 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
 [97]
 
 [98]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf>
-
 
 
 Overfull \hbox (87.64235pt too wide) has occurred while \output is active
@@ -1343,30 +1343,25 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
  []
 
 [99]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf>
+
+
+[100]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-72-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-72-1.pdf>
 
 
-[100]
 
-
-Overfull \hbox (119.73013pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 101
+Overfull \hbox (92.64235pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 101
  []
 
 [101]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf>
-
 
 [102]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-74-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-74-1.pdf>
-File: bookdown-demo_files/figure-latex/unnamed-chunk-74-2.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-74-2.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf>
 
 
 
@@ -1375,6 +1370,14 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [103]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-74-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-74-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-74-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-74-2.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [104]
 
@@ -1393,16 +1396,16 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [107]
+
+[108]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-77-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-77-1.pdf>
 File: bookdown-demo_files/figure-latex/unnamed-chunk-77-2.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-77-2.pdf>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1490) has occurred while \output is active []
 
 
-
-[108]
 
 
 Overfull \hbox (119.73013pt too wide) has occurred while \output is active
@@ -1410,17 +1413,10 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [109]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf>
-File: bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf>
-
 
 [110]
-Overfull \hbox (1.5pt too wide) in paragraph at lines 4435--4435
-[]\TU/lmtt/m/n/10 ## Multiple R-squared:  0.001898,   Adjusted R-squared:  0.0008978[] 
- []
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf>
 
 
 
@@ -1429,12 +1425,14 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [111]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf>
+
 
 [112]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf>
-
-Underfull \vbox (badness 6978) has occurred while \output is active []
+Overfull \hbox (1.5pt too wide) in paragraph at lines 4529--4529
+[]\TU/lmtt/m/n/10 ## Multiple R-squared:  0.001898,   Adjusted R-squared:  0.0008978[] 
+ []
 
 
 
@@ -1444,6 +1442,10 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [113]
+
+[114]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf>
 File: bookdown-demo_files/figure-latex/unnamed-chunk-80-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-80-1.pdf>
 
@@ -1451,16 +1453,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[114]
-
 
 Overfull \hbox (119.73013pt too wide) has occurred while \output is active
 \TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 115
  []
 
 [115]
-Overfull \hbox (384.75pt too wide) in paragraph at lines 4626--4626
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpbEQRyq/filedb31a33b01e/widgetdb31476f86cd.html screenshot completed[] 
+
+[116]
+Overfull \hbox (390.0pt too wide) in paragraph at lines 4720--4720
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea2395e803/widget7bea46b32f35.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type pdf)
@@ -1469,8 +1471,6 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-
-[116]
 
 
 Overfull \hbox (119.73013pt too wide) has occurred while \output is active
@@ -1481,13 +1481,21 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
 
 [118]
 
+LaTeX Warning: Hyper reference `adding_transformed_predictor' on page 119 undefined on input line 4796.
+
+
+
 [119]
 
 [120]
+
+[121]
+
+[122]
 No file bookdown-demo.bbl.
 
 
-[121] (./bookdown-demo.aux)
+[123] (./bookdown-demo.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
@@ -1497,12 +1505,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 18185 strings out of 475809
- 354171 string characters out of 5772867
- 870098 words of memory out of 5000000
- 40810 multiletter control sequences out of 15000+600000
+ 18208 strings out of 475809
+ 355337 string characters out of 5772867
+ 871252 words of memory out of 5000000
+ 40831 multiletter control sequences out of 15000+600000
  565400 words of font info for 103 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  90i,8n,123p,550b,483s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on bookdown-demo.pdf (121 pages).
+Output written on bookdown-demo.pdf (123 pages).

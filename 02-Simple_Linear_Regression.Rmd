@@ -1760,3 +1760,18 @@ Changing the distribution of the covariate $x$ should not change the results, si
 we only get a different amount of data points agross the range of $x$.
 
 - Verify this statement by changing the distribution of $x$.
+
+
+## eLearning 1
+
+eLearning Assignments:
+
+-	Review all content from the script, up to and including section 3.1.
+- Reading assignment on frequentist statistics (exam-relevant!): 
+  Chapter 1 (Introduction to Regression Models) from the book 
+  Understanding Regression Analysis - A Conditional Distribution Approach.
+- Research task: Find at least two scientific articles in your field that apply 
+  regression (either simple regression with one predictor or multiple regression). 
+  We have already searched for journals relevant to your field in QM1. 
+  If you send me one of these studies in advance, we could also discuss the 
+  applied methods in more detail during the practice sessions.
