@@ -1570,6 +1570,86 @@ qqPlot(mod) # bad
 Model fit could be better, the model thinks the blood pressure is normally distributed.
 There also seems to be some heteroscadasticity and the residuals are not normally distributed.
 
+Usually, one would fit the model by throwing in all variables including BMI.
+Let's see if this approach changes the results:
+
+```{r}
+mod <- lm(BPSysAve ~ PhysActive + Age + Gender  + BMI, data = df)
+summary(mod)
+check_model(mod)
+qqPlot(mod) # 
+```
+
+This changed the results notable. Before, the effect of physical activity was $ -0.73693$
+with a rather small $p$-value,
+not it is $-0.22870$ with a $p$-value ten times as large.
+
+**Notice this**: The interpretation of a whole paper could change by falsely including
+and additional variable (in this case BMI).
+
+#### Improve model
+Now, that we have seen that the model fit is not perfect, we could try to improve it.
+First order of business is the non-normality of the blood pressure values (outcome).
+It seems that the blood pressure values are right-skewed.
+
+Let's try a gamma distribution for the outcome variable:
+
+```{r}
+library(fitdistrplus)  # For fitting distributions
+
+# Remove NA values before fitting
+bps_values <- as.numeric(na.omit(df_age$BPSysAve))
+
+# Fit a Gamma distribution
+gamma_fit <- fitdist(bps_values, "gamma")
+gamma_fit$estimate
+
+library(ggplot2)
+
+ggplot(df_age, aes(x = BPSysAve)) +
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", alpha = 0.6) +
+  geom_density(color = "blue", size = 1) +  # Smoothed density of actual data
+  stat_function(
+    fun = dgamma,
+    args = list(shape = gamma_fit$estimate["shape"], rate = gamma_fit$estimate["rate"]),
+    color = "purple", size = 1, linetype = "dashed"
+  ) +  # Gamma distribution
+  labs(
+    x = "Systolic Blood Pressure (BPSysAve)", 
+    y = "Density", 
+    title = "Distribution of Systolic Blood Pressure with Weibull & Gamma Fits"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+Looks better than the normal distribution. We could have also used vague
+priors for the gamma parameters since we have a large sample size.
+
+We would further try to model $\sigma$ as a linear function of $\mu$.
+For higher expected values of BPSysAve, we would expect higher variability.
+Hence, we try to explicitely model heteroscadasticity.
+
+Note, that we have not problem with adding parameters to the model 
+because of the large sample size.
+
+\begin{eqnarray*}
+BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma_i)\\
+\sigma_i &=& \text{exp}(\beta_4 + \beta_5 \cdot \mu_i)\\
+\mu_i &=& \beta_0 + \beta_1 \cdot PhysActive + \beta_2 \cdot Age_{centered} + \beta_3 \cdot Gender\\
+\beta_0 &\sim& \text{Normal}(140, 20)\\
+\beta_1 &\sim& \text{Normal}(0, 50)\\
+\beta_2 &\sim& \text{Normal}(0, 10)\\
+\beta_3 &\sim& \text{Normal}(0, 10)\\
+\beta_4 &\sim& \text{Normal}(0, 10)\\
+\beta_5 &\sim& \text{Uniform}(0, 50)
+\end{eqnarray*}
+
+**Fit improved model**
+
+....
+
+
 
 #### Interpret and report results
 ....

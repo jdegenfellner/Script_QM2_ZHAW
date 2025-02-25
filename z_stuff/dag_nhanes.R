@@ -289,5 +289,80 @@ precis(post, depth = 2)
 df <- df %>% mutate(Age_center = Age - mean(Age))
 mod <- lm(BPSysAve ~ PhysActive + Age_center + Gender, data = df)
 summary(mod)
+# PhysActiveYes  -0.73693 "significant", at least p-value rather small.
 check_model(mod)
 qqPlot(mod)
+
+mod_incl_bmi <- lm(BPSysAve ~ PhysActive + Age + Gender  + BMI, data = df)
+summary(mod_incl_bmi)
+# PhysActiveYes -0.22870 # not "significant"
+check_model(mod_incl_bmi) # as bad as before
+qqPlot(mod_incl_bmi) # 
+
+# adding the predictor changed the estimate massively.
+
+
+hist(df$Age)
+
+
+# use a different distribution of blood pressure
+
+library(fitdistrplus)  # For fitting distributions
+
+# Remove NA values before fitting
+bps_values <- as.numeric(na.omit(df_age$BPSysAve))
+
+# Fit a Weibull distribution
+weibull_fit <- fitdist(bps_values, "weibull")
+
+# Fit a Gamma distribution
+gamma_fit <- fitdist(bps_values, "gamma")
+
+# Display parameters
+weibull_fit$estimate
+gamma_fit$estimate
+
+library(ggplot2)
+
+ggplot(df_age, aes(x = BPSysAve)) +
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", alpha = 0.6) +
+  geom_density(color = "blue", size = 1) +  # Smoothed density of actual data
+  stat_function(
+    fun = dweibull,
+    args = list(shape = weibull_fit$estimate["shape"], scale = weibull_fit$estimate["scale"]),
+    color = "green", size = 1, linetype = "dashed"
+  ) +  # Weibull distribution
+  stat_function(
+    fun = dgamma,
+    args = list(shape = gamma_fit$estimate["shape"], rate = gamma_fit$estimate["rate"]),
+    color = "purple", size = 1, linetype = "dashed"
+  ) +  # Gamma distribution
+  labs(
+    x = "Systolic Blood Pressure (BPSysAve)", 
+    y = "Density", 
+    title = "Distribution of Systolic Blood Pressure with Weibull & Gamma Fits"
+  ) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+sum(is.na(df)) # 0
+m_NHANES_gamma <- quap(
+  alist(
+    BPSysAve ~ dnorm(mu, sigma), 
+    sigma <- exp(beta_4 + beta_5 * mu),
+    mu <- beta_0 + beta_1[PhysActive] + beta_2 * (Age - Age_mean) + beta_3[Gender],
+    beta_0 ~ dnorm(140, 10),  # Narrowed prior to avoid extreme values
+    beta_1[PhyActive] ~ dnorm(0, 10),  # Explicitly define factor levels for PhysActive
+    beta_2 ~ dnorm(0, 10),
+    beta_3[Gender] ~ dnorm(0, 10),  # Explicitly define factor levels for Gender
+    beta_4 ~ dnorm(0, 10),  # Start with a more stable mean log-scale SD
+    beta_5 ~ dnorm(0, 10)  # Prevent extreme changes in `sigma`
+  ),
+  data = df,
+  start = list(beta_0 = 140, beta_1 = c(0, 0), beta_2 = 0, beta_3 = c(0, 0), beta_4 = -1, beta_5 = 0)
+)
+
+# Show results
+precis(m_NHANES_gamma)

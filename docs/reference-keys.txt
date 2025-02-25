@@ -97,6 +97,7 @@ priors-1
 prior_predictive_checks_NHANES
 fit-and-check-model
 fit-model-using-lm
+improve-model
 interpret-and-report-results
 exercises-2
 exercise1_multiple_regression
