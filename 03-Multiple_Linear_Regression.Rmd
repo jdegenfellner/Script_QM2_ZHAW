@@ -1162,8 +1162,81 @@ summary(lm(Y ~ X1))
 
 In reality, you only have one parameter ($X1$ or $X2$) in the case of perfect multicollinearity.
 
+
 ## More than 2 predictors
-.........
+
+In practice, you often want more than two predictors in the model.
+If you listen closely to the research question raised by yourself or 
+your colleagues, often it won't be clearly stated what goal you want to achieve
+with the regression model: 
+[prediction or explanation](https://projecteuclid.org/journals/statistical-science/volume-25/issue-3/To-Explain-or-to-Predict/10.1214/10-STS330.full).
+
+If we want to be rigorous about the true relationships between variables, 
+we need to think about the causal structure of the variables, 
+as [Richard McElreath](https://www.youtube.com/watch?v=YvhuYONl1o0&ab_channel=KI-Campus)
+argues. 
+
+In order not to just throw in variables into our regression model and hope for the best,
+in order to have a fighting chance, we use the information provided
+in Chapter 5 in the Statistical Rethinking book.
+
+**Overall strategy for modeling:**
+
+- **Have a research question** and decide how this question can be answered: 
+  Quantitatively (experiment or observational study) or 
+  qualitatively. 
+  Remember: Statistical modeling is not a catch-all approach to
+  turn data into truth. 
+  And: We never want to play *find-the-right-statistical-test-Bingo*.
+  Statistical tests should make sense and not just thrown at data.
+
+- **Define goal**: Prediction or explanation? 
+  *Prediction*: Use everything and every model type you can get your hands 
+  on to "best" predict the outcome (neural nets, random forests, etc.).
+  *Explanation*: How do the variables relate to each other, 
+  how do they influence each other? Temporal relationships are important. 
+  And we want interpretable models.
+
+- **Do** exploratory data analysis (**EDA**) to get a feeling for the data:
+  - This includes (among others) scatterplots, histograms, boxplots,
+    correlation matrices, etc.
+  - How are the raw correlations/associations between the variables?
+  - How are the variables distributed?
+  - Are there outliers?
+  - Are there missing values and why are the values missing?
+  - Think about the data generating process. How did the data come about?
+  - There is no shame in fitting exploratory models too.
+
+- **Draw a DAG** (directed acyclic graph) of the hypthesized relationships between 
+  the variables, even though we will not do formal 
+  [causal inference](https://miguelhernan.org/whatifbook) in this lecture yet
+  (hopefully in the next).
+  The drawn DAG has testable implications (more below). See 5.1.2 in Rethinking.
+  Nicely enough, `dagitty`spits out:
+  - The [adjustment sets](https://rdrr.io/cran/dagitty/man/adjustmentSets.html) 
+    for the regression model based on a DAG. Which variables should I include
+    as covariates in my model, *if* the DAG is correct?
+  - The implied conditional dependencies coming from the DAG. These
+    can be checked with the data. It is not a proof that we have the true
+    relationships depicted by the DAG, but it is a good start.
+
+- **Decide on a statistical model** (more on that later).
+
+- **Define priors** for the parameters of the model:
+  If we do not know much, we choose vague priors (i.e., wide range of plausible 
+  parameter values). In the best case,
+  priors should be well argued for, especially in a *low-data* setting
+  (if we do not have many observations).
+
+- **Prior predictive checks**: Does the model produce outcomes ($Y$) that
+  are at all plausible? If not, we might have to rethink the model and/or priors.
+
+- **Fit and check the model**:
+  If the models makes certain assumptions, check if these are met.
+  For the classical regression model, see Chapter 4 in Westfall.
+  Posterior predictive check: Check if the model produces new data that looks 
+  like the observed data.
+
 
 
 
@@ -1287,6 +1360,7 @@ Go back to the section about the [fork](#fork) and the example about smoking at 
 ## TODOS
 
 - `check_model` for 2 and more predictors...
+- mention missing values, missingness mechanisms
 - Factors, categorical variables in model...
 - Logistic Regression, Poisson, ...
 - Violations of model assumptions and how to fix them.
