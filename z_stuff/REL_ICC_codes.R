@@ -19,8 +19,9 @@ dim(df)
 # "nas" = not affected shoulder
 
 df <- df %>%
-  mutate(diff = abs(ROMnas.Peter - ROMnas.Mary))  # Compute absolute difference
-
+  mutate(diff = abs(ROMnas.Peter - ROMnas.Mary)) %>%  # Compute absolute difference
+  mutate(ID = row_number())  # Add an ID column
+  
 max_diff_point <- df %>%
   dplyr::filter(diff == max(diff, na.rm = TRUE))  # Find the row with the max difference
 
@@ -83,3 +84,44 @@ mean(df$ROMas.Peter - df$ROMas.Mary, na.rm = TRUE)
 
 ggMarginal(p, type = "density", fill = "gray", color = "black")
 library(ggExtra)
+
+
+# calculate the ICC using the irr package:
+library(irr)
+irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]), 
+    model = "oneway", type = "consistency")
+# 0.851
+
+# verify using rethinking
+library(rethinking)
+data <- df %>% dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
+  pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), names_to = "Rater", values_to = "ROM") %>% 
+  mutate(Rater = factor(Rater))
+
+data
+
+m5.1 <- quap(
+  alist(
+    ROM ~ dnorm(mu, sigma),
+    mu <- a[ID], 
+    a[ID] ~ dnorm(50, 20),
+    sigma ~ dunif(0, 30)
+  ), data = data)
+
+precis(m5.1, depth = 2)
+
+post <- extract.samples(m5.1)
+mean(post$sigma)^2 # ~312
+
+
+
+# verify with lmer:
+library(lme4)
+m5.2 <- lmer(ROM ~ (1 | ID), data = data)
+summary(m5.2)
+print(VarCorr(m5.2), comp = "Variance")
+
+# ICC = 
+270.99 / (270.99 + 47.35) # 
+# 0.8512597
+

@@ -260,6 +260,35 @@ have some measurement error $\sigma_{\varepsilon}^2$.
 
 **What matters is the ratio of the two**, as can be seen from the formula above.
 
+Let's try to calculate the ICC for our data using a statistical model. There are a couple of different
+R packages to do this. We will use the `irr` package.
+
+```{r}
+library(irr)
+irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]), 
+    model = "oneway", type = "consistency")
+```
+
+We get the result: $ICC(1) = 0.851$.
+
+Since we are regression model experts, we would like to see if we can get the result using the Bayesian 
+framework. 
+
+Since we have two raters (Peter and Mary), we consider the fact that they could have a systematic difference,
+i.e., a bias. For example in the book, Mary has a 5 degree bias. 
+At the moment, there is no systematic difference between Peter and Mary added to the data. 
+
+TODO...
+\begin{eqnarray*}
+Y_i \sim N(\mu_i, \sigma_{\varepsilon})\\
+\mu_i &=& \beta_0 + beta_1[Rater]\\
+\beta_0 &\sim& \text{Normal}(0, 20)\\
+\beta_1 &\sim& \text{Normal}(0, 10)\\
+\sigma_{\varepsilon} &\sim& \text{Uniform}(0, 30)
+\end{eqnarray*}
+
+...
+
 
 ## Validity
 ...

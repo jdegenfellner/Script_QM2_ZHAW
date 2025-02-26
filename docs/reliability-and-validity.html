@@ -540,6 +540,41 @@ scores/measurements), the <strong>ICC might be very high</strong>.
 The reason is that the patient variability <span class="math inline">\(\sigma_{\eta}^2\)</span> is high and you probably
 have some measurement error <span class="math inline">\(\sigma_{\varepsilon}^2\)</span>.</p>
 <p><strong>What matters is the ratio of the two</strong>, as can be seen from the formula above.</p>
+<p>Let’s try to calculate the ICC for our data using a statistical model. There are a couple of different
+R packages to do this. We will use the <code>irr</code> package.</p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="reliability-and-validity.html#cb271-1" tabindex="-1"></a><span class="fu">library</span>(irr)</span></code></pre></div>
+<pre><code>## Loading required package: lpSolve</code></pre>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="reliability-and-validity.html#cb273-1" tabindex="-1"></a>irr<span class="sc">::</span><span class="fu">icc</span>(<span class="fu">as.matrix</span>(df[, <span class="fu">c</span>(<span class="st">&quot;ROMas.Peter&quot;</span>, <span class="st">&quot;ROMas.Mary&quot;</span>)]), </span>
+<span id="cb273-2"><a href="reliability-and-validity.html#cb273-2" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">&quot;oneway&quot;</span>, <span class="at">type =</span> <span class="st">&quot;consistency&quot;</span>)</span></code></pre></div>
+<pre><code>##  Single Score Intraclass Correlation
+## 
+##    Model: oneway 
+##    Type : consistency 
+## 
+##    Subjects = 50 
+##      Raters = 2 
+##      ICC(1) = 0.851
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 &gt; 0 
+##    F(49,50) = 12.4 , p = 7.31e-16 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.753 &lt; ICC &lt; 0.913</code></pre>
+<p>We get the result: <span class="math inline">\(ICC(1) = 0.851\)</span>.</p>
+<p>Since we are regression model experts, we would like to see if we can get the result using the Bayesian
+framework.</p>
+<p>Since we have two raters (Peter and Mary), we consider the fact that they could have a systematic difference,
+i.e., a bias. For example in the book, Mary has a 5 degree bias.
+At the moment, there is no systematic difference between Peter and Mary added to the data.</p>
+<p>TODO…
+<span class="math display">\[\begin{eqnarray*}
+Y_i \sim N(\mu_i, \sigma_{\varepsilon})\\
+\mu_i &amp;=&amp; \beta_0 + beta_1[Rater]\\
+\beta_0 &amp;\sim&amp; \text{Normal}(0, 20)\\
+\beta_1 &amp;\sim&amp; \text{Normal}(0, 10)\\
+\sigma_{\varepsilon} &amp;\sim&amp; \text{Uniform}(0, 30)
+\end{eqnarray*}\]</span></p>
+<p>…</p>
 </div>
 </div>
 <div id="validity" class="section level2 hasAnchor" number="5.2">
