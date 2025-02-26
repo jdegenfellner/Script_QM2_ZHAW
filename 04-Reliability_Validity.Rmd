@@ -107,14 +107,15 @@ cor(df$ROMnas.Peter, df$ROMnas.Mary, use = "complete.obs")
 
 The red line represents the line of equality ($y=x$). If the measurements are 
 exactly the same,
-all points would lie on this line. The blue point represents the largest difference
-from the randomly chosen 50 people. Note that in the maximum difference in 
+all points would lie on this line. The blue point represents the largest 
+difference in measured Range of Motion (ROM) values between Peter and Mary
+from the randomly chosen 50 people. Note that the maximum difference in 
 all 155 patients is 35 degrees.
 
-The first simple meause of agreement we could use is the correlation, which
+The first simple measure of agreement we could use is the correlation, which
 measures the strength and direction of a linear relationship between two variables.
-But correlation does not exacly what we want. If there was a bias 
-(mary systematically measures 5 degrees more than Peter), correlation would not 
+But correlation does not exactly measure what we want. If there was a bias 
+(e.g., Mary systematically measures 5 degrees more than Peter), correlation would not 
 notice this. (-> exercise later...). It actually is too optimistic about 
 the agreement since it only cares about the linearity and not about a potential bias.
 $r=0.2403213$ which indicates a weak positive correlation. Higher values of Peter's
@@ -166,15 +167,15 @@ the marginal distributions are not normal: There are much more measurements in t
 values around 80 than below, say, 60. But the correlation coefficient makes sense
 for descriptive purposes.
 
-In this case, knowing Peter's measurement *does* help us to (peter) predict 
+In this case, knowing Peter's measurement *does* help us to predict 
 Mary's measurement (-> exercise later).
 
 ### Intraclass Correlation Coefficient (ICC)
 
 One way to measure reliability is to use the intraclass correlation coefficient (ICC).
 
-This measure is based on the idea that the true score (ROM) has some variability
-in our data set, gut there are also measurement errors with variability.
+This measure is based on the idea that observed score $Y_i$ consists of the true score 
+(ROM) and a measurement error (for each person).
 The proportion of the true score variability to the total variability is the ICC.
 
 In the background one thinks of a statistical model from the 
@@ -182,7 +183,7 @@ In the background one thinks of a statistical model from the
 There is 
 
 - a true underlying score $\eta_i$ (for each patient i) and 
-- an error term $\varepsilon \sim N(0, \sigma)$ which is the difference between the true
+- an error term $\varepsilon \sim N(0, \sigma_i)$ which is the difference between the true
 score and 
 - the observed score $Y_i$.
 
@@ -195,10 +196,12 @@ of the observed score $Y_i$ is just the sum of the variability of the true score
 and the variability of the error term $\varepsilon_i$ ($\mathbb{C}ov(\eta_i, \varepsilon_i)=0$):
 
 $$ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) $$
+$$ \sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2 $$
 
 We want most of the variability in our observed scores $Y_i$ to be explained by the 
 true but unobservable scores $\eta_i$. The measurement error $\varepsilon_i$ should be
-be comparatively small. If it is large, we are mostly measuring noise. 
+be comparatively small. If it is large, we are mostly measuring noise or at least not
+what we want to measure. 
 
 If you either pull two people with the same true but unobservable score $\eta$ out of the population
 or measure the same person twice and the score does not change in between, we can 
@@ -217,7 +220,7 @@ $$ \frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) +
 $$ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}$$
 
 Since $\eta$ is a random variable (we draw a person randomly from the population),
-it is well defined to talk about the variance of $\eta$ ($=\sigma_{\eta}^2$).
+it is well defined to talk about the variance of $\eta$ (i.e., $\sigma_{\eta}^2$).
 Also: $$\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}$$
 
 Hence, it follows that:
@@ -279,9 +282,10 @@ i.e., a bias. For example in the book, Mary has a 5 degree bias.
 At the moment, there is no systematic difference between Peter and Mary added to the data. 
 
 TODO...
+https://discourse.mc-stan.org/t/extending-the-interclass-correlation-coefficient-icc-aka-repeatability-aka-heritability-for-bayesian-models/27793
 \begin{eqnarray*}
 Y_i \sim N(\mu_i, \sigma_{\varepsilon})\\
-\mu_i &=& \beta_0 + beta_1[Rater]\\
+\mu_i &=& beta_1[ID]\\
 \beta_0 &\sim& \text{Normal}(0, 20)\\
 \beta_1 &\sim& \text{Normal}(0, 10)\\
 \sigma_{\varepsilon} &\sim& \text{Uniform}(0, 30)

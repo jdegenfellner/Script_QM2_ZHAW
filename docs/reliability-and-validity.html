@@ -415,13 +415,14 @@ plot their measurements and annotate the absolutely largest one.</p>
 <pre><code>## [1] 0.2403213</code></pre>
 <p>The red line represents the line of equality (<span class="math inline">\(y=x\)</span>). If the measurements are
 exactly the same,
-all points would lie on this line. The blue point represents the largest difference
-from the randomly chosen 50 people. Note that in the maximum difference in
+all points would lie on this line. The blue point represents the largest
+difference in measured Range of Motion (ROM) values between Peter and Mary
+from the randomly chosen 50 people. Note that the maximum difference in
 all 155 patients is 35 degrees.</p>
-<p>The first simple meause of agreement we could use is the correlation, which
+<p>The first simple measure of agreement we could use is the correlation, which
 measures the strength and direction of a linear relationship between two variables.
-But correlation does not exacly what we want. If there was a bias
-(mary systematically measures 5 degrees more than Peter), correlation would not
+But correlation does not exactly measure what we want. If there was a bias
+(e.g., Mary systematically measures 5 degrees more than Peter), correlation would not
 notice this. (-&gt; exercise later…). It actually is too optimistic about
 the agreement since it only cares about the linearity and not about a potential bias.
 <span class="math inline">\(r=0.2403213\)</span> which indicates a weak positive correlation. Higher values of Peter’s
@@ -468,21 +469,21 @@ but the correlation is much higher (<span class="math inline">\(r=0.8516653\)</s
 the marginal distributions are not normal: There are much more measurements in the higher
 values around 80 than below, say, 60. But the correlation coefficient makes sense
 for descriptive purposes.</p>
-<p>In this case, knowing Peter’s measurement <em>does</em> help us to (peter) predict
+<p>In this case, knowing Peter’s measurement <em>does</em> help us to predict
 Mary’s measurement (-&gt; exercise later).</p>
 </div>
 <div id="intraclass-correlation-coefficient-icc" class="section level3 hasAnchor" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> Intraclass Correlation Coefficient (ICC)<a href="reliability-and-validity.html#intraclass-correlation-coefficient-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to measure reliability is to use the intraclass correlation coefficient (ICC).</p>
-<p>This measure is based on the idea that the true score (ROM) has some variability
-in our data set, gut there are also measurement errors with variability.
+<p>This measure is based on the idea that observed score <span class="math inline">\(Y_i\)</span> consists of the true score
+(ROM) and a measurement error (for each person).
 The proportion of the true score variability to the total variability is the ICC.</p>
 <p>In the background one thinks of a statistical model from the
 <a href="https://en.wikipedia.org/wiki/Classical_test_theory">Classical Test Theory (CTT)</a>.
 There is</p>
 <ul>
 <li>a true underlying score <span class="math inline">\(\eta_i\)</span> (for each patient i) and</li>
-<li>an error term <span class="math inline">\(\varepsilon \sim N(0, \sigma)\)</span> which is the difference between the true
+<li>an error term <span class="math inline">\(\varepsilon \sim N(0, \sigma_i)\)</span> which is the difference between the true
 score and</li>
 <li>the observed score <span class="math inline">\(Y_i\)</span>.</li>
 </ul>
@@ -492,7 +493,8 @@ This is a nice assumption because now we know (see <a href="https://en.wikipedia
 that the variability
 of the observed score <span class="math inline">\(Y_i\)</span> is just the sum of the variability of the true score <span class="math inline">\(\eta_i\)</span>
 and the variability of the error term <span class="math inline">\(\varepsilon_i\)</span> (<span class="math inline">\(\mathbb{C}ov(\eta_i, \varepsilon_i)=0\)</span>):</p>
-<p><span class="math display">\[ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) \]</span></p>
+<p><span class="math display">\[ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) \]</span>
+<span class="math display">\[ \sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2 \]</span></p>
 <p>We want most of the variability in our observed scores <span class="math inline">\(Y_i\)</span> to be explained by the
 true but unobservable scores <span class="math inline">\(\eta_i\)</span>. The measurement error <span class="math inline">\(\varepsilon_i\)</span> should be
 be comparatively small. If it is large, we are mostly measuring noise.</p>
@@ -567,9 +569,10 @@ framework.</p>
 i.e., a bias. For example in the book, Mary has a 5 degree bias.
 At the moment, there is no systematic difference between Peter and Mary added to the data.</p>
 <p>TODO…
+<a href="https://discourse.mc-stan.org/t/extending-the-interclass-correlation-coefficient-icc-aka-repeatability-aka-heritability-for-bayesian-models/27793" class="uri">https://discourse.mc-stan.org/t/extending-the-interclass-correlation-coefficient-icc-aka-repeatability-aka-heritability-for-bayesian-models/27793</a>
 <span class="math display">\[\begin{eqnarray*}
 Y_i \sim N(\mu_i, \sigma_{\varepsilon})\\
-\mu_i &amp;=&amp; \beta_0 + beta_1[Rater]\\
+\mu_i &amp;=&amp; beta_1[ID]\\
 \beta_0 &amp;\sim&amp; \text{Normal}(0, 20)\\
 \beta_1 &amp;\sim&amp; \text{Normal}(0, 10)\\
 \sigma_{\varepsilon} &amp;\sim&amp; \text{Uniform}(0, 30)

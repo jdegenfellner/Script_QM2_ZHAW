@@ -104,15 +104,46 @@ m5.1 <- quap(
   alist(
     ROM ~ dnorm(mu, sigma),
     mu <- a[ID], 
-    a[ID] ~ dnorm(50, 20),
-    sigma ~ dunif(0, 30)
+    a[ID] ~ dnorm(66, sigma_ID),
+    sigma ~ dunif(0, 30),
+    sigma_ID ~ dunif(0, 30)
   ), data = data)
+
+library(rethinking)
+
+library(rethinking)
+
+m5.1 <- quap(
+  alist(
+    # Likelihood
+    ROM ~ dnorm(mu, sigma),
+    
+    # Hierarchical model for patient-specific means
+    mu <- a[ID], 
+    a[ID] ~ dnorm(a_bar, sigma_ID),  # Patient-specific deviation
+    
+    # Priors for hyperparameters
+    a_bar ~ dnorm(66, 20),           # Population mean
+    sigma_ID ~ dunif(0, 30),         # Between-patient SD
+    sigma ~ dunif(0, 30)             # Residual SD
+  ), 
+  data = data,
+  
+  # Provide initial values to avoid optimization issues
+  start = list(
+    a_bar = 66, 
+    sigma_ID = 10, 
+    sigma = 10,
+    a = rep(66, length(unique(data$ID)))  # Initialize each patient's intercept
+  )
+)
 
 precis(m5.1, depth = 2)
 
 post <- extract.samples(m5.1)
-mean(post$sigma)^2 # ~312
+mean(apply(post$b, 2, posterior::var))
 
+mean(apply(post$b, 2, posterior::var)) / mean(post$sigma^2)
 
 
 # verify with lmer:
