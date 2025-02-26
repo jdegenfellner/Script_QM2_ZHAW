@@ -1097,7 +1097,7 @@ simulated_heights %>%
 
 In other words, we can be almost sure, that a person in the 90% quantile of the weight
 is taller than a person in the 10% quantile of the weight given this data set. 
-See also [exercise 11](#exercise11_simpl_lin_r).
+See also [exercise 11](#exercise11_simpl_lin_reg).
 
 ### Check regression assumptions
 Everytime we fit a model, we should check the assumptions [above](#_model_assumptions).

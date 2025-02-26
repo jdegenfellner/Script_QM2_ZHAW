@@ -1724,6 +1724,23 @@ influence blood pressure, like *PhysActiveDays* (Number of days in a typical wee
 that participant does 
 moderate or vigorousintensity activity).
 
+### Concluding remarks
+
+The NHANES example was a somewhat realistic instance of a multiple regression model
+which could easily be encountered in practice. In a Master thesis, we are often in 
+a low-data setting with 20-150 observations. Here, the priors are much more important.
+
+[Exercise 18](#exercise18_multiple_regression) asks you to repeat the analysis 
+with a smaller sample size.
+
+We saw that we can readily adapt the model, if assumptions of the classical 
+linear regression model are violated. In our case, we had to model the outcome
+as log-normal in order to allow for the model to predict skewed blood pressure values. 
+In addition, we explicitly modeled heteroscedasticity by allowing the standard deviation
+to grow with the mean. Theoretically, one could build arbitrarily complex models
+this way. Of course, syntax problems and convergence issues could arise.
+Even in this example some starting values were not fit for purpose, which is why
+I had to add the `set.seed()` command in the improved model. 
 
 ## Exercises
 
@@ -1741,7 +1758,7 @@ moderate or vigorousintensity activity).
 
 ### [E] Exercise 2 {#exercise2_multiple_regression}
 
-Consider the model equations from [above](#adding_transformed_predictor) 
+Consider the model equations from [above](#adding_transformed_predictor_bayes) 
 where we used polynomial regression to model the relationship between 
 weight and height:
 
@@ -1866,6 +1883,14 @@ Go back to the improved model fit of our NHANES example [above](#improve_model_N
 - add the $y=x$ line to the plot.
 - Is the fit better compared to the first model?
 
+### [H] Exercise 18 {#exercise18_multiple_regression}
+
+Go back to the NHANES example [above](#example_nhanes).
+
+- Repeat the NHANES analysis with a smaller sample size.
+- Draw 50-100 rows randomly from the adult NHANES data set we have used for the full
+  analysis.
+- What do you observe?
 
 
 ## TODOS

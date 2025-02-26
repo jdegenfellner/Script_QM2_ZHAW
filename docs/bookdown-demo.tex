@@ -125,7 +125,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-25}
+\date{2025-02-26}
 
 \begin{document}
 \maketitle
@@ -647,9 +647,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##             mean        sd       5.5%      94.5%
-## mu    154.603927 0.4119990 153.945473 155.262381
-## sigma   7.731421 0.2913942   7.265716   8.197125
+##             mean        sd      5.5%      94.5%
+## mu    154.604095 0.4119942 153.94565 155.262542
+## sigma   7.731331 0.2913858   7.26564   8.197022
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.4574 7.728652
-## 2 155.2968 7.391410
-## 3 154.3026 8.021122
-## 4 155.2854 7.743367
-## 5 154.2887 7.835652
-## 6 154.1099 7.756812
+## 1 154.2629 7.838214
+## 2 154.5050 8.181056
+## 3 154.6652 7.668099
+## 4 154.4498 7.790836
+## 5 154.8196 7.949114
+## 6 154.4939 7.999809
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697431600 0.0001500467
-## sigma 0.0001500467 0.0849105951
+## mu    0.1697392098 0.0001537406
+## sigma 0.0001537406 0.0849056643
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -728,8 +728,8 @@ distribution. In the diagonal you see the variance of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-##        mu     sigma 
-## 0.1697432 0.0849106
+##         mu      sigma 
+## 0.16973921 0.08490566
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001249825
-## sigma 0.001249825 1.000000000
+## mu    1.000000000 0.001280646
+## sigma 0.001280646 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1347,7 +1347,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa1ce42153/widget108aa4547def6.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba4d452a2f/widget17eba77d49b4a.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2023,7 +2023,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa750d1eb3/widget108aa305ab5ce.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba7868bedf/widget17eba24cb603b.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -2297,7 +2297,7 @@ Since we are all about application, we simulate this:
 
 In other words, we can be almost sure, that a person in the 90\% quantile of the weight
 is taller than a person in the 10\% quantile of the weight given this data set.
-See also \hyperref[exercise11_simpl_lin_r]{exercise 11}.
+See also \hyperref[exercise11_simpl_lin_reg]{exercise 11}.
 
 \subsection{Check regression assumptions}\label{check-regression-assumptions}
 
@@ -3624,7 +3624,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa5eb7c207/widget108aa72238a25.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17ebaa85dff7/widget17eba5b32d686.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3816,7 +3816,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa4db37b05/widget108aa4251ad1d.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba6dc2e728/widget17eba16d62b64.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4716,7 +4716,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa4c84e21e/widget108aa281946d1.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba4223fe8f/widget17eba491d8035.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -4958,11 +4958,11 @@ see \hyperref[exercise14_multiple_regression]{exercise 14}.
 
 \subsubsection{Research question}\label{research-question}
 
-Does \emph{Physical activity} (PhysActive) influence the \emph{average systolic
+Does \emph{Physical activity} (PhysActive) \textbf{influence} the \emph{average systolic
 blood pressure} (BPSysAve) in adults (\(\ge 20\) years)?
 
 We propose the following relationships among the variables
-(we limit ourselves to 4 covariates):
+(and limit ourselves to 4 covariates):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4999,7 +4999,7 @@ We propose the following relationships among the variables
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-85-1.pdf}}
 
 This DAG illustrates the hypothesized relationships between physical activity,
-age, BMI, gender, and blood pressure (BPSysAve). Physical activity directly
+age, BMI, gender, and blood pressure (BPSysAve). Physical activity potentially directly
 influences blood pressure, as regular exercise is hypothesized to improve
 cardiovascular health and lower blood pressure. Age has a direct effect on
 blood pressure, as arterial stiffness and other age-related physiological changes
@@ -5011,19 +5011,30 @@ physiological differences.
 
 There are also indirect pathways that contribute to these relationships.
 Age influences both physical activity and BMI, as older individuals tend to
-be less active and may experience weight gain due to metabolic changes.
+be less active and may experience weight gain due to metabolic changes (confounder).
 BMI and physical activity are also interconnected, physical activity influences BMI,
 further influencing blood
 pressure (mediation). Gender plays a role in both BMI and physical activity,
 as men and women tend to have different average BMI distributions
-and physical activity levels due to both biological and societal factors.
+and physical activity levels due to both biological and societal factors (confounder).
 
-Note, that we have a very large sample size (10,000 rows). As exercise for later,
+Note, that we have a very large sample size (6,919 people). As exercise for later,
 we randomly select 50 to 100 participants and repeat the analysis.
 This would also give us the opportunity to study how well we can
-infer the relationships in the larger sample from the smaller one.
+infer the relationships in the larger sample from the smaller one,
+which could be an eye-opener.
 
-Which variables should be included in the model?
+\textbf{Which variables should be included in the model?}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{adjustmentSets}\NormalTok{(dag, }\AttributeTok{exposure =} \StringTok{"PhysActive"}\NormalTok{, }\AttributeTok{outcome =} \StringTok{"BPSysAve"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## { Age, Gender }
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5036,25 +5047,19 @@ Which variables should be included in the model?
 ## Age _||_ Gndr
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{adjustmentSets}\NormalTok{(dag, }\AttributeTok{exposure =} \StringTok{"PhysActive"}\NormalTok{, }\AttributeTok{outcome =} \StringTok{"BPSysAve"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+The one adjustment set (using the command \texttt{adjustmentSets}) proposed by \texttt{dagitty} tells us that
+we should include age and gender as covariates in the model (in addition to \emph{PhysActive}),
+\emph{if} the DAG is correct.
+Note that \textbf{we do not include all three covariables in the model here}, just two of them.
 
-\begin{verbatim}
-## { Age, Gender }
-\end{verbatim}
+\emph{If} the DAG is correct, this would imply some conditional independencies
+(using the command \texttt{impliedConditionalIndependencies}) .
+We should probably check them to see how this is done:
 
-The one adjustment set proposed by \texttt{dagitty} tells us that we should include
-Age and Gender as covariates in the model, if the DAG is correct.
-Note that we do not include all three covariables in the model, just two of them.
-
-We should probably check the implied conditional independencies to see how this is
-done:
-
-First, we need to test, if Age and BMI are independent, \emph{if} we condition on Gender and Physical Activity.
-This is the case.
+First, we need to test, if age and BMI are independent,
+\emph{if} we condition on gender and physical activity;
+i.e., just add the to the regression model.
+This is the case:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5088,17 +5093,20 @@ This is the case.
 ## F-statistic: 81.09 on 3 and 7168 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-This implication can be confirmed.
-Interpretation: If we know the Gender and Physical Activity of a person,
-BMI does not offer any \emph{additional} information about Age.
+The implication can be confirmed.
+
+\textbf{Interpretation}: If we know gender and physical activity (yes/no) of a person,
+BMI does not offer any \emph{additional} information about age.
 
 Second, I would go out on a limb and say that there is no relationship
-between Age and Gender, at least not statistically relevant.
+between age and gender, at least not in a statistically relevant sense.
 
 \subsubsection{Goal}\label{goal}
 
 The \textbf{goal} is to better understand (explain) the relationship between
-physical activity and blood pressure while considering Age, BMI and Gender.
+physical activity and blood pressure while considering age, BMI and gender.
+I would suggest that in most cases relevant for us, one wants to understand
+relationships rather to predict an outcome.
 
 \subsubsection{EDA}\label{eda}
 
@@ -5108,10 +5116,12 @@ physical activity and blood pressure while considering Age, BMI and Gender.
 
 The outcome is a continuous variable (blood pressure), the exposure is a binary
 variable (physical activity yes/no).
-We could try a \textbf{multiple linear regression model} here.
+Surprise, surprise, we could try a \textbf{multiple linear regression model} here.
 
-As a first approximation, let's assume BPSysAve is (sufficiently) normally distributed,
-which can be critized. Let's quickly visualize the distribution of BPSysAve:
+As a first approximation, let's assume \emph{BPSysAve} is (sufficiently) normally distributed,
+which can be critized. Let's quickly visualize the distribution of\emph{BPSysAve} and overlay
+a normal density with paramaters estimated from the data (\(\mu\) sample mean of \emph{BPSysAve},
+\(\sigma\) sample standard deviation of \emph{BPSysAve}):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5119,8 +5129,8 @@ which can be critized. Let's quickly visualize the distribution of BPSysAve:
 \NormalTok{df\_age }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ BPSysAve)) }\SpecialCharTok{+}
   \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =} \FunctionTok{after\_stat}\NormalTok{(density)), }
-  \AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Ensure density scaling}
-  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{linewidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Smoothed density of actual data}
+  \AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}  
+  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{linewidth =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  
   \FunctionTok{stat\_function}\NormalTok{(}
     \AttributeTok{fun =}\NormalTok{ dnorm, }
     \AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(df\_age}\SpecialCharTok{$}\NormalTok{BPSysAve, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }
@@ -5138,37 +5148,41 @@ which can be critized. Let's quickly visualize the distribution of BPSysAve:
 \end{Shaded}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-88-1.pdf}}
+Not quite normal, but we will assume it for now.
 
 \subsubsection{Priors}\label{priors-1}
 
 Now, let's write down the statistical model.
-We choose vague priors for now since we have a vast data set.
-The advantage of the Bayesian approach remains that we have a fully
-probabilistic model.
+We choose vague priors since we have a vast data set.
+The advantage of the Bayesian approach remains (that we have a fully
+probabilistic model). Admitted, using Bayes is much more technical, at least
+at first glance.
 
-We center Age again, which makes the interpretation of the intercept easier.
+We center age again, which makes the interpretation of the intercept easier.
 
 \begin{itemize}
 \item
-  The intercept (\(\beta_0\)) is the expected value of BPSysAve for a person
+  The intercept (\(\beta_0\)) is the expected value of \emph{BPSysAve} for a person
   of average age, not physically active (reference level of the factor) and
-  female Gender (reference level of the factor).
+  female gender (reference level of the factor).
 \item
-  The coefficient for PhysActive (\(\beta_1\)) is the expected difference in
-  BPSysAve between a physically active person and a non-physically active person,
-  holding all other predictors constant. BPSysAve ranges from 78 to 226.
+  The coefficient for \emph{PhysActive} (\(\beta_1\)) is the expected difference in
+  \emph{BPSysAve} between a physically active person and a non-physically active person,
+  holding all other predictors constant. \emph{BPSysAve} ranges from 78 to 226 mmHg.
   If we do not know enough, we can just take a very vague prior for now:
   \(\beta_1 \sim \text{Normal}(0, 50)\). With 95\% probability, the effect of
-  physical activity on BPSysAve is between -100 and 100.
+  physical activity on \emph{BPSysAve} is between -100 and 100.
 \item
-  \(beta_2\): The expected change in BPSysAve for a one-year increase in Age
+  \(beta_2\): The expected change in \emph{BPSysAve} for a one-year increase in age
   (above the mean age), holding all other predictors constant.
   \(\beta_2 \sim \text{Normal}(0, 10)\). This effect should be comparatively small,
-  since we are dealing with a one-year increase in Age.
+  since we are dealing with a one-year increase in age. We could further
+  standardize age, then the effect would be in relation to one standard
+  deviations increase in age.
 \item
   \(\sigma\): The standard deviation of the residuals.
   \(\sigma \sim \text{Uniform}(0, 50)\). We use a vague prior.
-  95\% of the residuals are between -100 and 100. This seems plausible
+  95\% of the residuals are between -100 and 100. This seems plausible enough.
 \end{itemize}
 
 \begin{eqnarray*}
@@ -5181,7 +5195,7 @@ BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 \sigma &\sim& \text{Uniform}(0, 50)
 \end{eqnarray*}
 
-Note, that Age and Gender are not influenced by each other.
+Note that age and gender are not influenced by each other.
 
 \subsubsection{Prior Predictive Checks}\label{prior_predictive_checks_NHANES}
 
@@ -5201,10 +5215,12 @@ Now we simply draw from the priors and thereby generate systolic blood pressure 
 \end{Highlighting}
 \end{Shaded}
 
-This yields also negative values for BPSysAve, which is not plausible.
+This yields also negative values (please verify) for* BPSysAve*, which is not plausible.
 
 In \hyperref[exercise15_multiple_regression]{exercise 15} we will play around with the priors
 until the prior predictive check producues plausible values.
+\textbf{Admitted}, one should probably not look at the distribution of data while doing this.
+On the other hand, we could have just Googled the distribution of blood pressure values.
 This is the result:
 
 \begin{Shaded}
@@ -5247,7 +5263,7 @@ This is the result:
     \AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }
     \AttributeTok{title =} \StringTok{"Observed vs. Simulated Systolic Blood Pressure"}
 \NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Observed"} \OtherTok{=} \StringTok{"blue"}\NormalTok{, }\StringTok{"Simulated"} \OtherTok{=} \StringTok{"red"}\NormalTok{)) }\SpecialCharTok{+}  \CommentTok{\# Custom colors}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"Observed"} \OtherTok{=} \StringTok{"blue"}\NormalTok{, }\StringTok{"Simulated"} \OtherTok{=} \StringTok{"red"}\NormalTok{)) }\SpecialCharTok{+} 
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
 \end{Highlighting}
@@ -5260,7 +5276,9 @@ This is the result:
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-90-1.pdf}}
 
-Looks decent.
+Looks decent. Not quite there yet.
+The blood pressure values have a smaller variances and are skewed.
+Let's nevertheless fit the model.
 
 \subsubsection{Fit and check model}\label{fit-and-check-model}
 
@@ -5268,13 +5286,6 @@ We use \texttt{quap} for the model fitting.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Fit the model}
-\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ NHANES }\CommentTok{\# shorter}
-\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{PhysActive\_index =} \FunctionTok{as.integer}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(PhysActive)),  }\CommentTok{\# Convert to factor index (1{-}based)}
-    \AttributeTok{Gender\_index =} \FunctionTok{as.integer}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Gender))  }\CommentTok{\# Convert to factor index (1{-}based)}
-\NormalTok{  )}
 \FunctionTok{library}\NormalTok{(data.table)}
 \end{Highlighting}
 \end{Shaded}
@@ -5305,13 +5316,13 @@ We use \texttt{quap} for the model fitting.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ NHANES}
 \NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df)}
 
 \CommentTok{\# Compute age mean for centering}
-\NormalTok{Age\_mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(df[Age }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{Age\_mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(df[Age }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# adults}
 
-\CommentTok{\# Fit Bayesian model}
-
+\CommentTok{\# Filter age}
 \NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(Age }\SpecialCharTok{\textgreater{}=} \DecValTok{20}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
 \NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(BPSysAve, PhysActive, Age, Gender, BMI) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{drop\_na}\NormalTok{()}
@@ -5335,6 +5346,7 @@ We use \texttt{quap} for the model fitting.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Fit model}
 \NormalTok{m\_NHANES }\OtherTok{\textless{}{-}} \FunctionTok{quap}\NormalTok{(}
   \FunctionTok{alist}\NormalTok{(}
 \NormalTok{    BPSysAve }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma), }
@@ -5366,6 +5378,7 @@ We use \texttt{quap} for the model fitting.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# We want to know the expected difference for the levels of PhysActive and Gender:}
+\CommentTok{\# (which is not directly visible in the summary)}
 \NormalTok{post }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m\_NHANES)}
 \NormalTok{post}\SpecialCharTok{$}\NormalTok{diff\_PhysActive }\OtherTok{\textless{}{-}}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{1}\NormalTok{]}
 \NormalTok{post}\SpecialCharTok{$}\NormalTok{diff\_G }\OtherTok{\textless{}{-}}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{1}\NormalTok{]}
@@ -5398,11 +5411,28 @@ We use \texttt{quap} for the model fitting.
 ## diff_G            4.4885801 0.37263071   3.8813342   5.0880217      ▁▂▇▇▁▁
 \end{verbatim}
 
-\subsubsection{\texorpdfstring{Fit model using \texttt{lm}}{Fit model using lm}}\label{fit-model-using-lm}
+The summary tells us that \texttt{diff\_PhysActive} is \(-0.74\) with a large proportion
+of the posterior \(<0\). Please research if this is a clinically relevant difference.
+My guess is: no.
+
+\subsubsection{\texorpdfstring{Fit model using \texttt{lm} (Frequentist approach)}{Fit model using lm (Frequentist approach)}}\label{fit-model-using-lm-frequentist-approach}
+
+We can also fit the model using the Frequentist approach.
+No priors. The results should be very similar due to the large sample size.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(car)}
+\FunctionTok{dim}\NormalTok{(df) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6919    5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Age\_center =}\NormalTok{ Age }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(Age))}
 \NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BPSysAve }\SpecialCharTok{\textasciitilde{}}\NormalTok{ PhysActive }\SpecialCharTok{+}\NormalTok{ Age\_center }\SpecialCharTok{+}\NormalTok{ Gender, }\AttributeTok{data =}\NormalTok{ df)}
 \FunctionTok{summary}\NormalTok{(mod)}
@@ -5452,15 +5482,21 @@ We use \texttt{quap} for the model fitting.
 ## [1] 1232 5501
 \end{verbatim}
 
+The results are similar to the Bayesian approach.
+In the summary output we see that the effect of physical activity is \(-0.73693\)
+with a small \(p\)-value (\(0.051\)). This is one example for the absurdity of strict cutoffs
+for \(p\)-values. The other coefficients including the estimate for \(\sigma\) are also similar.
+It's alsways a good idea to double-check.
+
 Model fit could be better, the model thinks the blood pressure is normally distributed.
 There also seems to be some heteroscadasticity and the residuals are not normally distributed.
 
-Usually, one would fit the model by throwing in all variables including BMI.
+\textbf{Usually}, one would fit this model by throwing in all variables into the model, including BMI.
 Let's see if this approach changes the results:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BPSysAve }\SpecialCharTok{\textasciitilde{}}\NormalTok{ PhysActive }\SpecialCharTok{+}\NormalTok{ Age }\SpecialCharTok{+}\NormalTok{ Gender  }\SpecialCharTok{+}\NormalTok{ BMI, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(BPSysAve }\SpecialCharTok{\textasciitilde{}}\NormalTok{ PhysActive }\SpecialCharTok{+}\NormalTok{ Age }\SpecialCharTok{+}\NormalTok{ Gender  }\SpecialCharTok{+}\NormalTok{ BMI, }\AttributeTok{data =}\NormalTok{ df) }\CommentTok{\# add BMI}
 \FunctionTok{summary}\NormalTok{(mod)}
 \end{Highlighting}
 \end{Shaded}
@@ -5499,7 +5535,7 @@ Let's see if this approach changes the results:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{qqPlot}\NormalTok{(mod) }\CommentTok{\# }
+\FunctionTok{qqPlot}\NormalTok{(mod) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -5509,109 +5545,35 @@ Let's see if this approach changes the results:
 ## [1] 1232 5501
 \end{verbatim}
 
-This changed the results notable. Before, the effect of physical activity was \$ -0.73693\$
+\textbf{This changed the results notably}. Before, the effect of physical activity was \(-0.73693\)
 with a rather small \(p\)-value,
-not it is \(-0.22870\) with a \(p\)-value ten times as large.
+now it is \(-0.22870\) with a \(p\)-value ten times as large.
 
-\textbf{Notice this}: The interpretation of a whole paper could change by falsely including
-and additional variable (in this case BMI).
+\textbf{Remember this}: The interpretation of a whole paper could change by falsely including
+an additional variable (in this case BMI).
 
 \subsubsection{Improve model}\label{improve_model_NHANES}
 
-Now, that we have seen that the model fit is not perfect, we could try to improve it.
-First order of business is the non-normality of the blood pressure values (outcome).
+Now, that we have seen that the model fit is probably not sufficient, we could try to improve it.
+
+\textbf{First} order of business is the \textbf{non-normality} of the blood pressure values (outcome).
+The model predicts normally distributed values, which is not the case.
 It seems that the blood pressure values are right-skewed.
 
-Let's try a gamma distribution for the outcome variable:
+Let's try a log-normal distribution for the outcome variable, which only
+takes positive values and is skewed.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(fitdistrplus)  }\CommentTok{\# For fitting distributions}
-\end{Highlighting}
-\end{Shaded}
+We would \textbf{further} try to model \(\sigma\) as a linear function of \(\mu\).
+For higher expected values of \emph{BPSysAve}, we would expect higher variability.
+Hence, we try to \textbf{explicitely model heteroscadasticity}.
 
-\begin{verbatim}
-## Loading required package: survival
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Remove NA values before fitting}
-\NormalTok{bps\_values }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(df\_age}\SpecialCharTok{$}\NormalTok{BPSysAve))}
-
-\CommentTok{\# Fit a Gamma distribution}
-\NormalTok{gamma\_fit }\OtherTok{\textless{}{-}} \FunctionTok{fitdist}\NormalTok{(bps\_values, }\StringTok{"gamma"}\NormalTok{)}
-\NormalTok{gamma\_fit}\SpecialCharTok{$}\NormalTok{estimate}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##     shape      rate 
-## 53.021148  0.438175
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(ggplot2)}
-
-\FunctionTok{ggplot}\NormalTok{(df\_age, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ BPSysAve)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ ..density..), }\AttributeTok{bins =} \DecValTok{30}\NormalTok{, }\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Smoothed density of actual data}
-  \FunctionTok{stat\_function}\NormalTok{(}
-    \AttributeTok{fun =}\NormalTok{ dgamma,}
-    \AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ gamma\_fit}\SpecialCharTok{$}\NormalTok{estimate[}\StringTok{"shape"}\NormalTok{], }\AttributeTok{rate =}\NormalTok{ gamma\_fit}\SpecialCharTok{$}\NormalTok{estimate[}\StringTok{"rate"}\NormalTok{]),}
-    \AttributeTok{color =} \StringTok{"purple"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}
-\NormalTok{  ) }\SpecialCharTok{+}  \CommentTok{\# Gamma distribution}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Systolic Blood Pressure (BPSysAve)"}\NormalTok{, }
-    \AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }
-    \AttributeTok{title =} \StringTok{"Distribution of Systolic Blood Pressure with Weibull \& Gamma Fits"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## i Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.
-## i Please use `after_stat(density)` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Removed 264 rows containing non-finite outside the scale range
-## (`stat_bin()`).
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Removed 264 rows containing non-finite outside the scale range
-## (`stat_density()`).
-\end{verbatim}
-
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-94-1.pdf}}
-
-Looks better than the normal distribution. We could have also used vague
-priors for the gamma parameters since we have a large sample size.
-
-We would further try to model \(\sigma\) as a linear function of \(\mu\).
-For higher expected values of BPSysAve, we would expect higher variability.
-Hence, we try to explicitely model heteroscadasticity.
-
-Note, that we have not problem with adding parameters to the model
+Note, that we have no problem with adding parameters to the model
 because of the large sample size.
 
 See \hyperref[exercise16_multiple_regression]{exercise 16}.
 
 \begin{eqnarray*}
-BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma_i)\\
+BPSysAve_i &\sim& \text{Log-Normal}(\mu_i, \sigma_i)\\
 \sigma_i &=& \text{exp}(\beta_4 + \beta_5 \cdot \mu_i)\\
 \mu_i &=& \beta_0 + \beta_1 \cdot PhysActive + \beta_2 \cdot Age_{centered} + \beta_3 \cdot Gender\\
 \beta_0 &\sim& \text{Normal}(140, 20)\\
@@ -5621,6 +5583,11 @@ BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma_i)\\
 \beta_4 &\sim& \text{Normal}(0, 10)\\
 \beta_5 &\sim& \text{Uniform}(0, 50)
 \end{eqnarray*}
+
+We now allow the standard deviation \(\sigma_i\) to be different for different values of the mean.
+With \texttt{exp()} we ensure that \(\sigma_i\) is positive.
+This time, we assume: \(log(BPSysAve_i) \sim \text{Normal}(\mu_i, \sigma_i)\). That's what it means
+to be log-normally distributed.
 
 \textbf{Fit improved model}
 
@@ -5636,80 +5603,84 @@ BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma_i)\\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{m\_NHANES\_gamma }\OtherTok{\textless{}{-}} \FunctionTok{quap}\NormalTok{(}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{122}\NormalTok{)}
+\NormalTok{m\_NHANES\_lnorm }\OtherTok{\textless{}{-}} \FunctionTok{quap}\NormalTok{(}
   \FunctionTok{alist}\NormalTok{(}
-\NormalTok{    BPSysAve }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma), }
-\NormalTok{    sigma }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(beta\_4 }\SpecialCharTok{+}\NormalTok{ beta\_5 }\SpecialCharTok{*}\NormalTok{ mu), }\CommentTok{\# new}
-\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ beta\_0 }\SpecialCharTok{+}\NormalTok{ beta\_1[PhysActive] }\SpecialCharTok{+}\NormalTok{ beta\_2 }\SpecialCharTok{*}\NormalTok{ (Age }\SpecialCharTok{{-}}\NormalTok{ Age\_mean) }\SpecialCharTok{+}\NormalTok{ beta\_3[Gender],}
-\NormalTok{    beta\_0 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{140}\NormalTok{, }\DecValTok{10}\NormalTok{), }
-\NormalTok{    beta\_1[PhysActive] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{), }
+\NormalTok{    BPSysAve }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dlnorm}\NormalTok{(lmu, lsd), }
+\NormalTok{    lsd }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(beta\_4 }\SpecialCharTok{+}\NormalTok{ beta\_5 }\SpecialCharTok{*}\NormalTok{ lmu),}
+\NormalTok{    lmu }\OtherTok{\textless{}{-}}\NormalTok{ beta\_0 }\SpecialCharTok{+}\NormalTok{ beta\_1[PhysActive] }\SpecialCharTok{+}\NormalTok{ beta\_2 }\SpecialCharTok{*}\NormalTok{ (Age }\SpecialCharTok{{-}}\NormalTok{ Age\_mean) }\SpecialCharTok{+}\NormalTok{ beta\_3[Gender],}
+\NormalTok{    beta\_0 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{140}\NormalTok{, }\DecValTok{10}\NormalTok{),  }\CommentTok{\# }
+\NormalTok{    beta\_1[PhysActive] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),  }\CommentTok{\# }
 \NormalTok{    beta\_2 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-\NormalTok{    beta\_3[Gender] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),  }
-\NormalTok{    beta\_4 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),  }\CommentTok{\# new}
-\NormalTok{    beta\_5 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{)  }\CommentTok{\# new}
+\NormalTok{    beta\_3[Gender] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),  }\CommentTok{\# }
+\NormalTok{    beta\_4 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{),  }\CommentTok{\# }
+\NormalTok{    beta\_5 }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{)  }\CommentTok{\#}
 \NormalTok{  ),}
   \AttributeTok{data =}\NormalTok{ df,}
   \AttributeTok{start =} \FunctionTok{list}\NormalTok{(}\AttributeTok{beta\_0 =} \DecValTok{140}\NormalTok{, }\AttributeTok{beta\_1 =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{beta\_2 =} \DecValTok{0}\NormalTok{, }\AttributeTok{beta\_3 =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{beta\_4 =} \DecValTok{1}\NormalTok{, }\AttributeTok{beta\_5 =} \DecValTok{0}\NormalTok{)}
 \NormalTok{)}
 
-\CommentTok{\# Show results}
-\FunctionTok{precis}\NormalTok{(m\_NHANES\_gamma, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{precis}\NormalTok{(m\_NHANES\_lnorm, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                  mean          sd         5.5%        94.5%
-## beta_0    129.9078481 7.071283091 118.60657197 141.20912422
-## beta_1[1]   1.3822164 6.125779091  -8.40796173  11.17239451
-## beta_1[2]   1.1772245 6.125726274  -8.61286917  10.96731825
-## beta_2      0.4092944 0.011085607   0.39157749   0.42701137
-## beta_3[1] -12.1511824 6.125369428 -21.94070579  -2.36165900
-## beta_3[2]  -7.2480282 6.125912352 -17.03841929   2.54236291
-## beta_4     -1.4582152 0.177759518  -1.74230925  -1.17412117
-## beta_5      0.0341528 0.001465127   0.03181124   0.03649436
+##                    mean           sd          5.5%         94.5%
+## beta_0     69.940815482 7.0688162635  58.643481822  81.238149141
+## beta_1[1] -33.089453949 6.1218905701 -42.873417461 -23.305490436
+## beta_1[2] -33.092785217 6.1218905660 -42.876748723 -23.308821711
+## beta_2      0.003334919 0.0000845877   0.003199732   0.003470107
+## beta_3[1] -32.083866696 6.1249525109 -41.872723781 -22.295009611
+## beta_3[2] -32.042155145 6.1249525254 -41.831012254 -22.253298037
+## beta_4    -14.545840087 0.7396301298 -15.727911886 -13.363768287
+## beta_5      2.594743962 0.1546084882   2.347649737   2.841838187
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# dfference in levels of PhysActive and Gender:}
-\NormalTok{post\_gamma }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m\_NHANES\_gamma)}
-\NormalTok{post\_gamma}\SpecialCharTok{$}\NormalTok{diff\_PhysActive }\OtherTok{\textless{}{-}}\NormalTok{ post\_gamma}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post\_gamma}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{1}\NormalTok{]}
-\NormalTok{post\_gamma}\SpecialCharTok{$}\NormalTok{diff\_G }\OtherTok{\textless{}{-}}\NormalTok{ post\_gamma}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post\_gamma}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{1}\NormalTok{]}
-\FunctionTok{precis}\NormalTok{(post\_gamma, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
+\CommentTok{\# difference in levels of PhysActive and Gender (catorical variables):}
+\NormalTok{post\_lnorm }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m\_NHANES\_lnorm)}
+\NormalTok{post\_lnorm}\SpecialCharTok{$}\NormalTok{diff\_PhysActive }\OtherTok{\textless{}{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{post\_lnorm}\SpecialCharTok{$}\NormalTok{diff\_G }\OtherTok{\textless{}{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{1}\NormalTok{]}
+\FunctionTok{precis}\NormalTok{(post\_lnorm, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                         mean          sd         5.5%        94.5%
-## beta_0          129.86586686 7.137410288 118.58553593 141.19831108
-## beta_2            0.40907839 0.011269698   0.39119695   0.42702715
-## beta_4           -1.46141062 0.177139505  -1.74802663  -1.18097688
-## beta_5            0.03417879 0.001460823   0.03186429   0.03654536
-## beta_1[1]         1.39572198 6.122237159  -8.39747051  11.29040125
-## beta_1[2]         1.19094674 6.121597482  -8.58308798  11.09139910
-## beta_3[1]       -12.12521938 6.162147944 -21.89613320  -2.22341805
-## beta_3[2]        -7.22448013 6.163484254 -17.02747162   2.69505942
-## diff_PhysActive  -0.20477524 0.295404998  -0.67810759   0.26671736
-## diff_G            4.90073925 0.307036706   4.41178074   5.38993341
-##                       histogram
-## beta_0            ▁▁▁▁▂▅▇▇▅▂▁▁▁
-## beta_2               ▁▁▁▃▇▇▃▁▁▁
-## beta_4          ▁▁▁▁▂▃▇▇▇▃▂▁▁▁▁
-## beta_5             ▁▁▁▁▃▇▇▅▂▁▁▁
-## beta_1[1]             ▁▁▂▇▇▅▂▁▁
-## beta_1[2]             ▁▁▂▇▇▃▁▁▁
-## beta_3[1]            ▁▁▂▅▇▅▂▁▁▁
-## beta_3[2]            ▁▁▂▅▇▅▂▁▁▁
-## diff_PhysActive    ▁▁▁▂▅▇▇▅▂▁▁▁
-## diff_G             ▁▁▁▁▃▇▇▇▃▁▁▁
+##                          mean           sd          5.5%         94.5%
+## beta_0           69.802740693 7.085286e+00  58.450093685  8.100613e+01
+## beta_2            0.003333900 8.420378e-05   0.003198976  3.469766e-03
+## beta_4          -14.557397328 7.340126e-01 -15.730856478 -1.339366e+01
+## beta_5            2.597170489 1.534331e-01   2.353734581  2.842822e+00
+## beta_1[1]       -33.013184105 6.159037e+00 -42.880222934 -2.329850e+01
+## beta_1[2]       -33.016534396 6.159079e+00 -42.884893477 -2.330076e+01
+## beta_3[1]       -32.022042725 6.166508e+00 -41.656953623 -2.200235e+01
+## beta_3[2]       -31.980336296 6.166495e+00 -41.611161302 -2.196006e+01
+## diff_PhysActive  -0.003350291 2.668752e-03  -0.007636024  9.712922e-04
+## diff_G            0.041706430 2.640623e-03   0.037460961  4.588615e-02
+##                      histogram
+## beta_0           ▁▁▁▁▂▅▇▇▃▂▁▁▁
+## beta_2          ▁▁▁▁▃▇▇▇▃▂▁▁▁▁
+## beta_4            ▁▁▁▂▅▇▇▃▂▁▁▁
+## beta_5          ▁▁▁▁▂▅▇▇▅▂▁▁▁▁
+## beta_1[1]           ▁▁▁▂▅▇▅▂▁▁
+## beta_1[2]           ▁▁▁▂▅▇▅▂▁▁
+## beta_3[1]           ▁▁▂▅▇▅▂▁▁▁
+## beta_3[2]           ▁▁▂▅▇▅▂▁▁▁
+## diff_PhysActive    ▁▁▁▃▇▇▅▂▁▁▁
+## diff_G             ▁▁▁▂▅▇▇▃▁▁▁
 \end{verbatim}
 
-Let's vizualize the postior predictive distributions of 100 samples:
+\texttt{diff\_PhysActive} is now \(-0.003350291\) with a very tight credible interval
+containing \(0\) as a credible effect. The model is pretty sure, that the effect
+is practically zero.
+
+Let's vizualize the posterior predictive distributions of 100 samples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# histrogram of posterior of BPSysAve:}
-\NormalTok{sample\_BP }\OtherTok{\textless{}{-}} \FunctionTok{sim}\NormalTok{(m\_NHANES\_gamma, }\AttributeTok{n =} \DecValTok{1000}\NormalTok{)}
+\CommentTok{\# posterior predictive checks}
+\NormalTok{sample\_BP }\OtherTok{\textless{}{-}} \FunctionTok{sim}\NormalTok{(m\_NHANES\_lnorm, }\AttributeTok{n =} \DecValTok{1000}\NormalTok{)}
 
 \CommentTok{\# Convert the first 100 rows of the posterior samples into a long format for ggplot}
 \NormalTok{df\_posterior }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{t}\NormalTok{(sample\_BP[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{,])) }\SpecialCharTok{\%\textgreater{}\%}
@@ -5717,11 +5688,9 @@ Let's vizualize the postior predictive distributions of 100 samples:
 
 \CommentTok{\# Create the plot}
 \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
-  \CommentTok{\# Original BPSysAve density in green}
-  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ BPSysAve), }\AttributeTok{color =} \StringTok{"green"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}
-  \CommentTok{\# Posterior densities as individual lines in blue with transparency}
   \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df\_posterior, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ BPSysAve\_sim, }\AttributeTok{group =}\NormalTok{ Simulation), }
                \AttributeTok{color =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.05}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ BPSysAve), }\AttributeTok{color =} \StringTok{"green"}\NormalTok{, }\AttributeTok{linewidth =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Density Estimation: Original vs. Posterior Samples"}\NormalTok{,}
        \AttributeTok{x =} \StringTok{"Systolic Blood Pressure"}\NormalTok{,}
        \AttributeTok{y =} \StringTok{"Density"}\NormalTok{) }\SpecialCharTok{+}
@@ -5730,22 +5699,42 @@ Let's vizualize the postior predictive distributions of 100 samples:
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-96-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-95-1.pdf}}
 
 With respect to the distribution of blood pressure, the model looks much better now.
 Note, that we did not assume that the residuals are normally distributed, neither
 did we assume homoscedasticity (on the contrary).
 
-See \hyperref[exercise16_multiple_regressionux5cux257D]{exercise 17}.
+See \hyperref[exercise17_multiple_regression]{exercise 17}.
 
 \subsubsection{Interpret and report results}\label{interpret-and-report-results}
 
-Summarizing the results, we find the expected direction of association in our first and second model.
-The effect of physical activity on blood pressure is negative. This would be probably more pronounced
-if we had more than a binary variable for physical activity. Note that the effect
-is rather tiny. Expected difference in blood pressure between physically active and non-active
-people is around 0.2 mmHg with a large credible interval that includes 0. Without looking up,
-one could assume, that the effect is not practically relevant.
+Summarizing the results, we find the expected direction of association in our first model.
+The effect of physical activity on blood pressure was negative.
+After improving the model fit, we concluded that the small but clinically irrelevant effect
+from the first model dissapeared.
+It would be interesting to see how other variables containing more information
+influence blood pressure, like \emph{PhysActiveDays} (Number of days in a typical week
+that participant does
+moderate or vigorousintensity activity).
+
+\subsection{Concluding remarks}\label{concluding-remarks}
+
+The NHANES example was a somewhat realistic instance of a multiple regression model
+which could easily be encountered in practice. In a Master thesis, we are often in
+a low-data setting with 20-150 observations. Here, the priors are much more important.
+
+\hyperref[exercise18_multiple_regression]{Exercise 18} asks you to repeat the analysis
+with a smaller sample size.
+
+We saw that we can readily adapt the model, if assumptions of the classical
+linear regression model are violated. In our case, we had to model the outcome
+as log-normal in order to allow for the model to predict skewed blood pressure values.
+In addition, we explicitly modeled heteroscedasticity by allowing the standard deviation
+to grow with the mean. Theoretically, one could build arbitrarily complex models
+this way. Of course, syntax problems and convergence issues could arise.
+Even in this example some starting values were not fit for purpose, which is why
+I had to add the \texttt{set.seed()} command in the improved model.
 
 \section{Exercises}\label{exercises-2}
 
@@ -5770,7 +5759,7 @@ one could assume, that the effect is not practically relevant.
 
 \subsection{{[}E{]} Exercise 2}\label{exercise2_multiple_regression}
 
-Consider the model equations from \hyperref[adding_transformed_predictor]{above}
+Consider the model equations from \hyperref[adding_transformed_predictor_bayes]{above}
 where we used polynomial regression to model the relationship between
 weight and height:
 
@@ -5973,6 +5962,21 @@ Go back to the improved model fit of our NHANES example \hyperref[improve_model_
   add the \(y=x\) line to the plot.
 \item
   Is the fit better compared to the first model?
+\end{itemize}
+
+\subsection{{[}H{]} Exercise 18}\label{exercise18_multiple_regression}
+
+Go back to the NHANES example \hyperref[example_nhanes]{above}.
+
+\begin{itemize}
+\tightlist
+\item
+  Repeat the NHANES analysis with a smaller sample size.
+\item
+  Draw 50-100 rows randomly from the adult NHANES data set we have used for the full
+  analysis.
+\item
+  What do you observe?
 \end{itemize}
 
 \section{TODOS}\label{todos}
