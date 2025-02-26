@@ -55,7 +55,118 @@ if we would measure repeat it an infinite number of times.
 #### Peter and Mary's ROM measurements
 
 The data can be found [here](http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html).
+We randomly select 50 measurements from Peter and Mary in 50 different patients,
+plot their measurements and annotate the absolutely largest one.
 
+```{r}
+library(pacman)
+p_load(tidyverse, readxl)
+
+# Read file
+url <- "https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls"
+temp_file <- tempfile(fileext = ".xls")
+download.file(url, temp_file, mode = "wb")  # mode="wb" is important for binary files
+df <- read_excel(temp_file)
+
+head(df)
+dim(df)
+
+# As in the book, let's randomly select 50 patients.
+set.seed(123)
+df <- df %>% sample_n(50)
+dim(df)
+
+# "as" = affected shoulder
+# "nas" = not affected shoulder
+
+df <- df %>%
+  mutate(diff = abs(ROMnas.Peter - ROMnas.Mary))  # Compute absolute difference
+
+max_diff_point <- df %>%
+  dplyr::filter(diff == max(diff, na.rm = TRUE))  # Find the row with the max difference
+
+df %>%
+ggplot(aes(x = ROMnas.Peter, y = ROMnas.Mary)) +
+  geom_point() + 
+  geom_point(data = max_diff_point, aes(x = ROMnas.Peter, y = ROMnas.Mary), 
+             color = "blue", size = 4) +  # Highlight max difference point
+  geom_abline(intercept = 0, slope = 1, color = "red") +
+  theme_minimal() +
+  ggtitle("ROMnas.Peter vs. ROMnas.Mary") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  annotate("text", x = max_diff_point$ROMnas.Peter, 
+           y = max_diff_point$ROMnas.Mary, 
+           label = paste0("Max Diff: ", round(max_diff_point$diff, 2)), 
+           vjust = -1, color = "blue", size = 4)
+
+# average abs. difference:
+mean(df$diff, na.rm = TRUE) # 7.2
+
+cor(df$ROMnas.Peter, df$ROMnas.Mary, use = "complete.obs") 
+```
+
+The red line represents the line of equality ($y=x$). If the measurements are 
+exactly the same,
+all points would lie on this line. The blue point represents the largest difference
+from the randomly chosen 50 people. Note that in the maximum difference in 
+all 155 patients is 35 degrees.
+
+The first simple meause of agreement we could use is the correlation, which
+measures the strength and direction of a linear relationship between two variables.
+But correlation does not exacly what we want. If there was a bias 
+(mary systematically measures 5 degrees more than Peter), correlation would not 
+notice this. (-> exercise later...). It actually is too optimistic about 
+the agreement since it only cares about the linearity and not about a potential bias.
+$r=0.2403213$ which indicates a weak positive correlation. Higher values of Peter's
+are associated with higher values of Mary's measurements.
+But: Knowing Peter's measurement does not help us to *predict* Mary's measurement
+at such a low correlation (-> exercise later).
+So, on the *not affected shoulder* (nas), the agreement is really bad.
+
+What about the affected shoulder (as)?
+
+```{r}
+library(ggExtra)
+df <- df %>%
+  mutate(diff = abs(ROMas.Peter - ROMas.Mary))  # Compute absolute difference
+
+max_diff_point <- df %>%
+  dplyr::filter(diff == max(diff, na.rm = TRUE))  # Find the row with the max difference
+
+p <- df %>%
+ggplot(aes(x = ROMas.Peter, y = ROMas.Mary)) +
+  geom_point() + 
+  geom_point(data = max_diff_point, aes(x = ROMas.Peter, y = ROMas.Mary), 
+             color = "blue", size = 4) +  # Highlight max difference point
+  geom_abline(intercept = 0, slope = 1, color = "red") +
+  theme_minimal() +
+  ggtitle("ROMas.Peter vs. ROMas.Mary") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  annotate("text", x = max_diff_point$ROMas.Peter, 
+           y = max_diff_point$ROMas.Mary, 
+           label = paste0("Max Diff: ", round(max_diff_point$diff, 2)), 
+           vjust = -1, color = "blue", size = 4)
+# Add marginal histograms
+ggMarginal(p, type = "density", fill = "gray", color = "black")
+
+# average abs. difference:
+mean(df$diff, na.rm = TRUE) # 7.2
+cor(df$ROMas.Peter, df$ROMas.Mary, use = "complete.obs") 
+
+# mean difference
+mean(df$ROMas.Peter - df$ROMas.Mary, na.rm = TRUE) 
+```
+
+In the affected side, the average absolute difference is even larger ($7.78$)
+with a maximum absolute difference of 37 degrees,
+but the correlation is much higher ($r=0.8516653$). See Figure 5.2 in the book.
+
+Btw, this is an an example for using the correlation coefficient even though
+the marginal distributions are not normal: There are much more measurements in the higher
+values around 80 than below, say, 60. But the correlation coefficient makes sense
+for descriptive purposes.
+
+In this case, knowing Peter's measurement helps us to (peter) predict Mary's measurement.
 
 
 ## Validity

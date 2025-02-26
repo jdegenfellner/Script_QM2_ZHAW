@@ -344,10 +344,127 @@ it is clear that measurements will not be <em>exactly</em> the same.
 Possible influences (potentially) causing different results are:</p>
 <ul>
 <li>the measurement instrument itself (e.g., the goniometer),</li>
-<li>the patient (e.g., the patient’s mood/motivation),</li>
-<li>the examiner (e.g., the examiner’s mood, influence on patient),</li>
+<li>the patient (e.g., mood/motivation),</li>
+<li>the examiner (e.g., mood, influence on patient),</li>
 <li>the environment (e.g., the room temperature).</li>
 </ul>
+<p>Note that the <strong>true score</strong> is defined in our context as the average of all measurements
+if we would measure repeat it an infinite number of times.</p>
+<div id="peter-and-marys-rom-measurements" class="section level4 hasAnchor" number="5.1.0.1">
+<h4><span class="header-section-number">5.1.0.1</span> Peter and Mary’s ROM measurements<a href="reliability-and-validity.html#peter-and-marys-rom-measurements" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The data can be found <a href="http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html">here</a>.
+We randomly select 50 measurements from Peter and Mary in 50 different patients,
+plot their measurements and annotate the absolutely largest one.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="reliability-and-validity.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb253-2"><a href="reliability-and-validity.html#cb253-2" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, readxl)</span>
+<span id="cb253-3"><a href="reliability-and-validity.html#cb253-3" tabindex="-1"></a></span>
+<span id="cb253-4"><a href="reliability-and-validity.html#cb253-4" tabindex="-1"></a><span class="co"># Read file</span></span>
+<span id="cb253-5"><a href="reliability-and-validity.html#cb253-5" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls&quot;</span></span>
+<span id="cb253-6"><a href="reliability-and-validity.html#cb253-6" tabindex="-1"></a>temp_file <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)</span>
+<span id="cb253-7"><a href="reliability-and-validity.html#cb253-7" tabindex="-1"></a><span class="fu">download.file</span>(url, temp_file, <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span>)  <span class="co"># mode=&quot;wb&quot; is important for binary files</span></span>
+<span id="cb253-8"><a href="reliability-and-validity.html#cb253-8" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(temp_file)</span>
+<span id="cb253-9"><a href="reliability-and-validity.html#cb253-9" tabindex="-1"></a></span>
+<span id="cb253-10"><a href="reliability-and-validity.html#cb253-10" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##   patcode ROMnas.Mary ROMnas.Peter ROMas.Mary ROMas.Peter
+##     &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+## 1       1          90           92         88          95
+## 2       2          82           88         82          90
+## 3       3          82           88         57          59
+## 4       4          89           89         82          81
+## 5       5          80           82         48          40
+## 6       6          90           96         99          85</code></pre>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="reliability-and-validity.html#cb255-1" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<pre><code>## [1] 155   5</code></pre>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="reliability-and-validity.html#cb257-1" tabindex="-1"></a><span class="co"># As in the book, let&#39;s randomly select 50 patients.</span></span>
+<span id="cb257-2"><a href="reliability-and-validity.html#cb257-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb257-3"><a href="reliability-and-validity.html#cb257-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">50</span>)</span>
+<span id="cb257-4"><a href="reliability-and-validity.html#cb257-4" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<pre><code>## [1] 50  5</code></pre>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="reliability-and-validity.html#cb259-1" tabindex="-1"></a><span class="co"># &quot;as&quot; = affected shoulder</span></span>
+<span id="cb259-2"><a href="reliability-and-validity.html#cb259-2" tabindex="-1"></a><span class="co"># &quot;nas&quot; = not affected shoulder</span></span>
+<span id="cb259-3"><a href="reliability-and-validity.html#cb259-3" tabindex="-1"></a></span>
+<span id="cb259-4"><a href="reliability-and-validity.html#cb259-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb259-5"><a href="reliability-and-validity.html#cb259-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">abs</span>(ROMnas.Peter <span class="sc">-</span> ROMnas.Mary))  <span class="co"># Compute absolute difference</span></span>
+<span id="cb259-6"><a href="reliability-and-validity.html#cb259-6" tabindex="-1"></a></span>
+<span id="cb259-7"><a href="reliability-and-validity.html#cb259-7" tabindex="-1"></a>max_diff_point <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb259-8"><a href="reliability-and-validity.html#cb259-8" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(diff <span class="sc">==</span> <span class="fu">max</span>(diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  <span class="co"># Find the row with the max difference</span></span>
+<span id="cb259-9"><a href="reliability-and-validity.html#cb259-9" tabindex="-1"></a></span>
+<span id="cb259-10"><a href="reliability-and-validity.html#cb259-10" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb259-11"><a href="reliability-and-validity.html#cb259-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ROMnas.Peter, <span class="at">y =</span> ROMnas.Mary)) <span class="sc">+</span></span>
+<span id="cb259-12"><a href="reliability-and-validity.html#cb259-12" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb259-13"><a href="reliability-and-validity.html#cb259-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> max_diff_point, <span class="fu">aes</span>(<span class="at">x =</span> ROMnas.Peter, <span class="at">y =</span> ROMnas.Mary), </span>
+<span id="cb259-14"><a href="reliability-and-validity.html#cb259-14" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Highlight max difference point</span></span>
+<span id="cb259-15"><a href="reliability-and-validity.html#cb259-15" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb259-16"><a href="reliability-and-validity.html#cb259-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb259-17"><a href="reliability-and-validity.html#cb259-17" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;ROMnas.Peter vs. ROMnas.Mary&quot;</span>) <span class="sc">+</span></span>
+<span id="cb259-18"><a href="reliability-and-validity.html#cb259-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb259-19"><a href="reliability-and-validity.html#cb259-19" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> max_diff_point<span class="sc">$</span>ROMnas.Peter, </span>
+<span id="cb259-20"><a href="reliability-and-validity.html#cb259-20" tabindex="-1"></a>           <span class="at">y =</span> max_diff_point<span class="sc">$</span>ROMnas.Mary, </span>
+<span id="cb259-21"><a href="reliability-and-validity.html#cb259-21" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Max Diff: &quot;</span>, <span class="fu">round</span>(max_diff_point<span class="sc">$</span>diff, <span class="dv">2</span>)), </span>
+<span id="cb259-22"><a href="reliability-and-validity.html#cb259-22" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="reliability-and-validity.html#cb260-1" tabindex="-1"></a><span class="co"># average abs. difference:</span></span>
+<span id="cb260-2"><a href="reliability-and-validity.html#cb260-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 7.2</span></span></code></pre></div>
+<pre><code>## [1] 7.2</code></pre>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="reliability-and-validity.html#cb262-1" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>ROMnas.Peter, df<span class="sc">$</span>ROMnas.Mary, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
+<pre><code>## [1] 0.2403213</code></pre>
+<p>The red line represents the line of equality (<span class="math inline">\(y=x\)</span>). If the measurements are
+exactly the same,
+all points would lie on this line. The blue point represents the largest difference
+from the randomly chosen 50 people. Note that in the maximum difference in
+all 155 patients is 35 degrees.</p>
+<p>The first simple meause of agreement we could use is the correlation, which
+measures the strength and direction of a linear relationship between two variables.
+But correlation does not exacly what we want. If there was a bias
+(mary systematically measures 5 degrees more than Peter), correlation would not
+notice this. (-&gt; exercise later…). It actually is too optimistic about
+the agreement since it only cares about the linearity and not about a potential bias.
+<span class="math inline">\(r=0.2403213\)</span> which indicates a weak positive correlation. Higher values of Peter’s
+are associated with higher values of Mary’s measurements.
+But: Knowing Peter’s measurement does not help us to <em>predict</em> Mary’s measurement
+at such a low correlation (-&gt; exercise later).
+So, on the <em>not affected shoulder</em> (nas), the agreement is really bad.</p>
+<p>What about the affected shoulder (as)?</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="reliability-and-validity.html#cb264-1" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb264-2"><a href="reliability-and-validity.html#cb264-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb264-3"><a href="reliability-and-validity.html#cb264-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">abs</span>(ROMas.Peter <span class="sc">-</span> ROMas.Mary))  <span class="co"># Compute absolute difference</span></span>
+<span id="cb264-4"><a href="reliability-and-validity.html#cb264-4" tabindex="-1"></a></span>
+<span id="cb264-5"><a href="reliability-and-validity.html#cb264-5" tabindex="-1"></a>max_diff_point <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb264-6"><a href="reliability-and-validity.html#cb264-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(diff <span class="sc">==</span> <span class="fu">max</span>(diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  <span class="co"># Find the row with the max difference</span></span>
+<span id="cb264-7"><a href="reliability-and-validity.html#cb264-7" tabindex="-1"></a></span>
+<span id="cb264-8"><a href="reliability-and-validity.html#cb264-8" tabindex="-1"></a>p <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb264-9"><a href="reliability-and-validity.html#cb264-9" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ROMas.Peter, <span class="at">y =</span> ROMas.Mary)) <span class="sc">+</span></span>
+<span id="cb264-10"><a href="reliability-and-validity.html#cb264-10" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb264-11"><a href="reliability-and-validity.html#cb264-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> max_diff_point, <span class="fu">aes</span>(<span class="at">x =</span> ROMas.Peter, <span class="at">y =</span> ROMas.Mary), </span>
+<span id="cb264-12"><a href="reliability-and-validity.html#cb264-12" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Highlight max difference point</span></span>
+<span id="cb264-13"><a href="reliability-and-validity.html#cb264-13" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb264-14"><a href="reliability-and-validity.html#cb264-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb264-15"><a href="reliability-and-validity.html#cb264-15" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;ROMas.Peter vs. ROMas.Mary&quot;</span>) <span class="sc">+</span></span>
+<span id="cb264-16"><a href="reliability-and-validity.html#cb264-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb264-17"><a href="reliability-and-validity.html#cb264-17" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> max_diff_point<span class="sc">$</span>ROMas.Peter, </span>
+<span id="cb264-18"><a href="reliability-and-validity.html#cb264-18" tabindex="-1"></a>           <span class="at">y =</span> max_diff_point<span class="sc">$</span>ROMas.Mary, </span>
+<span id="cb264-19"><a href="reliability-and-validity.html#cb264-19" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Max Diff: &quot;</span>, <span class="fu">round</span>(max_diff_point<span class="sc">$</span>diff, <span class="dv">2</span>)), </span>
+<span id="cb264-20"><a href="reliability-and-validity.html#cb264-20" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span>
+<span id="cb264-21"><a href="reliability-and-validity.html#cb264-21" tabindex="-1"></a><span class="co"># Add marginal histograms</span></span>
+<span id="cb264-22"><a href="reliability-and-validity.html#cb264-22" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">&quot;density&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="reliability-and-validity.html#cb265-1" tabindex="-1"></a><span class="co"># average abs. difference:</span></span>
+<span id="cb265-2"><a href="reliability-and-validity.html#cb265-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 7.2</span></span></code></pre></div>
+<pre><code>## [1] 7.78</code></pre>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="reliability-and-validity.html#cb267-1" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>ROMas.Peter, df<span class="sc">$</span>ROMas.Mary, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
+<pre><code>## [1] 0.8516653</code></pre>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="reliability-and-validity.html#cb269-1" tabindex="-1"></a><span class="co"># mean difference</span></span>
+<span id="cb269-2"><a href="reliability-and-validity.html#cb269-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>ROMas.Peter <span class="sc">-</span> df<span class="sc">$</span>ROMas.Mary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<pre><code>## [1] 1.22</code></pre>
+<p>In the affected side, the average absolute difference is even larger (<span class="math inline">\(7.78\)</span>)
+with a maximum absolute difference of 37 degrees,
+but the correlation is much higher (<span class="math inline">\(r=0.8516653\)</span>). See Figure 5.2 in the book.</p>
+<p>Btw, this is an an example for using the correlation coefficient even though
+the marginal distributions are not normal: There are much more measurements in the higher
+values around 80 than below, say, 60. But the correlation coefficient makes sense
+for descriptive purposes.</p>
+</div>
 </div>
 <div id="validity" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Validity<a href="reliability-and-validity.html#validity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -356,6 +473,7 @@ Possible influences (potentially) causing different results are:</p>
 <div id="todos" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> TODOS<a href="reliability-and-validity.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
+<li>Bayes ICC</li>
 <li>mention missing values, missingness mechanisms -&gt; Methodenvertiefung</li>
 <li>Logistic Regression, Poisson, -&gt; Methodenvertiefung</li>
 <li>Exercise: Show by simulation what Gelman talks about with significant p values. So I scan the data
