@@ -30,11 +30,40 @@ Kai jump starts you on reliability and validity.
 You can watch this [video](https://www.youtube.com/watch?v=9HSoWaRpcys&ab_channel=Physiotutors) 
 to get started.
 
+Imagine, you measure a patient (pick your favorite measurement), for example,
+the range of motion (ROM) of the shoulder. 
+
+- If you are interested in how
+  similar your measurements are in comparison to your colleagues, you are 
+  trying to determine the so-called **inter-rater reliability**.
+- If you are interested in how similar your measurements are when you measure
+  the same patient twice, you are trying to determine the so-called 
+  **intra-rater reliability**.
+
+Assuming there is a true (but unknown) underlying value (of ROM), 
+it is clear that measurements will not be *exactly* the same. 
+Possible influences (potentially) causing different results are:
+
+- the measurement instrument itself (e.g., the goniometer),
+- the patient (e.g., mood/motivation),
+- the examiner (e.g., mood, influence on patient),
+- the environment (e.g., the room temperature).
+
+Note that the **true score** is defined in our context as the average of all measurements
+if we would measure repeat it an infinite number of times.
+
+#### Peter and Mary's ROM measurements
+
+The data can be found [here](http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html).
+
+
+
 ## Validity
 ...
 
 ## TODOS
 
+- Bayes ICC
 - mention missing values, missingness mechanisms -> Methodenvertiefung
 - Logistic Regression, Poisson, -> Methodenvertiefung
 - Exercise: Show by simulation what Gelman talks about with significant p values. So I scan the data
