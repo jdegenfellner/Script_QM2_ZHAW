@@ -1,0 +1,51 @@
+# Reliability and Validity
+
+For this chapter we refer to the book 
+[Measurement in Medicine](https://www.cambridge.org/core/books/measurement-in-medicine/8BD913A1DA0ECCBA951AC4C1F719BCC5).
+
+I invite you to read the introductory chapters 1 and 2 about concepts,
+theories and models, and types of measurement.
+
+In general, when conducting a measurement of any sort 
+(laboratory measurements, scores from questionnaires, etc.), 
+we want to be reasonably sure
+
+- that we actually **measure what we intend to measure**; 
+  ([validity](https://en.wikipedia.org/wiki/Validity_(statistics)); 
+  chapter 6 in the book);
+- that the measurement does **not change too much** if the 
+  underlying **conditions are the same**
+  ([reliability](https://en.wikipedia.org/wiki/Reliability_(statistics)); 
+  chapter 5 in the book); and
+- that we are able to detect a **change** if the underlying conditions change 
+  ([responsiveness](https://tinyurl.com/3vdcxy49); chapter 7 in the book); and
+- that we understand the meaning of a change in the measurement
+  (interpretability; chapter 8 in the book).
+
+In this [video](https://www.youtube.com/watch?v=KuT2n1w0Ixc&ab_channel=Physiotutors), 
+Kai jump starts you on reliability and validity.
+
+
+## Reliability
+You can watch this [video](https://www.youtube.com/watch?v=9HSoWaRpcys&ab_channel=Physiotutors) 
+to get started.
+
+## Validity
+...
+
+## TODOS
+
+- mention missing values, missingness mechanisms -> Methodenvertiefung
+- Logistic Regression, Poisson, -> Methodenvertiefung
+- Exercise: Show by simulation what Gelman talks about with significant p values. So I scan the data
+  for significant p values and then simulate data with the same effect size and see how often
+  I get significant p values. Especially the next effect would be probably smaller,
+  especially, if one did p-hacking! Calculate a priori probability for replication (def?).
+- Chapter: Sample size calculations for multivariate regression, Proportions, ICCs, t.test
+- Chapter about Reliability, Validity and ICCs (incl. simulation of what an ICC of 0.9 or so means), but maybe reduced
+- Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt), 
+  ist diese Situation möglich?
+- What about papers? -> eLearning
+- AIC, BIC, cross-validation, Model selection (best subset, leaps....), Variable selection
+- More on bias variance tradeoff, show for polynomial regression?
+- include eLearning tasks in script.
