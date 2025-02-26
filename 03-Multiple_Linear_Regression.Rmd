@@ -1719,6 +1719,10 @@ Summarizing the results, we find the expected direction of association in our fi
 The effect of physical activity on blood pressure was negative. 
 After improving the model fit, we concluded that the small but clinically irrelevant effect
 from the first model dissapeared.
+It would be interesting to see how other variables containing more information 
+influence blood pressure, like *PhysActiveDays* (Number of days in a typical week 
+that participant does 
+moderate or vigorousintensity activity).
 
 
 ## Exercises
