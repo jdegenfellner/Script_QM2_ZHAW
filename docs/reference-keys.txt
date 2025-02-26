@@ -96,8 +96,8 @@ statistical-model
 priors-1
 prior_predictive_checks_NHANES
 fit-and-check-model
-fit-model-using-lm
-improve-model
+fit-model-using-lm-frequentist-approach
+improve_model_NHANES
 interpret-and-report-results
 exercises-2
 exercise1_multiple_regression
@@ -115,4 +115,6 @@ exercise12_multiple_regression
 exercise13_multiple_regression
 exercise14_multiple_regression
 exercise15_multiple_regression
+exercise16_multiple_regression
+exercise17_multiple_regression
 todos

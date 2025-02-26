@@ -350,19 +350,93 @@ ggplot(df_age, aes(x = BPSysAve)) +
 sum(is.na(df)) # 0
 m_NHANES_gamma <- quap(
   alist(
-    BPSysAve ~ dnorm(mu, sigma), 
+    BPSysAve ~ dnorm(mu, sigma), # TODO change to gamma!!!
     sigma <- exp(beta_4 + beta_5 * mu),
     mu <- beta_0 + beta_1[PhysActive] + beta_2 * (Age - Age_mean) + beta_3[Gender],
     beta_0 ~ dnorm(140, 10),  # Narrowed prior to avoid extreme values
-    beta_1[PhyActive] ~ dnorm(0, 10),  # Explicitly define factor levels for PhysActive
+    beta_1[PhysActive] ~ dnorm(0, 10),  # Explicitly define factor levels for PhysActive
     beta_2 ~ dnorm(0, 10),
     beta_3[Gender] ~ dnorm(0, 10),  # Explicitly define factor levels for Gender
     beta_4 ~ dnorm(0, 10),  # Start with a more stable mean log-scale SD
     beta_5 ~ dnorm(0, 10)  # Prevent extreme changes in `sigma`
   ),
   data = df,
-  start = list(beta_0 = 140, beta_1 = c(0, 0), beta_2 = 0, beta_3 = c(0, 0), beta_4 = -1, beta_5 = 0)
+  start = list(beta_0 = 140, beta_1 = c(0.5, 0), beta_2 = 0, beta_3 = c(0.5, 0), beta_4 = 1, beta_5 = 0)
 )
 
 # Show results
-precis(m_NHANES_gamma)
+precis(m_NHANES_gamma, depth = 2)
+
+# dfference in levels of PhysActive and Gender:
+post_gamma <- extract.samples(m_NHANES_gamma)
+post_gamma$diff_PhysActive <- post_gamma$beta_1[,2] - post_gamma$beta_1[,1]
+post_gamma$diff_G <- post_gamma$beta_3[,2] - post_gamma$beta_3[,1]
+precis(post_gamma, depth = 2)
+
+# histrogram of posterior of BPSysAve:
+sample_BP <- sim(m_NHANES_gamma, n = 1000)
+
+# Convert the first 100 rows of the posterior samples into a long format for ggplot
+df_posterior <- as.data.frame(t(sample_BP[1:100,])) %>%
+  pivot_longer(cols = everything(), names_to = "Simulation", values_to = "BPSysAve_sim")
+
+# Create the plot
+ggplot() +
+  # Original BPSysAve density in green
+  geom_density(data = df, aes(x = BPSysAve), color = "green", linewidth = 1.2) +
+  # Posterior densities as individual lines in blue with transparency
+  geom_density(data = df_posterior, aes(x = BPSysAve_sim, group = Simulation), 
+               color = "lightblue", alpha = 0.05) +
+  labs(title = "Density Estimation: Original vs. Posterior Samples",
+       x = "Systolic Blood Pressure",
+       y = "Density") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+
+
+set.seed(122)
+m_NHANES_lnorm <- quap(
+  alist(
+    BPSysAve ~ dlnorm(lmu, lsd), # TODO change 
+    lsd <- exp(beta_4 + beta_5 * lmu),
+    lmu <- beta_0 + beta_1[PhysActive] + beta_2 * (Age - Age_mean) + beta_3[Gender],
+    beta_0 ~ dnorm(140, 10),  # 
+    beta_1[PhysActive] ~ dnorm(0, 10),  # 
+    beta_2 ~ dnorm(0, 10),
+    beta_3[Gender] ~ dnorm(0, 10),  # 
+    beta_4 ~ dnorm(0, 10),  # 
+    beta_5 ~ dnorm(0, 10)  #
+  ),
+  data = df,
+  start = list(beta_0 = 140, beta_1 = c(0.5, 0), beta_2 = 0, beta_3 = c(0.5, 0), beta_4 = 1, beta_5 = 0)
+)
+
+precis(m_NHANES_lnorm, depth = 2)
+
+# difference in levels of PhysActive and Gender (catorical variables):
+post_lnorm <- extract.samples(m_NHANES_lnorm)
+post_lnorm$diff_PhysActive <- post_lnorm$beta_1[,2] - post_lnorm$beta_1[,1]
+post_lnorm$diff_G <- post_lnorm$beta_3[,2] - post_lnorm$beta_3[,1]
+precis(post_lnorm, depth = 2)
+
+# posterior predictive checks
+sample_BP <- sim(m_NHANES_lnorm, n = 1000)
+
+# Convert the first 100 rows of the posterior samples into a long format for ggplot
+df_posterior <- as.data.frame(t(sample_BP[1:100,])) %>%
+  pivot_longer(cols = everything(), names_to = "Simulation", values_to = "BPSysAve_sim")
+
+# Create the plot
+ggplot() +
+  geom_density(data = df_posterior, aes(x = BPSysAve_sim, group = Simulation), 
+               color = "lightblue", alpha = 0.05) +
+  geom_density(data = df, aes(x = BPSysAve), color = "green", linewidth = 1.2) +
+  labs(title = "Density Estimation: Original vs. Posterior Samples",
+       x = "Systolic Blood Pressure",
+       y = "Density") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+

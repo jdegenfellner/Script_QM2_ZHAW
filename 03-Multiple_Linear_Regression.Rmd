@@ -1276,11 +1276,11 @@ As an exercise, please do exploratory data analysis;
 see [exercise 14](#exercise14_multiple_regression).
 
 #### Research question 
-Does *Physical activity* (PhysActive) influence the *average systolic 
+Does *Physical activity* (PhysActive) **influence** the *average systolic 
 blood pressure* (BPSysAve) in adults ($\ge 20$ years)?
 
 We propose the following relationships among the variables 
-(we limit ourselves to 4 covariates):
+(and limit ourselves to 4 covariates):
 
 ```{r}
 df <- NHANES # shorter
@@ -1313,7 +1313,7 @@ ggdag(dag) +
 ```
 
 This DAG illustrates the hypothesized relationships between physical activity, 
-age, BMI, gender, and blood pressure (BPSysAve). Physical activity directly 
+age, BMI, gender, and blood pressure (BPSysAve). Physical activity potentially directly 
 influences blood pressure, as regular exercise is hypothesized to improve 
 cardiovascular health and lower blood pressure. Age has a direct effect on 
 blood pressure, as arterial stiffness and other age-related physiological changes 
@@ -1325,52 +1325,60 @@ physiological differences.
 
 There are also indirect pathways that contribute to these relationships. 
 Age influences both physical activity and BMI, as older individuals tend to 
-be less active and may experience weight gain due to metabolic changes. 
+be less active and may experience weight gain due to metabolic changes (confounder). 
 BMI and physical activity are also interconnected, physical activity influences BMI, 
 further influencing blood 
 pressure (mediation). Gender plays a role in both BMI and physical activity, 
 as men and women tend to have different average BMI distributions 
-and physical activity levels due to both biological and societal factors.
+and physical activity levels due to both biological and societal factors (confounder).
 
-Note, that we have a very large sample size (10,000 rows). As exercise for later,
+Note, that we have a very large sample size (6,919 people). As exercise for later,
 we randomly select 50 to 100 participants and repeat the analysis.
 This would also give us the opportunity to study how well we can
-infer the relationships in the larger sample from the smaller one.
+infer the relationships in the larger sample from the smaller one,
+which could be an eye-opener.
 
-Which variables should be included in the model?
+**Which variables should be included in the model?**
 
 ```{r}
-impliedConditionalIndependencies(dag)
 adjustmentSets(dag, exposure = "PhysActive", outcome = "BPSysAve")
+impliedConditionalIndependencies(dag)
 ```
 
-The one adjustment set proposed by `dagitty` tells us that we should include
-Age and Gender as covariates in the model, if the DAG is correct.
-Note that we do not include all three covariables in the model, just two of them.
+The one adjustment set (using the command `adjustmentSets`) proposed by `dagitty` tells us that 
+we should include age and gender as covariates in the model (in addition to *PhysActive*), 
+*if* the DAG is correct.
+Note that **we do not include all three covariables in the model here**, just two of them.
 
-We should probably check the implied conditional independencies to see how this is 
-done:
+*If* the DAG is correct, this would imply some conditional independencies
+(using the command `impliedConditionalIndependencies`) .
+We should probably check them to see how this is done:
 
-First, we need to test, if Age and BMI are independent, *if* we condition on Gender and Physical Activity.
-This is the case.
+First, we need to test, if age and BMI are independent, 
+*if* we condition on gender and physical activity;
+i.e., just add the to the regression model.
+This is the case:
 
 ```{r}
 # Age _||_ BMI | Gnder, PhyA
 summary(lm(Age ~ BMI + Gender + PhysActive, data = df %>% dplyr::filter(Age >= 20)))
 ```
 
-This implication can be confirmed. 
-Interpretation: If we know the Gender and Physical Activity of a person,
-BMI does not offer any *additional* information about Age.
+The implication can be confirmed. 
+
+**Interpretation**: If we know gender and physical activity (yes/no) of a person,
+BMI does not offer any *additional* information about age.
 
 Second, I would go out on a limb and say that there is no relationship 
-between Age and Gender, at least not statistically relevant.
+between age and gender, at least not in a statistically relevant sense.
 
 
 #### Goal
 
 The **goal** is to better understand (explain) the relationship between 
-physical activity and blood pressure while considering Age, BMI and Gender. 
+physical activity and blood pressure while considering age, BMI and gender. 
+I would suggest that in most cases relevant for us, one wants to understand
+relationships rather to predict an outcome.
 
 #### EDA
 [Exercise 14](#exercise14_multiple_regression)
@@ -1379,18 +1387,20 @@ physical activity and blood pressure while considering Age, BMI and Gender.
 
 The outcome is a continuous variable (blood pressure), the exposure is a binary 
 variable (physical activity yes/no). 
-We could try a **multiple linear regression model** here.
+Surprise, surprise, we could try a **multiple linear regression model** here.
 
-As a first approximation, let's assume BPSysAve is (sufficiently) normally distributed,
-which can be critized. Let's quickly visualize the distribution of BPSysAve:
+As a first approximation, let's assume *BPSysAve* is (sufficiently) normally distributed,
+which can be critized. Let's quickly visualize the distribution of*BPSysAve* and overlay
+a normal density with paramaters estimated from the data ($\mu$ sample mean of *BPSysAve*, 
+$\sigma$ sample standard deviation of *BPSysAve*):
 
 ```{r, warning=FALSE}
 df_age <- df %>% dplyr::filter(Age >= 20)
 df_age %>%
   ggplot(aes(x = BPSysAve)) +
   geom_histogram(aes(y = after_stat(density)), 
-  bins = 30, fill = "lightblue", alpha = 0.6) +  # Ensure density scaling
-  geom_density(color = "blue", linewidth = 1) +  # Smoothed density of actual data
+  bins = 30, fill = "lightblue", alpha = 0.6) +  
+  geom_density(color = "blue", linewidth = 1) +  
   stat_function(
     fun = dnorm, 
     args = list(mean = mean(df_age$BPSysAve, na.rm = TRUE), 
@@ -1405,35 +1415,39 @@ df_age %>%
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
 ```
+Not quite normal, but we will assume it for now.
 
 #### Priors
 
 Now, let's write down the statistical model.
-We choose vague priors for now since we have a vast data set.
-The advantage of the Bayesian approach remains that we have a fully 
-probabilistic model.
+We choose vague priors since we have a vast data set.
+The advantage of the Bayesian approach remains (that we have a fully 
+probabilistic model). Admitted, using Bayes is much more technical, at least
+at first glance.
 
-We center Age again, which makes the interpretation of the intercept easier.
+We center age again, which makes the interpretation of the intercept easier.
 
-- The intercept ($\beta_0$) is the expected value of BPSysAve for a person 
+- The intercept ($\beta_0$) is the expected value of *BPSysAve* for a person 
   of average age, not physically active (reference level of the factor) and 
-  female Gender (reference level of the factor).
+  female gender (reference level of the factor).
 
-- The coefficient for PhysActive ($\beta_1$) is the expected difference in 
-  BPSysAve between a physically active person and a non-physically active person, 
-  holding all other predictors constant. BPSysAve ranges from 78 to 226.
+- The coefficient for *PhysActive* ($\beta_1$) is the expected difference in 
+  *BPSysAve* between a physically active person and a non-physically active person, 
+  holding all other predictors constant. *BPSysAve* ranges from 78 to 226 mmHg.
   If we do not know enough, we can just take a very vague prior for now:
   $\beta_1 \sim \text{Normal}(0, 50)$. With 95% probability, the effect of
-  physical activity on BPSysAve is between -100 and 100.
+  physical activity on *BPSysAve* is between -100 and 100.
 
-- $beta_2$: The expected change in BPSysAve for a one-year increase in Age 
+- $beta_2$: The expected change in *BPSysAve* for a one-year increase in age 
   (above the mean age), holding all other predictors constant. 
   $\beta_2 \sim \text{Normal}(0, 10)$. This effect should be comparatively small,
-  since we are dealing with a one-year increase in Age.
+  since we are dealing with a one-year increase in age. We could further 
+  standardize age, then the effect would be in relation to one standard 
+  deviations increase in age.
 
 - $\sigma$: The standard deviation of the residuals. 
   $\sigma \sim \text{Uniform}(0, 50)$. We use a vague prior.
-  95% of the residuals are between -100 and 100. This seems plausible
+  95% of the residuals are between -100 and 100. This seems plausible enough.
 
 \begin{eqnarray*}
 BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma)\\
@@ -1445,7 +1459,7 @@ BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 \sigma &\sim& \text{Uniform}(0, 50)
 \end{eqnarray*}
 
-Note, that Age and Gender are not influenced by each other.
+Note that age and gender are not influenced by each other.
 
 #### Prior Predictive Checks {#prior_predictive_checks_NHANES}
 Now we simply draw from the priors and thereby generate systolic blood pressure values.
@@ -1462,10 +1476,12 @@ sigma_vec <- runif(n_sims, 0, 50)
 BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
 ```
 
-This yields also negative values for BPSysAve, which is not plausible.
+This yields also negative values (please verify) for* BPSysAve*, which is not plausible.
 
 In [exercise 15](#exercise15_multiple_regression) we will play around with the priors 
 until the prior predictive check producues plausible values. 
+**Admitted**, one should probably not look at the distribution of data while doing this.
+On the other hand, we could have just Googled the distribution of blood pressure values.
 This is the result:
 
 ```{r}
@@ -1499,37 +1515,34 @@ ggplot(df_long, aes(x = BPSysAve, fill = Type)) +
     y = "Density", 
     title = "Observed vs. Simulated Systolic Blood Pressure"
   ) +
-  scale_fill_manual(values = c("Observed" = "blue", "Simulated" = "red")) +  # Custom colors
+  scale_fill_manual(values = c("Observed" = "blue", "Simulated" = "red")) + 
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-Looks decent.
+Looks decent. Not quite there yet. 
+The blood pressure values have a smaller variances and are skewed.
+Let's nevertheless fit the model.
 
 #### Fit and check model
  We use `quap` for the model fitting.
 
 ```{r}
-# Fit the model
-df <- NHANES # shorter
-df <- df %>%
-  mutate(
-    PhysActive_index = as.integer(as.factor(PhysActive)),  # Convert to factor index (1-based)
-    Gender_index = as.integer(as.factor(Gender))  # Convert to factor index (1-based)
-  )
 library(data.table)
+df <- NHANES
 df <- as.data.table(df)
 
 # Compute age mean for centering
-Age_mean <- mean(df[Age >= 20,]$Age, na.rm = TRUE)
+Age_mean <- mean(df[Age >= 20,]$Age, na.rm = TRUE) # adults
 
-# Fit Bayesian model
-
+# Filter age
 df <- df %>% dplyr::filter(Age >= 20) %>% 
   dplyr::select(BPSysAve, PhysActive, Age, Gender, BMI) %>%
   drop_na()
 dim(df) # 6919    7
 sum(is.na(df)) # 0
+
+# Fit model
 m_NHANES <- quap(
   alist(
     BPSysAve ~ dnorm(mu, sigma), 
@@ -1546,6 +1559,7 @@ m_NHANES <- quap(
 precis(m_NHANES, depth = 2)
 
 # We want to know the expected difference for the levels of PhysActive and Gender:
+# (which is not directly visible in the summary)
 post <- extract.samples(m_NHANES)
 post$diff_PhysActive <- post$beta_1[,2] - post$beta_1[,1]
 post$diff_G <- post$beta_3[,2] - post$beta_3[,1]
@@ -1553,13 +1567,20 @@ post$diff_G <- post$beta_3[,2] - post$beta_3[,1]
 library(conflicted)
 conflicts_prefer(posterior::sd)
 precis(post, depth = 2)
-
 ```
 
-#### Fit model using `lm`
+The summary tells us that `diff_PhysActive` is $-0.74$ with a large proportion
+of the posterior $<0$. Please research if this is a clinically relevant difference.
+My guess is: no.
+
+#### Fit model using `lm` (Frequentist approach)
+
+We can also fit the model using the Frequentist approach.
+No priors. The results should be very similar due to the large sample size.
 
 ```{r}
 library(car)
+dim(df) 
 df <- df %>% mutate(Age_center = Age - mean(Age))
 mod <- lm(BPSysAve ~ PhysActive + Age_center + Gender, data = df)
 summary(mod)
@@ -1567,74 +1588,53 @@ check_model(mod)
 qqPlot(mod) # bad
 ```
 
+The results are similar to the Bayesian approach.
+In the summary output we see that the effect of physical activity is $-0.73693$
+with a small $p$-value ($0.051$). This is one example for the absurdity of strict cutoffs
+for $p$-values. The other coefficients including the estimate for $\sigma$ are also similar.
+It's alsways a good idea to double-check. 
+
 Model fit could be better, the model thinks the blood pressure is normally distributed.
 There also seems to be some heteroscadasticity and the residuals are not normally distributed.
 
-Usually, one would fit the model by throwing in all variables including BMI.
+**Usually**, one would fit this model by throwing in all variables into the model, including BMI.
 Let's see if this approach changes the results:
 
 ```{r}
-mod <- lm(BPSysAve ~ PhysActive + Age + Gender  + BMI, data = df)
+mod <- lm(BPSysAve ~ PhysActive + Age + Gender  + BMI, data = df) # add BMI
 summary(mod)
 check_model(mod)
-qqPlot(mod) # 
+qqPlot(mod) 
 ```
 
-This changed the results notable. Before, the effect of physical activity was $ -0.73693$
+**This changed the results notably**. Before, the effect of physical activity was $-0.73693$
 with a rather small $p$-value,
-not it is $-0.22870$ with a $p$-value ten times as large.
+now it is $-0.22870$ with a $p$-value ten times as large.
 
-**Notice this**: The interpretation of a whole paper could change by falsely including
-and additional variable (in this case BMI).
+**Remember this**: The interpretation of a whole paper could change by falsely including
+an additional variable (in this case BMI).
 
-#### Improve model
-Now, that we have seen that the model fit is not perfect, we could try to improve it.
-First order of business is the non-normality of the blood pressure values (outcome).
+#### Improve model {#improve_model_NHANES}
+Now, that we have seen that the model fit is probably not sufficient, we could try to improve it.
+
+**First** order of business is the **non-normality** of the blood pressure values (outcome).
+The model predicts normally distributed values, which is not the case.
 It seems that the blood pressure values are right-skewed.
 
-Let's try a gamma distribution for the outcome variable:
+Let's try a log-normal distribution for the outcome variable, which only 
+takes positive values and is skewed. 
 
-```{r}
-library(fitdistrplus)  # For fitting distributions
+We would **further** try to model $\sigma$ as a linear function of $\mu$.
+For higher expected values of *BPSysAve*, we would expect higher variability.
+Hence, we try to **explicitely model heteroscadasticity**.
 
-# Remove NA values before fitting
-bps_values <- as.numeric(na.omit(df_age$BPSysAve))
-
-# Fit a Gamma distribution
-gamma_fit <- fitdist(bps_values, "gamma")
-gamma_fit$estimate
-
-library(ggplot2)
-
-ggplot(df_age, aes(x = BPSysAve)) +
-  geom_histogram(aes(y = ..density..), bins = 30, fill = "lightblue", alpha = 0.6) +
-  geom_density(color = "blue", size = 1) +  # Smoothed density of actual data
-  stat_function(
-    fun = dgamma,
-    args = list(shape = gamma_fit$estimate["shape"], rate = gamma_fit$estimate["rate"]),
-    color = "purple", size = 1, linetype = "dashed"
-  ) +  # Gamma distribution
-  labs(
-    x = "Systolic Blood Pressure (BPSysAve)", 
-    y = "Density", 
-    title = "Distribution of Systolic Blood Pressure with Weibull & Gamma Fits"
-  ) +
-  theme_minimal() +
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-Looks better than the normal distribution. We could have also used vague
-priors for the gamma parameters since we have a large sample size.
-
-We would further try to model $\sigma$ as a linear function of $\mu$.
-For higher expected values of BPSysAve, we would expect higher variability.
-Hence, we try to explicitely model heteroscadasticity.
-
-Note, that we have not problem with adding parameters to the model 
+Note, that we have no problem with adding parameters to the model 
 because of the large sample size.
 
+See [exercise 16](#exercise16_multiple_regression).
+
 \begin{eqnarray*}
-BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma_i)\\
+BPSysAve_i &\sim& \text{Log-Normal}(\mu_i, \sigma_i)\\
 \sigma_i &=& \text{exp}(\beta_4 + \beta_5 \cdot \mu_i)\\
 \mu_i &=& \beta_0 + \beta_1 \cdot PhysActive + \beta_2 \cdot Age_{centered} + \beta_3 \cdot Gender\\
 \beta_0 &\sim& \text{Normal}(140, 20)\\
@@ -1645,14 +1645,80 @@ BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma_i)\\
 \beta_5 &\sim& \text{Uniform}(0, 50)
 \end{eqnarray*}
 
+We now allow the standard deviation $\sigma_i$ to be different for different values of the mean.
+With `exp()` we ensure that $\sigma_i$ is positive.
+This time, we assume: $log(BPSysAve_i) \sim \text{Normal}(\mu_i, \sigma_i)$. That's what it means
+to be log-normally distributed.  
+
 **Fit improved model**
 
-....
+```{r}
+sum(is.na(df)) # 0
+set.seed(122)
+m_NHANES_lnorm <- quap(
+  alist(
+    BPSysAve ~ dlnorm(lmu, lsd), 
+    lsd <- exp(beta_4 + beta_5 * lmu),
+    lmu <- beta_0 + beta_1[PhysActive] + beta_2 * (Age - Age_mean) + beta_3[Gender],
+    beta_0 ~ dnorm(140, 10),  # 
+    beta_1[PhysActive] ~ dnorm(0, 10),  # 
+    beta_2 ~ dnorm(0, 10),
+    beta_3[Gender] ~ dnorm(0, 10),  # 
+    beta_4 ~ dnorm(0, 10),  # 
+    beta_5 ~ dnorm(0, 10)  #
+  ),
+  data = df,
+  start = list(beta_0 = 140, beta_1 = c(0.5, 0), beta_2 = 0, beta_3 = c(0.5, 0), beta_4 = 1, beta_5 = 0)
+)
 
+precis(m_NHANES_lnorm, depth = 2)
 
+# difference in levels of PhysActive and Gender (catorical variables):
+post_lnorm <- extract.samples(m_NHANES_lnorm)
+post_lnorm$diff_PhysActive <- post_lnorm$beta_1[,2] - post_lnorm$beta_1[,1]
+post_lnorm$diff_G <- post_lnorm$beta_3[,2] - post_lnorm$beta_3[,1]
+precis(post_lnorm, depth = 2)
+```
+
+`diff_PhysActive` is now  $-0.003350291$ with a very tight credible interval
+containing $0$ as a credible effect. The model is pretty sure, that the effect
+is practically zero.
+
+Let's vizualize the posterior predictive distributions of 100 samples:
+
+```{r}
+# posterior predictive checks
+sample_BP <- sim(m_NHANES_lnorm, n = 1000)
+
+# Convert the first 100 rows of the posterior samples into a long format for ggplot
+df_posterior <- as.data.frame(t(sample_BP[1:100,])) %>%
+  pivot_longer(cols = everything(), names_to = "Simulation", values_to = "BPSysAve_sim")
+
+# Create the plot
+ggplot() +
+  geom_density(data = df_posterior, aes(x = BPSysAve_sim, group = Simulation), 
+               color = "lightblue", alpha = 0.05) +
+  geom_density(data = df, aes(x = BPSysAve), color = "green", linewidth = 1.2) +
+  labs(title = "Density Estimation: Original vs. Posterior Samples",
+       x = "Systolic Blood Pressure",
+       y = "Density") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+With respect to the distribution of blood pressure, the model looks much better now.
+Note, that we did not assume that the residuals are normally distributed, neither
+did we assume homoscedasticity (on the contrary).
+
+See [exercise 17](#exercise17_multiple_regression).
 
 #### Interpret and report results
-....
+
+Summarizing the results, we find the expected direction of association in our first model.
+The effect of physical activity on blood pressure was negative. 
+After improving the model fit, we concluded that the small but clinically irrelevant effect
+from the first model dissapeared.
 
 
 ## Exercises
@@ -1782,11 +1848,25 @@ Go back to the NHANES model [above](#prior_predictive_checks_NHANES).
 
 - Play around with the priors until the prior predictive check produces plausible values.
 
+### [M] Exercise 16 {#exercise16_multiple_regression}
+
+Go to the improved model fit of our NHANES example [above](#improve_model_NHANES).
+
+- Draw the model hierarchy for the model.
+
+### [H] Exercise 17 {#exercise17_multiple_regression}
+
+Go back to the improved model fit of our NHANES example [above](#improve_model_NHANES).
+
+- Draw observed vs. model-predicted blood pressure values.
+- add the $y=x$ line to the plot.
+- Is the fit better compared to the first model?
+
+
+
 ## TODOS
 
-- `check_model` for 2 and more predictors...
 - mention missing values, missingness mechanisms
-- Factors, categorical variables in model...
 - Logistic Regression, Poisson, ...
 - Violations of model assumptions and how to fix them.
 - Add more Bayesian model checks, chapter 6 Gelman.

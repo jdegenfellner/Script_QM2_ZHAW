@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  25 FEB 2025 07:40
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.26)  25 FEB 2025 18:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -887,8 +887,8 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type
 
 
 [34]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 1351--1351
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea7bda406e/widget7bea35bc3548.html screenshot completed[] 
+Overfull \hbox (400.5pt too wide) in paragraph at lines 1351--1351
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa1ce42153/widget108aa4547def6.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
@@ -984,8 +984,8 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
 [49]
 
 [50]
-Overfull \hbox (384.75pt too wide) in paragraph at lines 2027--2027
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea323e100e/widget7bea89020e7.html screenshot completed[] 
+Overfull \hbox (400.5pt too wide) in paragraph at lines 2027--2027
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa750d1eb3/widget108aa305ab5ce.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file (type pdf)
@@ -1285,8 +1285,8 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
  []
 
 [91]
-Overfull \hbox (384.75pt too wide) in paragraph at lines 3628--3628
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea78896587/widget7bea468bfe4.html screenshot completed[] 
+Overfull \hbox (400.5pt too wide) in paragraph at lines 3628--3628
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa5eb7c207/widget108aa72238a25.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pdf)
@@ -1315,8 +1315,8 @@ Overfull \hbox (87.64235pt too wide) has occurred while \output is active
  []
 
 [95]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 3820--3820
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea509face4/widget7bea230fd616.html screenshot completed[] 
+Overfull \hbox (400.5pt too wide) in paragraph at lines 3820--3820
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa4db37b05/widget108aa4251ad1d.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pdf)
@@ -1461,8 +1461,8 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
 [115]
 
 [116]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 4720--4720
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpvOZZIS/file7bea2395e803/widget7bea46b32f35.html screenshot completed[] 
+Overfull \hbox (400.5pt too wide) in paragraph at lines 4720--4720
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1cF8Ch/file108aa4c84e21e/widget108aa281946d1.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type pdf)
@@ -1481,21 +1481,627 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
 
 [118]
 
-LaTeX Warning: Hyper reference `adding_transformed_predictor' on page 119 undefined on input line 4796.
-
-
-
 [119]
 
 [120]
+Overfull \hbox (43.5pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ##      ID SurveyYr Gender   Age AgeDecade AgeMonths Race1 Race3 Education[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ##   <int> <fct>    <fct>  <int> <fct>         <int> <fct> <fct> <fct>[] 
+ []
+
+
+Overfull \hbox (54.0pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## 1 51624 2009_10  male      34 " 30-39"        409 White <NA>  High School[] 
+ []
+
+
+Overfull \hbox (54.0pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## 2 51624 2009_10  male      34 " 30-39"        409 White <NA>  High School[] 
+ []
+
+
+Overfull \hbox (54.0pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## 3 51624 2009_10  male      34 " 30-39"        409 White <NA>  High School[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## 4 51625 2009_10  male       4 " 0-9"           49 Other <NA>  <NA>[] 
+ []
+
+
+Overfull \hbox (59.25pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## 5 51630 2009_10  female    49 " 40-49"        596 White <NA>  Some College[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## 6 51638 2009_10  male       9 " 0-9"          115 White <NA>  <NA>[] 
+ []
+
+
+Overfull \hbox (80.25pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## # i 67 more variables: MaritalStatus <fct>, HHIncome <fct>, HHIncomeMid <int>,[] 
+ []
+
+
+Overfull \hbox (69.75pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## #   Poverty <dbl>, HomeRooms <int>, HomeOwn <fct>, Work <fct>, Weight <dbl>,[] 
+ []
+
+
+Overfull \hbox (43.5pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## #   BMICatUnder20yrs <fct>, BMI_WHO <fct>, Pulse <int>, BPSysAve <int>,[] 
+ []
+
+
+Overfull \hbox (64.5pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## #   BPDiaAve <int>, BPSys1 <int>, BPDia1 <int>, BPSys2 <int>, BPDia2 <int>,[] 
+ []
+
+
+Overfull \hbox (33.0pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## #   BPSys3 <int>, BPDia3 <int>, Testosterone <dbl>, DirectChol <dbl>,[] 
+ []
+
+
+Overfull \hbox (59.25pt too wide) in paragraph at lines 4913--4913
+[]\TU/lmtt/m/n/10 ## #   TotChol <dbl>, UrineVol1 <int>, UrineFlow1 <dbl>, UrineVol2 <int>, ...[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ##  [1] "ID"               "SurveyYr"         "Gender"           "Age"[] 
+ []
+
+
+Overfull \hbox (33.0pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ##  [5] "AgeDecade"        "AgeMonths"        "Race1"            "Race3"[] 
+ []
+
+
+Overfull \hbox (64.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ##  [9] "Education"        "MaritalStatus"    "HHIncome"         "HHIncomeMid"[] 
+ []
+
+
+Overfull \hbox (27.75pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [13] "Poverty"          "HomeRooms"        "HomeOwn"          "Work"[] 
+ []
+
+
+Overfull \hbox (38.25pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [17] "Weight"           "Length"           "HeadCirc"         "Height"[] 
+ []
+
+
+Overfull \hbox (33.0pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [21] "BMI"              "BMICatUnder20yrs" "BMI_WHO"          "Pulse"[] 
+ []
+
+
 
 [121]
+Overfull \hbox (38.25pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [25] "BPSysAve"         "BPDiaAve"         "BPSys1"           "BPDia1"[] 
+ []
+
+
+Overfull \hbox (38.25pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [29] "BPSys2"           "BPDia2"           "BPSys3"           "BPDia3"[] 
+ []
+
+
+Overfull \hbox (54.0pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [33] "Testosterone"     "DirectChol"       "TotChol"          "UrineVol1"[] 
+ []
+
+
+Overfull \hbox (48.75pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [37] "UrineFlow1"       "UrineVol2"        "UrineFlow2"       "Diabetes"[] 
+ []
+
+
+Overfull \hbox (85.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [41] "DiabetesAge"      "HealthGen"        "DaysPhysHlthBad"  "DaysMentHlthBad"[] 
+ []
+
+
+Overfull \hbox (43.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [45] "LittleInterest"   "Depressed"        "nPregnancies"     "nBabies"[] 
+ []
+
+
+Overfull \hbox (59.25pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [49] "Age1stBaby"       "SleepHrsNight"    "SleepTrouble"     "PhysActive"[] 
+ []
+
+
+Overfull \hbox (75.0pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [53] "PhysActiveDays"   "TVHrsDay"         "CompHrsDay"       "TVHrsDayChild"[] 
+ []
+
+
+Overfull \hbox (64.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [57] "CompHrsDayChild"  "Alcohol12PlusYr"  "AlcoholDay"       "AlcoholYear"[] 
+ []
+
+
+Overfull \hbox (48.75pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [61] "SmokeNow"         "Smoke100"         "Smoke100n"        "SmokeAge"[] 
+ []
+
+
+Overfull \hbox (64.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [65] "Marijuana"        "AgeFirstMarij"    "RegularMarij"     "AgeRegMarij"[] 
+ []
+
+
+Overfull \hbox (85.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [69] "HardDrugs"        "SexEver"          "SexAge"           "SexNumPartnLife"[] 
+ []
+
+
+Overfull \hbox (64.5pt too wide) in paragraph at lines 4952--4952
+[]\TU/lmtt/m/n/10 ## [73] "SexNumPartYear"   "SameSex"          "SexOrientation"   "PregnantNow"[] 
+ []
+
+
 
 [122]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-85-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-85-1.pdf>
+
+
+[123]
+Overfull \hbox (90.75pt too wide) in paragraph at lines 5089--5089
+[]\TU/lmtt/m/n/10 ## lm(formula = Age ~ BMI + Gender + PhysActive, data = df %>% dplyr::filter(Age >=[] 
+ []
+
+
+
+[124]
+
+[125]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-88-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-88-1.pdf>
+
+
+[126]
+Underfull \hbox (badness 1127) in paragraph at lines 5164--5169
+[]$[][][][][]$\TU/lmr/m/n/10 : The expected change in BPSysAve for a one-year increase
+ []
+
+
+
+[127]
+Overfull \hbox (43.5pt too wide) in paragraph at lines 5259--5259
+[]\TU/lmtt/m/n/10 ## Warning: Removed 264 rows containing non-finite outside the scale range[] 
+ []
+
+File: bookdown-demo_files/figure-latex/unnamed-chunk-90-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-90-1.pdf>
+
+
+[128]
+Overfull \hbox (27.75pt too wide) in paragraph at lines 5292--5292
+[]\TU/lmtt/m/n/10 ##     hour, isoweek, mday, minute, month, quarter, second, wday, week,[] 
+ []
+
+
+
+[129]
+
+[130]
+Overfull \hbox (59.25pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ##                        mean         sd        5.5%       94.5%   histogram[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (37.2pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## beta_0          120.5532300 5.79551096 111.3020105 129.8048366   ▁▁▃▇▇▃▁▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (32.3pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## beta_2            0.4196907 0.01127082   0.4016948   0.4374156 ▁▁▁▁▃▇▇▃▁▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (34.75pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## sigma            15.4161590 0.13110866  15.2076867  15.6279605  ▁▁▁▃▇▇▅▂▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (34.75pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## beta_1[1]         0.3487591 5.80968339  -8.9591156   9.5907618  ▁▁▁▃▇▇▃▁▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (34.75pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## beta_1[2]        -0.3866548 5.81170379  -9.7471463   8.8316285  ▁▁▁▃▇▇▃▁▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (34.75pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## beta_3[1]        -1.7463108 5.77133890 -11.1387559   7.3752075  ▁▁▂▅▇▅▂▁▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (37.2pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## beta_3[2]         2.7422693 5.77545948  -6.6404321  11.8947750   ▁▁▂▅▇▅▂▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (42.1pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## diff_PhysActive  -0.7354140 0.37500248  -1.3324591  -0.1257030     ▁▁▃▇▃▁▁[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+
+Overfull \hbox (44.55pt too wide) in paragraph at lines 5399--5399
+[]\TU/lmtt/m/n/10 ## diff_G            4.4885801 0.37263071   3.8813342   5.0880217      ▁▂▇▇▁▁[] 
+ []
+
+
+Overfull \hbox (27.75pt too wide) in paragraph at lines 5433--5433
+[]\TU/lmtt/m/n/10 ## lm(formula = BPSysAve ~ PhysActive + Age_center + Gender, data = df)[] 
+ []
+
+
+
+[131]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-92-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-92-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-92-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-92-2.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[132]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5490--5490
+[]\TU/lmtt/m/n/10 ## lm(formula = BPSysAve ~ PhysActive + Age + Gender + BMI, data = df)[] 
+ []
+
+
+
+[133]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-93-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-93-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-93-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-93-2.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[134]
+
+[135]
+Overfull \hbox (59.25pt too wide) in paragraph at lines 5580--5580
+[]\TU/lmtt/m/n/10 ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.[] 
+ []
+
+
+Overfull \hbox (111.75pt too wide) in paragraph at lines 5580--5580
+[]\TU/lmtt/m/n/10 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.[] 
+ []
+
+
+Overfull \hbox (80.25pt too wide) in paragraph at lines 5587--5587
+[]\TU/lmtt/m/n/10 ## Warning: The dot-dot notation (`..density..`) was deprecated in ggplot2 3.4.0.[] 
+ []
+
+
+Overfull \hbox (111.75pt too wide) in paragraph at lines 5587--5587
+[]\TU/lmtt/m/n/10 ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.[] 
+ []
+
+
+Overfull \hbox (43.5pt too wide) in paragraph at lines 5592--5592
+[]\TU/lmtt/m/n/10 ## Warning: Removed 264 rows containing non-finite outside the scale range[] 
+ []
+
+
+Overfull \hbox (43.5pt too wide) in paragraph at lines 5597--5597
+[]\TU/lmtt/m/n/10 ## Warning: Removed 264 rows containing non-finite outside the scale range[] 
+ []
+
+File: bookdown-demo_files/figure-latex/unnamed-chunk-94-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-94-1.pdf>
+
+Underfull \vbox (badness 7433) has occurred while \output is active []
+
+
+
+[136]
+
+[137]
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ##                         mean          sd         5.5%        94.5%[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_0          129.86586686 7.137410288 118.58553593 141.19831108[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_2            0.40907839 0.011269698   0.39119695   0.42702715[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_4           -1.46141062 0.177139505  -1.74802663  -1.18097688[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_5            0.03417879 0.001460823   0.03186429   0.03654536[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_1[1]         1.39572198 6.122237159  -8.39747051  11.29040125[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_1[2]         1.19094674 6.121597482  -8.58308798  11.09139910[] 
+ []
+
+
+
+[138]
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_3[1]       -12.12521938 6.162147944 -21.89613320  -2.22341805[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## beta_3[2]        -7.22448013 6.163484254 -17.02747162   2.69505942[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## diff_PhysActive  -0.20477524 0.295404998  -0.67810759   0.26671736[] 
+ []
+
+
+Overfull \hbox (17.25pt too wide) in paragraph at lines 5705--5705
+[]\TU/lmtt/m/n/10 ## diff_G            4.90073925 0.307036706   4.41178074   5.38993341[] 
+ []
+
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▅ (U+2585) in font [lmmono10-regular]:!
+Missing character: There is no ▂ (U+2582) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▇ (U+2587) in font [lmmono10-regular]:!
+Missing character: There is no ▃ (U+2583) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+Missing character: There is no ▁ (U+2581) in font [lmmono10-regular]:!
+File: bookdown-demo_files/figure-latex/unnamed-chunk-96-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-96-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[139]
+
+LaTeX Warning: Hyper reference `exercise16_multiple_regressionux5cux257D' on page 140 undefined on input line 5739.
+
+
+
+[140]
+
+LaTeX Warning: Hyper reference `adding_transformed_predictor' on page 141 undefined on input line 5773.
+
+
+
+[141]
+
+[142]
+
+[143]
+
+[144]
 No file bookdown-demo.bbl.
 
 
-[123] (./bookdown-demo.aux)
+[145] (./bookdown-demo.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
@@ -1505,12 +2111,12 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 18208 strings out of 475809
- 355337 string characters out of 5772867
- 871252 words of memory out of 5000000
- 40831 multiletter control sequences out of 15000+600000
+ 18305 strings out of 475809
+ 360441 string characters out of 5772867
+ 874144 words of memory out of 5000000
+ 40919 multiletter control sequences out of 15000+600000
  565400 words of font info for 103 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  90i,8n,123p,550b,483s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on bookdown-demo.pdf (123 pages).
+Output written on bookdown-demo.pdf (145 pages).
