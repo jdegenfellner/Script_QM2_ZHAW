@@ -122,5 +122,6 @@ exercise18_multiple_regression
 reliability-and-validity
 reliability
 peter-and-marys-rom-measurements
+intraclass-correlation-coefficient-icc
 validity
 todos

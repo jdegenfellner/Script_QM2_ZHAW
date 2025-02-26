@@ -52,7 +52,7 @@ Possible influences (potentially) causing different results are:
 Note that the **true score** is defined in our context as the average of all measurements
 if we would measure repeat it an infinite number of times.
 
-#### Peter and Mary's ROM measurements
+### Peter and Mary's ROM measurements
 
 The data can be found [here](http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html).
 We randomly select 50 measurements from Peter and Mary in 50 different patients,
@@ -166,7 +166,99 @@ the marginal distributions are not normal: There are much more measurements in t
 values around 80 than below, say, 60. But the correlation coefficient makes sense
 for descriptive purposes.
 
-In this case, knowing Peter's measurement helps us to (peter) predict Mary's measurement.
+In this case, knowing Peter's measurement *does* help us to (peter) predict 
+Mary's measurement (-> exercise later).
+
+### Intraclass Correlation Coefficient (ICC)
+
+One way to measure reliability is to use the intraclass correlation coefficient (ICC).
+
+This measure is based on the idea that the true score (ROM) has some variability
+in our data set, gut there are also measurement errors with variability.
+The proportion of the true score variability to the total variability is the ICC.
+
+In the background one thinks of a statistical model from the 
+[Classical Test Theory (CTT)](https://en.wikipedia.org/wiki/Classical_test_theory).
+There is 
+
+- a true underlying score $\eta_i$ (for each patient i) and 
+- an error term $\varepsilon \sim N(0, \sigma)$ which is the difference between the true
+score and 
+- the observed score $Y_i$.
+
+$$ Y_i = \eta_i + \varepsilon_i $$
+
+It is assumed that $\eta_i$ and $\varepsilon_i$ are independent.
+This is a nice assumption because now we know (see [here](https://en.wikipedia.org/wiki/Variance#Addition_and_multiplication_by_a_constant)) 
+that the variability
+of the observed score $Y_i$ is just the sum of the variability of the true score $\eta_i$
+and the variability of the error term $\varepsilon_i$ ($\mathbb{C}ov(\eta_i, \varepsilon_i)=0$):
+
+$$ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) $$
+
+We want most of the variability in our observed scores $Y_i$ to be explained by the 
+true but unobservable scores $\eta_i$. The measurement error $\varepsilon_i$ should be
+be comparatively small. If it is large, we are mostly measuring noise. 
+
+If you either pull two people with the same true but unobservable score $\eta$ out of the population
+or measure the same person twice and the score does not change in between, we can 
+**define reliability as correlation between these two measurements**:
+
+$$Y_1 = \eta + \varepsilon_1$$
+$$Y_2 = \eta + \varepsilon_2$$
+
+$$cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) = 
+\frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  = $$
+
+If we use the [properties of the covariance](https://en.wikipedia.org/wiki/Covariance#Properties), 
+and the fact that the errors $\varepsilon_1$ and $\varepsilon_2$ are independent, we get:
+
+$$ \frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  = $$
+$$ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}$$
+
+Since $\eta$ is a random variable (we draw a person randomly from the population),
+it is well defined to talk about the variance of $\eta$ ($=\sigma_{\eta}^2$).
+Also: $$\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}$$
+
+Hence, it follows that:
+
+$$cor(Y_1, Y_2) =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
+
+This is the **intraclass correlation coefficient (ICC)**. It is the proportion of the
+true score variability to the total variability. The ICC is a number between 0 and 1.
+
+Depending on how much deviation from the true but unknown $\eta$ we throw into the error term $\varepsilon$,
+you get different versions of the ICC. We will probably stick with the simple versions $ICC_{agreement}$
+and $ICC_{consistency}$ here and make sure we understand those. 
+
+Let's look again at the term for the ICC above and divide the numerator and the denominator by
+$\sigma_{\eta}^2$, which we can do, since it is a positive number:
+
+$$ \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} = 
+\frac{1}{1 + \frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}}$$
+
+We could call the term $\frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}$ the noise-to-signal ratio.
+The higher this ratio, the lower the ICC. The lower the ratio, the higher the ICC.
+
+- If you increase the noise (measurement error $\sigma_{\varepsilon}^2$) for fixed 
+  true score variability $\sigma_{\eta}^2$, the ICC decreases, because the denominator
+  increases.
+- If you increase the true score variability $\sigma_{\eta}^2$ for fixed noise$\sigma_{\varepsilon}^2$, 
+  the ICC increases, since the denominator decreases.
+
+At first glance, the following statement seems wrong:
+
+In a very **homogeneous population** (patients have very similar scores/measurements),
+the **ICC might be very low**. The reason is that the patient variability $\sigma_{\eta}^2$ is low
+and you probably have some measurement error $\sigma_{\varepsilon}^2$.
+Hence, if you look at the formula, ICC must be low (for a given measurement error).
+
+On the other hand, if you have a very **heterogeneous population** (patients have rather different 
+scores/measurements), the **ICC might be very high**.
+The reason is that the patient variability $\sigma_{\eta}^2$ is high and you probably 
+have some measurement error $\sigma_{\varepsilon}^2$.
+
+**What matters is the ratio of the two**, as can be seen from the formula above.
 
 
 ## Validity

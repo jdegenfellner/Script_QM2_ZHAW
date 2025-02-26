@@ -277,7 +277,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html"><i class="fa fa-check"></i><b>5</b> Reliability and Validity</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#reliability"><i class="fa fa-check"></i><b>5.1</b> Reliability</a></li>
+<li class="chapter" data-level="5.1" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#reliability"><i class="fa fa-check"></i><b>5.1</b> Reliability</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#peter-and-marys-rom-measurements"><i class="fa fa-check"></i><b>5.1.1</b> Peter and Mary’s ROM measurements</a></li>
+<li class="chapter" data-level="5.1.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#intraclass-correlation-coefficient-icc"><i class="fa fa-check"></i><b>5.1.2</b> Intraclass Correlation Coefficient (ICC)</a></li>
+</ul></li>
 <li class="chapter" data-level="5.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#validity"><i class="fa fa-check"></i><b>5.2</b> Validity</a></li>
 <li class="chapter" data-level="5.3" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#todos"><i class="fa fa-check"></i><b>5.3</b> TODOS</a></li>
 </ul></li>
@@ -350,8 +354,8 @@ Possible influences (potentially) causing different results are:</p>
 </ul>
 <p>Note that the <strong>true score</strong> is defined in our context as the average of all measurements
 if we would measure repeat it an infinite number of times.</p>
-<div id="peter-and-marys-rom-measurements" class="section level4 hasAnchor" number="5.1.0.1">
-<h4><span class="header-section-number">5.1.0.1</span> Peter and Mary’s ROM measurements<a href="reliability-and-validity.html#peter-and-marys-rom-measurements" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="peter-and-marys-rom-measurements" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Peter and Mary’s ROM measurements<a href="reliability-and-validity.html#peter-and-marys-rom-measurements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The data can be found <a href="http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html">here</a>.
 We randomly select 50 measurements from Peter and Mary in 50 different patients,
 plot their measurements and annotate the absolutely largest one.</p>
@@ -464,6 +468,78 @@ but the correlation is much higher (<span class="math inline">\(r=0.8516653\)</s
 the marginal distributions are not normal: There are much more measurements in the higher
 values around 80 than below, say, 60. But the correlation coefficient makes sense
 for descriptive purposes.</p>
+<p>In this case, knowing Peter’s measurement <em>does</em> help us to (peter) predict
+Mary’s measurement (-&gt; exercise later).</p>
+</div>
+<div id="intraclass-correlation-coefficient-icc" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Intraclass Correlation Coefficient (ICC)<a href="reliability-and-validity.html#intraclass-correlation-coefficient-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One way to measure reliability is to use the intraclass correlation coefficient (ICC).</p>
+<p>This measure is based on the idea that the true score (ROM) has some variability
+in our data set, gut there are also measurement errors with variability.
+The proportion of the true score variability to the total variability is the ICC.</p>
+<p>In the background one thinks of a statistical model from the
+<a href="https://en.wikipedia.org/wiki/Classical_test_theory">Classical Test Theory (CTT)</a>.
+There is</p>
+<ul>
+<li>a true underlying score <span class="math inline">\(\eta_i\)</span> (for each patient i) and</li>
+<li>an error term <span class="math inline">\(\varepsilon \sim N(0, \sigma)\)</span> which is the difference between the true
+score and</li>
+<li>the observed score <span class="math inline">\(Y_i\)</span>.</li>
+</ul>
+<p><span class="math display">\[ Y_i = \eta_i + \varepsilon_i \]</span></p>
+<p>It is assumed that <span class="math inline">\(\eta_i\)</span> and <span class="math inline">\(\varepsilon_i\)</span> are independent.
+This is a nice assumption because now we know (see <a href="https://en.wikipedia.org/wiki/Variance#Addition_and_multiplication_by_a_constant">here</a>)
+that the variability
+of the observed score <span class="math inline">\(Y_i\)</span> is just the sum of the variability of the true score <span class="math inline">\(\eta_i\)</span>
+and the variability of the error term <span class="math inline">\(\varepsilon_i\)</span> (<span class="math inline">\(\mathbb{C}ov(\eta_i, \varepsilon_i)=0\)</span>):</p>
+<p><span class="math display">\[ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) \]</span></p>
+<p>We want most of the variability in our observed scores <span class="math inline">\(Y_i\)</span> to be explained by the
+true but unobservable scores <span class="math inline">\(\eta_i\)</span>. The measurement error <span class="math inline">\(\varepsilon_i\)</span> should be
+be comparatively small. If it is large, we are mostly measuring noise.</p>
+<p>If you either pull two people with the same true but unobservable score <span class="math inline">\(\eta\)</span> out of the population
+or measure the same person twice and the score does not change in between, we can
+<strong>define reliability as correlation between these two measurements</strong>:</p>
+<p><span class="math display">\[Y_1 = \eta + \varepsilon_1\]</span>
+<span class="math display">\[Y_2 = \eta + \varepsilon_2\]</span></p>
+<p><span class="math display">\[cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) =
+\frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  = \]</span></p>
+<p>If we use the <a href="https://en.wikipedia.org/wiki/Covariance#Properties">properties of the covariance</a>,
+and the fact that the errors <span class="math inline">\(\varepsilon_1\)</span> and <span class="math inline">\(\varepsilon_2\)</span> are independent, we get:</p>
+<p><span class="math display">\[ \frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  = \]</span>
+<span class="math display">\[ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}\]</span></p>
+<p>Since <span class="math inline">\(\eta\)</span> is a random variable (we draw a person randomly from the population),
+it is well defined to talk about the variance of <span class="math inline">\(\eta\)</span> (<span class="math inline">\(=\sigma_{\eta}^2\)</span>).
+Also: <span class="math display">\[\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}\]</span></p>
+<p>Hence, it follows that:</p>
+<p><span class="math display">\[cor(Y_1, Y_2) =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span></p>
+<p>This is the <strong>intraclass correlation coefficient (ICC)</strong>. It is the proportion of the
+true score variability to the total variability. The ICC is a number between 0 and 1.</p>
+<p>Depending on how much deviation from the true but unknown <span class="math inline">\(\eta\)</span> we throw into the error term <span class="math inline">\(\varepsilon\)</span>,
+you get different versions of the ICC. We will probably stick with the simple versions <span class="math inline">\(ICC_{agreement}\)</span>
+and <span class="math inline">\(ICC_{consistency}\)</span> here and make sure we understand those.</p>
+<p>Let’s look again at the term for the ICC above and divide the numerator and the denominator by
+<span class="math inline">\(\sigma_{\eta}^2\)</span>, which we can do, since it is a positive number:</p>
+<p><span class="math display">\[ \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} =
+\frac{1}{1 + \frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}}\]</span></p>
+<p>We could call the term <span class="math inline">\(\frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}\)</span> the noise-to-signal ratio.
+The higher this ratio, the lower the ICC. The lower the ratio, the higher the ICC.</p>
+<ul>
+<li>If you increase the noise (measurement error <span class="math inline">\(\sigma_{\varepsilon}^2\)</span>) for fixed
+true score variability <span class="math inline">\(\sigma_{\eta}^2\)</span>, the ICC decreases, because the denominator
+increases.</li>
+<li>If you increase the true score variability <span class="math inline">\(\sigma_{\eta}^2\)</span> for fixed noise<span class="math inline">\(\sigma_{\varepsilon}^2\)</span>,
+the ICC increases, since the denominator decreases.</li>
+</ul>
+<p>At first glance, the following statement seems wrong:</p>
+<p>In a very <strong>homogeneous population</strong> (patients have very similar scores/measurements),
+the <strong>ICC might be very low</strong>. The reason is that the patient variability <span class="math inline">\(\sigma_{\eta}^2\)</span> is low
+and you probably have some measurement error <span class="math inline">\(\sigma_{\varepsilon}^2\)</span>.
+Hence, if you look at the formula, ICC must be low (for a given measurement error).</p>
+<p>On the other hand, if you have a very <strong>heterogeneous population</strong> (patients have rather different
+scores/measurements), the <strong>ICC might be very high</strong>.
+The reason is that the patient variability <span class="math inline">\(\sigma_{\eta}^2\)</span> is high and you probably
+have some measurement error <span class="math inline">\(\sigma_{\varepsilon}^2\)</span>.</p>
+<p><strong>What matters is the ratio of the two</strong>, as can be seen from the formula above.</p>
 </div>
 </div>
 <div id="validity" class="section level2 hasAnchor" number="5.2">
