@@ -109,7 +109,9 @@ print(VarCorr(m5.2), comp = "Variance")
 library(rethinking)
 library(tictoc)
 
-data_ <- df %>% dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
+data_ <- df %>% 
+  mutate(ID = row_number()) %>%
+  dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
   pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), names_to = "Rater", values_to = "ROM") %>% 
   mutate(Rater = factor(Rater))
 

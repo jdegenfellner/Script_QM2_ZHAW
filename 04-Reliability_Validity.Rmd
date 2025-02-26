@@ -277,21 +277,108 @@ We get the result: $ICC(1) = 0.851$.
 Since we are regression model experts, we would like to see if we can get the result using the Bayesian 
 framework. 
 
-Since we have two raters (Peter and Mary), we consider the fact that they could have a systematic difference,
-i.e., a bias. For example in the book, Mary has a 5 degree bias. 
-At the moment, there is no systematic difference between Peter and Mary added to the data. 
+Below is the model structure. Explanation of the model:
 
-TODO...
-https://discourse.mc-stan.org/t/extending-the-interclass-correlation-coefficient-icc-aka-repeatability-aka-heritability-for-bayesian-models/27793
+- $Y_i$ is the observed score (ROM) for patient $i$.
+- $\mu_i$ is the expected value of the observed score for patient $i$.
+- $\sigma_{\varepsilon}$ is the standard deviation of the measurement error.
+- $\alpha[ID]$ is the patient-specific intercept. 
+  Since every patient has a different intercept, and they
+  come from a normal distribution, we have a **random intercepts model**.
+- $\alpha_{mean}$ is mean of the prior for the patient-specific intercepts.
+- $\sigma_{\alpha}$ is the standard deviation of the patient-specific intercepts.
+  This is the patient variability! 
+- The ICC is then calculated as 
+  $\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$.
+
+
+\[
 \begin{eqnarray*}
-Y_i \sim N(\mu_i, \sigma_{\varepsilon})\\
-\mu_i &=& beta_1[ID]\\
-\beta_0 &\sim& \text{Normal}(0, 20)\\
-\beta_1 &\sim& \text{Normal}(0, 10)\\
-\sigma_{\varepsilon} &\sim& \text{Uniform}(0, 30)
+Y_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
+\mu_i &=& \alpha[ID] \\
+\alpha[ID] &\sim& \text{Normal}(\alpha_{ID mean}, \sigma_{\alpha}) \\
+\alpha_{mean} &\sim& \text{Normal}(66, 20) \\
+\sigma_{\alpha} &\sim& \text{Uniform}(0,20) \\
+\sigma_{\varepsilon} &\sim& \text{Uniform}(0,20)
 \end{eqnarray*}
+\]
 
-...
+We did not even notice it, but this was our first **multilevel regression model**.
+It is multilevel due to the extra layer of patient-specific intercepts.
+The observations are obviously clustered within patients, since observations
+from the same patient are more similar than observations from different patients.
+
+Draw model structure ... exercise..
+
+This time we fire up the `rethinking` package and use the `ulam` function 
+to fit the model.
+This uses Markov Chain Monte Carlo (MCMC) to sample from the posterior 
+distribution of the parameters.
+The `chains` argument specifies how many chains we want to run, and the `cores` argument
+specifies how many cores we want to use.
+
+```{r}
+library(rethinking)
+library(tictoc)
+
+data_ <- df %>% 
+  mutate(ID = row_number()) %>%
+  dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
+  pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), 
+               names_to = "Rater", values_to = "ROM") %>% 
+  mutate(Rater = factor(Rater))
+
+tic()
+m5.1 <- ulam(
+  alist(
+    # Likelihood
+    ROM ~ dnorm(mu, sigma),
+    
+    # Patient-specific intercepts (random effects)
+    mu <- a[ID],  
+    a[ID] ~ dnorm(a_bar, sigma_ID),  # Hierarchical structure for patients
+    
+    # Priors for hyperparameters
+    a_bar ~ dnorm(66, 20),  # Population-level mean
+    sigma_ID ~ dunif(0,20),  # Between-patient standard deviation
+    sigma ~ dunif(0,20)  # Residual standard deviation
+  ), 
+  data = data_, 
+  chains = 8, cores = 4
+)
+toc() # 7s
+
+precis(m5.1, depth = 2)
+
+post <- extract.samples(m5.1)
+var_patients <- mean(post$sigma_ID^2)  # Between-patient variance
+var_residual <- mean(post$sigma^2)     # Residual variance
+var_patients / (var_patients + var_residual) # ICC
+# 0.846
+# not too bad; very close to the result from the irr package
+```
+
+The trick to do these calculations by "hand" is to get the 
+variance decomposition correct.
+We stumbled upon variance decomposition in the context of ANOVA,
+where we decomposed the total variance into the regression variance
+and the residual variance. Here, we decompose the total variance
+into the between-patient variance and the residual variance.
+
+We can also estimate a random intercept model with the `lme4` package using
+the command `lmer`in the Frequentist framework. No priors.
+
+```{r}
+library(lme4)
+m5.2 <- lmer(ROM ~ (1|ID), data = data_)
+summary(m5.2)
+print(VarCorr(m5.2), comp = "Variance")
+
+# ICC = 
+270.99 / (270.99 + 47.35) # 
+# 0.8512597
+# -> exactly the same result as the irr package
+```
 
 
 ## Validity
@@ -299,7 +386,6 @@ Y_i \sim N(\mu_i, \sigma_{\varepsilon})\\
 
 ## TODOS
 
-- Bayes ICC
 - mention missing values, missingness mechanisms -> Methodenvertiefung
 - Logistic Regression, Poisson, -> Methodenvertiefung
 - Exercise: Show by simulation what Gelman talks about with significant p values. So I scan the data
