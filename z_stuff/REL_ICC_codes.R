@@ -1,5 +1,5 @@
 library(pacman)
-p_load(tidyverse, readxl)
+p_load(tidyverse, readxl, ggExtra)
 
 # Read file
 url <- "https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls"
@@ -81,9 +81,8 @@ hist(df$ROMas.Mary)
 # mean difference
 mean(df$ROMas.Peter - df$ROMas.Mary, na.rm = TRUE) 
 
-
 ggMarginal(p, type = "density", fill = "gray", color = "black")
-library(ggExtra)
+
 
 
 # calculate the ICC using the irr package:
@@ -92,67 +91,55 @@ irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]),
     model = "oneway", type = "consistency")
 # 0.851
 
-# verify using rethinking
-library(rethinking)
-data <- df %>% dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
-  pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), names_to = "Rater", values_to = "ROM") %>% 
-  mutate(Rater = factor(Rater))
 
-data
-
-m5.1 <- quap(
-  alist(
-    ROM ~ dnorm(mu, sigma),
-    mu <- a[ID], 
-    a[ID] ~ dnorm(66, sigma_ID),
-    sigma ~ dunif(0, 30),
-    sigma_ID ~ dunif(0, 30)
-  ), data = data)
-
-library(rethinking)
-
-library(rethinking)
-
-m5.1 <- quap(
-  alist(
-    # Likelihood
-    ROM ~ dnorm(mu, sigma),
-    
-    # Hierarchical model for patient-specific means
-    mu <- a[ID], 
-    a[ID] ~ dnorm(a_bar, sigma_ID),  # Patient-specific deviation
-    
-    # Priors for hyperparameters
-    a_bar ~ dnorm(66, 20),           # Population mean
-    sigma_ID ~ dunif(0, 30),         # Between-patient SD
-    sigma ~ dunif(0, 30)             # Residual SD
-  ), 
-  data = data,
-  
-  # Provide initial values to avoid optimization issues
-  start = list(
-    a_bar = 66, 
-    sigma_ID = 10, 
-    sigma = 10,
-    a = rep(66, length(unique(data$ID)))  # Initialize each patient's intercept
-  )
-)
-
-precis(m5.1, depth = 2)
-
-post <- extract.samples(m5.1)
-mean(apply(post$b, 2, posterior::var))
-
-mean(apply(post$b, 2, posterior::var)) / mean(post$sigma^2)
-
-
-# verify with lmer:
+# verify with lmer:--------
 library(lme4)
-m5.2 <- lmer(ROM ~ (1 | ID), data = data)
+m5.2 <- lmer(ROM ~ (1 | ID), data = data_)
 summary(m5.2)
 print(VarCorr(m5.2), comp = "Variance")
 
 # ICC = 
 270.99 / (270.99 + 47.35) # 
 # 0.8512597
+
+
+
+
+# verify using rethinking---------
+library(rethinking)
+library(tictoc)
+
+data_ <- df %>% dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
+  pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), names_to = "Rater", values_to = "ROM") %>% 
+  mutate(Rater = factor(Rater))
+
+
+tic()
+m5.1 <- ulam(
+  alist(
+    # Likelihood
+    ROM ~ dnorm(mu, sigma),
+    
+    # Patient-specific intercepts (random effects)
+    mu <- a[ID],  
+    a[ID] ~ dnorm(a_bar, sigma_ID),  # Hierarchical structure for patients
+    
+    # Priors for hyperparameters
+    a_bar ~ dnorm(66, 20),  # Population-level mean
+    sigma_ID ~ dunif(0,20),  # Between-patient standard deviation
+    sigma ~ dunif(0,20)  # Residual standard deviation
+  ), 
+  data = data_, 
+  chains = 4, cores = 4
+)
+toc() # 7s
+
+precis(m5.1, depth = 2)
+
+post <- extract.samples(m5.1)
+var_patients <- mean(post$sigma_ID^2)  # Between-patient variance
+var_residual <- mean(post$sigma^2)     # Residual variance
+var_patients / (var_patients + var_residual) # ICC
+# 0.846323
+# not too bad
 
