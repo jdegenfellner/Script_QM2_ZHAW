@@ -90,9 +90,13 @@ irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]),
     model = "oneway", type = "consistency")
 # 0.851
 
+# ICC with psych package-------
+library(psych)
+ICC(df[, c("ROMas.Peter", "ROMas.Mary")])
+# ICC1 = Single_raters_absolute in psych output
+# = 0.85
 
 # _Verify with lmer:--------
-
 df_long <- df %>% 
   mutate(ID = row_number()) %>%
   dplyr::select(ID, ROMas.Peter, ROMas.Mary) %>% 
@@ -163,20 +167,13 @@ df_long_bias <- df_long %>%
 head(df_long_bias) # seems to have worked.
 
 # mean Mary
-mean(df_long$ROM[df_long$Rater == "ROMas.Mary"]) # 69.98
+mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Mary"]) # 69.98
 # mean Peter
-mean(df_long$ROM[df_long$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
-# diff
-mean(df_long$ROM[df_long$Rater == "ROMas.Mary"]) - 
-  mean(df_long$ROM[df_long$Rater == "ROMas.Peter"], na.rm = TRUE) # 3.78
-# 3.78
-
-#bias long
-mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Mary"]) # 69
 mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
 # diff
 mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Mary"]) - 
   mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Peter"], na.rm = TRUE) # 3.78
+# 3.78
 
 
 #_rethinking---------
@@ -190,22 +187,23 @@ m5.2 <- ulam(
     mu <- alpha[ID] + beta[Rater],  
     
     # Patient-specific random effects
-    alpha[ID] ~ dnorm(alpha_mean, sigma_alpha),  
+    alpha[ID] ~ dnorm(mu_alpha, sigma_alpha),  
     
     # Rater effect (Peter/Mary)
     beta[Rater] ~ dnorm(0, sigma_beta),  
     
     # Priors for hyperparameters
-    alpha_mean ~ dnorm(66, 20),  # Population mean ROM
-    sigma_alpha ~ dunif(0, 30),  # Between-patient SD
-    sigma_beta ~ dunif(0, 10),   # Rater SD
-    sigma_eps ~ dunif(0, 40)     # Residual SD
+    mu_alpha ~ dnorm(66, 10),  # Population mean ROM
+    sigma_alpha ~ dexp(0.5),  # Between-patient SD (less aggressive shrinkage)
+    sigma_beta ~ dexp(1),   # Rater SD (better regularization)
+    sigma_eps ~ dexp(1)     # Residual SD (prevents over-shrinkage)
   ), 
-  data = df_long, 
+  data = df_long_bias, 
   chains = 8, cores = 4
 )
 
 precis(m5.2, depth = 2)
+precis(m5.2)
 
 # check systematic difference for rater in posterior
 post <- extract.samples(m5.2)
@@ -219,7 +217,13 @@ post <- extract.samples(m5.2)
 
 # ICC_agreement = 
 var_patients / (var_patients + var_raters + var_residual)
-# 0.7250569/0.7798/0.7567761
+# 0.8033613 (sigma_alpha ~ dexp(1))
+# 0.83 (sigma_alpha ~ dexp(0.5))
+
+# ICC (Single_fixed_raters) = ICC3 in psych output = 
+var_patients / (var_patients + var_residual)
+# 0.8158461 (sigma_alpha ~ dexp(0.5))
+# 0.8403384 (sigma_alpha ~ dexp(1))
 
 str(df_long)
 # tibble [100 × 3] (S3: tbl_df/tbl/data.frame)
@@ -227,19 +231,27 @@ str(df_long)
 # $ Rater: Factor w/ 2 levels "ROMas.Mary","ROMas.Peter": 2 1 2 1 2 1 2 1 2 1 ...
 # $ ROM  : num [1:100] 66 75 65 68 96 87 75 85 62 59 ...
 
-# _Verify with irr:---------
+# _Verify with irr:----
 # use df and introduce bias there too 
 head(df) # wide
 dim(df)
 df_bias <- df %>%
   mutate(ROMnas.Mary = ROMnas.Mary + 5)
 
-order(df_long$ROM[df_long$Rater == "ROMas.Mary"])
-order(df_bias$ROMas.Mary) # identical!
+#order(df_long$ROM[df_long$Rater == "ROMas.Mary"])
+#order(df_bias$ROMas.Mary) # identical!
 
-irr::icc(as.matrix(df_bias[, c("ROMas.Peter", "ROMas.Mary")]), 
-    model = "oneway", type = "consistency")
+# ??? find error...
+#irr::icc(as.matrix(df_bias[, c("ROMas.Peter", "ROMas.Mary")]), 
+#    model = "oneway", type = "consistency")
+# ???
 
+# _psych package------
+# needs wide format
+df_wide <- df_long_bias %>%
+  pivot_wider(names_from = Rater, values_from = ROM)
+df_wide_values <- df_wide %>% select(-ID)
+ICC(df_wide_values) # ICC 1 = 0.83
 
 # _lmer------
 m5.3 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = df_long_bias)
@@ -251,7 +263,11 @@ print(VarCorr(m5.3), comp = "Variance")
 # Residual              47.557 
 
 
-# ICC =
+# ICC (Single_random_raters) = ICC 2 in psych output
 270.882 / (270.882 + 6.193 + 47.557) # 
 # 0.8344279
 # how can this be higher?
+
+# ICC (Single_fixed_raters) = ICC3 in psych output
+270.882 / (270.882 + 47.557) #
+# 0.85

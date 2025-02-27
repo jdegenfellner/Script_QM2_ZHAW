@@ -283,6 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#intraclass-correlation-coefficient-icc"><i class="fa fa-check"></i><b>5.1.2</b> Intraclass Correlation Coefficient (ICC)</a></li>
 <li class="chapter" data-level="5.1.3" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#difference-between-correlation-and-icc"><i class="fa fa-check"></i><b>5.1.3</b> Difference between correlation and ICC</a></li>
 <li class="chapter" data-level="5.1.4" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#standard-error-of-measurement-sem"><i class="fa fa-check"></i><b>5.1.4</b> Standard Error of Measurement (SEM)</a></li>
+<li class="chapter" data-level="5.1.5" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bland-altman-plot"><i class="fa fa-check"></i><b>5.1.5</b> Bland-Altman Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#validity"><i class="fa fa-check"></i><b>5.2</b> Validity</a></li>
 <li class="chapter" data-level="5.3" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#todos"><i class="fa fa-check"></i><b>5.3</b> TODOS</a></li>
@@ -572,45 +573,60 @@ R packages to do this. We will use the <code>irr</code> package.</p>
 <p>We get the result: <span class="math inline">\(ICC(1) = 0.851\)</span>.</p>
 <p>Since we are regression model experts, we would like to see if we can get the result using the Bayesian
 framework.</p>
-<p>Below is the model structure. Explanation of the model:</p>
+<p>Below is the model structure.</p>
+<p><strong>Model details:</strong></p>
 <ul>
-<li><span class="math inline">\(Y_i\)</span> is the observed score (ROM) for patient <span class="math inline">\(ID\)</span>.</li>
+<li><span class="math inline">\(ROM_i\)</span> is the observed ROM-score for observation <span class="math inline">\(i\)</span>.
+Every patient has two observations (one each from Mary and Peter).
+So, for instance <span class="math inline">\(i=1,2\)</span> could be patient <span class="math inline">\(ID=1\)</span>.</li>
 <li><span class="math inline">\(\mu_i\)</span> is the expected value of the observed score for patient <span class="math inline">\(ID\)</span>.</li>
 <li><span class="math inline">\(\sigma_{\varepsilon}\)</span> is the standard deviation of the measurement error.</li>
 <li><span class="math inline">\(\alpha[ID]\)</span> is the patient-specific intercept.
-Since every patient has a different intercept, and they
+Since every patient has a different intercept and they
 come from a normal distribution, we have a <strong>random intercepts model</strong>.</li>
-<li><span class="math inline">\(\alpha_{mean}\)</span> is mean of the prior for the patient-specific intercepts.</li>
+<li><span class="math inline">\(\mu_{\alpha}\)</span> is the mean of the prior for the patient-specific intercepts.
+This is the overall mean of the scores.</li>
 <li><span class="math inline">\(\sigma_{\alpha}\)</span> is the standard deviation of the patient-specific intercepts.
-This is the patient variability!</li>
-<li>The ICC is then calculated as
-<span class="math inline">\(\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\)</span>.</li>
+<strong>This is the patient variability</strong>! The nice thing about presenting a model in this
+way is that it’s easier to interpret. <span class="math inline">\(\sigma_{\alpha}\)</span> says how much
+the scores of the patients vary in relation to their respective level <span class="math inline">\(\alpha[ID]\)</span>.</li>
 </ul>
+<p>The ICC is then calculated as</p>
+<p><span class="math display">\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]</span>.</p>
 <p><span class="math display">\[
 \begin{eqnarray*}
-Y_i &amp;\sim&amp; N(\mu_i, \sigma_{\varepsilon}) \\
+ROM_i &amp;\sim&amp; N(\mu_i, \sigma_{\varepsilon}) \\
 \mu_i &amp;=&amp; \alpha[ID] \\
-\alpha[ID] &amp;\sim&amp; \text{Normal}(\alpha_{ID mean}, \sigma_{\alpha}) \\
-\alpha_{IDmean} &amp;\sim&amp; \text{Normal}(66, 20) \\
+\alpha[ID] &amp;\sim&amp; \text{Normal}(\mu_{\alpha}, \sigma_{\alpha}) \\
+\mu_{\alpha} &amp;\sim&amp; \text{Normal}(66, 20) \\
 \sigma_{\alpha} &amp;\sim&amp; \text{Uniform}(0,20) \\
 \sigma_{\varepsilon} &amp;\sim&amp; \text{Uniform}(0,20)
 \end{eqnarray*}
 \]</span></p>
 <p>We did not even notice it, but this was our first <strong>multilevel regression model</strong>.
 It is multilevel due to the extra layer of patient-specific intercepts.
-The observations are obviously clustered within patients, since observations
-from the same patient are more similar than observations from different patients.</p>
+The <strong>observations</strong> are obviously <strong>clustered within patients</strong>, since observations
+from the <strong>same patient</strong> are <strong>more similar than observations from different patients</strong>.</p>
 <p>Draw model structure … exercise..</p>
 <p>This time we fire up the <code>rethinking</code> package and use the <code>ulam</code> function
 to fit the model.
 This uses Markov Chain Monte Carlo (MCMC) to sample from the posterior
-distribution of the parameters.
-The <code>chains</code> argument specifies how many chains we want to run, and the <code>cores</code> argument
-specifies how many cores we want to use.</p>
+distribution of the parameters.</p>
+<ul>
+<li><p>The <code>chains</code> argument specifies how many chains we want to run.
+A <em>chain</em> is a sequence of points in a space with as many dimensions as there
+are parameters in the model. It jumps from one point to the next in this parameter
+space and in doing so, visits the points of the posterior exactly in the correct
+frequency. <a href="https://blog.revolutionanalytics.com/2013/09/an-animated-peek-into-the-workings-of-bayesian-statistics.html">Here</a>
+is an excellent visualization.</p></li>
+<li><p>The <code>cores</code> argument specifies how many CPU cores we want to use.
+For larger jobs, one can try to parallelize
+the chains, which saves some time.</p></li>
+</ul>
 <div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="reliability-and-validity.html#cb275-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
 <span id="cb275-2"><a href="reliability-and-validity.html#cb275-2" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span>
 <span id="cb275-3"><a href="reliability-and-validity.html#cb275-3" tabindex="-1"></a></span>
-<span id="cb275-4"><a href="reliability-and-validity.html#cb275-4" tabindex="-1"></a>data_ <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb275-4"><a href="reliability-and-validity.html#cb275-4" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
 <span id="cb275-5"><a href="reliability-and-validity.html#cb275-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
 <span id="cb275-6"><a href="reliability-and-validity.html#cb275-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ID,ROMas.Peter, ROMas.Mary) <span class="sc">%&gt;%</span> </span>
 <span id="cb275-7"><a href="reliability-and-validity.html#cb275-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(ROMas.Peter, ROMas.Mary), </span>
@@ -625,14 +641,14 @@ specifies how many cores we want to use.</p>
 <span id="cb275-16"><a href="reliability-and-validity.html#cb275-16" tabindex="-1"></a>    </span>
 <span id="cb275-17"><a href="reliability-and-validity.html#cb275-17" tabindex="-1"></a>    <span class="co"># Patient-specific intercepts (random effects)</span></span>
 <span id="cb275-18"><a href="reliability-and-validity.html#cb275-18" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[ID],  </span>
-<span id="cb275-19"><a href="reliability-and-validity.html#cb275-19" tabindex="-1"></a>    a[ID] <span class="sc">~</span> <span class="fu">dnorm</span>(a_bar, sigma_ID),  <span class="co"># Hierarchical structure for patients</span></span>
+<span id="cb275-19"><a href="reliability-and-validity.html#cb275-19" tabindex="-1"></a>    a[ID] <span class="sc">~</span> <span class="fu">dnorm</span>(mu_a, sigma_ID),  <span class="co"># Hierarchical structure for patients</span></span>
 <span id="cb275-20"><a href="reliability-and-validity.html#cb275-20" tabindex="-1"></a>    </span>
 <span id="cb275-21"><a href="reliability-and-validity.html#cb275-21" tabindex="-1"></a>    <span class="co"># Priors for hyperparameters</span></span>
-<span id="cb275-22"><a href="reliability-and-validity.html#cb275-22" tabindex="-1"></a>    a_bar <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">66</span>, <span class="dv">20</span>),  <span class="co"># Population-level mean</span></span>
+<span id="cb275-22"><a href="reliability-and-validity.html#cb275-22" tabindex="-1"></a>    mu_a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">66</span>, <span class="dv">20</span>),  <span class="co"># Population-level mean</span></span>
 <span id="cb275-23"><a href="reliability-and-validity.html#cb275-23" tabindex="-1"></a>    sigma_ID <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">20</span>),  <span class="co"># Between-patient standard deviation</span></span>
 <span id="cb275-24"><a href="reliability-and-validity.html#cb275-24" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">20</span>)  <span class="co"># Residual standard deviation</span></span>
 <span id="cb275-25"><a href="reliability-and-validity.html#cb275-25" tabindex="-1"></a>  ), </span>
-<span id="cb275-26"><a href="reliability-and-validity.html#cb275-26" tabindex="-1"></a>  <span class="at">data =</span> data_, </span>
+<span id="cb275-26"><a href="reliability-and-validity.html#cb275-26" tabindex="-1"></a>  <span class="at">data =</span> df_long, </span>
 <span id="cb275-27"><a href="reliability-and-validity.html#cb275-27" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">8</span>, <span class="at">cores =</span> <span class="dv">4</span></span>
 <span id="cb275-28"><a href="reliability-and-validity.html#cb275-28" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...
@@ -650,7 +666,7 @@ specifies how many cores we want to use.</p>
 ## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptNs2AQ/model-cd6d21714a3e.stan&#39;, line 17, column 4 to column 35)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b474137b7e3.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
@@ -667,7 +683,7 @@ specifies how many cores we want to use.</p>
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptNs2AQ/model-cd6d21714a3e.stan&#39;, line 17, column 4 to column 35)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b474137b7e3.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
@@ -696,7 +712,7 @@ specifies how many cores we want to use.</p>
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptNs2AQ/model-cd6d21714a3e.stan&#39;, line 17, column 4 to column 35)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b474137b7e3.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
@@ -717,7 +733,7 @@ specifies how many cores we want to use.</p>
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptNs2AQ/model-cd6d21714a3e.stan&#39;, line 17, column 4 to column 35)</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b474137b7e3.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 5</code></pre>
@@ -734,7 +750,7 @@ specifies how many cores we want to use.</p>
 ## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 6 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptNs2AQ/model-cd6d21714a3e.stan&#39;, line 17, column 4 to column 35)</code></pre>
+<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b474137b7e3.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 6 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 6 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 6</code></pre>
@@ -771,7 +787,7 @@ specifies how many cores we want to use.</p>
 ## Mean chain execution time: 0.1 seconds.
 ## Total execution time: 0.7 seconds.</code></pre>
 <div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="reliability-and-validity.html#cb307-1" tabindex="-1"></a><span class="fu">toc</span>() <span class="co"># 7s</span></span></code></pre></div>
-<pre><code>## 7.282 sec elapsed</code></pre>
+<pre><code>## 6.834 sec elapsed</code></pre>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="reliability-and-validity.html#cb309-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               mean        sd      5.5%     94.5%      rhat ess_bulk
 ## a[1]     67.722244 4.9090800 59.884240 75.424230 1.0011883 6619.262
@@ -824,7 +840,7 @@ specifies how many cores we want to use.</p>
 ## a[48]    69.603460 4.7802544 61.990560 77.160122 1.0024286 5065.542
 ## a[49]    72.402414 4.6825454 65.012180 79.784921 1.0015697 5911.021
 ## a[50]    72.770000 4.8603442 65.014248 80.455220 1.0029222 7919.236
-## a_bar    65.555333 2.4626739 61.598423 69.494927 1.0017301 4186.431
+## mu_a     65.555333 2.4626739 61.598423 69.494927 1.0017301 4186.431
 ## sigma_ID 16.613184 1.6346644 14.010696 19.244560 1.0024463 1915.575
 ## sigma     7.081393 0.7331837  6.011486  8.331337 1.0004015 2066.538</code></pre>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="reliability-and-validity.html#cb311-1" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.1</span>)</span>
@@ -834,13 +850,24 @@ specifies how many cores we want to use.</p>
 <pre><code>## [1] 0.8461117</code></pre>
 <div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="reliability-and-validity.html#cb313-1" tabindex="-1"></a><span class="co"># 0.846</span></span>
 <span id="cb313-2"><a href="reliability-and-validity.html#cb313-2" tabindex="-1"></a><span class="co"># not too bad; very close to the result from the irr package</span></span></code></pre></div>
+<p>In the output from <code>precis(m5.1, depth = 2)</code> above we see</p>
+<ul>
+<li>all 50 intercept estimates for each patient: <code>a[ID]</code></li>
+<li><code>mu_a</code>is the overall intercept.</li>
+<li><code>sigma_ID</code> is the <strong>patient variability</strong>.</li>
+<li><code>sigma</code> is the <strong>residual variability</strong>.</li>
+</ul>
+<p>We just square the sigmas to get the variances.</p>
 <p>The trick to do these calculations by “hand” is to get the
 variance decomposition correct.
 We stumbled upon variance decomposition in the context of ANOVA,
 where we decomposed the total variance into the regression variance
 and the residual variance. Here, we decompose the total variance
 into the between-patient variance and the residual variance.</p>
-<p>We can also estimate a random intercept model with the <code>lme4</code> package using
+<p>Remember: In the background, there is just a statistical model to predict
+the outcome. Depending on the predictors, we get different models and
+probably different ICCs</p>
+<p>We can also estimate a <strong>random intercept model</strong> with the <code>lme4</code> package using
 the command <code>lmer</code>in the Frequentist framework. No priors.</p>
 <div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="reliability-and-validity.html#cb314-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
 <pre><code>## Loading required package: Matrix</code></pre>
@@ -849,11 +876,11 @@ the command <code>lmer</code>in the Frequentist framework. No priors.</p>
 <pre><code>## The following objects are masked from &#39;package:tidyr&#39;:
 ## 
 ##     expand, pack, unpack</code></pre>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="reliability-and-validity.html#cb318-1" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>ID), <span class="at">data =</span> data_)</span>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="reliability-and-validity.html#cb318-1" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>ID), <span class="at">data =</span> df_long)</span>
 <span id="cb318-2"><a href="reliability-and-validity.html#cb318-2" tabindex="-1"></a><span class="fu">summary</span>(m5<span class="fl">.2</span>)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: ROM ~ (1 | ID)
-##    Data: data_
+##    Data: df_long
 ## 
 ## REML criterion at convergence: 791
 ## 
@@ -884,9 +911,13 @@ There, we have not yet explicitely considered a bias (=systematic difference
 between the raters) that the raters could introduce. In the book,
 they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).</p>
 <p>There is also the <strong><span class="math inline">\(ICC_{agreement}\)</span></strong>, which explicitely considers this difference
-that could occur between the raters.</p>
+that could occur between the raters. This results in an extra term in the demoniator
+of the ICC, an additional variance component:</p>
+<p><span class="math display">\[ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 +
+\sigma_{\varepsilon}^2 + \sigma_{rater}^2}\]</span></p>
+<p>where <span class="math inline">\(\sigma_{rater}^2\)</span> is the variance due to systematic rater differences.</p>
 <p>We will now introduce the 5 degree bias and use our Bayesian
-framework to estimate the ICC. By introducing the bias, we should see
+framework to estimate the <span class="math inline">\(ICC_{agreement}\)</span>. By introducing a bias, we should see
 a lower ICC (agreement). Note, that the prediction quality of Mary’s scores
 given Peter’s scores should not change, since we would only shift Mary’s scores
 down by 5 degrees, which would not disturb the linear regression model. We can
@@ -898,15 +929,276 @@ the introduced bias:</p>
 \begin{eqnarray*}
 Y_i &amp;\sim&amp; N(\mu_i, \sigma_{\varepsilon}) \\
 \mu_i &amp;=&amp; \alpha[ID] + \beta[Rater] \\
-\alpha[ID] &amp;\sim&amp; \text{Normal}(\alpha_{IDmean}, \sigma_{\alpha}) \\
+\alpha[ID] &amp;\sim&amp; \text{Normal}(\mu_{\alpha}, \sigma_{\alpha}) \\
 \beta[Rater] &amp;\sim&amp; \text{Normal}(0, \sigma_{\beta}) \\
-\alpha_{IDmean} &amp;\sim&amp; \text{Normal}(66, 20) \\
-\sigma_{\alpha} &amp;\sim&amp; \text{Uniform}(0,20) \\
-\sigma_{\beta} &amp;\sim&amp; \text{Uniform}(0,10) \\
-\sigma_{\varepsilon} &amp;\sim&amp; \text{Uniform}(0,20)
+\mu_{\alpha} &amp;\sim&amp; \text{Normal}(66, 20) \\
+\sigma_{\alpha} &amp;\sim&amp; \text{Exp}(0.5) \\
+\sigma_{\beta} &amp;\sim&amp; \text{Exp}(1) \\
+\sigma_{\varepsilon} &amp;\sim&amp; \text{Exp}(1)
 \end{eqnarray*}
 \]</span></p>
-<p>…</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="reliability-and-validity.html#cb325-1" tabindex="-1"></a>df_long_bias <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
+<span id="cb325-2"><a href="reliability-and-validity.html#cb325-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ROM =</span> ROM <span class="sc">+</span> <span class="fu">ifelse</span>(Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>, <span class="dv">5</span>, <span class="dv">0</span>))</span>
+<span id="cb325-3"><a href="reliability-and-validity.html#cb325-3" tabindex="-1"></a><span class="fu">head</span>(df_long_bias)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##      ID Rater         ROM
+##   &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt;
+## 1     1 ROMas.Peter    66
+## 2     1 ROMas.Mary     75
+## 3     2 ROMas.Peter    65
+## 4     2 ROMas.Mary     68
+## 5     3 ROMas.Peter    96
+## 6     3 ROMas.Mary     87</code></pre>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="reliability-and-validity.html#cb327-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb327-2"><a href="reliability-and-validity.html#cb327-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb327-3"><a href="reliability-and-validity.html#cb327-3" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb327-4"><a href="reliability-and-validity.html#cb327-4" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb327-5"><a href="reliability-and-validity.html#cb327-5" tabindex="-1"></a>    <span class="co"># Likelihood</span></span>
+<span id="cb327-6"><a href="reliability-and-validity.html#cb327-6" tabindex="-1"></a>    ROM <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma_eps),</span>
+<span id="cb327-7"><a href="reliability-and-validity.html#cb327-7" tabindex="-1"></a>    </span>
+<span id="cb327-8"><a href="reliability-and-validity.html#cb327-8" tabindex="-1"></a>    <span class="co"># Model for mean ROM with patient and rater effects</span></span>
+<span id="cb327-9"><a href="reliability-and-validity.html#cb327-9" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> alpha[ID] <span class="sc">+</span> beta[Rater],  </span>
+<span id="cb327-10"><a href="reliability-and-validity.html#cb327-10" tabindex="-1"></a>    </span>
+<span id="cb327-11"><a href="reliability-and-validity.html#cb327-11" tabindex="-1"></a>    <span class="co"># Patient-specific random effects</span></span>
+<span id="cb327-12"><a href="reliability-and-validity.html#cb327-12" tabindex="-1"></a>    alpha[ID] <span class="sc">~</span> <span class="fu">dnorm</span>(mu_alpha, sigma_alpha),  </span>
+<span id="cb327-13"><a href="reliability-and-validity.html#cb327-13" tabindex="-1"></a>    </span>
+<span id="cb327-14"><a href="reliability-and-validity.html#cb327-14" tabindex="-1"></a>    <span class="co"># Rater effect (Peter/Mary)</span></span>
+<span id="cb327-15"><a href="reliability-and-validity.html#cb327-15" tabindex="-1"></a>    beta[Rater] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, sigma_beta),  </span>
+<span id="cb327-16"><a href="reliability-and-validity.html#cb327-16" tabindex="-1"></a>    </span>
+<span id="cb327-17"><a href="reliability-and-validity.html#cb327-17" tabindex="-1"></a>    <span class="co"># Priors for hyperparameters</span></span>
+<span id="cb327-18"><a href="reliability-and-validity.html#cb327-18" tabindex="-1"></a>    mu_alpha <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">66</span>, <span class="dv">10</span>),  <span class="co"># Population mean ROM</span></span>
+<span id="cb327-19"><a href="reliability-and-validity.html#cb327-19" tabindex="-1"></a>    sigma_alpha <span class="sc">~</span> <span class="fu">dexp</span>(<span class="fl">0.5</span>),  <span class="co"># Between-patient SD (less aggressive shrinkage)</span></span>
+<span id="cb327-20"><a href="reliability-and-validity.html#cb327-20" tabindex="-1"></a>    sigma_beta <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),   <span class="co"># Rater SD (better regularization)</span></span>
+<span id="cb327-21"><a href="reliability-and-validity.html#cb327-21" tabindex="-1"></a>    sigma_eps <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)     <span class="co"># Residual SD (prevents over-shrinkage)</span></span>
+<span id="cb327-22"><a href="reliability-and-validity.html#cb327-22" tabindex="-1"></a>  ), </span>
+<span id="cb327-23"><a href="reliability-and-validity.html#cb327-23" tabindex="-1"></a>  <span class="at">data =</span> df_long_bias, </span>
+<span id="cb327-24"><a href="reliability-and-validity.html#cb327-24" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">8</span>, <span class="at">cores =</span> <span class="dv">4</span></span>
+<span id="cb327-25"><a href="reliability-and-validity.html#cb327-25" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...
+## 
+## Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling)</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b477e0abe5c.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b477e0abe5c.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b477e0abe5c.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 1 finished in 0.2 seconds.
+## Chain 2 finished in 0.3 seconds.
+## Chain 3 finished in 0.2 seconds.
+## Chain 4 finished in 0.2 seconds.
+## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 5 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 5 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 5 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 5 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling)</code></pre>
+<pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b477e0abe5c.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 5</code></pre>
+<pre><code>## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 6 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 6 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 6 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 6 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 6 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 6 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 7 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 7 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)</code></pre>
+<pre><code>## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpYA06rb/model-12b477e0abe5c.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 7</code></pre>
+<pre><code>## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 5 finished in 0.2 seconds.
+## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 8 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 6 finished in 0.2 seconds.
+## Chain 7 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 7 finished in 0.3 seconds.
+## Chain 8 finished in 0.2 seconds.
+## 
+## All 8 chains finished successfully.
+## Mean chain execution time: 0.2 seconds.
+## Total execution time: 0.8 seconds.</code></pre>
+<pre><code>## Warning: 27 of 4000 (1.0%) transitions ended with a divergence.
+## See https://mc-stan.org/misc/warnings for details.</code></pre>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="reliability-and-validity.html#cb360-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.2</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##                  mean        sd       5.5%      94.5%     rhat  ess_bulk
+## alpha[1]    70.221230 4.6957078 62.9122250 77.6751330 1.003921 3956.8010
+## alpha[2]    66.637192 4.7935979 59.2921655 74.3219425 1.000703 4048.1323
+## alpha[3]    89.391211 4.8460529 81.8305935 96.9301420 1.001484 3581.3337
+## alpha[4]    79.068129 4.7090695 71.7267400 86.7491720 1.002625 4088.4617
+## alpha[5]    61.248545 4.6824417 53.8962900 68.7503010 1.002206 3886.9310
+## alpha[6]    71.711300 4.5314894 64.4525160 79.0005630 1.001403 3806.2065
+## alpha[7]    72.121798 4.7349544 64.6055805 79.6941110 1.001856 3482.5502
+## alpha[8]    69.834714 4.7037178 62.3043635 77.3545565 1.000583 4054.8858
+## alpha[9]    73.526363 4.7369985 66.0854635 81.0876520 1.001352 3708.7551
+## alpha[10]   83.497318 4.7172575 76.0272720 91.0849000 1.001394 3871.4522
+## alpha[11]   73.114282 4.6041905 65.8139360 80.4195110 1.002261 3330.7789
+## alpha[12]   44.827995 4.8132889 37.2627160 52.4649335 1.003939 3774.3717
+## alpha[13]   89.401919 4.7509654 81.8033940 96.8927025 1.001166 3733.9925
+## alpha[14]   77.155674 4.7663782 69.3451470 84.8327385 1.002594 3611.6344
+## alpha[15]   78.928227 4.8283770 71.2416295 86.6386025 1.005149 3462.8282
+## alpha[16]   37.537016 4.8929538 29.6438890 45.4816100 1.000967 3802.3178
+## alpha[17]   87.205983 4.6947001 79.8024680 94.7725850 1.004141 3205.6678
+## alpha[18]   67.618180 4.6490608 60.4495525 74.8906485 1.000691 3565.7257
+## alpha[19]   65.734938 4.7038246 58.2243970 73.1307710 1.003272 3021.3632
+## alpha[20]   82.148125 4.6634709 74.8132215 89.4844660 1.001809 3525.2622
+## alpha[21]   32.959556 4.7365812 25.6872720 40.6902550 1.000230 3896.3144
+## alpha[22]   65.312545 4.7691775 57.6339360 72.9769385 1.001701 3888.3018
+## alpha[23]   69.922455 4.6557324 62.4829305 77.3353785 1.004454 3949.3830
+## alpha[24]   84.028041 4.8666565 76.4453060 91.8557125 1.002520 4582.8271
+## alpha[25]   57.576782 4.6027933 50.1384940 65.0507070 1.003696 3883.0937
+## alpha[26]   69.844403 4.5423390 62.4724325 77.0730070 1.002214 3588.0981
+## alpha[27]   78.181829 4.6438020 70.9217780 85.6579100 1.000977 3573.7990
+## alpha[28]   83.976099 4.7519956 76.3497625 91.4832750 1.000891 3836.6036
+## alpha[29]   48.888864 4.6981990 41.3078680 56.4819905 1.001334 4153.8714
+## alpha[30]   63.812328 4.7111640 56.4071725 71.2587825 1.003047 3935.6824
+## alpha[31]   26.098770 4.8818137 18.3637725 33.9304330 1.003445 4068.8549
+## alpha[32]   76.676408 4.7365322 69.0211035 83.9915570 1.002364 3823.5694
+## alpha[33]   73.055353 4.6273537 65.9705020 80.5753430 1.002063 4039.5757
+## alpha[34]   78.963166 4.7676436 71.3900570 86.3736705 1.001748 3403.3517
+## alpha[35]   78.075230 4.7744829 70.5443095 85.7926805 1.001281 4222.4407
+## alpha[36]   71.652651 4.7601329 64.0808175 79.2662110 1.000708 4471.9540
+## alpha[37]   52.084764 4.7084537 44.8942315 59.7080135 1.002348 3439.9837
+## alpha[38]   76.121385 4.8822293 68.3599335 83.7502705 1.002290 4006.6888
+## alpha[39]   75.451394 4.7905587 67.7880930 82.8390550 1.000887 3454.6782
+## alpha[40]   48.408307 4.7026185 40.9218930 56.1687365 1.003060 3999.9664
+## alpha[41]   76.176540 4.6262898 68.7745580 83.5991630 1.004537 3963.8804
+## alpha[42]   28.812970 4.7775508 21.1928615 36.4243750 1.003746 3855.7962
+## alpha[43]   35.646945 4.6876761 28.1427865 43.0427785 1.000564 4114.5370
+## alpha[44]   76.736915 4.6819911 69.0549725 83.9337520 1.003016 3594.7244
+## alpha[45]   79.377066 4.6099939 71.8918425 86.7122600 1.001080 4016.1217
+## alpha[46]   76.266121 4.6936374 68.9066090 83.8324250 1.000442 4007.8677
+## alpha[47]   58.467633 4.5906174 51.1480830 65.6998370 1.002588 3396.4658
+## alpha[48]   72.114214 4.7995591 64.4240875 79.7356615 1.005283 3715.8719
+## alpha[49]   74.771082 4.6137731 67.3251525 82.0455495 1.001963 3457.0385
+## alpha[50]   75.414102 4.7692631 67.7589025 83.1030340 1.001202 4211.2151
+## beta[1]      1.196482 1.4699703 -0.7591575  3.6725132 1.005792  932.0193
+## beta[2]     -1.260339 1.5058841 -3.8538230  0.6600649 1.007244  857.8581
+## mu_alpha    67.979401 2.5706977 63.9069175 72.0885400 1.003032 1842.7425
+## sigma_alpha 15.457249 1.6142987 13.1380645 18.2104485 1.000383 4277.2078
+## sigma_beta   1.685571 1.0527940  0.3547305  3.5587972 1.001191 1581.1771
+## sigma_eps    6.713486 0.6434269  5.7619659  7.7933864 1.004713 2175.7641</code></pre>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="reliability-and-validity.html#cb362-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.2</span>)</span></code></pre></div>
+<pre><code>## 52 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                  mean        sd       5.5%     94.5%     rhat ess_bulk
+## mu_alpha    67.979401 2.5706977 63.9069175 72.088540 1.003032 1842.742
+## sigma_alpha 15.457249 1.6142987 13.1380645 18.210449 1.000383 4277.208
+## sigma_beta   1.685571 1.0527940  0.3547305  3.558797 1.001191 1581.177
+## sigma_eps    6.713486 0.6434269  5.7619659  7.793386 1.004713 2175.764</code></pre>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="reliability-and-validity.html#cb365-1" tabindex="-1"></a><span class="co"># check systematic difference for rater in posterior</span></span>
+<span id="cb365-2"><a href="reliability-and-validity.html#cb365-2" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.2</span>)</span>
+<span id="cb365-3"><a href="reliability-and-validity.html#cb365-3" tabindex="-1"></a><span class="fu">mean</span>(post<span class="sc">$</span>beta[,<span class="dv">1</span>] <span class="sc">-</span> post<span class="sc">$</span>beta[,<span class="dv">2</span>])  </span></code></pre></div>
+<pre><code>## [1] 2.456821</code></pre>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="reliability-and-validity.html#cb367-1" tabindex="-1"></a><span class="co"># ICC agreement:</span></span>
+<span id="cb367-2"><a href="reliability-and-validity.html#cb367-2" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.2</span>)</span>
+<span id="cb367-3"><a href="reliability-and-validity.html#cb367-3" tabindex="-1"></a>(var_patients <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_alpha<span class="sc">^</span><span class="dv">2</span>))  <span class="co"># Between-patient variance</span></span></code></pre></div>
+<pre><code>## [1] 241.5319</code></pre>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="reliability-and-validity.html#cb369-1" tabindex="-1"></a>(var_raters <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_beta<span class="sc">^</span><span class="dv">2</span>))     <span class="co"># Rater variance</span></span></code></pre></div>
+<pre><code>## [1] 3.949248</code></pre>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="reliability-and-validity.html#cb371-1" tabindex="-1"></a>(var_residual <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_eps<span class="sc">^</span><span class="dv">2</span>))    <span class="co"># Residual variance</span></span></code></pre></div>
+<pre><code>## [1] 45.48479</code></pre>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="reliability-and-validity.html#cb373-1" tabindex="-1"></a><span class="co"># ICC_agreement = </span></span>
+<span id="cb373-2"><a href="reliability-and-validity.html#cb373-2" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_raters <span class="sc">+</span> var_residual)</span></code></pre></div>
+<pre><code>## [1] 0.8301037</code></pre>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="reliability-and-validity.html#cb375-1" tabindex="-1"></a><span class="co"># 0.8033613 (sigma_alpha ~ dexp(1))</span></span>
+<span id="cb375-2"><a href="reliability-and-validity.html#cb375-2" tabindex="-1"></a><span class="co"># 0.83 (sigma_alpha ~ dexp(0.5))</span></span>
+<span id="cb375-3"><a href="reliability-and-validity.html#cb375-3" tabindex="-1"></a></span>
+<span id="cb375-4"><a href="reliability-and-validity.html#cb375-4" tabindex="-1"></a><span class="co"># ICC (Single_fixed_raters) = ICC3 in psych output = </span></span>
+<span id="cb375-5"><a href="reliability-and-validity.html#cb375-5" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_residual)</span></code></pre></div>
+<pre><code>## [1] 0.8415256</code></pre>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="reliability-and-validity.html#cb377-1" tabindex="-1"></a><span class="co"># 0.8158461 (sigma_alpha ~ dexp(0.5))</span></span>
+<span id="cb377-2"><a href="reliability-and-validity.html#cb377-2" tabindex="-1"></a><span class="co"># 0.8403384 (sigma_alpha ~ dexp(1))</span></span></code></pre></div>
 </div>
 <div id="difference-between-correlation-and-icc" class="section level3 hasAnchor" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> Difference between correlation and ICC<a href="reliability-and-validity.html#difference-between-correlation-and-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -921,6 +1213,10 @@ clustered around the line of equality (<span class="math inline">\(y=x\)</span>)
 </div>
 <div id="standard-error-of-measurement-sem" class="section level3 hasAnchor" number="5.1.4">
 <h3><span class="header-section-number">5.1.4</span> Standard Error of Measurement (SEM)<a href="reliability-and-validity.html#standard-error-of-measurement-sem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>…</p>
+</div>
+<div id="bland-altman-plot" class="section level3 hasAnchor" number="5.1.5">
+<h3><span class="header-section-number">5.1.5</span> Bland-Altman Plot<a href="reliability-and-validity.html#bland-altman-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>…</p>
 </div>
 </div>
