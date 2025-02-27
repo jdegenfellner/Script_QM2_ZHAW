@@ -123,5 +123,7 @@ reliability-and-validity
 reliability
 peter-and-marys-rom-measurements
 intraclass-correlation-coefficient-icc
+difference-between-correlation-and-icc
+standard-error-of-measurement-sem
 validity
 todos

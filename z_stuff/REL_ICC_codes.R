@@ -115,6 +115,7 @@ data_ <- df %>%
   pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), names_to = "Rater", values_to = "ROM") %>% 
   mutate(Rater = factor(Rater))
 
+data_$ID
 
 tic()
 m5.1 <- ulam(
@@ -145,3 +146,89 @@ var_patients / (var_patients + var_residual) # ICC
 # 0.846323
 # not too bad
 
+
+
+# ICC agreement with bias 5 degrees Mary-Peter ~ 5:
+
+#introduce bias:
+data_ <- data_ %>%
+  mutate(ROM = ROM + ifelse(Rater == "ROMas.Mary", 5, 0))
+
+# mean Mary
+mean(data_$ROM[data_$Rater == "ROMas.Mary"]) # 69.98
+# mean Peter
+mean(data_$ROM[data_$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
+
+library(rethinking)
+
+m5.2 <- ulam(
+  alist(
+    # Likelihood
+    ROM ~ dnorm(mu, sigma_eps),
+    
+    # Model for mean ROM with patient and rater effects
+    mu <- alpha[ID] + beta[Rater],  
+    
+    # Patient-specific random effects
+    alpha[ID] ~ dnorm(alpha_mean, sigma_alpha),  
+    
+    # Rater effect (Peter/Mary)
+    beta[Rater] ~ dnorm(0, sigma_beta),  
+    
+    # Priors for hyperparameters
+    alpha_mean ~ dnorm(66, 20),  # Population mean ROM
+    sigma_alpha ~ dunif(0, 30),  # Between-patient SD
+    sigma_beta ~ dunif(5, 10),   # Rater SD
+    sigma_eps ~ dunif(0, 40)     # Residual SD
+  ), 
+  data = data_, 
+  chains = 8, cores = 4
+)
+
+precis(m5.2, depth = 2)
+
+# ICC agreement:
+
+post <- extract.samples(m5.2)
+(var_patients <- mean(post$sigma_alpha^2))  # Between-patient variance
+(var_raters <- mean(post$sigma_beta^2))     # Rater variance
+(var_residual <- mean(post$sigma_eps^2))    # Residual variance
+
+# ICC_agreement = 
+var_patients / (var_patients + var_raters + var_residual)
+# 0.7250569
+
+str(data_)
+# tibble [100 × 3] (S3: tbl_df/tbl/data.frame)
+# $ ID   : int [1:100] 1 1 2 2 3 3 4 4 5 5 ...
+# $ Rater: Factor w/ 2 levels "ROMas.Mary","ROMas.Peter": 2 1 2 1 2 1 2 1 2 1 ...
+# $ ROM  : num [1:100] 66 75 65 68 96 87 75 85 62 59 ...
+
+# verify with irr:
+# use df and introduce bias there too 
+head(df)
+df <- df %>%
+  mutate(ROMnas.Mary = ROMnas.Mary + 5)
+
+irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]), 
+    model = "twoway", type = "agreement")
+
+
+# try lmer:
+# mean Mary
+mean(data_$ROM[data_$Rater == "ROMas.Mary"]) # 69.98
+# mean Peter
+mean(data_$ROM[data_$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
+
+m5.3 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = data_)
+summary(m5.3)
+print(VarCorr(m5.3), comp = "Variance")
+# Groups   Name        Variance
+# ID       (Intercept) 270.882 
+# Rater    (Intercept)   6.193 
+# Residual              47.557 
+
+
+# ICC =
+270.882 / (270.882 + 6.193 + 47.557) # 
+# 0.8344279

@@ -189,11 +189,11 @@ score and
 
 $$ Y_i = \eta_i + \varepsilon_i $$
 
-It is assumed that $\eta_i$ and $\varepsilon_i$ are independent.
+It is assumed that $\eta_i$ and $\varepsilon_i$ are independent: ($\mathbb{C}ov(\eta_i, \varepsilon_i)=0$).
 This is a nice assumption because now we know (see [here](https://en.wikipedia.org/wiki/Variance#Addition_and_multiplication_by_a_constant)) 
 that the variability
 of the observed score $Y_i$ is just the sum of the variability of the true score $\eta_i$
-and the variability of the error term $\varepsilon_i$ ($\mathbb{C}ov(\eta_i, \varepsilon_i)=0$):
+and the variability of the error term $\varepsilon_i$:
 
 $$ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) $$
 $$ \sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2 $$
@@ -221,14 +221,19 @@ $$ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}$$
 
 Since $\eta$ is a random variable (we draw a person randomly from the population),
 it is well defined to talk about the variance of $\eta$ (i.e., $\sigma_{\eta}^2$).
-Also: $$\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}$$
+I think this aspect may not come across in the book quite so clearly.
+
+Furthermore, it does not matter if I call the measurement $Y_1$, $Y_2$ or more gerneral
+$Y$, since they have the same variance and true score: 
+
+$$\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}$$
 
 Hence, it follows that:
 
 $$cor(Y_1, Y_2) =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
 
 This is the **intraclass correlation coefficient (ICC)**. It is the proportion of the
-true score variability to the total variability. The ICC is a number between 0 and 1.
+true score variability to the total variability. The ICC is a number between 0 and 1 (think about why!).
 
 Depending on how much deviation from the true but unknown $\eta$ we throw into the error term $\varepsilon$,
 you get different versions of the ICC. We will probably stick with the simple versions $ICC_{agreement}$
@@ -248,6 +253,8 @@ The higher this ratio, the lower the ICC. The lower the ratio, the higher the IC
   increases.
 - If you increase the true score variability $\sigma_{\eta}^2$ for fixed noise$\sigma_{\varepsilon}^2$, 
   the ICC increases, since the denominator decreases.
+
+Btw, we could also divide by $\sigma_{\varepsilon}^2$ and get the signal-to-noise ratio.
 
 At first glance, the following statement seems wrong:
 
@@ -279,8 +286,8 @@ framework.
 
 Below is the model structure. Explanation of the model:
 
-- $Y_i$ is the observed score (ROM) for patient $i$.
-- $\mu_i$ is the expected value of the observed score for patient $i$.
+- $Y_i$ is the observed score (ROM) for patient $ID$.
+- $\mu_i$ is the expected value of the observed score for patient $ID$.
 - $\sigma_{\varepsilon}$ is the standard deviation of the measurement error.
 - $\alpha[ID]$ is the patient-specific intercept. 
   Since every patient has a different intercept, and they
@@ -297,7 +304,7 @@ Below is the model structure. Explanation of the model:
 Y_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \mu_i &=& \alpha[ID] \\
 \alpha[ID] &\sim& \text{Normal}(\alpha_{ID mean}, \sigma_{\alpha}) \\
-\alpha_{mean} &\sim& \text{Normal}(66, 20) \\
+\alpha_{IDmean} &\sim& \text{Normal}(66, 20) \\
 \sigma_{\alpha} &\sim& \text{Uniform}(0,20) \\
 \sigma_{\varepsilon} &\sim& \text{Uniform}(0,20)
 \end{eqnarray*}
@@ -380,6 +387,57 @@ print(VarCorr(m5.2), comp = "Variance")
 # -> exactly the same result as the irr package
 ```
 
+So far, we have only looked at the **$ICC_{consistency}$** (see also page 106 in the book). 
+There, we have not yet explicitely considered a bias (=systematic difference 
+between the raters) that the raters could introduce. In the book,
+they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).
+
+There is also the **$ICC_{agreement}$**, which explicitely considers this difference
+that could occur between the raters. 
+
+We will now introduce the 5 degree bias and use our Bayesian 
+framework to estimate the ICC. By introducing the bias, we should see
+a lower ICC (agreement). Note, that the prediction quality of Mary's scores
+given Peter's scores should not change, since we would only shift Mary's scores
+down by 5 degrees, which would not disturb the linear regression model. We can
+always move around the points to where we want them to be. We do that for instance
+when we scale or standardize the data.
+
+Anyhow, let's try to give the model equations for the new model considering
+the introduced bias:
+
+\[
+\begin{eqnarray*}
+Y_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
+\mu_i &=& \alpha[ID] + \beta[Rater] \\
+\alpha[ID] &\sim& \text{Normal}(\alpha_{IDmean}, \sigma_{\alpha}) \\
+\beta[Rater] &\sim& \text{Normal}(0, \sigma_{\beta}) \\
+\alpha_{IDmean} &\sim& \text{Normal}(66, 20) \\
+\sigma_{\alpha} &\sim& \text{Uniform}(0,20) \\
+\sigma_{\beta} &\sim& \text{Uniform}(0,10) \\
+\sigma_{\varepsilon} &\sim& \text{Uniform}(0,20)
+\end{eqnarray*}
+\]
+
+
+...
+
+
+### Difference between correlation and ICC
+
+If we do not introduce a bias in the data, the correlation coefficient
+is the same as the ICC (as seen above). On page 110, Figure 5.3, they show nicely 
+what the difference is between the correlation coefficient and the ICC. We note:
+
+- The ICC (agreement) measures how tightly the two measurements are 
+  clustered around the line of equality ($y=x$)........
+  ........
+
+### Standard Error of Measurement (SEM)
+...
+
+### Bland-Altman Plot
+...
 
 ## Validity
 ...
