@@ -648,8 +648,8 @@ The \texttt{precis}function displays concise parameter estimate information
 
 \begin{verbatim}
 ##             mean        sd       5.5%      94.5%
-## mu    154.604068 0.4119943 153.945621 155.262514
-## sigma   7.731333 0.2913859   7.265642   8.197024
+## mu    154.606914 0.4120045 153.948451 155.265377
+## sigma   7.731518 0.2914035   7.265799   8.197237
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 155.0086 7.185888
-## 2 154.5880 7.619225
-## 3 153.9644 8.309665
-## 4 154.6125 7.409680
-## 5 154.7700 8.033195
-## 6 155.0519 7.081495
+## 1 153.9637 8.072268
+## 2 155.3763 7.439086
+## 3 154.7934 8.019195
+## 4 155.2723 7.596729
+## 5 154.5083 7.871421
+## 6 154.7321 8.115343
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697393026 0.0001531322
-## sigma 0.0001531322 0.0849057694
+## mu    0.1697476878 0.0002156509
+## sigma 0.0002156509 0.0849159731
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973930 0.08490577
+## 0.16974769 0.08491597
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -741,9 +741,9 @@ And we can compute the correlation matrix easily:
 \end{Shaded}
 
 \begin{verbatim}
-##                mu       sigma
-## mu    1.000000000 0.001275577
-## sigma 0.001275577 1.000000000
+##              mu     sigma
+## mu    1.0000000 0.0017962
+## sigma 0.0017962 1.0000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1347,7 +1347,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd34dbbda4f/widget14cd367f9a067.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f66b9858a/widget15e3f1dee5bb6.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2023,7 +2023,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd32d088e67/widget14cd3cbd234a.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f286e871c/widget15e3f70685400.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -3624,7 +3624,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd325364660/widget14cd3e465bb6.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f534baead/widget15e3fdb90a94.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3816,7 +3816,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd35a87352f/widget14cd362b4cf17.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f56ac9412/widget15e3f5c2d5632.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4716,7 +4716,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd31a5e776e/widget14cd32ff2e448.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f6e321546/widget15e3f1a12df2f.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -6437,14 +6437,16 @@ The ICC is then calculated as
 
 \[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\].
 
-\begin{align*}
+\[
+\begin{array}{rcl}
 ROM_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \mu_i &=& \alpha[ID] \\
 \alpha[ID] &\sim& \text{Normal}(\mu_{\alpha}, \sigma_{\alpha}) \\
 \mu_{\alpha} &\sim& \text{Normal}(66, 20) \\
 \sigma_{\alpha} &\sim& \text{Uniform}(0,20) \\
 \sigma_{\varepsilon} &\sim& \text{Uniform}(0,20)
-\end{align*}
+\end{array}
+\]
 
 We did not even notice it, but this was our first \textbf{multilevel regression model}.
 It is multilevel due to the extra layer of patient-specific intercepts.
@@ -6527,7 +6529,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6562,7 +6564,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6609,7 +6611,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6648,7 +6650,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6683,7 +6685,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6719,10 +6721,10 @@ distribution of the parameters.
 ## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 finished in 0.1 seconds.
 ## Chain 6 finished in 0.1 seconds.
 ## Chain 7 finished in 0.1 seconds.
-## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
@@ -6740,7 +6742,7 @@ distribution of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-## 7.143 sec elapsed
+## 7.06 sec elapsed
 \end{verbatim}
 
 \begin{Shaded}
@@ -6961,8 +6963,9 @@ when we scale or standardize the data.
 Anyhow, let's try to give the model equations for the new model considering
 the introduced bias:
 
-\begin{align*}
-Y_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
+\[
+\begin{array}{rcl}
+ROM_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \mu_i &=& \alpha[ID] + \beta[Rater] \\
 \alpha[ID] &\sim& \text{Normal}(\mu_{\alpha}, \sigma_{\alpha}) \\
 \beta[Rater] &\sim& \text{Normal}(0, \sigma_{\beta}) \\
@@ -6970,7 +6973,8 @@ Y_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \sigma_{\alpha} &\sim& \text{Exp}(0.5) \\
 \sigma_{\beta} &\sim& \text{Exp}(1) \\
 \sigma_{\varepsilon} &\sim& \text{Exp}(1)
-\end{align*}
+\end{array}
+\]
 
 Draw model structure \ldots{} exercise..
 
@@ -7042,7 +7046,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7068,7 +7072,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7098,7 +7102,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7158,7 +7162,8 @@ Draw model structure \ldots{} exercise..
 ## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7166,7 +7171,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7206,7 +7211,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7224,10 +7229,10 @@ Draw model structure \ldots{} exercise..
 \begin{verbatim}
 ## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 5 finished in 0.2 seconds.
 ## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 6 finished in 0.2 seconds.
 ## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
@@ -7242,7 +7247,6 @@ Draw model structure \ldots{} exercise..
 ## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 6 finished in 0.2 seconds.
 ## Chain 7 finished in 0.2 seconds.
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 8 finished in 0.2 seconds.
