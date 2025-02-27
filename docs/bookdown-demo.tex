@@ -648,8 +648,8 @@ The \texttt{precis}function displays concise parameter estimate information
 
 \begin{verbatim}
 ##             mean        sd       5.5%      94.5%
-## mu    154.606914 0.4120045 153.948451 155.265377
-## sigma   7.731518 0.2914035   7.265799   8.197237
+## mu    154.604095 0.4119943 153.945648 155.262541
+## sigma   7.731333 0.2913859   7.265642   8.197024
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 153.9637 8.072268
-## 2 155.3763 7.439086
-## 3 154.7934 8.019195
-## 4 155.2723 7.596729
-## 5 154.5083 7.871421
-## 6 154.7321 8.115343
+## 1 154.5671 7.873488
+## 2 154.6291 7.715122
+## 3 154.3116 7.481210
+## 4 154.9563 7.563920
+## 5 154.8148 7.607258
+## 6 154.5600 7.963224
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697476878 0.0002156509
-## sigma 0.0002156509 0.0849159731
+## mu    0.1697392671 0.0001537322
+## sigma 0.0001537322 0.0849057475
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16974769 0.08491597
+## 0.16973927 0.08490575
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -741,9 +741,9 @@ And we can compute the correlation matrix easily:
 \end{Shaded}
 
 \begin{verbatim}
-##              mu     sigma
-## mu    1.0000000 0.0017962
-## sigma 0.0017962 1.0000000
+##                mu       sigma
+## mu    1.000000000 0.001280575
+## sigma 0.001280575 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1347,7 +1347,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f66b9858a/widget15e3f1dee5bb6.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/file177ff5ec1c6ff/widget177ff3efbff3.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2023,7 +2023,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f286e871c/widget15e3f70685400.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/file177ff9b76c4/widget177ff5e923e2b.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -3624,7 +3624,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f534baead/widget15e3fdb90a94.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/file177ff579c08f7/widget177ff4510bd10.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3816,7 +3816,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f56ac9412/widget15e3f5c2d5632.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/file177ff4b73fa3d/widget177ff2b31e17e.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4716,7 +4716,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/file15e3f6e321546/widget15e3f1a12df2f.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/file177ff41f24a29/widget177ff9e2eb92.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -6269,7 +6269,7 @@ There is
 \item
   a true underlying score \(\eta_i\) (for each patient i) and
 \item
-  an error term \(\varepsilon \sim N(0, \sigma_i)\) which is the difference between the true
+  an error term \(\varepsilon_i \sim N(0, \sigma_i)\) which is the difference between the true
   score and
 \item
   the observed score \(Y_i\).
@@ -6433,7 +6433,8 @@ Below is the model structure.
   the scores of the patients vary in relation to their respective level \(\alpha[ID]\).
 \end{itemize}
 
-The ICC is then calculated as
+The \(ICC_{consistency}\) is then calculated as the ratio of the between-patient variance and
+the total variance:
 
 \[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\].
 
@@ -6465,7 +6466,7 @@ distribution of the parameters.
   The \texttt{chains} argument specifies how many chains we want to run.
   A \emph{chain} is a sequence of points in a space with as many dimensions as there
   are parameters in the model. It jumps from one point to the next in this parameter
-  space and in doing so, visits the points of the posterior exactly in the correct
+  space and in doing so, visits the points of the posterior approximately in the correct
   frequency. \href{https://blog.revolutionanalytics.com/2013/09/an-animated-peek-into-the-workings-of-bayesian-statistics.html}{Here}
   is an excellent visualization.
 \item
@@ -6529,7 +6530,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ff7b56f8cf.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6564,7 +6565,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ff7b56f8cf.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6611,7 +6612,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ff7b56f8cf.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6650,7 +6651,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ff7b56f8cf.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6685,7 +6686,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f52dca2e1.stan', line 17, column 4 to column 34)
+## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ff7b56f8cf.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6721,10 +6722,10 @@ distribution of the parameters.
 ## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 finished in 0.1 seconds.
 ## Chain 6 finished in 0.1 seconds.
 ## Chain 7 finished in 0.1 seconds.
+## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
@@ -6742,7 +6743,7 @@ distribution of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-## 7.06 sec elapsed
+## 8.729 sec elapsed
 \end{verbatim}
 
 \begin{Shaded}
@@ -6938,9 +6939,14 @@ the command \texttt{lmer}in the Frequentist framework. No priors.
 \end{Highlighting}
 \end{Shaded}
 
+The expression \texttt{Formula:\ ROM\ \textasciitilde{}\ (1\ \textbar{}\ ID)} specifies that we want to fit a model with
+a random intercept. This means that every patient (ID) gets its own intercept
+which is drawn from a normal distribution. We will probably talk about this in the
+next lecture (Methodenvertiefung) in greater detail.
+
 So far, we have only looked at the \textbf{\(ICC_{consistency}\)} (see also page 106 in the book).
 There, we have not yet explicitely considered a bias (=systematic difference
-between the raters) that the raters could introduce. In the book,
+between the raters) that the raters could have. In the book,
 they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).
 
 There is also the \textbf{\(ICC_{agreement}\)}, which explicitely considers this difference
@@ -6953,14 +6959,19 @@ of the ICC, an additional variance component:
 where \(\sigma_{rater}^2\) is the variance due to systematic rater differences.
 
 We will now introduce the 5 degree bias and use our Bayesian
-framework to estimate the \(ICC_{agreement}\). By introducing a bias, we should see
+framework to estimate the \(ICC_{agreement}\).
+By introducing a bias, we should see
 a lower ICC (agreement). Note, that the prediction quality of Mary's scores
 given Peter's scores should not change, since we would only shift Mary's scores
 down by 5 degrees, which would not disturb the linear regression model. We can
 always move around the points to where we want them to be. We do that for instance
 when we scale or standardize the data.
 
-Anyhow, let's try to give the model equations for the new model considering
+Admitted, the Bayesian version in this case takes longer and is more complex.
+The advantage is still that it's fully probabilistic and one could work with
+detailed prior information, especially for smaller smaple sizes.
+
+Anyhow, let's try to give the model equations considering
 the introduced bias:
 
 \[
@@ -6975,6 +6986,26 @@ ROM_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \sigma_{\varepsilon} &\sim& \text{Exp}(1)
 \end{array}
 \]
+
+As you can see, \(\mu_i\) now consists of the patient-specific intercept \(\alpha[ID]\)
+(everyone of the 50 patients gets one)
+and the rater-specific effect \(\beta[Rater]\) (Mary and Peter get one).
+So, in total, we have \textbf{three sources of variability}:
+
+\begin{itemize}
+\tightlist
+\item
+  the patient variability \(\sigma_{\alpha}\),
+\item
+  the rater variability \(\sigma_{\beta}\),
+\item
+  and the residual variability \(\sigma_{\varepsilon}\).
+\end{itemize}
+
+Note, that if Peter measures each of the 50 patients twice,
+the systematic difference between Peter's measurements would
+be zero. Of course, one could be creative and think of
+a learning effect or something.
 
 Draw model structure \ldots{} exercise..
 
@@ -7046,7 +7077,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ffc9d05c2.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7072,7 +7103,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ffc9d05c2.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7102,7 +7133,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ffc9d05c2.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7162,8 +7193,7 @@ Draw model structure \ldots{} exercise..
 ## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7171,7 +7201,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ffc9d05c2.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7196,7 +7226,6 @@ Draw model structure \ldots{} exercise..
 ## Chain 6 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -7211,7 +7240,7 @@ Draw model structure \ldots{} exercise..
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1MEKvh/model-15e3f2df273b3.stan', line 21, column 4 to column 45)
+## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpzQ6tan/model-177ffc9d05c2.stan', line 21, column 4 to column 45)
 \end{verbatim}
 
 \begin{verbatim}
@@ -7229,10 +7258,11 @@ Draw model structure \ldots{} exercise..
 \begin{verbatim}
 ## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 5 finished in 0.2 seconds.
+## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 6 finished in 0.2 seconds.
 ## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
@@ -7247,6 +7277,7 @@ Draw model structure \ldots{} exercise..
 ## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 finished in 0.2 seconds.
 ## Chain 7 finished in 0.2 seconds.
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 8 finished in 0.2 seconds.
@@ -7429,7 +7460,7 @@ I have played around a little with the parameters in the exponential priors
 to get the desired result which compares nicely to the two alternative methods below:
 using the \texttt{psych} package and with the \texttt{lmer}
 package. Both use a Frequentist random intercept model in the background.
-Using a package like \texttt{psych} does just gives a more convenient interface to
+Using a package like \texttt{psych} just gives a more convenient interface to
 elicit the ICC.
 
 \textbf{\texttt{psych} package}:
@@ -7556,7 +7587,56 @@ elicit the ICC.
 
 \subsection{\texorpdfstring{Explanation of ICCs in the \texttt{psych} output}{Explanation of ICCs in the psych output}}\label{explanation-of-iccs-in-the-psych-output}
 
-\ldots{}
+If you want to know all the details, refer to \href{https://d1wqtxts1xzle7.cloudfront.net/50483847/syarat_reliabilitas_icc-libre.pdf?1479841049=&response-content-disposition=inline\%3B+filename\%3DIntraclass_Correlations_Uses_in_Assessin.pdf&Expires=1740684631&Signature=hHiFbcQD3PDVIyWDJ-bUhcm3WtsK19YhHm6FKtnafNdqsm9NhR6cr9lbCf~gVV5SYG1XlTwLlcfJkQ9Z-ahjmmNV893aWi5plo~yL4oZBEjrmFa9WCd7k6vzFTkri1Xbgfh~GyPARWXBtqABytovtL-RD1420Kw9qk150nw3-kUWcuvRiIc~r0y65XQaXf-V9mm~uXRFdUqec4Vs-Bwh~IrJfHWQASGgp8wZjzh2130MCP3-iaorxNn~79c~nm2f1aIl5WRqRXB6EIy8HlrNFpxNSt1pgTPZoZadEECM4qH395KLY5ijUnhoCDT9AmcOplPnFiC5t8dKW-n25ziofQ__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA}{Shrout and Fleiss (1979)}.
+The help-function \texttt{?psych::ICC} containts a relatively good and much shorter explanation.
+The variance forumlae given in the help-file are probably somewhat confusing.
+We try to stick to the notation of the book.
+
+Let's talk about the first three ICCs in the \texttt{psych} output.
+
+\begin{itemize}
+\item
+  \textbf{Single\_raters\_absolute ICC1}
+  According to the help file: ``Each target is rated by a different
+  judge and the judges are selected at random.''
+  This is formally not our situation, since we have only two raters and
+  50 patients. But for this case, we do not care how measures, since we do not
+  model it, hence, we cannot know if there are systematic differences between
+  the raters. This is the ICC we calculated above.
+  This ICC is called \(ICC_{consistency}\) in the book and based on the following
+  model:
+
+  \[ Y_ij = \eta_j + \varepsilon_i \]
+  where \(j \in {1,...,50}\) is the patient and \(j \in {1,2}\) is the \emph{measurement}.
+  Note that we do not mention a rater here, since we do not care who took the
+  measurement. It is not part of the model. The ICC is then calculated as:
+  \[ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
+\item
+  \textbf{Single\_random\_raters ICC2}
+  ICC2 and ICC3 are based on the \emph{same} statistical model. The only difference is
+  that ICC2 assumes that the raters are randomly selected from a larger pool of raters,
+  hence, the rater variability must be explicitely considered and yields a potentially smaller
+  value for the ICC. The model is:
+
+  \[ Y_ij = \eta_j + \beta_j + \varepsilon_i \]
+  where \(j \in {1,...,50}\) is the patient, \(j \in {1,2}\) is the \textbf{rater}
+  (doing one measurement each). The ICC is then calculated as:
+
+  \[ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + 
+  \sigma_{\varepsilon}^2}\]
+\item
+  \textbf{Single\_fixed\_raters ICC3}
+  ICC3 is based on the \textbf{same model as ICC2}, but assumes that the raters are fixed.
+  This means that the raters are the same for all patients.
+  So, we have considered the rater variability in the model,
+  but do not care since Mary and Peter will be the people doing the future
+  measurements, not other therapists. The ICC is then calculated as:
+
+  \[ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
+
+  ICC1 and ICC3 are \textbf{not} identical, since ICC1 does not consider the rater variability
+  in the model. If there is no rater variability, all 3 ICCs are the same.
+\end{itemize}
 
 \subsection{Difference between correlation and ICC}\label{difference-between-correlation-and-icc}
 

@@ -251,7 +251,7 @@ df_bias <- df %>%
 df_wide <- df_long_bias %>%
   pivot_wider(names_from = Rater, values_from = ROM)
 df_wide_values <- df_wide %>% select(-ID)
-ICC(df_wide_values) # ICC1 = 0.83
+psych::ICC(df_wide_values) # ICC1 = 0.83
 
 # _lmer------
 m5.3 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = df_long_bias)

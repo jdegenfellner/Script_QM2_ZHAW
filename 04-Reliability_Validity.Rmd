@@ -183,7 +183,7 @@ In the background one thinks of a statistical model from the
 There is 
 
 - a true underlying score $\eta_i$ (for each patient i) and 
-- an error term $\varepsilon \sim N(0, \sigma_i)$ which is the difference between the true
+- an error term $\varepsilon_i \sim N(0, \sigma_i)$ which is the difference between the true
 score and 
 - the observed score $Y_i$.
 
@@ -304,7 +304,8 @@ Below is the model structure.
   the scores of the patients vary in relation to their respective level $\alpha[ID]$.
 
 
-The ICC is then calculated as 
+The $ICC_{consistency}$ is then calculated as the ratio of the between-patient variance and
+the total variance: 
 
   $$\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$$.
 
@@ -334,7 +335,7 @@ distribution of the parameters.
 - The `chains` argument specifies how many chains we want to run.
   A *chain* is a sequence of points in a space with as many dimensions as there 
   are parameters in the model. It jumps from one point to the next in this parameter 
-  space and in doing so, visits the points of the posterior exactly in the correct 
+  space and in doing so, visits the points of the posterior approximately in the correct 
   frequency. [Here](https://blog.revolutionanalytics.com/2013/09/an-animated-peek-into-the-workings-of-bayesian-statistics.html) 
   is an excellent visualization.
 
@@ -418,9 +419,14 @@ print(VarCorr(m5.2), comp = "Variance")
 # -> exactly the same result as the irr package
 ```
 
+The expression `Formula: ROM ~ (1 | ID)` specifies that we want to fit a model with 
+a random intercept. This means that every patient (ID) gets its own intercept
+which is drawn from a normal distribution. We will probably talk about this in the
+next lecture (Methodenvertiefung) in greater detail.
+
 So far, we have only looked at the **$ICC_{consistency}$** (see also page 106 in the book). 
 There, we have not yet explicitely considered a bias (=systematic difference 
-between the raters) that the raters could introduce. In the book,
+between the raters) that the raters could have. In the book,
 they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).
 
 There is also the **$ICC_{agreement}$**, which explicitely considers this difference
@@ -428,19 +434,24 @@ that could occur between the raters. This results in an extra term in the demoni
 of the ICC, an additional variance component:
 
 $$ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + 
-\sigma_{\varepsilon}^2 + \sigma_{rater}^2}$$
+\sigma_{rater}^2 + \sigma_{\varepsilon}^2}$$
 
 where $\sigma_{rater}^2$ is the variance due to systematic rater differences.
 
 We will now introduce the 5 degree bias and use our Bayesian 
-framework to estimate the $ICC_{agreement}$. By introducing a bias, we should see
+framework to estimate the $ICC_{agreement}$. 
+By introducing a bias, we should see
 a lower ICC (agreement). Note, that the prediction quality of Mary's scores
 given Peter's scores should not change, since we would only shift Mary's scores
 down by 5 degrees, which would not disturb the linear regression model. We can
 always move around the points to where we want them to be. We do that for instance
 when we scale or standardize the data.
 
-Anyhow, let's try to give the model equations for the new model considering
+Admitted, the Bayesian version in this case takes longer and is more complex.
+The advantage is still that it's fully probabilistic and one could work with 
+detailed prior information, especially for smaller smaple sizes.
+
+Anyhow, let's try to give the model equations considering
 the introduced bias:
 
 \[
@@ -455,6 +466,20 @@ ROM_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \sigma_{\varepsilon} &\sim& \text{Exp}(1)
 \end{array}
 \]
+
+As you can see, $\mu_i$ now consists of the patient-specific intercept $\alpha[ID]$
+(everyone of the 50 patients gets one)
+and the rater-specific effect $\beta[Rater]$ (Mary and Peter get one). 
+So, in total, we have **three sources of variability**: 
+
+- the patient variability $\sigma_{\alpha}$, 
+- the rater variability $\sigma_{\beta}$,
+- and the residual variability $\sigma_{\varepsilon}$.
+
+Note, that if Peter measures each of the 50 patients twice, 
+the systematic difference between Peter's measurements would 
+be zero. Of course, one could be creative and think of 
+a learning effect or something.
 
 Draw model structure ... exercise..
 
@@ -521,7 +546,7 @@ I have played around a little with the parameters in the exponential priors
 to get the desired result which compares nicely to the two alternative methods below:
 using the `psych` package and with the `lmer`
 package. Both use a Frequentist random intercept model in the background.
-Using a package like `psych` does just gives a more convenient interface to 
+Using a package like `psych` just gives a more convenient interface to 
 elicit the ICC. 
 
 **`psych` package**:
@@ -559,7 +584,56 @@ print(VarCorr(m5.3), comp = "Variance")
 
 ### Explanation of ICCs in the `psych` output
 
-...
+If you want to know all the details, refer to [Shrout and Fleiss (1979)](https://d1wqtxts1xzle7.cloudfront.net/50483847/syarat_reliabilitas_icc-libre.pdf?1479841049=&response-content-disposition=inline%3B+filename%3DIntraclass_Correlations_Uses_in_Assessin.pdf&Expires=1740684631&Signature=hHiFbcQD3PDVIyWDJ-bUhcm3WtsK19YhHm6FKtnafNdqsm9NhR6cr9lbCf~gVV5SYG1XlTwLlcfJkQ9Z-ahjmmNV893aWi5plo~yL4oZBEjrmFa9WCd7k6vzFTkri1Xbgfh~GyPARWXBtqABytovtL-RD1420Kw9qk150nw3-kUWcuvRiIc~r0y65XQaXf-V9mm~uXRFdUqec4Vs-Bwh~IrJfHWQASGgp8wZjzh2130MCP3-iaorxNn~79c~nm2f1aIl5WRqRXB6EIy8HlrNFpxNSt1pgTPZoZadEECM4qH395KLY5ijUnhoCDT9AmcOplPnFiC5t8dKW-n25ziofQ__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA).
+The help-function `?psych::ICC` containts a relatively good and much shorter explanation.
+The variance forumlae given in the help-file are probably somewhat confusing.
+We try to stick to the notation of the book.
+
+Let's talk about the first three ICCs in the `psych` output.
+
+- **Single_raters_absolute ICC1**
+  According to the help file: "Each target is rated by a different 
+  judge and the judges are selected at random."
+  This is formally not our situation, since we have only two raters and
+  50 patients. But for this case, we do not care how measures, since we do not
+  model it, hence, we cannot know if there are systematic differences between
+  the raters. This is the ICC we calculated above.
+  This ICC is called $ICC_{consistency}$ in the book and based on the following
+  model:
+  
+  $$ Y_ij = \eta_j + \varepsilon_i $$
+  where $j \in {1,...,50}$ is the patient and $j \in {1,2}$ is the *measurement*.
+  Note that we do not mention a rater here, since we do not care who took the
+  measurement. It is not part of the model. The ICC is then calculated as:
+  $$ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
+
+- **Single_random_raters ICC2** 
+  ICC2 and ICC3 are based on the *same* statistical model. The only difference is
+  that ICC2 assumes that the raters are randomly selected from a larger pool of raters,
+  hence, the rater variability must be explicitely considered and yields a potentially smaller
+  value for the ICC. The model is:
+  
+  $$ Y_ij = \eta_j + \beta_j + \varepsilon_i $$
+  where $j \in {1,...,50}$ is the patient, $j \in {1,2}$ is the **rater** 
+  (doing one measurement each). The ICC is then calculated as:
+  
+  $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + 
+  \sigma_{\varepsilon}^2}$$
+
+- **Single_fixed_raters ICC3**
+  ICC3 is based on the **same model as ICC2**, but assumes that the raters are fixed. 
+  This means that the raters are the same for all patients. 
+  So, we have considered the rater variability in the model, 
+  but do not care since Mary and Peter will be the people doing the future
+  measurements, not other therapists. The ICC is then calculated as:
+
+  $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
+
+  ICC1 and ICC3 are **not** identical, since ICC1 does not consider the rater variability
+  in the model. If there is no rater variability, all 3 ICCs are the same.
+
+
+
 
 ### Difference between correlation and ICC
 
