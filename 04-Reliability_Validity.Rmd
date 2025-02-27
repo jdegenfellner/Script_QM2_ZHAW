@@ -457,6 +457,7 @@ Y_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \end{eqnarray*}
 \]
 
+Draw model structure ... exercise..
 
 ```{r}
 df_long_bias <- df_long %>%
@@ -509,9 +510,51 @@ var_patients / (var_patients + var_raters + var_residual)
 
 # ICC (Single_fixed_raters) = ICC3 in psych output = 
 var_patients / (var_patients + var_residual)
-# 0.8158461 (sigma_alpha ~ dexp(0.5))
-# 0.8403384 (sigma_alpha ~ dexp(1))
+# 0.8301037
 ```
+
+It should be noted that this ICC is very sensitive to the choice of the prior.
+If you choose too agressive priors for the variances, you will get a too low ICC.
+We will talk about this in the next lecture (Methodenvertiefung) more.
+I have played around a little with the parameter in the exponential priors 
+to get the desired result which compares nicely to the two alternative methods below:
+using the `psych` package and using the direct Frequentist approach with the `lmer`
+package.
+
+**`psych` package**:
+```{r}
+library(psych)
+# needs wide format
+conflicts_prefer(dplyr::select)
+df_wide <- df_long_bias %>%
+  pivot_wider(names_from = Rater, values_from = ROM)
+df_wide_values <- df_wide %>% select(-ID)
+psych::ICC(df_wide_values) # ICC1 = 0.83
+```
+
+**`lmer` package**:
+```{r}
+# _lmer------
+m5.3 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = df_long_bias)
+summary(m5.3)
+print(VarCorr(m5.3), comp = "Variance")
+# Groups   Name        Variance
+# ID       (Intercept) 270.882 
+# Rater    (Intercept)   6.193 
+# Residual              47.557 
+
+
+# ICC (Single_random_raters) = ICC2 in psych output
+270.882 / (270.882 + 6.193 + 47.557) # 
+# 0.8344279
+# how can this be higher?
+
+# ICC (Single_fixed_raters) = ICC3 in psych output
+270.882 / (270.882 + 47.557) #
+# 0.85
+```
+
+
 
 
 ### Difference between correlation and ICC
