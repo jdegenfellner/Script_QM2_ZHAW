@@ -591,48 +591,58 @@ We try to stick to the notation of the book.
 
 Let's talk about the first three ICCs in the `psych` output.
 
-- **Single_raters_absolute ICC1**
+- **Single_raters_absolute ICC1:**
   According to the help file: "Each target is rated by a different 
-  judge and the judges are selected at random."
+  judge and the judges are selected at random." So, variability due to raters
+  is implied and cannot be disentangled. 
   This is formally not our situation, since we have only two raters and
-  50 patients. But for this case, we do not care how measures, since we do not
+  50 patients. But for this case, we do not care who measures, since we do not
   model it, hence, we cannot know if there are systematic differences between
-  the raters. This is the ICC we calculated above.
-  This ICC is called $ICC_{consistency}$ in the book and based on the following
-  model:
+  the raters. There might as well be 50 raters doing their thing, or just 2 as in our case. 
+  This is the ICC we calculated above. This ICC is called $ICC_{consistency}$ 
+  in the book and based on the following model:
   
-  $$ Y_ij = \eta_j + \varepsilon_i $$
-  where $j \in {1,...,50}$ is the patient and $j \in {1,2}$ is the *measurement*.
+  $$ Y_{ij} = \eta_i + \varepsilon_i $$
+  where $j \in {1,...,50}$ is the patient and $j \in {1,2}$ is the *measurement* 
+  ($=50*2=100$ rows in long format).
   Note that we do not mention a rater here, since we do not care who took the
   measurement. It is not part of the model. The ICC is then calculated as:
   $$ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
 
-- **Single_random_raters ICC2** 
-  ICC2 and ICC3 are based on the *same* statistical model. The only difference is
-  that ICC2 assumes that the raters are randomly selected from a larger pool of raters,
+- **Single_random_raters ICC2:** 
+  ICC2 and ICC3 are based on the **same** statistical model. The only difference is
+  that ICC2 assumes that the (in our case) 2 raters are randomly selected from a larger pool of raters,
   hence, the rater variability must be explicitely considered and yields a potentially smaller
-  value for the ICC. The model is:
+  value for the ICC. Compared to ICC1, we have repeated measurements from the same raters
+  in 50 patients. That's why we can model their bias. One observation would not be enough.
+  The help file says: "A random sample of k judges rate each target. 
+  The measure is one of absolute agreement in the ratings."
+  A random sample of k (2 in our case) judges means that we cannot rule out the variability
+  due to raters (you get a variety of them and they biases are different).
   
-  $$ Y_ij = \eta_j + \beta_j + \varepsilon_i $$
+  $$ Y_{ij} = \eta_i + \beta_j + \varepsilon_i $$
   where $j \in {1,...,50}$ is the patient, $j \in {1,2}$ is the **rater** 
-  (doing one measurement each). The ICC is then calculated as:
+  (doing one measurement in each patient). The ICC is then calculated as:
   
   $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + 
   \sigma_{\varepsilon}^2}$$
 
-- **Single_fixed_raters ICC3**
+- **Single_fixed_raters ICC3:**
   ICC3 is based on the **same model as ICC2**, but assumes that the raters are fixed. 
-  This means that the raters are the same for all patients. 
-  So, we have considered the rater variability in the model, 
+  This means that **the raters are the same for all patients** in the future study. 
+  So, we have considered the rater variability in the model 
+  (which was possible due to the repeated measurements from the same raters in 50 patients), 
   but do not care since Mary and Peter will be the people doing the future
-  measurements, not other therapists. The ICC is then calculated as:
+  measurements, not other therapists. Here, we are able to disentangle residual error 
+  and rater variability.
+  The help file says: "A fixed set of k judges rate each target. 
+  There is no generalization to a larger population of judges."
+  The ICC is then calculated as:
 
   $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
 
   ICC1 and ICC3 are **not** identical, since ICC1 does not consider the rater variability
   in the model. If there is no rater variability, all 3 ICCs are the same.
-
-
 
 
 ### Difference between correlation and ICC
