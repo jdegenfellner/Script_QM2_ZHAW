@@ -18,6 +18,8 @@ dim(df)
 # "as" = affected shoulder
 # "nas" = not affected shoulder
 
+# nas-------
+
 df <- df %>%
   mutate(diff = abs(ROMnas.Peter - ROMnas.Mary)) %>%  # Compute absolute difference
   mutate(ID = row_number())  # Add an ID column
@@ -48,9 +50,7 @@ mean(df$ROMnas.Peter - df$ROMnas.Mary, na.rm = TRUE)
 
 
 
-# as
-
-
+# as---------
 df <- df %>%
   mutate(diff = abs(ROMas.Peter - ROMas.Mary))  # Compute absolute difference
 
@@ -85,35 +85,39 @@ ggMarginal(p, type = "density", fill = "gray", color = "black")
 
 
 
-# calculate the ICC using the irr package:
+# ICC (consistency) using the irr package:---------
 library(irr)
 irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]), 
     model = "oneway", type = "consistency")
 # 0.851
 
 
-# verify with lmer:--------
-library(lme4)
-m5.2 <- lmer(ROM ~ (1 | ID), data = data_)
-summary(m5.2)
-print(VarCorr(m5.2), comp = "Variance")
-
-# ICC = 
-270.99 / (270.99 + 47.35) # 
-# 0.8512597
-
-
-
-
-# verify using rethinking---------
-library(rethinking)
-library(tictoc)
+# _Verify with lmer:--------
 
 data_ <- df %>% 
   mutate(ID = row_number()) %>%
   dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
   pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), names_to = "Rater", values_to = "ROM") %>% 
   mutate(Rater = factor(Rater))
+
+library(lme4)
+m5.2 <- lmer(ROM ~ (1 | ID), data = data_)
+summary(m5.2)
+print(VarCorr(m5.2), comp = "Variance")
+# Groups   Name        Variance
+# ID       (Intercept) 270.99  
+# Residual              47.35 
+
+# ICC = 
+270.99 / (270.99 + 47.35) # 
+# 0.8512597
+# perfect match.
+
+
+
+# _Verify using rethinking---------
+library(rethinking)
+library(tictoc)
 
 data_$ID
 
@@ -143,7 +147,7 @@ post <- extract.samples(m5.1)
 var_patients <- mean(post$sigma_ID^2)  # Between-patient variance
 var_residual <- mean(post$sigma^2)     # Residual variance
 var_patients / (var_patients + var_residual) # ICC
-# 0.846323
+# 0.846323 (vs 0.851)
 # not too bad
 
 
@@ -151,6 +155,9 @@ var_patients / (var_patients + var_residual) # ICC
 # ICC agreement with bias 5 degrees Mary-Peter ~ 5:
 
 #introduce bias:
+# mean diff before in df:
+mean(df$ROMas.Mary - df$ROMas.Peter, na.rm = TRUE) # - 1.22
+# hence should be -1.22 + 5 = 3.78 afterwards
 data_ <- data_ %>%
   mutate(ROM = ROM + ifelse(Rater == "ROMas.Mary", 5, 0))
 
@@ -158,6 +165,10 @@ data_ <- data_ %>%
 mean(data_$ROM[data_$Rater == "ROMas.Mary"]) # 69.98
 # mean Peter
 mean(data_$ROM[data_$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
+# diff
+mean(data_$ROM[data_$Rater == "ROMas.Mary"]) - 
+  mean(data_$ROM[data_$Rater == "ROMas.Peter"], na.rm = TRUE) # 3.78
+# 3.78
 
 library(rethinking)
 
@@ -178,7 +189,7 @@ m5.2 <- ulam(
     # Priors for hyperparameters
     alpha_mean ~ dnorm(66, 20),  # Population mean ROM
     sigma_alpha ~ dunif(0, 30),  # Between-patient SD
-    sigma_beta ~ dunif(5, 10),   # Rater SD
+    sigma_beta ~ dunif(0, 10),   # Rater SD
     sigma_eps ~ dunif(0, 40)     # Residual SD
   ), 
   data = data_, 
@@ -187,8 +198,11 @@ m5.2 <- ulam(
 
 precis(m5.2, depth = 2)
 
-# ICC agreement:
+# check systematic difference for rater in posterior
+post <- extract.samples(m5.2)
+mean(post$beta[,1] - post$beta[,2])  # 3.701551 # makes sense with the above
 
+# ICC agreement:
 post <- extract.samples(m5.2)
 (var_patients <- mean(post$sigma_alpha^2))  # Between-patient variance
 (var_raters <- mean(post$sigma_beta^2))     # Rater variance
@@ -196,7 +210,7 @@ post <- extract.samples(m5.2)
 
 # ICC_agreement = 
 var_patients / (var_patients + var_raters + var_residual)
-# 0.7250569
+# 0.7250569/0.7798
 
 str(data_)
 # tibble [100 × 3] (S3: tbl_df/tbl/data.frame)
@@ -209,6 +223,11 @@ str(data_)
 head(df)
 df <- df %>%
   mutate(ROMnas.Mary = ROMnas.Mary + 5)
+
+mean(df$ROMnas.Mary) # 84.04
+mean(df$ROMnas.Peter) #  78.48
+# diff
+mean(df$ROMnas.Mary) - mean(df$ROMnas.Peter) # 5.56
 
 irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]), 
     model = "twoway", type = "agreement")
