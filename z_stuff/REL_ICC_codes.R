@@ -1,5 +1,5 @@
 library(pacman)
-p_load(tidyverse, readxl, ggExtra)
+p_load(tidyverse, readxl, ggExtra, lme4, irr, tictoc)
 
 # Read file
 url <- "https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls"
@@ -86,7 +86,6 @@ ggMarginal(p, type = "density", fill = "gray", color = "black")
 
 
 # ICC (consistency) using the irr package:---------
-library(irr)
 irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]), 
     model = "oneway", type = "consistency")
 # 0.851
@@ -94,14 +93,16 @@ irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]),
 
 # _Verify with lmer:--------
 
-data_ <- df %>% 
+df_long <- df %>% 
   mutate(ID = row_number()) %>%
-  dplyr::select(ID,ROMas.Peter, ROMas.Mary) %>% 
-  pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), names_to = "Rater", values_to = "ROM") %>% 
+  dplyr::select(ID, ROMas.Peter, ROMas.Mary) %>% 
+  pivot_longer(cols = c(ROMas.Peter, ROMas.Mary), 
+               names_to = "Rater", values_to = "ROM") %>% 
   mutate(Rater = factor(Rater))
+head(df_long)
+df
 
-library(lme4)
-m5.2 <- lmer(ROM ~ (1 | ID), data = data_)
+m5.2 <- lmer(ROM ~ (1 | ID), data = df_long)
 summary(m5.2)
 print(VarCorr(m5.2), comp = "Variance")
 # Groups   Name        Variance
@@ -116,10 +117,7 @@ print(VarCorr(m5.2), comp = "Variance")
 
 
 # _Verify using rethinking---------
-library(rethinking)
-library(tictoc)
-
-data_$ID
+df_long$ID
 
 tic()
 m5.1 <- ulam(
@@ -136,7 +134,7 @@ m5.1 <- ulam(
     sigma_ID ~ dunif(0,20),  # Between-patient standard deviation
     sigma ~ dunif(0,20)  # Residual standard deviation
   ), 
-  data = data_, 
+  data = df_long, 
   chains = 4, cores = 4
 )
 toc() # 7s
@@ -151,27 +149,38 @@ var_patients / (var_patients + var_residual) # ICC
 # not too bad
 
 
+# ICC (agreement) bias 5 degrees Mary-Peter ~ 5:--------
 
-# ICC agreement with bias 5 degrees Mary-Peter ~ 5:
-
-#introduce bias:
+#_introduce bias:--------
 # mean diff before in df:
 mean(df$ROMas.Mary - df$ROMas.Peter, na.rm = TRUE) # - 1.22
 # hence should be -1.22 + 5 = 3.78 afterwards
-data_ <- data_ %>%
+length(df$ROMas.Mary) # 50
+length(df$ROMas.Peter) # 50
+
+df_long_bias <- df_long %>%
   mutate(ROM = ROM + ifelse(Rater == "ROMas.Mary", 5, 0))
+head(df_long_bias) # seems to have worked.
 
 # mean Mary
-mean(data_$ROM[data_$Rater == "ROMas.Mary"]) # 69.98
+mean(df_long$ROM[df_long$Rater == "ROMas.Mary"]) # 69.98
 # mean Peter
-mean(data_$ROM[data_$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
+mean(df_long$ROM[df_long$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
 # diff
-mean(data_$ROM[data_$Rater == "ROMas.Mary"]) - 
-  mean(data_$ROM[data_$Rater == "ROMas.Peter"], na.rm = TRUE) # 3.78
+mean(df_long$ROM[df_long$Rater == "ROMas.Mary"]) - 
+  mean(df_long$ROM[df_long$Rater == "ROMas.Peter"], na.rm = TRUE) # 3.78
 # 3.78
 
-library(rethinking)
+#bias long
+mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Mary"]) # 69
+mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
+# diff
+mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Mary"]) - 
+  mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Peter"], na.rm = TRUE) # 3.78
 
+
+#_rethinking---------
+library(rethinking)
 m5.2 <- ulam(
   alist(
     # Likelihood
@@ -192,7 +201,7 @@ m5.2 <- ulam(
     sigma_beta ~ dunif(0, 10),   # Rater SD
     sigma_eps ~ dunif(0, 40)     # Residual SD
   ), 
-  data = data_, 
+  data = df_long, 
   chains = 8, cores = 4
 )
 
@@ -210,36 +219,30 @@ post <- extract.samples(m5.2)
 
 # ICC_agreement = 
 var_patients / (var_patients + var_raters + var_residual)
-# 0.7250569/0.7798
+# 0.7250569/0.7798/0.7567761
 
-str(data_)
+str(df_long)
 # tibble [100 × 3] (S3: tbl_df/tbl/data.frame)
 # $ ID   : int [1:100] 1 1 2 2 3 3 4 4 5 5 ...
 # $ Rater: Factor w/ 2 levels "ROMas.Mary","ROMas.Peter": 2 1 2 1 2 1 2 1 2 1 ...
 # $ ROM  : num [1:100] 66 75 65 68 96 87 75 85 62 59 ...
 
-# verify with irr:
+# _Verify with irr:---------
 # use df and introduce bias there too 
-head(df)
-df <- df %>%
+head(df) # wide
+dim(df)
+df_bias <- df %>%
   mutate(ROMnas.Mary = ROMnas.Mary + 5)
 
-mean(df$ROMnas.Mary) # 84.04
-mean(df$ROMnas.Peter) #  78.48
-# diff
-mean(df$ROMnas.Mary) - mean(df$ROMnas.Peter) # 5.56
+order(df_long$ROM[df_long$Rater == "ROMas.Mary"])
+order(df_bias$ROMas.Mary) # identical!
 
-irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]), 
-    model = "twoway", type = "agreement")
+irr::icc(as.matrix(df_bias[, c("ROMas.Peter", "ROMas.Mary")]), 
+    model = "oneway", type = "consistency")
 
 
-# try lmer:
-# mean Mary
-mean(data_$ROM[data_$Rater == "ROMas.Mary"]) # 69.98
-# mean Peter
-mean(data_$ROM[data_$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
-
-m5.3 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = data_)
+# _lmer------
+m5.3 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = df_long_bias)
 summary(m5.3)
 print(VarCorr(m5.3), comp = "Variance")
 # Groups   Name        Variance
@@ -251,3 +254,4 @@ print(VarCorr(m5.3), comp = "Variance")
 # ICC =
 270.882 / (270.882 + 6.193 + 47.557) # 
 # 0.8344279
+# how can this be higher?
