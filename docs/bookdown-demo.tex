@@ -125,7 +125,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-26}
+\date{2025-02-27}
 
 \begin{document}
 \maketitle
@@ -647,9 +647,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##             mean        sd      5.5%      94.5%
-## mu    154.604095 0.4119942 153.94565 155.262542
-## sigma   7.731331 0.2913858   7.26564   8.197022
+##             mean        sd       5.5%      94.5%
+## mu    154.604068 0.4119943 153.945621 155.262514
+## sigma   7.731333 0.2913859   7.265642   8.197024
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -669,12 +669,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.2629 7.838214
-## 2 154.5050 8.181056
-## 3 154.6652 7.668099
-## 4 154.4498 7.790836
-## 5 154.8196 7.949114
-## 6 154.4939 7.999809
+## 1 155.0086 7.185888
+## 2 154.5880 7.619225
+## 3 153.9644 8.309665
+## 4 154.6125 7.409680
+## 5 154.7700 8.033195
+## 6 155.0519 7.081495
 \end{verbatim}
 
 \begin{Shaded}
@@ -714,8 +714,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697392098 0.0001537406
-## sigma 0.0001537406 0.0849056643
+## mu    0.1697393026 0.0001531322
+## sigma 0.0001531322 0.0849057694
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -729,7 +729,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973921 0.08490566
+## 0.16973930 0.08490577
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -742,8 +742,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001280646
-## sigma 0.001280646 1.000000000
+## mu    1.000000000 0.001275577
+## sigma 0.001275577 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1347,7 +1347,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba4d452a2f/widget17eba77d49b4a.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd34dbbda4f/widget14cd367f9a067.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2023,7 +2023,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba7868bedf/widget17eba24cb603b.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd32d088e67/widget14cd3cbd234a.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -3624,7 +3624,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17ebaa85dff7/widget17eba5b32d686.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd325364660/widget14cd3e465bb6.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3816,7 +3816,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba6dc2e728/widget17eba16d62b64.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd35a87352f/widget14cd362b4cf17.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4716,7 +4716,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp0mH6T6/file17eba4223fe8f/widget17eba491d8035.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/file14cd31a5e776e/widget14cd32ff2e448.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -5979,41 +5979,1633 @@ Go back to the NHANES example \hyperref[example_nhanes]{above}.
   What do you observe?
 \end{itemize}
 
+\chapter{Reliability and Validity}\label{reliability-and-validity}
+
+For this chapter we refer to the book
+\href{https://www.cambridge.org/core/books/measurement-in-medicine/8BD913A1DA0ECCBA951AC4C1F719BCC5}{Measurement in Medicine}.
+
+I invite you to read the introductory chapters 1 and 2 about concepts,
+theories and models, and types of measurement.
+
+In general, when conducting a measurement of any sort
+(laboratory measurements, scores from questionnaires, etc.),
+we want to be reasonably sure
+
+\begin{itemize}
+\tightlist
+\item
+  that we actually \textbf{measure what we intend to measure};
+  (\href{https://en.wikipedia.org/wiki/Validity_(statistics)}{validity};
+  chapter 6 in the book);
+\item
+  that the measurement does \textbf{not change too much} if the
+  underlying \textbf{conditions are the same}
+  (\href{https://en.wikipedia.org/wiki/Reliability_(statistics)}{reliability};
+  chapter 5 in the book); and
+\item
+  that we are able to detect a \textbf{change} if the underlying conditions change
+  (\href{https://tinyurl.com/3vdcxy49}{responsiveness}; chapter 7 in the book); and
+\item
+  that we understand the meaning of a change in the measurement
+  (interpretability; chapter 8 in the book).
+\end{itemize}
+
+In this \href{https://www.youtube.com/watch?v=KuT2n1w0Ixc&ab_channel=Physiotutors}{video},
+Kai jump starts you on reliability and validity.
+
+\section{Reliability}\label{reliability}
+
+You can watch this \href{https://www.youtube.com/watch?v=9HSoWaRpcys&ab_channel=Physiotutors}{video}
+to get started.
+
+Imagine, you measure a patient (pick your favorite measurement), for example,
+the range of motion (ROM) of the shoulder.
+
+\begin{itemize}
+\tightlist
+\item
+  If you are interested in how
+  similar your measurements are in comparison to your colleagues, you are
+  trying to determine the so-called \textbf{inter-rater reliability}.
+\item
+  If you are interested in how similar your measurements are when you measure
+  the same patient twice, you are trying to determine the so-called
+  \textbf{intra-rater reliability}.
+\end{itemize}
+
+Assuming there is a true (but unknown) underlying value (of ROM),
+it is clear that measurements will not be \emph{exactly} the same.
+Possible influences (potentially) causing different results are:
+
+\begin{itemize}
+\tightlist
+\item
+  the measurement instrument itself (e.g., the goniometer),
+\item
+  the patient (e.g., mood/motivation),
+\item
+  the examiner (e.g., mood, influence on patient),
+\item
+  the environment (e.g., the room temperature).
+\end{itemize}
+
+Note that the \textbf{true score} is defined in our context as the average of all measurements
+if we would measure repeat it an infinite number of times.
+
+\subsection{Peter and Mary's ROM measurements}\label{peter-and-marys-rom-measurements}
+
+The data can be found \href{http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html}{here}.
+We randomly select 50 measurements from Peter and Mary in 50 different patients,
+plot their measurements and annotate the absolutely largest one.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(pacman)}
+\FunctionTok{p\_load}\NormalTok{(tidyverse, readxl)}
+
+\CommentTok{\# Read file}
+\NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{"https://raw.githubusercontent.com/jdegenfellner/Script\_QM2\_ZHAW/main/data/chapter\%205\_assignment\%201\_2\_wide.xls"}
+\NormalTok{temp\_file }\OtherTok{\textless{}{-}} \FunctionTok{tempfile}\NormalTok{(}\AttributeTok{fileext =} \StringTok{".xls"}\NormalTok{)}
+\FunctionTok{download.file}\NormalTok{(url, temp\_file, }\AttributeTok{mode =} \StringTok{"wb"}\NormalTok{)  }\CommentTok{\# mode="wb" is important for binary files}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(temp\_file)}
+
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##   patcode ROMnas.Mary ROMnas.Peter ROMas.Mary ROMas.Peter
+##     <dbl>       <dbl>        <dbl>      <dbl>       <dbl>
+## 1       1          90           92         88          95
+## 2       2          82           88         82          90
+## 3       3          82           88         57          59
+## 4       4          89           89         82          81
+## 5       5          80           82         48          40
+## 6       6          90           96         99          85
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 155   5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# As in the book, let\textquotesingle{}s randomly select 50 patients.}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{sample\_n}\NormalTok{(}\DecValTok{50}\NormalTok{)}
+\FunctionTok{dim}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 50  5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# "as" = affected shoulder}
+\CommentTok{\# "nas" = not affected shoulder}
+
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{diff =} \FunctionTok{abs}\NormalTok{(ROMnas.Peter }\SpecialCharTok{{-}}\NormalTok{ ROMnas.Mary))  }\CommentTok{\# Compute absolute difference}
+
+\NormalTok{max\_diff\_point }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(diff }\SpecialCharTok{==} \FunctionTok{max}\NormalTok{(diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))  }\CommentTok{\# Find the row with the max difference}
+
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ROMnas.Peter, }\AttributeTok{y =}\NormalTok{ ROMnas.Mary)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ max\_diff\_point, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ROMnas.Peter, }\AttributeTok{y =}\NormalTok{ ROMnas.Mary), }
+             \AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Highlight max difference point}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"ROMnas.Peter vs. ROMnas.Mary"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\AttributeTok{x =}\NormalTok{ max\_diff\_point}\SpecialCharTok{$}\NormalTok{ROMnas.Peter, }
+           \AttributeTok{y =}\NormalTok{ max\_diff\_point}\SpecialCharTok{$}\NormalTok{ROMnas.Mary, }
+           \AttributeTok{label =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Max Diff: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(max\_diff\_point}\SpecialCharTok{$}\NormalTok{diff, }\DecValTok{2}\NormalTok{)), }
+           \AttributeTok{vjust =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-96-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# average abs. difference:}
+\FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 7.2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{ROMnas.Peter, df}\SpecialCharTok{$}\NormalTok{ROMnas.Mary, }\AttributeTok{use =} \StringTok{"complete.obs"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2403213
+\end{verbatim}
+
+The red line represents the line of equality (\(y=x\)). If the measurements are
+exactly the same,
+all points would lie on this line. The blue point represents the largest
+difference in measured Range of Motion (ROM) values between Peter and Mary
+from the randomly chosen 50 people. Note that the maximum difference in
+all 155 patients is 35 degrees.
+
+The first simple measure of agreement we could use is the correlation, which
+measures the strength and direction of a linear relationship between two variables.
+But correlation does not exactly measure what we want. If there was a bias
+(e.g., Mary systematically measures 5 degrees more than Peter), correlation would not
+notice this. (-\textgreater{} exercise later\ldots). It actually is too optimistic about
+the agreement since it only cares about the linearity and not about a potential bias.
+\(r=0.2403213\) which indicates a weak positive correlation. Higher values of Peter's
+are associated with higher values of Mary's measurements.
+But: Knowing Peter's measurement does not help us to \emph{predict} Mary's measurement
+at such a low correlation (-\textgreater{} exercise later).
+So, on the \emph{not affected shoulder} (nas), the agreement is really bad.
+
+What about the affected shoulder (as)?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggExtra)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{diff =} \FunctionTok{abs}\NormalTok{(ROMas.Peter }\SpecialCharTok{{-}}\NormalTok{ ROMas.Mary))  }\CommentTok{\# Compute absolute difference}
+
+\NormalTok{max\_diff\_point }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(diff }\SpecialCharTok{==} \FunctionTok{max}\NormalTok{(diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))  }\CommentTok{\# Find the row with the max difference}
+
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ROMas.Peter, }\AttributeTok{y =}\NormalTok{ ROMas.Mary)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ max\_diff\_point, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ROMas.Peter, }\AttributeTok{y =}\NormalTok{ ROMas.Mary), }
+             \AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}\NormalTok{) }\SpecialCharTok{+}  \CommentTok{\# Highlight max difference point}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"ROMas.Peter vs. ROMas.Mary"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\AttributeTok{x =}\NormalTok{ max\_diff\_point}\SpecialCharTok{$}\NormalTok{ROMas.Peter, }
+           \AttributeTok{y =}\NormalTok{ max\_diff\_point}\SpecialCharTok{$}\NormalTok{ROMas.Mary, }
+           \AttributeTok{label =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Max Diff: "}\NormalTok{, }\FunctionTok{round}\NormalTok{(max\_diff\_point}\SpecialCharTok{$}\NormalTok{diff, }\DecValTok{2}\NormalTok{)), }
+           \AttributeTok{vjust =} \SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}\NormalTok{)}
+\CommentTok{\# Add marginal histograms}
+\FunctionTok{ggMarginal}\NormalTok{(p, }\AttributeTok{type =} \StringTok{"density"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"gray"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-97-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# average abs. difference:}
+\FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# 7.2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.78
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{ROMas.Peter, df}\SpecialCharTok{$}\NormalTok{ROMas.Mary, }\AttributeTok{use =} \StringTok{"complete.obs"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8516653
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# mean difference}
+\FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{ROMas.Peter }\SpecialCharTok{{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{ROMas.Mary, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.22
+\end{verbatim}
+
+In the affected side, the average absolute difference is even larger (\(7.78\))
+with a maximum absolute difference of 37 degrees,
+but the correlation is much higher (\(r=0.8516653\)). See Figure 5.2 in the book.
+
+Btw, this is an an example for using the correlation coefficient even though
+the marginal distributions are not normal: There are much more measurements in the higher
+values around 80 than below, say, 60. But the correlation coefficient makes sense
+for descriptive purposes.
+
+In this case, knowing Peter's measurement \emph{does} help us to predict
+Mary's measurement (-\textgreater{} exercise later).
+
+\subsection{Intraclass Correlation Coefficient (ICC)}\label{intraclass-correlation-coefficient-icc}
+
+One way to measure reliability is to use the intraclass correlation coefficient (ICC).
+
+This measure is based on the idea that observed score \(Y_i\) consists of the true score
+(ROM) and a measurement error (for each person).
+The proportion of the true score variability to the total variability is the ICC.
+
+In the background one thinks of a statistical model from the
+\href{https://en.wikipedia.org/wiki/Classical_test_theory}{Classical Test Theory (CTT)}.
+There is
+
+\begin{itemize}
+\tightlist
+\item
+  a true underlying score \(\eta_i\) (for each patient i) and
+\item
+  an error term \(\varepsilon \sim N(0, \sigma_i)\) which is the difference between the true
+  score and
+\item
+  the observed score \(Y_i\).
+\end{itemize}
+
+\[ Y_i = \eta_i + \varepsilon_i \]
+
+It is assumed that \(\eta_i\) and \(\varepsilon_i\) are independent: (\(\mathbb{C}ov(\eta_i, \varepsilon_i)=0\)).
+This is a nice assumption because now we know (see \href{https://en.wikipedia.org/wiki/Variance\#Addition_and_multiplication_by_a_constant}{here})
+that the variability
+of the observed score \(Y_i\) is just the sum of the variability of the true score \(\eta_i\)
+and the variability of the error term \(\varepsilon_i\):
+
+\[ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) \]
+\[ \sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2 \]
+
+We want most of the variability in our observed scores \(Y_i\) to be explained by the
+true but unobservable scores \(\eta_i\). The measurement error \(\varepsilon_i\) should be
+be comparatively small. If it is large, we are mostly measuring noise or at least not
+what we want to measure.
+
+If you either pull two people with the same true but unobservable score \(\eta\) out of the population
+or measure the same person twice and the score does not change in between, we can
+\textbf{define reliability as correlation between these two measurements}:
+
+\[Y_1 = \eta + \varepsilon_1\]
+\[Y_2 = \eta + \varepsilon_2\]
+
+\[cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) = 
+\frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  = \]
+
+If we use the \href{https://en.wikipedia.org/wiki/Covariance\#Properties}{properties of the covariance},
+and the fact that the errors \(\varepsilon_1\) and \(\varepsilon_2\) are independent, we get:
+
+\[ \frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  = \]
+\[ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}\]
+
+Since \(\eta\) is a random variable (we draw a person randomly from the population),
+it is well defined to talk about the variance of \(\eta\) (i.e., \(\sigma_{\eta}^2\)).
+I think this aspect may not come across in the book quite so clearly.
+
+Furthermore, it does not matter if I call the measurement \(Y_1\), \(Y_2\) or more gerneral
+\(Y\), since they have the same variance and true score:
+
+\[\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}\]
+
+Hence, it follows that:
+
+\[cor(Y_1, Y_2) =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
+
+This is the \textbf{intraclass correlation coefficient (ICC)}. It is the proportion of the
+true score variability to the total variability. The ICC is a number between 0 and 1 (think about why!).
+
+Depending on how much deviation from the true but unknown \(\eta\) we throw into the error term \(\varepsilon\),
+you get different versions of the ICC. We will probably stick with the simple versions \(ICC_{agreement}\)
+and \(ICC_{consistency}\) here and make sure we understand those.
+
+Let's look again at the term for the ICC above and divide the numerator and the denominator by
+\(\sigma_{\eta}^2\), which we can do, since it is a positive number:
+
+\[ \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} = 
+\frac{1}{1 + \frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}}\]
+
+We could call the term \(\frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}\) the noise-to-signal ratio.
+The higher this ratio, the lower the ICC. The lower the ratio, the higher the ICC.
+
+\begin{itemize}
+\tightlist
+\item
+  If you increase the noise (measurement error \(\sigma_{\varepsilon}^2\)) for fixed
+  true score variability \(\sigma_{\eta}^2\), the ICC decreases, because the denominator
+  increases.
+\item
+  If you increase the true score variability \(\sigma_{\eta}^2\) for fixed noise\(\sigma_{\varepsilon}^2\),
+  the ICC increases, since the denominator decreases.
+\end{itemize}
+
+Btw, we could also divide by \(\sigma_{\varepsilon}^2\) and get the signal-to-noise ratio.
+
+At first glance, the following statement seems wrong:
+
+In a very \textbf{homogeneous population} (patients have very similar scores/measurements),
+the \textbf{ICC might be very low}. The reason is that the patient variability \(\sigma_{\eta}^2\) is low
+and you probably have some measurement error \(\sigma_{\varepsilon}^2\).
+Hence, if you look at the formula, ICC must be low (for a given measurement error).
+
+On the other hand, if you have a very \textbf{heterogeneous population} (patients have rather different
+scores/measurements), the \textbf{ICC might be very high}.
+The reason is that the patient variability \(\sigma_{\eta}^2\) is high and you probably
+have some measurement error \(\sigma_{\varepsilon}^2\).
+
+\textbf{What matters is the ratio of the two}, as can be seen from the formula above.
+
+Let's try to calculate the ICC for our data using a statistical model. There are a couple of different
+R packages to do this. We will use the \texttt{irr} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(irr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: lpSolve
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{irr}\SpecialCharTok{::}\FunctionTok{icc}\NormalTok{(}\FunctionTok{as.matrix}\NormalTok{(df[, }\FunctionTok{c}\NormalTok{(}\StringTok{"ROMas.Peter"}\NormalTok{, }\StringTok{"ROMas.Mary"}\NormalTok{)]), }
+    \AttributeTok{model =} \StringTok{"oneway"}\NormalTok{, }\AttributeTok{type =} \StringTok{"consistency"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Single Score Intraclass Correlation
+## 
+##    Model: oneway 
+##    Type : consistency 
+## 
+##    Subjects = 50 
+##      Raters = 2 
+##      ICC(1) = 0.851
+## 
+##  F-Test, H0: r0 = 0 ; H1: r0 > 0 
+##    F(49,50) = 12.4 , p = 7.31e-16 
+## 
+##  95%-Confidence Interval for ICC Population Values:
+##   0.753 < ICC < 0.913
+\end{verbatim}
+
+We get the result: \(ICC(1) = 0.851\).
+
+Since we are regression model experts, we would like to see if we can get the result using the Bayesian
+framework.
+
+Below is the model structure.
+
+\textbf{Model details:}
+
+\begin{itemize}
+\tightlist
+\item
+  \(ROM_i\) is the observed ROM-score for observation \(i\).
+  Every patient has two observations (one each from Mary and Peter).
+  So, for instance \(i=1,2\) could be patient \(ID=1\).
+\item
+  \(\mu_i\) is the expected value of the observed score for patient \(ID\).
+\item
+  \(\sigma_{\varepsilon}\) is the standard deviation of the measurement error.
+\item
+  \(\alpha[ID]\) is the patient-specific intercept.
+  Since every patient has a different intercept and they
+  come from a normal distribution, we have a \textbf{random intercepts model}.
+\item
+  \(\mu_{\alpha}\) is the mean of the prior for the patient-specific intercepts.
+  This is the overall mean of the scores.
+\item
+  \(\sigma_{\alpha}\) is the standard deviation of the patient-specific intercepts.
+  \textbf{This is the patient variability}! The nice thing about presenting a model in this
+  way is that it's easier to interpret. \(\sigma_{\alpha}\) says how much
+  the scores of the patients vary in relation to their respective level \(\alpha[ID]\).
+\end{itemize}
+
+The ICC is then calculated as
+
+\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\].
+
+\begin{align*}
+ROM_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
+\mu_i &=& \alpha[ID] \\
+\alpha[ID] &\sim& \text{Normal}(\mu_{\alpha}, \sigma_{\alpha}) \\
+\mu_{\alpha} &\sim& \text{Normal}(66, 20) \\
+\sigma_{\alpha} &\sim& \text{Uniform}(0,20) \\
+\sigma_{\varepsilon} &\sim& \text{Uniform}(0,20)
+\end{align*}
+
+We did not even notice it, but this was our first \textbf{multilevel regression model}.
+It is multilevel due to the extra layer of patient-specific intercepts.
+The \textbf{observations} are obviously \textbf{clustered within patients}, since observations
+from the \textbf{same patient} are \textbf{more similar than observations from different patients}.
+
+Draw model structure \ldots{} exercise..
+
+This time we fire up the \texttt{rethinking} package and use the \texttt{ulam} function
+to fit the model.
+This uses Markov Chain Monte Carlo (MCMC) to sample from the posterior
+distribution of the parameters.
+
+\begin{itemize}
+\item
+  The \texttt{chains} argument specifies how many chains we want to run.
+  A \emph{chain} is a sequence of points in a space with as many dimensions as there
+  are parameters in the model. It jumps from one point to the next in this parameter
+  space and in doing so, visits the points of the posterior exactly in the correct
+  frequency. \href{https://blog.revolutionanalytics.com/2013/09/an-animated-peek-into-the-workings-of-bayesian-statistics.html}{Here}
+  is an excellent visualization.
+\item
+  The \texttt{cores} argument specifies how many CPU cores we want to use.
+  For larger jobs, one can try to parallelize
+  the chains, which saves some time.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{library}\NormalTok{(tictoc)}
+
+\NormalTok{df\_long }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ID =} \FunctionTok{row\_number}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(ID,ROMas.Peter, ROMas.Mary) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(ROMas.Peter, ROMas.Mary), }
+               \AttributeTok{names\_to =} \StringTok{"Rater"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"ROM"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Rater =} \FunctionTok{factor}\NormalTok{(Rater))}
+
+\FunctionTok{tic}\NormalTok{()}
+\NormalTok{m5}\FloatTok{.1} \OtherTok{\textless{}{-}} \FunctionTok{ulam}\NormalTok{(}
+  \FunctionTok{alist}\NormalTok{(}
+    \CommentTok{\# Likelihood}
+\NormalTok{    ROM }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma),}
+    
+    \CommentTok{\# Patient{-}specific intercepts (random effects)}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ a[ID],  }
+\NormalTok{    a[ID] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu\_a, sigma\_ID),  }\CommentTok{\# Hierarchical structure for patients}
+    
+    \CommentTok{\# Priors for hyperparameters}
+\NormalTok{    mu\_a }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{66}\NormalTok{, }\DecValTok{20}\NormalTok{),  }\CommentTok{\# Population{-}level mean}
+\NormalTok{    sigma\_ID }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{20}\NormalTok{),  }\CommentTok{\# Between{-}patient standard deviation}
+\NormalTok{    sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dunif}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{20}\NormalTok{)  }\CommentTok{\# Residual standard deviation}
+\NormalTok{  ), }
+  \AttributeTok{data =}\NormalTok{ df\_long, }
+  \AttributeTok{chains =} \DecValTok{8}\NormalTok{, }\AttributeTok{cores =} \DecValTok{4}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...
+## 
+## Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 finished in 0.1 seconds.
+## Chain 2 finished in 0.2 seconds.
+## Chain 3 finished in 0.1 seconds.
+## Chain 4 finished in 0.1 seconds.
+## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 5 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 5 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 5 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 5 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 6 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 6 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 6 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 6 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 6 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 6 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 6 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd3b7132ce.stan', line 17, column 4 to column 34)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 6 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 6 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 6
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 7 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 7 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 7 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 8 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 5 finished in 0.1 seconds.
+## Chain 6 finished in 0.1 seconds.
+## Chain 7 finished in 0.1 seconds.
+## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 8 finished in 0.1 seconds.
+## 
+## All 8 chains finished successfully.
+## Mean chain execution time: 0.1 seconds.
+## Total execution time: 0.7 seconds.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{toc}\NormalTok{() }\CommentTok{\# 7s}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 7.143 sec elapsed
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{precis}\NormalTok{(m5}\FloatTok{.1}\NormalTok{, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               mean        sd      5.5%     94.5%      rhat ess_bulk
+## a[1]     67.722244 4.9090800 59.884240 75.424230 1.0011883 6619.262
+## a[2]     64.111654 4.7840605 56.528447 71.776798 1.0034783 6191.276
+## a[3]     86.987105 4.8248501 79.310842 94.721499 1.0021836 6533.691
+## a[4]     76.488312 4.8772869 68.688592 84.377506 1.0004241 6088.506
+## a[5]     58.652587 4.9146668 50.800481 66.376233 1.0057245 6894.371
+## a[6]     69.286318 4.9001887 61.446915 77.135439 1.0023860 6440.228
+## a[7]     69.630175 4.7214488 62.093989 77.274188 1.0042853 6102.224
+## a[8]     67.364715 4.8073624 59.760551 74.940179 1.0004233 6926.255
+## a[9]     70.982913 4.8029119 63.473921 78.838160 1.0021779 6096.437
+## a[10]    81.123297 4.6829024 73.463408 88.601603 1.0000833 5882.855
+## a[11]    70.525946 4.7789205 62.916758 78.015190 1.0027020 6057.395
+## a[12]    42.158971 4.9255574 34.330380 50.142874 1.0052952 5608.430
+## a[13]    86.981146 4.8049263 79.173926 94.829309 1.0006401 5697.280
+## a[14]    74.665706 4.6060512 67.261235 81.970150 1.0042568 6217.659
+## a[15]    76.383198 4.8629608 68.375808 84.099854 1.0019507 5393.146
+## a[16]    34.941636 4.9924846 27.056167 43.018477 1.0015714 6091.685
+## a[17]    84.803446 4.7374711 77.144124 92.406944 0.9993908 4742.513
+## a[18]    64.997487 4.9643186 56.943773 72.939016 1.0035173 6046.231
+## a[19]    63.285164 4.9025730 55.533948 71.178041 1.0013061 5093.825
+## a[20]    79.685208 5.0087033 71.658232 87.571054 1.0025818 5732.622
+## a[21]    30.284397 4.9534314 22.471539 38.175759 1.0029669 4993.642
+## a[22]    62.717165 4.8429270 55.056809 70.508550 1.0042888 5186.047
+## a[23]    67.369138 4.7935870 59.691637 75.021504 1.0015468 5712.044
+## a[24]    81.364895 4.6500222 73.951702 88.744605 1.0010820 5840.154
+## a[25]    54.960936 4.6723859 47.304353 62.472893 1.0031483 6486.986
+## a[26]    67.484558 4.8629666 59.694329 75.237344 1.0024718 5631.800
+## a[27]    75.662864 4.6822039 68.289372 83.149005 1.0015293 5142.724
+## a[28]    81.458669 4.7261292 73.931357 89.044628 1.0007963 6429.453
+## a[29]    46.319123 4.9454046 38.515295 54.285881 1.0011816 5884.281
+## a[30]    61.257367 4.7772157 53.562560 68.978274 1.0023302 5689.914
+## a[31]    23.509215 4.9033830 15.777376 31.510781 1.0033955 4020.937
+## a[32]    74.135907 4.9851734 66.120570 81.958539 1.0022234 6227.534
+## a[33]    70.503386 4.7654367 62.891725 78.072130 1.0023102 5314.875
+## a[34]    76.514259 4.7673813 69.060676 84.004384 1.0056486 6295.756
+## a[35]    75.552330 4.7650873 68.063417 83.238239 1.0059815 6458.817
+## a[36]    69.318470 4.8028313 61.733604 76.842796 1.0019923 5624.692
+## a[37]    49.567778 4.8517137 42.000534 57.348616 1.0001428 5345.948
+## a[38]    73.807516 4.8704217 66.012632 81.610347 1.0014698 5593.351
+## a[39]    72.757513 4.8058223 65.331446 80.543411 0.9996477 6046.893
+## a[40]    45.817525 4.8801249 38.090789 53.659197 1.0017618 5810.945
+## a[41]    73.683223 4.8798317 65.754844 81.586076 0.9997154 5788.226
+## a[42]    26.096569 5.0020037 18.151000 34.085055 1.0035820 5645.769
+## a[43]    32.929828 4.9839276 25.060965 40.934064 1.0009925 4969.622
+## a[44]    74.142579 4.8767249 66.482373 81.844996 1.0027673 5518.837
+## a[45]    76.914062 4.8315152 69.190795 84.479135 1.0021492 5799.564
+## a[46]    73.639372 4.7714194 66.006190 81.297628 1.0014867 5772.895
+## a[47]    55.859204 4.8616217 48.241338 63.875677 1.0018038 5633.257
+## a[48]    69.603460 4.7802544 61.990560 77.160122 1.0024286 5065.542
+## a[49]    72.402414 4.6825454 65.012180 79.784921 1.0015697 5911.021
+## a[50]    72.770000 4.8603442 65.014248 80.455220 1.0029222 7919.236
+## mu_a     65.555333 2.4626739 61.598423 69.494927 1.0017301 4186.431
+## sigma_ID 16.613184 1.6346644 14.010696 19.244560 1.0024463 1915.575
+## sigma     7.081393 0.7331837  6.011486  8.331337 1.0004015 2066.538
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{post }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m5}\FloatTok{.1}\NormalTok{)}
+\NormalTok{var\_patients }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{sigma\_ID}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)  }\CommentTok{\# Between{-}patient variance}
+\NormalTok{var\_residual }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{sigma}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)     }\CommentTok{\# Residual variance}
+\NormalTok{var\_patients }\SpecialCharTok{/}\NormalTok{ (var\_patients }\SpecialCharTok{+}\NormalTok{ var\_residual) }\CommentTok{\# ICC}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8461117
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 0.846}
+\CommentTok{\# not too bad; very close to the result from the irr package}
+\end{Highlighting}
+\end{Shaded}
+
+In the output from \texttt{precis(m5.1,\ depth\ =\ 2)} above we see
+
+\begin{itemize}
+\tightlist
+\item
+  all 50 intercept estimates for each patient: \texttt{a{[}ID{]}}
+\item
+  \texttt{mu\_a}is the overall intercept.
+\item
+  \texttt{sigma\_ID} is the \textbf{patient variability}.
+\item
+  \texttt{sigma} is the \textbf{residual variability}.
+\end{itemize}
+
+We just square the sigmas to get the variances.
+
+The trick to do these calculations by ``hand'' is to get the
+variance decomposition correct.
+We stumbled upon variance decomposition in the context of ANOVA,
+where we decomposed the total variance into the regression variance
+and the residual variance. Here, we decompose the total variance
+into the between-patient variance and the residual variance.
+
+Remember: In the background, there is just a statistical model to predict
+the outcome. Depending on the predictors, we get different models and
+probably different ICCs
+
+We can also estimate a \textbf{random intercept model} with the \texttt{lme4} package using
+the command \texttt{lmer}in the Frequentist framework. No priors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lme4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'Matrix'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:tidyr':
+## 
+##     expand, pack, unpack
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m5}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(ROM }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{ID), }\AttributeTok{data =}\NormalTok{ df\_long)}
+\FunctionTok{summary}\NormalTok{(m5}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: ROM ~ (1 | ID)
+##    Data: df_long
+## 
+## REML criterion at convergence: 791
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -1.91875 -0.44821  0.00964  0.51325  1.47941 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  ID       (Intercept) 270.99   16.462  
+##  Residual              47.35    6.881  
+## Number of obs: 100, groups:  ID, 50
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)   65.590      2.428   27.02
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{VarCorr}\NormalTok{(m5}\FloatTok{.2}\NormalTok{), }\AttributeTok{comp =} \StringTok{"Variance"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Groups   Name        Variance
+##  ID       (Intercept) 270.99  
+##  Residual              47.35
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ICC = }
+\FloatTok{270.99} \SpecialCharTok{/}\NormalTok{ (}\FloatTok{270.99} \SpecialCharTok{+} \FloatTok{47.35}\NormalTok{) }\CommentTok{\# }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8512597
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 0.8512597}
+\CommentTok{\# {-}\textgreater{} exactly the same result as the irr package}
+\end{Highlighting}
+\end{Shaded}
+
+So far, we have only looked at the \textbf{\(ICC_{consistency}\)} (see also page 106 in the book).
+There, we have not yet explicitely considered a bias (=systematic difference
+between the raters) that the raters could introduce. In the book,
+they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).
+
+There is also the \textbf{\(ICC_{agreement}\)}, which explicitely considers this difference
+that could occur between the raters. This results in an extra term in the demoniator
+of the ICC, an additional variance component:
+
+\[ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + 
+\sigma_{\varepsilon}^2 + \sigma_{rater}^2}\]
+
+where \(\sigma_{rater}^2\) is the variance due to systematic rater differences.
+
+We will now introduce the 5 degree bias and use our Bayesian
+framework to estimate the \(ICC_{agreement}\). By introducing a bias, we should see
+a lower ICC (agreement). Note, that the prediction quality of Mary's scores
+given Peter's scores should not change, since we would only shift Mary's scores
+down by 5 degrees, which would not disturb the linear regression model. We can
+always move around the points to where we want them to be. We do that for instance
+when we scale or standardize the data.
+
+Anyhow, let's try to give the model equations for the new model considering
+the introduced bias:
+
+\begin{align*}
+Y_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
+\mu_i &=& \alpha[ID] + \beta[Rater] \\
+\alpha[ID] &\sim& \text{Normal}(\mu_{\alpha}, \sigma_{\alpha}) \\
+\beta[Rater] &\sim& \text{Normal}(0, \sigma_{\beta}) \\
+\mu_{\alpha} &\sim& \text{Normal}(66, 20) \\
+\sigma_{\alpha} &\sim& \text{Exp}(0.5) \\
+\sigma_{\beta} &\sim& \text{Exp}(1) \\
+\sigma_{\varepsilon} &\sim& \text{Exp}(1)
+\end{align*}
+
+Draw model structure \ldots{} exercise..
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_long\_bias }\OtherTok{\textless{}{-}}\NormalTok{ df\_long }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ROM =}\NormalTok{ ROM }\SpecialCharTok{+} \FunctionTok{ifelse}\NormalTok{(Rater }\SpecialCharTok{==} \StringTok{"ROMas.Mary"}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\FunctionTok{head}\NormalTok{(df\_long\_bias)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##      ID Rater         ROM
+##   <int> <fct>       <dbl>
+## 1     1 ROMas.Peter    66
+## 2     1 ROMas.Mary     75
+## 3     2 ROMas.Peter    65
+## 4     2 ROMas.Mary     68
+## 5     3 ROMas.Peter    96
+## 6     3 ROMas.Mary     87
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{m5}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{ulam}\NormalTok{(}
+  \FunctionTok{alist}\NormalTok{(}
+    \CommentTok{\# Likelihood}
+\NormalTok{    ROM }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma\_eps),}
+    
+    \CommentTok{\# Model for mean ROM with patient and rater effects}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ alpha[ID] }\SpecialCharTok{+}\NormalTok{ beta[Rater],  }
+    
+    \CommentTok{\# Patient{-}specific random effects}
+\NormalTok{    alpha[ID] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu\_alpha, sigma\_alpha),  }
+    
+    \CommentTok{\# Rater effect (Peter/Mary)}
+\NormalTok{    beta[Rater] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, sigma\_beta),  }
+    
+    \CommentTok{\# Priors for hyperparameters}
+\NormalTok{    mu\_alpha }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{66}\NormalTok{, }\DecValTok{10}\NormalTok{),  }\CommentTok{\# Population mean ROM}
+\NormalTok{    sigma\_alpha }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\FloatTok{0.5}\NormalTok{),  }\CommentTok{\# Between{-}patient SD (less aggressive shrinkage)}
+\NormalTok{    sigma\_beta }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\DecValTok{1}\NormalTok{),   }\CommentTok{\# Rater SD (better regularization)}
+\NormalTok{    sigma\_eps }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dexp}\NormalTok{(}\DecValTok{1}\NormalTok{)     }\CommentTok{\# Residual SD (prevents over{-}shrinkage)}
+\NormalTok{  ), }
+  \AttributeTok{data =}\NormalTok{ df\_long\_bias, }
+  \AttributeTok{chains =} \DecValTok{8}\NormalTok{, }\AttributeTok{cores =} \DecValTok{4}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...
+## 
+## Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 2
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 4
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 1 finished in 0.2 seconds.
+## Chain 2 finished in 0.3 seconds.
+## Chain 3 finished in 0.2 seconds.
+## Chain 4 finished in 0.2 seconds.
+## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 5 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 5 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 5 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 5 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 6 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 6 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 6 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 6 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 6 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 6 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 7 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 7 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpMRQpxi/model-14cd36a838645.stan', line 21, column 4 to column 45)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 7
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 5 finished in 0.2 seconds.
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 7 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 8 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
+## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 finished in 0.2 seconds.
+## Chain 7 finished in 0.2 seconds.
+## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 8 finished in 0.2 seconds.
+## 
+## All 8 chains finished successfully.
+## Mean chain execution time: 0.2 seconds.
+## Total execution time: 0.8 seconds.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: 27 of 4000 (1.0%) transitions ended with a divergence.
+## See https://mc-stan.org/misc/warnings for details.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{precis}\NormalTok{(m5}\FloatTok{.2}\NormalTok{, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  mean        sd       5.5%      94.5%     rhat  ess_bulk
+## alpha[1]    70.221230 4.6957078 62.9122250 77.6751330 1.003921 3956.8010
+## alpha[2]    66.637192 4.7935979 59.2921655 74.3219425 1.000703 4048.1323
+## alpha[3]    89.391211 4.8460529 81.8305935 96.9301420 1.001484 3581.3337
+## alpha[4]    79.068129 4.7090695 71.7267400 86.7491720 1.002625 4088.4617
+## alpha[5]    61.248545 4.6824417 53.8962900 68.7503010 1.002206 3886.9310
+## alpha[6]    71.711300 4.5314894 64.4525160 79.0005630 1.001403 3806.2065
+## alpha[7]    72.121798 4.7349544 64.6055805 79.6941110 1.001856 3482.5502
+## alpha[8]    69.834714 4.7037178 62.3043635 77.3545565 1.000583 4054.8858
+## alpha[9]    73.526363 4.7369985 66.0854635 81.0876520 1.001352 3708.7551
+## alpha[10]   83.497318 4.7172575 76.0272720 91.0849000 1.001394 3871.4522
+## alpha[11]   73.114282 4.6041905 65.8139360 80.4195110 1.002261 3330.7789
+## alpha[12]   44.827995 4.8132889 37.2627160 52.4649335 1.003939 3774.3717
+## alpha[13]   89.401919 4.7509654 81.8033940 96.8927025 1.001166 3733.9925
+## alpha[14]   77.155674 4.7663782 69.3451470 84.8327385 1.002594 3611.6344
+## alpha[15]   78.928227 4.8283770 71.2416295 86.6386025 1.005149 3462.8282
+## alpha[16]   37.537016 4.8929538 29.6438890 45.4816100 1.000967 3802.3178
+## alpha[17]   87.205983 4.6947001 79.8024680 94.7725850 1.004141 3205.6678
+## alpha[18]   67.618180 4.6490608 60.4495525 74.8906485 1.000691 3565.7257
+## alpha[19]   65.734938 4.7038246 58.2243970 73.1307710 1.003272 3021.3632
+## alpha[20]   82.148125 4.6634709 74.8132215 89.4844660 1.001809 3525.2622
+## alpha[21]   32.959556 4.7365812 25.6872720 40.6902550 1.000230 3896.3144
+## alpha[22]   65.312545 4.7691775 57.6339360 72.9769385 1.001701 3888.3018
+## alpha[23]   69.922455 4.6557324 62.4829305 77.3353785 1.004454 3949.3830
+## alpha[24]   84.028041 4.8666565 76.4453060 91.8557125 1.002520 4582.8271
+## alpha[25]   57.576782 4.6027933 50.1384940 65.0507070 1.003696 3883.0937
+## alpha[26]   69.844403 4.5423390 62.4724325 77.0730070 1.002214 3588.0981
+## alpha[27]   78.181829 4.6438020 70.9217780 85.6579100 1.000977 3573.7990
+## alpha[28]   83.976099 4.7519956 76.3497625 91.4832750 1.000891 3836.6036
+## alpha[29]   48.888864 4.6981990 41.3078680 56.4819905 1.001334 4153.8714
+## alpha[30]   63.812328 4.7111640 56.4071725 71.2587825 1.003047 3935.6824
+## alpha[31]   26.098770 4.8818137 18.3637725 33.9304330 1.003445 4068.8549
+## alpha[32]   76.676408 4.7365322 69.0211035 83.9915570 1.002364 3823.5694
+## alpha[33]   73.055353 4.6273537 65.9705020 80.5753430 1.002063 4039.5757
+## alpha[34]   78.963166 4.7676436 71.3900570 86.3736705 1.001748 3403.3517
+## alpha[35]   78.075230 4.7744829 70.5443095 85.7926805 1.001281 4222.4407
+## alpha[36]   71.652651 4.7601329 64.0808175 79.2662110 1.000708 4471.9540
+## alpha[37]   52.084764 4.7084537 44.8942315 59.7080135 1.002348 3439.9837
+## alpha[38]   76.121385 4.8822293 68.3599335 83.7502705 1.002290 4006.6888
+## alpha[39]   75.451394 4.7905587 67.7880930 82.8390550 1.000887 3454.6782
+## alpha[40]   48.408307 4.7026185 40.9218930 56.1687365 1.003060 3999.9664
+## alpha[41]   76.176540 4.6262898 68.7745580 83.5991630 1.004537 3963.8804
+## alpha[42]   28.812970 4.7775508 21.1928615 36.4243750 1.003746 3855.7962
+## alpha[43]   35.646945 4.6876761 28.1427865 43.0427785 1.000564 4114.5370
+## alpha[44]   76.736915 4.6819911 69.0549725 83.9337520 1.003016 3594.7244
+## alpha[45]   79.377066 4.6099939 71.8918425 86.7122600 1.001080 4016.1217
+## alpha[46]   76.266121 4.6936374 68.9066090 83.8324250 1.000442 4007.8677
+## alpha[47]   58.467633 4.5906174 51.1480830 65.6998370 1.002588 3396.4658
+## alpha[48]   72.114214 4.7995591 64.4240875 79.7356615 1.005283 3715.8719
+## alpha[49]   74.771082 4.6137731 67.3251525 82.0455495 1.001963 3457.0385
+## alpha[50]   75.414102 4.7692631 67.7589025 83.1030340 1.001202 4211.2151
+## beta[1]      1.196482 1.4699703 -0.7591575  3.6725132 1.005792  932.0193
+## beta[2]     -1.260339 1.5058841 -3.8538230  0.6600649 1.007244  857.8581
+## mu_alpha    67.979401 2.5706977 63.9069175 72.0885400 1.003032 1842.7425
+## sigma_alpha 15.457249 1.6142987 13.1380645 18.2104485 1.000383 4277.2078
+## sigma_beta   1.685571 1.0527940  0.3547305  3.5587972 1.001191 1581.1771
+## sigma_eps    6.713486 0.6434269  5.7619659  7.7933864 1.004713 2175.7641
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{precis}\NormalTok{(m5}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 52 vector or matrix parameters hidden. Use depth=2 to show them.
+\end{verbatim}
+
+\begin{verbatim}
+##                  mean        sd       5.5%     94.5%     rhat ess_bulk
+## mu_alpha    67.979401 2.5706977 63.9069175 72.088540 1.003032 1842.742
+## sigma_alpha 15.457249 1.6142987 13.1380645 18.210449 1.000383 4277.208
+## sigma_beta   1.685571 1.0527940  0.3547305  3.558797 1.001191 1581.177
+## sigma_eps    6.713486 0.6434269  5.7619659  7.793386 1.004713 2175.764
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# check systematic difference for rater in posterior}
+\NormalTok{post }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m5}\FloatTok{.2}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{beta[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{beta[,}\DecValTok{2}\NormalTok{])  }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.456821
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ICC agreement:}
+\NormalTok{post }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m5}\FloatTok{.2}\NormalTok{)}
+\NormalTok{(var\_patients }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{sigma\_alpha}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))  }\CommentTok{\# Between{-}patient variance}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 241.5319
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(var\_raters }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{sigma\_beta}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))     }\CommentTok{\# Rater variance}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.949248
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(var\_residual }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{sigma\_eps}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))    }\CommentTok{\# Residual variance}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 45.48479
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ICC\_agreement = }
+\NormalTok{var\_patients }\SpecialCharTok{/}\NormalTok{ (var\_patients }\SpecialCharTok{+}\NormalTok{ var\_raters }\SpecialCharTok{+}\NormalTok{ var\_residual)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8301037
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 0.8033613 (sigma\_alpha \textasciitilde{} dexp(1))}
+\CommentTok{\# 0.83 (sigma\_alpha \textasciitilde{} dexp(0.5))}
+
+\CommentTok{\# ICC (Single\_fixed\_raters) = ICC3 in psych output = }
+\NormalTok{var\_patients }\SpecialCharTok{/}\NormalTok{ (var\_patients }\SpecialCharTok{+}\NormalTok{ var\_residual)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8415256
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 0.8415256}
+\end{Highlighting}
+\end{Shaded}
+
+It should be noted that this ICC is very sensitive to the choice of the prior.
+If you choose too agressive priors for the standard deviations \(\sigma_{\alpha},
+\sigma_{\beta}, \sigma_{\varepsilon}\), you will get a too low ICC.
+
+We will proably talk about this in the next lecture (Methodenvertiefung) in greater detail.
+I have played around a little with the parameters in the exponential priors
+to get the desired result which compares nicely to the two alternative methods below:
+using the \texttt{psych} package and with the \texttt{lmer}
+package. Both use a Frequentist random intercept model in the background.
+Using a package like \texttt{psych} does just gives a more convenient interface to
+elicit the ICC.
+
+\textbf{\texttt{psych} package}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(psych)}
+\CommentTok{\# needs wide format}
+\FunctionTok{conflicts\_prefer}\NormalTok{(dplyr}\SpecialCharTok{::}\NormalTok{select)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [conflicted] Will prefer dplyr::select over any other package.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_wide }\OtherTok{\textless{}{-}}\NormalTok{ df\_long\_bias }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =}\NormalTok{ Rater, }\AttributeTok{values\_from =}\NormalTok{ ROM)}
+\NormalTok{df\_wide\_values }\OtherTok{\textless{}{-}}\NormalTok{ df\_wide }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ID)}
+\NormalTok{psych}\SpecialCharTok{::}\FunctionTok{ICC}\NormalTok{(df\_wide\_values) }\CommentTok{\# ICC1 = 0.83}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: psych::ICC(x = df_wide_values)
+## 
+## Intraclass correlation coefficients 
+##                          type  ICC  F df1 df2       p lower bound upper bound
+## Single_raters_absolute   ICC1 0.83 11  49  50 1.1e-14        0.72        0.90
+## Single_random_raters     ICC2 0.83 12  49  49 1.4e-15        0.71        0.91
+## Single_fixed_raters      ICC3 0.85 12  49  49 1.4e-15        0.75        0.91
+## Average_raters_absolute ICC1k 0.91 11  49  50 1.1e-14        0.84        0.95
+## Average_random_raters   ICC2k 0.91 12  49  49 1.4e-15        0.83        0.95
+## Average_fixed_raters    ICC3k 0.92 12  49  49 1.4e-15        0.86        0.95
+## 
+##  Number of subjects = 50     Number of Judges =  2
+## See the help file for a discussion of the other 4 McGraw and Wong estimates,
+\end{verbatim}
+
+\textbf{\texttt{lmer} package}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# \_lmer{-}{-}{-}{-}{-}{-}}
+\NormalTok{m5}\FloatTok{.3} \OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(ROM }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ ID) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Rater), }\AttributeTok{data =}\NormalTok{ df\_long\_bias)}
+\FunctionTok{summary}\NormalTok{(m5}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: ROM ~ (1 | ID) + (1 | Rater)
+##    Data: df_long_bias
+## 
+## REML criterion at convergence: 793.2
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -1.87448 -0.46270  0.00272  0.57820  1.45008 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  ID       (Intercept) 270.882  16.458  
+##  Rater    (Intercept)   6.193   2.489  
+##  Residual              47.557   6.896  
+## Number of obs: 100, groups:  ID, 50; Rater, 2
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)   68.090      2.998   22.71
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{VarCorr}\NormalTok{(m5}\FloatTok{.3}\NormalTok{), }\AttributeTok{comp =} \StringTok{"Variance"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Groups   Name        Variance
+##  ID       (Intercept) 270.882 
+##  Rater    (Intercept)   6.193 
+##  Residual              47.557
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Groups   Name        Variance}
+\CommentTok{\# ID       (Intercept) 270.882 }
+\CommentTok{\# Rater    (Intercept)   6.193 }
+\CommentTok{\# Residual              47.557 }
+
+
+\CommentTok{\# ICC (Single\_random\_raters) = ICC2 in psych output}
+\FloatTok{270.882} \SpecialCharTok{/}\NormalTok{ (}\FloatTok{270.882} \SpecialCharTok{+} \FloatTok{6.193} \SpecialCharTok{+} \FloatTok{47.557}\NormalTok{) }\CommentTok{\# }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8344279
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 0.8344279}
+\CommentTok{\# how can this be higher?}
+
+\CommentTok{\# ICC (Single\_fixed\_raters) = ICC3 in psych output}
+\FloatTok{270.882} \SpecialCharTok{/}\NormalTok{ (}\FloatTok{270.882} \SpecialCharTok{+} \FloatTok{47.557}\NormalTok{) }\CommentTok{\#}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8506559
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 0.85}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{\texorpdfstring{Explanation of ICCs in the \texttt{psych} output}{Explanation of ICCs in the psych output}}\label{explanation-of-iccs-in-the-psych-output}
+
+\ldots{}
+
+\subsection{Difference between correlation and ICC}\label{difference-between-correlation-and-icc}
+
+If we do not introduce a bias in the data, the correlation coefficient
+is the same as the ICC (as seen above). On page 110, Figure 5.3, the authors show nicely
+what the difference is between the correlation coefficient and the ICC. We note:
+
+\begin{itemize}
+\tightlist
+\item
+  The \(ICC_{agreement}\) measures how tightly the two measurements are
+  clustered around the line of equality (\(y=x\))\ldots\ldots..
+  \ldots\ldots..
+\end{itemize}
+
+Let's verify Figure 5.3 with a little simulation:
+
+\ldots.
+
+\subsection{Standard Error of Measurement (SEM)}\label{standard-error-of-measurement-sem}
+
+\ldots{}
+
+\subsection{Bland-Altman Plot}\label{bland-altman-plot}
+
+\ldots{}
+
+\section{Validity}\label{validity}
+
+\ldots{}
+
 \section{TODOS}\label{todos}
 
 \begin{itemize}
 \tightlist
 \item
-  mention missing values, missingness mechanisms
+  mention missing values, missingness mechanisms -\textgreater{} Methodenvertiefung
 \item
-  Logistic Regression, Poisson, \ldots{}
+  Logistic Regression, Poisson, -\textgreater{} Methodenvertiefung
 \item
-  Violations of model assumptions and how to fix them.
-\item
-  Add more Bayesian model checks, chapter 6 Gelman.
-\item
-  Show by simulation what Gelman talks about with significant p values. So I scan the data
+  Exercise: Show by simulation what Gelman talks about with significant p values. So I scan the data
   for significant p values and then simulate data with the same effect size and see how often
   I get significant p values. Especially the next effect would be probably smaller,
   especially, if one did p-hacking! Calculate a priori probability for replication (def?).
 \item
-  Chapter: Sample size calculations for logistic and multivariate regression, Proportions, ICCs, t.test
+  Chapter: Sample size calculations for multivariate regression, Proportions, ICCs, t.test
 \item
   Chapter about Reliability, Validity and ICCs (incl.~simulation of what an ICC of 0.9 or so means), but maybe reduced
 \item
   Angenommen man hat ein masking eines Effekts und der Model fit ist aber gut (keine Voraussetzung verletzt),
   ist diese Situation möglich?
 \item
-  What about 2 interactions?
-\item
-  Which variables should I include in a model and why?
-\item
-  What about a real life data set?
-\item
-  What about papers?
-\item
-  Simulate a cohort of Master thesis with small sample sizes and assume
-  that there is a true but unknown effect.
+  What about papers? -\textgreater{} eLearning
 \item
   AIC, BIC, cross-validation, Model selection (best subset, leaps\ldots.), Variable selection
 \item
