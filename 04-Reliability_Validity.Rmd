@@ -586,10 +586,10 @@ print(VarCorr(m5.3), comp = "Variance")
 
 If you want to know all the details, refer to [Shrout and Fleiss (1979)](https://d1wqtxts1xzle7.cloudfront.net/50483847/syarat_reliabilitas_icc-libre.pdf?1479841049=&response-content-disposition=inline%3B+filename%3DIntraclass_Correlations_Uses_in_Assessin.pdf&Expires=1740684631&Signature=hHiFbcQD3PDVIyWDJ-bUhcm3WtsK19YhHm6FKtnafNdqsm9NhR6cr9lbCf~gVV5SYG1XlTwLlcfJkQ9Z-ahjmmNV893aWi5plo~yL4oZBEjrmFa9WCd7k6vzFTkri1Xbgfh~GyPARWXBtqABytovtL-RD1420Kw9qk150nw3-kUWcuvRiIc~r0y65XQaXf-V9mm~uXRFdUqec4Vs-Bwh~IrJfHWQASGgp8wZjzh2130MCP3-iaorxNn~79c~nm2f1aIl5WRqRXB6EIy8HlrNFpxNSt1pgTPZoZadEECM4qH395KLY5ijUnhoCDT9AmcOplPnFiC5t8dKW-n25ziofQ__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA).
 The help-function `?psych::ICC` containts a relatively good and much shorter explanation.
-The variance forumlae given in the help-file are probably somewhat confusing.
+The variance formulae given in the help-file are probably somewhat confusing.
 We try to stick to the notation of the book.
 
-Let's talk about the first three ICCs in the `psych` output.
+Let's talk about the first three **ICCs in the `psych` output**:.
 
 - **Single_raters_absolute ICC1:**
   According to the help file: "Each target is rated by a different 
@@ -599,15 +599,17 @@ Let's talk about the first three ICCs in the `psych` output.
   50 patients. But for this case, we do not care who measures, since we do not
   model it, hence, we cannot know if there are systematic differences between
   the raters. There might as well be 50 raters doing their thing, or just 2 as in our case. 
-  This is the ICC we calculated above. This ICC is called $ICC_{consistency}$ 
+  This is the ICC we calculated above; called $ICC_{consistency}$ 
   in the book and based on the following model:
   
   $$ Y_{ij} = \eta_i + \varepsilon_i $$
-  where $j \in {1,...,50}$ is the patient and $j \in {1,2}$ is the *measurement* 
+  where $i \in {1,...,50}$ is the patient and $j \in {1,2}$ is the *measurement* 
   ($=50*2=100$ rows in long format).
   Note that we do not mention a rater here, since we do not care who took the
   measurement. It is not part of the model. The ICC is then calculated as:
   $$ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
+  whereas we could get the variance components from either the posterior in the Bayesian
+  setting or from the `lmer` output in the Frequentist setting.
 
 - **Single_random_raters ICC2:** 
   ICC2 and ICC3 are based on the **same** statistical model. The only difference is
@@ -621,7 +623,7 @@ Let's talk about the first three ICCs in the `psych` output.
   due to raters (you get a variety of them and they biases are different).
   
   $$ Y_{ij} = \eta_i + \beta_j + \varepsilon_i $$
-  where $j \in {1,...,50}$ is the patient, $j \in {1,2}$ is the **rater** 
+  where $i \in {1,...,50}$ is the patient, $j \in {1,2}$ is the **rater** 
   (doing one measurement in each patient). The ICC is then calculated as:
   
   $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + 
@@ -633,16 +635,26 @@ Let's talk about the first three ICCs in the `psych` output.
   So, we have considered the rater variability in the model 
   (which was possible due to the repeated measurements from the same raters in 50 patients), 
   but do not care since Mary and Peter will be the people doing the future
-  measurements, not other therapists. Here, we are able to disentangle residual error 
-  and rater variability.
-  The help file says: "A fixed set of k judges rate each target. 
+  measurements, not other therapists. If you fix a stochastic variable 
+  (raters in this case), variance is zero. The help file says: 
+  "A fixed set of k judges rate each target. 
   There is no generalization to a larger population of judges."
   The ICC is then calculated as:
 
   $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
 
   ICC1 and ICC3 are **not** identical, since ICC1 does not consider the rater variability
-  in the model. If there is no rater variability, all 3 ICCs are the same.
+  in the model.
+
+If there is no systematic difference between raters, all 3 ICCs and the Pearson 
+correlation (r) are the same (see Figure 5.3 in the book).
+
+$ICC_{consistency}$ vs. $ICC_{agreement}$:
+The latter is used, when we need Peter and Mary to concur in their measurements.
+Patients coming to Peters practice will get the same "diagnosis" (ROM-value)
+from Mary. When there is systematic difference (line is shifted downwards in Figure 5.3), 
+this cannot be guaranteed.
+
 
 
 ### Difference between correlation and ICC
@@ -655,9 +667,9 @@ what the difference is between the correlation coefficient and the ICC. We note:
   clustered around the line of equality ($y=x$)........
   ........
 
-Let's verify Figure 5.3 with a little simulation:
 
-....
+### Bad news about the ICC?
+...
 
 ### Standard Error of Measurement (SEM)
 ...

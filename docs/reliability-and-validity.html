@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-02-27" />
+<meta name="date" content="2025-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -283,8 +283,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#intraclass-correlation-coefficient-icc"><i class="fa fa-check"></i><b>5.1.2</b> Intraclass Correlation Coefficient (ICC)</a></li>
 <li class="chapter" data-level="5.1.3" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#explanation-of-iccs-in-the-psych-output"><i class="fa fa-check"></i><b>5.1.3</b> Explanation of ICCs in the <code>psych</code> output</a></li>
 <li class="chapter" data-level="5.1.4" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#difference-between-correlation-and-icc"><i class="fa fa-check"></i><b>5.1.4</b> Difference between correlation and ICC</a></li>
-<li class="chapter" data-level="5.1.5" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#standard-error-of-measurement-sem"><i class="fa fa-check"></i><b>5.1.5</b> Standard Error of Measurement (SEM)</a></li>
-<li class="chapter" data-level="5.1.6" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bland-altman-plot"><i class="fa fa-check"></i><b>5.1.6</b> Bland-Altman Plot</a></li>
+<li class="chapter" data-level="5.1.5" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bad-news-about-the-icc"><i class="fa fa-check"></i><b>5.1.5</b> Bad news about the ICC?</a></li>
+<li class="chapter" data-level="5.1.6" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#standard-error-of-measurement-sem"><i class="fa fa-check"></i><b>5.1.6</b> Standard Error of Measurement (SEM)</a></li>
+<li class="chapter" data-level="5.1.7" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bland-altman-plot"><i class="fa fa-check"></i><b>5.1.7</b> Bland-Altman Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#validity"><i class="fa fa-check"></i><b>5.2</b> Validity</a></li>
 <li class="chapter" data-level="5.3" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#todos"><i class="fa fa-check"></i><b>5.3</b> TODOS</a></li>
@@ -668,7 +669,7 @@ the chains, which saves some time.</p></li>
 ## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2563c6167aa.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
@@ -681,9 +682,11 @@ the chains, which saves some time.</p></li>
 ## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling)</code></pre>
+## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2563c6167aa.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
@@ -698,6 +701,7 @@ the chains, which saves some time.</p></li>
 ## Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -711,17 +715,14 @@ the chains, which saves some time.</p></li>
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2563c6167aa.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
 <pre><code>## Chain 1 finished in 0.1 seconds.
-## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 2 finished in 0.2 seconds.
-## Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 3 finished in 0.2 seconds.
-## Chain 4 finished in 0.2 seconds.
+## Chain 3 finished in 0.1 seconds.
+## Chain 4 finished in 0.1 seconds.
 ## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -735,7 +736,7 @@ the chains, which saves some time.</p></li>
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2563c6167aa.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 5</code></pre>
@@ -749,9 +750,10 @@ the chains, which saves some time.</p></li>
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling)</code></pre>
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 6 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2563c6167aa.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 6 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 6 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 6</code></pre>
@@ -765,31 +767,30 @@ the chains, which saves some time.</p></li>
 ## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 7 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 5 finished in 0.2 seconds.
-## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 6 finished in 0.2 seconds.
-## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 7 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 7 finished in 0.2 seconds.
 ## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 8 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 5 finished in 0.1 seconds.
+## Chain 6 finished in 0.1 seconds.
+## Chain 7 finished in 0.1 seconds.
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 8 finished in 0.2 seconds.
+## Chain 8 finished in 0.1 seconds.
 ## 
 ## All 8 chains finished successfully.
-## Mean chain execution time: 0.2 seconds.
+## Mean chain execution time: 0.1 seconds.
 ## Total execution time: 0.7 seconds.</code></pre>
 <div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="reliability-and-validity.html#cb307-1" tabindex="-1"></a><span class="fu">toc</span>() <span class="co"># 7s</span></span></code></pre></div>
-<pre><code>## 7.816 sec elapsed</code></pre>
+<pre><code>## 8.002 sec elapsed</code></pre>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="reliability-and-validity.html#cb309-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               mean        sd      5.5%     94.5%      rhat ess_bulk
 ## a[1]     67.722244 4.9090800 59.884240 75.424230 1.0011883 6619.262
@@ -1006,38 +1007,40 @@ a learning effect or something.</p>
 ## Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling)</code></pre>
+## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2565050b982.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
 <pre><code>## Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)</code></pre>
+## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2565050b982.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
 <pre><code>## Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2565050b982.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
-<pre><code>## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+<pre><code>## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 1 finished in 0.2 seconds.
 ## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -1046,7 +1049,6 @@ a learning effect or something.</p>
 ## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -1063,26 +1065,27 @@ a learning effect or something.</p>
 ## Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 1 finished in 0.2 seconds.
-## Chain 2 finished in 0.3 seconds.
-## Chain 3 finished in 0.2 seconds.
-## Chain 4 finished in 0.2 seconds.
 ## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup)</code></pre>
+<pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 5</code></pre>
+<pre><code>## Chain 2 finished in 0.3 seconds.
+## Chain 3 finished in 0.2 seconds.
+## Chain 4 finished in 0.2 seconds.
 ## Chain 5 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 5 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 5 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 5 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling)</code></pre>
-<pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2565050b982.stan&#39;, line 21, column 4 to column 45)</code></pre>
-<pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-<pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-<pre><code>## Chain 5</code></pre>
-<pre><code>## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 6 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 6 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 6 Iteration: 300 / 1000 [ 30%]  (Warmup) 
@@ -1091,33 +1094,32 @@ a learning effect or something.</p>
 ## Chain 6 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 7 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 7 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)</code></pre>
+## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling)</code></pre>
 <pre><code>## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp78S8LG/model-2565050b982.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 7</code></pre>
 <pre><code>## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 5 finished in 0.2 seconds.
-## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 6 finished in 0.2 seconds.
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 7 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 8 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -1125,9 +1127,8 @@ a learning effect or something.</p>
 ## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 6 finished in 0.2 seconds.
-## Chain 7 finished in 0.2 seconds.
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 7 finished in 0.2 seconds.
 ## Chain 8 finished in 0.2 seconds.
 ## 
 ## All 8 chains finished successfully.
@@ -1304,9 +1305,9 @@ elicit the ICC.</p>
 <h3><span class="header-section-number">5.1.3</span> Explanation of ICCs in the <code>psych</code> output<a href="reliability-and-validity.html#explanation-of-iccs-in-the-psych-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you want to know all the details, refer to <a href="https://d1wqtxts1xzle7.cloudfront.net/50483847/syarat_reliabilitas_icc-libre.pdf?1479841049=&amp;response-content-disposition=inline%3B+filename%3DIntraclass_Correlations_Uses_in_Assessin.pdf&amp;Expires=1740684631&amp;Signature=hHiFbcQD3PDVIyWDJ-bUhcm3WtsK19YhHm6FKtnafNdqsm9NhR6cr9lbCf~gVV5SYG1XlTwLlcfJkQ9Z-ahjmmNV893aWi5plo~yL4oZBEjrmFa9WCd7k6vzFTkri1Xbgfh~GyPARWXBtqABytovtL-RD1420Kw9qk150nw3-kUWcuvRiIc~r0y65XQaXf-V9mm~uXRFdUqec4Vs-Bwh~IrJfHWQASGgp8wZjzh2130MCP3-iaorxNn~79c~nm2f1aIl5WRqRXB6EIy8HlrNFpxNSt1pgTPZoZadEECM4qH395KLY5ijUnhoCDT9AmcOplPnFiC5t8dKW-n25ziofQ__&amp;Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA">Shrout and Fleiss (1979)</a>.
 The help-function <code>?psych::ICC</code> containts a relatively good and much shorter explanation.
-The variance forumlae given in the help-file are probably somewhat confusing.
+The variance formulae given in the help-file are probably somewhat confusing.
 We try to stick to the notation of the book.</p>
-<p>Let’s talk about the first three ICCs in the <code>psych</code> output.</p>
+<p>Let’s talk about the first three <strong>ICCs in the <code>psych</code> output</strong>:.</p>
 <ul>
 <li><p><strong>Single_raters_absolute ICC1:</strong>
 According to the help file: “Each target is rated by a different
@@ -1316,14 +1317,16 @@ This is formally not our situation, since we have only two raters and
 50 patients. But for this case, we do not care who measures, since we do not
 model it, hence, we cannot know if there are systematic differences between
 the raters. There might as well be 50 raters doing their thing, or just 2 as in our case.
-This is the ICC we calculated above. This ICC is called <span class="math inline">\(ICC_{consistency}\)</span>
+This is the ICC we calculated above; called <span class="math inline">\(ICC_{consistency}\)</span>
 in the book and based on the following model:</p>
 <p><span class="math display">\[ Y_{ij} = \eta_i + \varepsilon_i \]</span>
-where <span class="math inline">\(j \in {1,...,50}\)</span> is the patient and <span class="math inline">\(j \in {1,2}\)</span> is the <em>measurement</em>
+where <span class="math inline">\(i \in {1,...,50}\)</span> is the patient and <span class="math inline">\(j \in {1,2}\)</span> is the <em>measurement</em>
 (<span class="math inline">\(=50*2=100\)</span> rows in long format).
 Note that we do not mention a rater here, since we do not care who took the
 measurement. It is not part of the model. The ICC is then calculated as:
-<span class="math display">\[ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span></p></li>
+<span class="math display">\[ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span>
+whereas we could get the variance components from either the posterior in the Bayesian
+setting or from the <code>lmer</code> output in the Frequentist setting.</p></li>
 <li><p><strong>Single_random_raters ICC2:</strong>
 ICC2 and ICC3 are based on the <strong>same</strong> statistical model. The only difference is
 that ICC2 assumes that the (in our case) 2 raters are randomly selected from a larger pool of raters,
@@ -1335,7 +1338,7 @@ The measure is one of absolute agreement in the ratings.”
 A random sample of k (2 in our case) judges means that we cannot rule out the variability
 due to raters (you get a variety of them and they biases are different).</p>
 <p><span class="math display">\[ Y_{ij} = \eta_i + \beta_j + \varepsilon_i \]</span>
-where <span class="math inline">\(j \in {1,...,50}\)</span> is the patient, <span class="math inline">\(j \in {1,2}\)</span> is the <strong>rater</strong>
+where <span class="math inline">\(i \in {1,...,50}\)</span> is the patient, <span class="math inline">\(j \in {1,2}\)</span> is the <strong>rater</strong>
 (doing one measurement in each patient). The ICC is then calculated as:</p>
 <p><span class="math display">\[ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} +
 \sigma_{\varepsilon}^2}\]</span></p></li>
@@ -1345,15 +1348,22 @@ This means that <strong>the raters are the same for all patients</strong> in the
 So, we have considered the rater variability in the model
 (which was possible due to the repeated measurements from the same raters in 50 patients),
 but do not care since Mary and Peter will be the people doing the future
-measurements, not other therapists. Here, we are able to disentangle residual error
-and rater variability.
-The help file says: “A fixed set of k judges rate each target.
+measurements, not other therapists. If you fix a stochastic variable
+(raters in this case), variance is zero. The help file says:
+“A fixed set of k judges rate each target.
 There is no generalization to a larger population of judges.”
 The ICC is then calculated as:</p>
 <p><span class="math display">\[ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span></p>
 <p>ICC1 and ICC3 are <strong>not</strong> identical, since ICC1 does not consider the rater variability
-in the model. If there is no rater variability, all 3 ICCs are the same.</p></li>
+in the model.</p></li>
 </ul>
+<p>If there is no systematic difference between raters, all 3 ICCs and the Pearson
+correlation (r) are the same (see Figure 5.3 in the book).</p>
+<p><span class="math inline">\(ICC_{consistency}\)</span> vs. <span class="math inline">\(ICC_{agreement}\)</span>:
+The latter is used, when we need Peter and Mary to concur in their measurements.
+Patients coming to Peters practice will get the same “diagnosis” (ROM-value)
+from Mary. When there is systematic difference (line is shifted downwards in Figure 5.3),
+this cannot be guaranteed.</p>
 </div>
 <div id="difference-between-correlation-and-icc" class="section level3 hasAnchor" number="5.1.4">
 <h3><span class="header-section-number">5.1.4</span> Difference between correlation and ICC<a href="reliability-and-validity.html#difference-between-correlation-and-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1365,15 +1375,17 @@ what the difference is between the correlation coefficient and the ICC. We note:
 clustered around the line of equality (<span class="math inline">\(y=x\)</span>)……..
 ……..</li>
 </ul>
-<p>Let’s verify Figure 5.3 with a little simulation:</p>
-<p>….</p>
 </div>
-<div id="standard-error-of-measurement-sem" class="section level3 hasAnchor" number="5.1.5">
-<h3><span class="header-section-number">5.1.5</span> Standard Error of Measurement (SEM)<a href="reliability-and-validity.html#standard-error-of-measurement-sem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="bad-news-about-the-icc" class="section level3 hasAnchor" number="5.1.5">
+<h3><span class="header-section-number">5.1.5</span> Bad news about the ICC?<a href="reliability-and-validity.html#bad-news-about-the-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>…</p>
 </div>
-<div id="bland-altman-plot" class="section level3 hasAnchor" number="5.1.6">
-<h3><span class="header-section-number">5.1.6</span> Bland-Altman Plot<a href="reliability-and-validity.html#bland-altman-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="standard-error-of-measurement-sem" class="section level3 hasAnchor" number="5.1.6">
+<h3><span class="header-section-number">5.1.6</span> Standard Error of Measurement (SEM)<a href="reliability-and-validity.html#standard-error-of-measurement-sem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>…</p>
+</div>
+<div id="bland-altman-plot" class="section level3 hasAnchor" number="5.1.7">
+<h3><span class="header-section-number">5.1.7</span> Bland-Altman Plot<a href="reliability-and-validity.html#bland-altman-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>…</p>
 </div>
 </div>
