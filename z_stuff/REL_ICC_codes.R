@@ -1,5 +1,7 @@
 library(pacman)
-p_load(tidyverse, readxl, ggExtra, lme4, irr, tictoc)
+p_load(tidyverse, readxl, 
+       ggExtra, lme4, irr, 
+       tictoc, conflicted, flextable)
 
 # Read file
 url <- "https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls"
@@ -271,3 +273,47 @@ print(VarCorr(m5.3), comp = "Variance")
 # ICC (Single_fixed_raters) = ICC3 in psych output
 270.882 / (270.882 + 47.557) #
 # 0.85
+
+
+
+# summary-----------
+
+library(conflicted, tidyverse, flextable)
+
+# Ensure select() from dplyr is used
+conflicts_prefer(dplyr::select)
+
+# Unbiased ICC Calculation
+df_wide_unbiased <- df_long %>%
+  pivot_wider(names_from = Rater, values_from = ROM)
+df_wide_values_unbiased <- df_wide_unbiased %>% select(-ID)
+icc_results_unbiased <- psych::ICC(df_wide_values_unbiased)
+
+# Extract relevant ICC values
+icc_unbiased_df <- icc_results_unbiased$results %>%
+  dplyr::select(type, ICC) %>%
+  rename(`Unbiased ICC` = ICC)
+
+# Biased ICC Calculation
+df_wide_biased <- df_long_bias %>%
+  pivot_wider(names_from = Rater, values_from = ROM)
+df_wide_values_biased <- df_wide_biased %>% select(-ID)
+icc_results_biased <- psych::ICC(df_wide_values_biased)
+
+# Extract relevant ICC values
+icc_biased_df <- icc_results_biased$results %>%
+  dplyr::select(type, ICC) %>%
+  rename(`Biased ICC` = ICC)
+
+icc_merged_df <- left_join(icc_unbiased_df, 
+                           icc_biased_df, 
+                           by = "type") %>%
+  slice(1:3)
+
+ft <- flextable(icc_merged_df) %>%
+  flextable::set_header_labels(type = "ICC Type") %>%
+  flextable::set_caption("Intraclass Correlation Coefficients - Unbiased vs. Biased") %>%
+  flextable::set_table_properties(width = .5, layout = "autofit")
+ft
+
+

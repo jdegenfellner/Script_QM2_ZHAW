@@ -304,10 +304,10 @@ Below is the model structure.
   the scores of the patients vary in relation to their respective level $\alpha[ID]$.
 
 
-The $ICC_{consistency}$ is then calculated as the ratio of the between-patient variance and
+The **$ICC_{consistency}$** is then calculated as the ratio of the between-patient variance and
 the total variance: 
 
-  $$\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$$.
+  $$\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$$
 
 \[
 \begin{array}{rcl}
@@ -429,12 +429,13 @@ There, we have not yet explicitely considered a bias (=systematic difference
 between the raters) that the raters could have. In the book,
 they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).
 
-There is also the **$ICC_{agreement}$**, which explicitely considers this difference
-that could occur between the raters. This results in an extra term in the demoniator
+**There is also the $ICC_{agreement}$**, which explicitely considers this
+(systematic) difference that could occur between the raters. 
+This results in an extra term in the demoniator
 of the ICC, an additional variance component:
 
 $$ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + 
-\sigma_{rater}^2 + \sigma_{\varepsilon}^2}$$
+\mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}$$
 
 where $\sigma_{rater}^2$ is the variance due to systematic rater differences.
 
@@ -575,7 +576,6 @@ print(VarCorr(m5.3), comp = "Variance")
 # ICC (Single_random_raters) = ICC2 in psych output
 270.882 / (270.882 + 6.193 + 47.557) # 
 # 0.8344279
-# how can this be higher?
 
 # ICC (Single_fixed_raters) = ICC3 in psych output
 270.882 / (270.882 + 47.557) #
@@ -655,7 +655,51 @@ Patients coming to Peters practice will get the same "diagnosis" (ROM-value)
 from Mary. When there is systematic difference (line is shifted downwards in Figure 5.3), 
 this cannot be guaranteed.
 
+### Summary Peter and Mary, with and without bias
 
+Below, we summarize the results for the ICCs (calculated with `psych`)
+for the unbiased and biased case.
+
+```{r}
+library(pacman)
+p_load(conflicted, tidyverse, flextable)
+
+# Ensure select() from dplyr is used
+conflicts_prefer(dplyr::select)
+
+# Unbiased ICC Calculation
+df_wide_unbiased <- df_long %>%
+  pivot_wider(names_from = Rater, values_from = ROM)
+df_wide_values_unbiased <- df_wide_unbiased %>% select(-ID)
+icc_results_unbiased <- psych::ICC(df_wide_values_unbiased)
+
+# Extract relevant ICC values
+icc_unbiased_df <- icc_results_unbiased$results %>%
+  dplyr::select(type, ICC) %>%
+  rename(`Unbiased ICC` = ICC)
+
+# Biased ICC Calculation
+df_wide_biased <- df_long_bias %>%
+  pivot_wider(names_from = Rater, values_from = ROM)
+df_wide_values_biased <- df_wide_biased %>% select(-ID)
+icc_results_biased <- psych::ICC(df_wide_values_biased)
+
+# Extract relevant ICC values
+icc_biased_df <- icc_results_biased$results %>%
+  dplyr::select(type, ICC) %>%
+  rename(`Biased ICC` = ICC)
+
+icc_merged_df <- left_join(icc_unbiased_df, 
+                           icc_biased_df, 
+                           by = "type") %>%
+  slice(1:3)
+
+ft <- flextable(icc_merged_df) %>%
+  flextable::set_header_labels(type = "ICC Type") %>%
+  flextable::set_caption("Intraclass Correlation Coefficients - Unbiased vs. Biased") %>%
+  flextable::set_table_properties(width = .5, layout = "autofit")
+ft
+```
 
 ### Difference between correlation and ICC
 

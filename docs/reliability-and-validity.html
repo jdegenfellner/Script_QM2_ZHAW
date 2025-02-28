@@ -63,6 +63,8 @@
 <script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
 
 
 <style type="text/css">
@@ -282,10 +284,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.1" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#peter-and-marys-rom-measurements"><i class="fa fa-check"></i><b>5.1.1</b> Peter and Mary’s ROM measurements</a></li>
 <li class="chapter" data-level="5.1.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#intraclass-correlation-coefficient-icc"><i class="fa fa-check"></i><b>5.1.2</b> Intraclass Correlation Coefficient (ICC)</a></li>
 <li class="chapter" data-level="5.1.3" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#explanation-of-iccs-in-the-psych-output"><i class="fa fa-check"></i><b>5.1.3</b> Explanation of ICCs in the <code>psych</code> output</a></li>
-<li class="chapter" data-level="5.1.4" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#difference-between-correlation-and-icc"><i class="fa fa-check"></i><b>5.1.4</b> Difference between correlation and ICC</a></li>
-<li class="chapter" data-level="5.1.5" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bad-news-about-the-icc"><i class="fa fa-check"></i><b>5.1.5</b> Bad news about the ICC?</a></li>
-<li class="chapter" data-level="5.1.6" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#standard-error-of-measurement-sem"><i class="fa fa-check"></i><b>5.1.6</b> Standard Error of Measurement (SEM)</a></li>
-<li class="chapter" data-level="5.1.7" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bland-altman-plot"><i class="fa fa-check"></i><b>5.1.7</b> Bland-Altman Plot</a></li>
+<li class="chapter" data-level="5.1.4" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#summary-peter-and-mary-with-and-without-bias"><i class="fa fa-check"></i><b>5.1.4</b> Summary Peter and Mary, with and without bias</a></li>
+<li class="chapter" data-level="5.1.5" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#difference-between-correlation-and-icc"><i class="fa fa-check"></i><b>5.1.5</b> Difference between correlation and ICC</a></li>
+<li class="chapter" data-level="5.1.6" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bad-news-about-the-icc"><i class="fa fa-check"></i><b>5.1.6</b> Bad news about the ICC?</a></li>
+<li class="chapter" data-level="5.1.7" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#standard-error-of-measurement-sem"><i class="fa fa-check"></i><b>5.1.7</b> Standard Error of Measurement (SEM)</a></li>
+<li class="chapter" data-level="5.1.8" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#bland-altman-plot"><i class="fa fa-check"></i><b>5.1.8</b> Bland-Altman Plot</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#validity"><i class="fa fa-check"></i><b>5.2</b> Validity</a></li>
 <li class="chapter" data-level="5.3" data-path="reliability-and-validity.html"><a href="reliability-and-validity.html#todos"><i class="fa fa-check"></i><b>5.3</b> TODOS</a></li>
@@ -593,9 +596,9 @@ This is the overall mean of the scores.</li>
 way is that it’s easier to interpret. <span class="math inline">\(\sigma_{\alpha}\)</span> says how much
 the scores of the patients vary in relation to their respective level <span class="math inline">\(\alpha[ID]\)</span>.</li>
 </ul>
-<p>The <span class="math inline">\(ICC_{consistency}\)</span> is then calculated as the ratio of the between-patient variance and
+<p>The <strong><span class="math inline">\(ICC_{consistency}\)</span></strong> is then calculated as the ratio of the between-patient variance and
 the total variance:</p>
-<p><span class="math display">\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]</span>.</p>
+<p><span class="math display">\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]</span></p>
 <p><span class="math display">\[
 \begin{array}{rcl}
 ROM_i &amp;\sim&amp; N(\mu_i, \sigma_{\varepsilon}) \\
@@ -669,7 +672,7 @@ the chains, which saves some time.</p></li>
 ## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c522e782660.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
@@ -686,7 +689,7 @@ the chains, which saves some time.</p></li>
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c522e782660.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
@@ -715,7 +718,7 @@ the chains, which saves some time.</p></li>
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c522e782660.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
@@ -736,7 +739,7 @@ the chains, which saves some time.</p></li>
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c522e782660.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 5</code></pre>
@@ -753,7 +756,7 @@ the chains, which saves some time.</p></li>
 ## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 6 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba4b4991f1.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c522e782660.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 6 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 6 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 6</code></pre>
@@ -790,7 +793,7 @@ the chains, which saves some time.</p></li>
 ## Mean chain execution time: 0.1 seconds.
 ## Total execution time: 0.7 seconds.</code></pre>
 <div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="reliability-and-validity.html#cb307-1" tabindex="-1"></a><span class="fu">toc</span>() <span class="co"># 7s</span></span></code></pre></div>
-<pre><code>## 8.002 sec elapsed</code></pre>
+<pre><code>## 7.313 sec elapsed</code></pre>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="reliability-and-validity.html#cb309-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               mean        sd      5.5%     94.5%      rhat ess_bulk
 ## a[1]     67.722244 4.9090800 59.884240 75.424230 1.0011883 6619.262
@@ -917,11 +920,12 @@ next lecture (Methodenvertiefung) in greater detail.</p>
 There, we have not yet explicitely considered a bias (=systematic difference
 between the raters) that the raters could have. In the book,
 they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).</p>
-<p>There is also the <strong><span class="math inline">\(ICC_{agreement}\)</span></strong>, which explicitely considers this difference
-that could occur between the raters. This results in an extra term in the demoniator
+<p><strong>There is also the <span class="math inline">\(ICC_{agreement}\)</span></strong>, which explicitely considers this
+(systematic) difference that could occur between the raters.
+This results in an extra term in the demoniator
 of the ICC, an additional variance component:</p>
 <p><span class="math display">\[ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 +
-\sigma_{rater}^2 + \sigma_{\varepsilon}^2}\]</span></p>
+\mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}\]</span></p>
 <p>where <span class="math inline">\(\sigma_{rater}^2\)</span> is the variance due to systematic rater differences.</p>
 <p>We will now introduce the 5 degree bias and use our Bayesian
 framework to estimate the <span class="math inline">\(ICC_{agreement}\)</span>.
@@ -1008,39 +1012,37 @@ a learning effect or something.</p>
 ## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling)</code></pre>
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c523affa1a7.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
 <pre><code>## Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup)</code></pre>
+## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c523affa1a7.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
 <pre><code>## Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c523affa1a7.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
-<pre><code>## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+<pre><code>## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 1 finished in 0.2 seconds.
+## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -1049,6 +1051,7 @@ a learning effect or something.</p>
 ## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -1065,17 +1068,13 @@ a learning effect or something.</p>
 ## Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
-## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup)</code></pre>
-<pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
-<pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-<pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-<pre><code>## Chain 5</code></pre>
-<pre><code>## Chain 2 finished in 0.3 seconds.
+## Chain 1 finished in 0.2 seconds.
+## Chain 2 finished in 0.3 seconds.
 ## Chain 3 finished in 0.2 seconds.
 ## Chain 4 finished in 0.2 seconds.
+## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 5 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 5 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 5 Iteration: 500 / 1000 [ 50%]  (Warmup) 
@@ -1084,8 +1083,13 @@ a learning effect or something.</p>
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
+<pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c523affa1a7.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 5</code></pre>
+<pre><code>## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 6 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 6 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 6 Iteration: 300 / 1000 [ 30%]  (Warmup) 
@@ -1095,31 +1099,31 @@ a learning effect or something.</p>
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 7 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 7 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling)</code></pre>
+## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)</code></pre>
 <pre><code>## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpmxYDt8/model-23ba1e177689.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp37CSle/model-5c523affa1a7.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 7</code></pre>
 <pre><code>## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 5 finished in 0.2 seconds.
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 6 finished in 0.2 seconds.
+## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 7 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 8 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 8 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 8 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -1127,8 +1131,8 @@ a learning effect or something.</p>
 ## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 7 finished in 0.2 seconds.
+## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 8 finished in 0.2 seconds.
 ## 
 ## All 8 chains finished successfully.
@@ -1294,10 +1298,9 @@ elicit the ICC.</p>
 <span id="cb386-8"><a href="reliability-and-validity.html#cb386-8" tabindex="-1"></a><span class="fl">270.882</span> <span class="sc">/</span> (<span class="fl">270.882</span> <span class="sc">+</span> <span class="fl">6.193</span> <span class="sc">+</span> <span class="fl">47.557</span>) <span class="co"># </span></span></code></pre></div>
 <pre><code>## [1] 0.8344279</code></pre>
 <div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="reliability-and-validity.html#cb388-1" tabindex="-1"></a><span class="co"># 0.8344279</span></span>
-<span id="cb388-2"><a href="reliability-and-validity.html#cb388-2" tabindex="-1"></a><span class="co"># how can this be higher?</span></span>
-<span id="cb388-3"><a href="reliability-and-validity.html#cb388-3" tabindex="-1"></a></span>
-<span id="cb388-4"><a href="reliability-and-validity.html#cb388-4" tabindex="-1"></a><span class="co"># ICC (Single_fixed_raters) = ICC3 in psych output</span></span>
-<span id="cb388-5"><a href="reliability-and-validity.html#cb388-5" tabindex="-1"></a><span class="fl">270.882</span> <span class="sc">/</span> (<span class="fl">270.882</span> <span class="sc">+</span> <span class="fl">47.557</span>) <span class="co">#</span></span></code></pre></div>
+<span id="cb388-2"><a href="reliability-and-validity.html#cb388-2" tabindex="-1"></a></span>
+<span id="cb388-3"><a href="reliability-and-validity.html#cb388-3" tabindex="-1"></a><span class="co"># ICC (Single_fixed_raters) = ICC3 in psych output</span></span>
+<span id="cb388-4"><a href="reliability-and-validity.html#cb388-4" tabindex="-1"></a><span class="fl">270.882</span> <span class="sc">/</span> (<span class="fl">270.882</span> <span class="sc">+</span> <span class="fl">47.557</span>) <span class="co">#</span></span></code></pre></div>
 <pre><code>## [1] 0.8506559</code></pre>
 <div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="reliability-and-validity.html#cb390-1" tabindex="-1"></a><span class="co"># 0.85</span></span></code></pre></div>
 </div>
@@ -1365,8 +1368,55 @@ Patients coming to Peters practice will get the same “diagnosis” (ROM-value)
 from Mary. When there is systematic difference (line is shifted downwards in Figure 5.3),
 this cannot be guaranteed.</p>
 </div>
-<div id="difference-between-correlation-and-icc" class="section level3 hasAnchor" number="5.1.4">
-<h3><span class="header-section-number">5.1.4</span> Difference between correlation and ICC<a href="reliability-and-validity.html#difference-between-correlation-and-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="summary-peter-and-mary-with-and-without-bias" class="section level3 hasAnchor" number="5.1.4">
+<h3><span class="header-section-number">5.1.4</span> Summary Peter and Mary, with and without bias<a href="reliability-and-validity.html#summary-peter-and-mary-with-and-without-bias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Below, we summarize the results for the ICCs (calculated with <code>psych</code>)
+for the unbiased and biased case.</p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="reliability-and-validity.html#cb391-1" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb391-2"><a href="reliability-and-validity.html#cb391-2" tabindex="-1"></a><span class="fu">p_load</span>(conflicted, tidyverse, flextable)</span>
+<span id="cb391-3"><a href="reliability-and-validity.html#cb391-3" tabindex="-1"></a></span>
+<span id="cb391-4"><a href="reliability-and-validity.html#cb391-4" tabindex="-1"></a><span class="co"># Ensure select() from dplyr is used</span></span>
+<span id="cb391-5"><a href="reliability-and-validity.html#cb391-5" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>select)</span></code></pre></div>
+<pre><code>## [conflicted] Removing existing preference.
+## [conflicted] Will prefer dplyr::select over any other package.</code></pre>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="reliability-and-validity.html#cb393-1" tabindex="-1"></a><span class="co"># Unbiased ICC Calculation</span></span>
+<span id="cb393-2"><a href="reliability-and-validity.html#cb393-2" tabindex="-1"></a>df_wide_unbiased <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
+<span id="cb393-3"><a href="reliability-and-validity.html#cb393-3" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
+<span id="cb393-4"><a href="reliability-and-validity.html#cb393-4" tabindex="-1"></a>df_wide_values_unbiased <span class="ot">&lt;-</span> df_wide_unbiased <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ID)</span>
+<span id="cb393-5"><a href="reliability-and-validity.html#cb393-5" tabindex="-1"></a>icc_results_unbiased <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values_unbiased)</span></code></pre></div>
+<pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="reliability-and-validity.html#cb395-1" tabindex="-1"></a><span class="co"># Extract relevant ICC values</span></span>
+<span id="cb395-2"><a href="reliability-and-validity.html#cb395-2" tabindex="-1"></a>icc_unbiased_df <span class="ot">&lt;-</span> icc_results_unbiased<span class="sc">$</span>results <span class="sc">%&gt;%</span></span>
+<span id="cb395-3"><a href="reliability-and-validity.html#cb395-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(type, ICC) <span class="sc">%&gt;%</span></span>
+<span id="cb395-4"><a href="reliability-and-validity.html#cb395-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Unbiased ICC</span><span class="st">`</span> <span class="ot">=</span> ICC)</span>
+<span id="cb395-5"><a href="reliability-and-validity.html#cb395-5" tabindex="-1"></a></span>
+<span id="cb395-6"><a href="reliability-and-validity.html#cb395-6" tabindex="-1"></a><span class="co"># Biased ICC Calculation</span></span>
+<span id="cb395-7"><a href="reliability-and-validity.html#cb395-7" tabindex="-1"></a>df_wide_biased <span class="ot">&lt;-</span> df_long_bias <span class="sc">%&gt;%</span></span>
+<span id="cb395-8"><a href="reliability-and-validity.html#cb395-8" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
+<span id="cb395-9"><a href="reliability-and-validity.html#cb395-9" tabindex="-1"></a>df_wide_values_biased <span class="ot">&lt;-</span> df_wide_biased <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ID)</span>
+<span id="cb395-10"><a href="reliability-and-validity.html#cb395-10" tabindex="-1"></a>icc_results_biased <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values_biased)</span>
+<span id="cb395-11"><a href="reliability-and-validity.html#cb395-11" tabindex="-1"></a></span>
+<span id="cb395-12"><a href="reliability-and-validity.html#cb395-12" tabindex="-1"></a><span class="co"># Extract relevant ICC values</span></span>
+<span id="cb395-13"><a href="reliability-and-validity.html#cb395-13" tabindex="-1"></a>icc_biased_df <span class="ot">&lt;-</span> icc_results_biased<span class="sc">$</span>results <span class="sc">%&gt;%</span></span>
+<span id="cb395-14"><a href="reliability-and-validity.html#cb395-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(type, ICC) <span class="sc">%&gt;%</span></span>
+<span id="cb395-15"><a href="reliability-and-validity.html#cb395-15" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Biased ICC</span><span class="st">`</span> <span class="ot">=</span> ICC)</span>
+<span id="cb395-16"><a href="reliability-and-validity.html#cb395-16" tabindex="-1"></a></span>
+<span id="cb395-17"><a href="reliability-and-validity.html#cb395-17" tabindex="-1"></a>icc_merged_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(icc_unbiased_df, </span>
+<span id="cb395-18"><a href="reliability-and-validity.html#cb395-18" tabindex="-1"></a>                           icc_biased_df, </span>
+<span id="cb395-19"><a href="reliability-and-validity.html#cb395-19" tabindex="-1"></a>                           <span class="at">by =</span> <span class="st">&quot;type&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb395-20"><a href="reliability-and-validity.html#cb395-20" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb395-21"><a href="reliability-and-validity.html#cb395-21" tabindex="-1"></a></span>
+<span id="cb395-22"><a href="reliability-and-validity.html#cb395-22" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(icc_merged_df) <span class="sc">%&gt;%</span></span>
+<span id="cb395-23"><a href="reliability-and-validity.html#cb395-23" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_header_labels</span>(<span class="at">type =</span> <span class="st">&quot;ICC Type&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb395-24"><a href="reliability-and-validity.html#cb395-24" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">&quot;Intraclass Correlation Coefficients - Unbiased vs. Biased&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb395-25"><a href="reliability-and-validity.html#cb395-25" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_table_properties</span>(<span class="at">width =</span> .<span class="dv">5</span>, <span class="at">layout =</span> <span class="st">&quot;autofit&quot;</span>)</span>
+<span id="cb395-26"><a href="reliability-and-validity.html#cb395-26" tabindex="-1"></a>ft</span></code></pre></div>
+<div class="tabwid"><style>.cl-f0aa04ea{table-layout:auto;width:50%;}.cl-f0a6fc82{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f0a84056{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f0a84057{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f0a84da8{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f0a84db2{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f0a84db3{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f0a84dbc{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f0a84dbd{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f0a84dc6{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-f0aa04ea'>
+<caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-104">Table 5.1: </span><span>Intraclass Correlation Coefficients - Unbiased vs. Biased</span></caption>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-f0a84da8"><p class="cl-f0a84056"><span class="cl-f0a6fc82">ICC Type</span></p></th><th class="cl-f0a84db2"><p class="cl-f0a84057"><span class="cl-f0a6fc82">Unbiased ICC</span></p></th><th class="cl-f0a84db2"><p class="cl-f0a84057"><span class="cl-f0a6fc82">Biased ICC</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f0a84db3"><p class="cl-f0a84056"><span class="cl-f0a6fc82">ICC1</span></p></td><td class="cl-f0a84dbc"><p class="cl-f0a84057"><span class="cl-f0a6fc82">0.8512574</span></p></td><td class="cl-f0a84dbc"><p class="cl-f0a84057"><span class="cl-f0a6fc82">0.8328336</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f0a84db3"><p class="cl-f0a84056"><span class="cl-f0a6fc82">ICC2</span></p></td><td class="cl-f0a84dbc"><p class="cl-f0a84057"><span class="cl-f0a6fc82">0.8512574</span></p></td><td class="cl-f0a84dbc"><p class="cl-f0a84057"><span class="cl-f0a6fc82">0.8344281</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f0a84dbd"><p class="cl-f0a84056"><span class="cl-f0a6fc82">ICC3</span></p></td><td class="cl-f0a84dc6"><p class="cl-f0a84057"><span class="cl-f0a6fc82">0.8512574</span></p></td><td class="cl-f0a84dc6"><p class="cl-f0a84057"><span class="cl-f0a6fc82">0.8506562</span></p></td></tr></tbody></table></div>
+</div>
+<div id="difference-between-correlation-and-icc" class="section level3 hasAnchor" number="5.1.5">
+<h3><span class="header-section-number">5.1.5</span> Difference between correlation and ICC<a href="reliability-and-validity.html#difference-between-correlation-and-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we do not introduce a bias in the data, the correlation coefficient
 is the same as the ICC (as seen above). On page 110, Figure 5.3, the authors show nicely
 what the difference is between the correlation coefficient and the ICC. We note:</p>
@@ -1376,16 +1426,16 @@ clustered around the line of equality (<span class="math inline">\(y=x\)</span>)
 ……..</li>
 </ul>
 </div>
-<div id="bad-news-about-the-icc" class="section level3 hasAnchor" number="5.1.5">
-<h3><span class="header-section-number">5.1.5</span> Bad news about the ICC?<a href="reliability-and-validity.html#bad-news-about-the-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="bad-news-about-the-icc" class="section level3 hasAnchor" number="5.1.6">
+<h3><span class="header-section-number">5.1.6</span> Bad news about the ICC?<a href="reliability-and-validity.html#bad-news-about-the-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>…</p>
 </div>
-<div id="standard-error-of-measurement-sem" class="section level3 hasAnchor" number="5.1.6">
-<h3><span class="header-section-number">5.1.6</span> Standard Error of Measurement (SEM)<a href="reliability-and-validity.html#standard-error-of-measurement-sem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="standard-error-of-measurement-sem" class="section level3 hasAnchor" number="5.1.7">
+<h3><span class="header-section-number">5.1.7</span> Standard Error of Measurement (SEM)<a href="reliability-and-validity.html#standard-error-of-measurement-sem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>…</p>
 </div>
-<div id="bland-altman-plot" class="section level3 hasAnchor" number="5.1.7">
-<h3><span class="header-section-number">5.1.7</span> Bland-Altman Plot<a href="reliability-and-validity.html#bland-altman-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="bland-altman-plot" class="section level3 hasAnchor" number="5.1.8">
+<h3><span class="header-section-number">5.1.8</span> Bland-Altman Plot<a href="reliability-and-validity.html#bland-altman-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>…</p>
 </div>
 </div>
