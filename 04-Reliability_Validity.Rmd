@@ -658,7 +658,7 @@ this cannot be guaranteed.
 ### Summary Peter and Mary, with and without bias
 
 Below, we summarize the results for the ICCs (calculated with `psych`)
-for the unbiased and biased case.
+for the unbiased and biased case (Mary measures on average 5 degrees more than peter).
 
 ```{r}
 library(pacman)
@@ -700,6 +700,42 @@ ft <- flextable(icc_merged_df) %>%
   flextable::set_table_properties(width = .5, layout = "autofit")
 ft
 ```
+
+- The left cloumn shows that the ICCs are identical for the unbiased case.
+  Specifically, ICC2 and ICC3 are based on the same model which explicitely 
+  considers a potential bias between the raters. Since there is none,
+  the ICCs are the same.
+
+- In the biased case, there *is* as systematic difference between Mary and Peter.
+  ICC1 does not care about it and shows a somehwat lower value compared to 
+  before ($0.833$). The reason is because the agreement line is in a plot with 
+  Mary on Y and Peter on X shifted upwards by 5 degrees.
+  If you would introduce a bias of 15 degrees, the ICC would
+  be even lower ($ICC1 = 0.61$, $ICC2 = 0.65$ -> verify exercise). 
+  The unbiased columns would of course stay the same.
+- ICC2 now consideres the bias of 5 degrees. The model knows about the shift.
+  If we compare the variance components of ICC1 and ICC2, we see:
+  
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lcc}
+  \hline
+  \textbf{Groups} & \textbf{Name} & \textbf{Variance} \\
+  \hline
+  \multicolumn{3}{l}{\textbf{Model 1}} \\
+  ID & (Intercept) & 267.79 \\
+  Residual &  & 53.75 \\
+  \hline
+  \multicolumn{3}{l}{\textbf{Model 2}} \\
+  ID & (Intercept) & 270.882 \\
+  Rater & (Intercept) & 6.193 \\
+  Residual &  & 47.557 \\
+  \hline
+  \end{tabular}
+  \caption{Variance Components for Models}
+  \label{tab:variance_models}
+\end{table}
+  
 
 ### Difference between correlation and ICC
 

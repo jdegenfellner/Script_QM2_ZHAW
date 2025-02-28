@@ -1,7 +1,10 @@
 library(pacman)
 p_load(tidyverse, readxl, 
        ggExtra, lme4, irr, 
-       tictoc, conflicted, flextable)
+       tictoc, conflicted, 
+       flextable, rethinking)
+
+conflicts_prefer(posterior::sd)
 
 # Read file
 url <- "https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls"
@@ -94,7 +97,7 @@ irr::icc(as.matrix(df[, c("ROMas.Peter", "ROMas.Mary")]),
 
 # ICC with psych package-------
 library(psych)
-ICC(df[, c("ROMas.Peter", "ROMas.Mary")])
+psych::ICC(df[, c("ROMas.Peter", "ROMas.Mary")])
 # ICC1 = Single_raters_absolute in psych output
 # = 0.85
 
