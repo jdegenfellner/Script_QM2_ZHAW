@@ -235,10 +235,6 @@ $$cor(Y_1, Y_2) =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}
 This is the **intraclass correlation coefficient (ICC)**. It is the proportion of the
 true score variability to the total variability. The ICC is a number between 0 and 1 (think about why!).
 
-Depending on how much deviation from the true but unknown $\eta$ we throw into the error term $\varepsilon$,
-you get different versions of the ICC. We will probably stick with the simple versions $ICC_{agreement}$
-and $ICC_{consistency}$ here and make sure we understand those. 
-
 Let's look again at the term for the ICC above and divide the numerator and the denominator by
 $\sigma_{\eta}^2$, which we can do, since it is a positive number:
 
@@ -304,7 +300,7 @@ Below is the model structure.
   the scores of the patients vary in relation to their respective level $\alpha[ID]$.
 
 
-The **$ICC_{consistency}$** is then calculated as the ratio of the between-patient variance and
+The **$ICC** is then calculated as the ratio of the between-patient variance and
 the total variance: 
 
   $$\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$$
@@ -424,28 +420,34 @@ a random intercept. This means that every patient (ID) gets its own intercept
 which is drawn from a normal distribution. We will probably talk about this in the
 next lecture (Methodenvertiefung) in greater detail.
 
-So far, we have only looked at the **$ICC_{consistency}$** (see also page 106 in the book). 
+So far, we have only looked at the general **$ICC$** (ICC1 in the `psych`output) 
+(see also page 106 in the book). 
+
 There, we have not yet explicitely considered a bias (=systematic difference 
 between the raters) that the raters could have. In the book,
 they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).
 
-**There is also the $ICC_{agreement}$**, which explicitely considers this
+The model für ICC 2 and 3 in the `psych` output explicitely considers this
 (systematic) difference that could occur between the raters. 
-This results in an extra term in the demoniator
-of the ICC, an additional variance component:
+This results in an extra term in the denominator
+of the ICC, an additional variance component.
+
+From the same statistical model (!) we take the variance components to calculate:
 
 $$ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + 
 \mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}$$
 
 where $\sigma_{rater}^2$ is the variance due to systematic rater differences.
 
+$$$ ICC_{consistency} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$$
+
 We will now introduce the 5 degree bias and use our Bayesian 
-framework to estimate the $ICC_{agreement}$. 
+framework to estimate the ICC.
 By introducing a bias, we should see
-a lower ICC (agreement). Note, that the prediction quality of Mary's scores
+a lower ICC. Note, that the prediction quality of Mary's scores
 given Peter's scores should not change, since we would only shift Mary's scores
 down by 5 degrees, which would not disturb the linear regression model. We can
-always move around the points to where we want them to be. We do that for instance
+always shift the points to where we want them to be. We do that for instance
 when we scale or standardize the data.
 
 Admitted, the Bayesian version in this case takes longer and is more complex.
@@ -453,7 +455,8 @@ The advantage is still that it's fully probabilistic and one could work with
 detailed prior information, especially for smaller smaple sizes.
 
 Anyhow, let's try to give the model equations considering
-the introduced bias:
+the introduced bias. This is the model for both 
+$ICC_{agreement}$ and $ICC_{consistency}$!
 
 \[
 \begin{array}{rcl}
@@ -542,7 +545,7 @@ It should be noted that this ICC is very sensitive to the choice of the prior.
 If you choose too agressive priors for the standard deviations $\sigma_{\alpha}, 
 \sigma_{\beta}, \sigma_{\varepsilon}$, you will get a too low ICC.
 
-We will proably talk about this in the next lecture (Methodenvertiefung) in greater detail.
+We will probably talk about this in the next lecture (Methodenvertiefung) in greater detail.
 I have played around a little with the parameters in the exponential priors 
 to get the desired result which compares nicely to the two alternative methods below:
 using the `psych` package and with the `lmer`
@@ -612,7 +615,8 @@ Let's talk about the first three **ICCs in the `psych` output**:.
   setting or from the `lmer` output in the Frequentist setting.
 
 - **Single_random_raters ICC2:** 
-  ICC2 and ICC3 are based on the **same** statistical model. The only difference is
+  ICC2 ($=ICC_{agreement}$ in the book) and ICC3 ($=ICC_{consistency}$ in the book) 
+  are based on the **same** statistical model. The only difference is
   that ICC2 assumes that the (in our case) 2 raters are randomly selected from a larger pool of raters,
   hence, the rater variability must be explicitely considered and yields a potentially smaller
   value for the ICC. Compared to ICC1, we have repeated measurements from the same raters
@@ -630,7 +634,8 @@ Let's talk about the first three **ICCs in the `psych` output**:.
   \sigma_{\varepsilon}^2}$$
 
 - **Single_fixed_raters ICC3:**
-  ICC3 is based on the **same model as ICC2**, but assumes that the raters are fixed. 
+  ICC3 ($=ICC_{consistency}$ in the book) is based on the **same model as ICC2**, 
+  but assumes that the raters are fixed. 
   This means that **the raters are the same for all patients** in the future study. 
   So, we have considered the rater variability in the model 
   (which was possible due to the repeated measurements from the same raters in 50 patients), 
@@ -641,10 +646,11 @@ Let's talk about the first three **ICCs in the `psych` output**:.
   There is no generalization to a larger population of judges."
   The ICC is then calculated as:
 
-  $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
+  $$ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
 
   ICC1 and ICC3 are **not** identical, since ICC1 does not consider the rater variability
-  in the model.
+  in the model. They are based on *different* statistiacal models.
+  ICC2 and ICC3 are based on the *same* model.
 
 If there is no systematic difference between raters, all 3 ICCs and the Pearson 
 correlation (r) are the same (see Figure 5.3 in the book).
@@ -654,6 +660,8 @@ The latter is used, when we need Peter and Mary to concur in their measurements.
 Patients coming to Peters practice will get the same "diagnosis" (ROM-value)
 from Mary. When there is systematic difference (line is shifted downwards in Figure 5.3), 
 this cannot be guaranteed.
+If we only need Peter and Mary to *rank* the patients in the same order,
+we can use $ICC_{consistency}$.
 
 ### Summary Peter and Mary, with and without bias
 
@@ -701,51 +709,70 @@ ft <- flextable(icc_merged_df) %>%
 ft
 ```
 
-- The left cloumn shows that the ICCs are identical for the unbiased case.
-  Specifically, ICC2 and ICC3 are based on the same model which explicitely 
-  considers a potential bias between the raters. Since there is none,
-  the ICCs are the same.
+The **left cloumn** shows that the ICCs are identical for the **unbiased case**.
+Specifically, ICC2 (=$ICC_{agreement}$ in the book) and 
+ICC3 ($ICC_{consistency}$ in the book) are based on the same model which explicitely 
+considers a potential bias between the raters. Since there is none,
+the ICCs are the same.
 
-- In the biased case, there *is* as systematic difference between Mary and Peter.
-  ICC1 does not care about it and shows a somehwat lower value compared to 
-  before ($0.833$). The reason is because the agreement line is in a plot with 
-  Mary on Y and Peter on X shifted upwards by 5 degrees.
-  If you would introduce a bias of 15 degrees, the ICC would
-  be even lower ($ICC1 = 0.61$, $ICC2 = 0.65$ -> verify exercise). 
-  The unbiased columns would of course stay the same.
-- ICC2 now consideres the bias of 5 degrees. The model knows about the shift.
-  If we compare the variance components of ICC1 and ICC2, we see:
+In the **biased case**, there *is* as systematic difference between Mary and Peter.
+ICC1 does not care about it and shows a somehwat lower value compared to 
+before ($0.833$). The reason is because the agreement line is in a plot with 
+Mary on Y and Peter on X shifted upwards by 5 degrees.
+If you would introduce a bias of 15 degrees, the ICC would
+be even lower ($ICC1 = 0.61$, $ICC2 = 0.65$ -> verify as exercise). 
+The unbiased column would of course stay the same.
+
+ICC2 now considers the bias of 5 degrees. The model knows about the shift.
+If we compare the variance components of ICC1 and ICC2, we see:
   
-\begin{table}[h]
-  \centering
-  \begin{tabular}{lcc}
-  \hline
-  \textbf{Groups} & \textbf{Name} & \textbf{Variance} \\
-  \hline
-  \multicolumn{3}{l}{\textbf{Model 1}} \\
-  ID & (Intercept) & 267.79 \\
-  Residual &  & 53.75 \\
-  \hline
-  \multicolumn{3}{l}{\textbf{Model 2}} \\
-  ID & (Intercept) & 270.882 \\
-  Rater & (Intercept) & 6.193 \\
-  Residual &  & 47.557 \\
-  \hline
-  \end{tabular}
-  \caption{Variance Components for Models}
-  \label{tab:variance_models}
-\end{table}
-  
+```{r, echo=FALSE}
+print("Model for ICC1: ROM ~ (1 | ID)")
+m_ICC1 <- lmer(ROM ~ (1 | ID), data = df_long_bias)
+print(VarCorr(m_ICC1), comp = "Variance")
+
+print("Model for ICC2 (and 3): ROM ~ (1 | ID) + (1 | Rater)")
+m_ICC2 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = df_long_bias)
+print(VarCorr(m_ICC2), comp = "Variance")
+```
+
+The residual variance is smaller in the model with the rater effect.
+The model explains the data better, since it knows about the bias.
+
+Look at the $\sigma_{\varepsilon}$ of the two models, they add up:
+
+$$\sigma_{\varepsilon, ICC1}^2 = \sigma_{\varepsilon, ICC23}^2 + \sigma_{Rater}^2$$
+$$53.75 = 47.557 + 6.193$$
+
+Hence, we just split up the error differently by considering the bias.
+The patient variability (`ID Variance` in the output) is slightly higher: 
+$270.882$ compared to $267.79$ before.
+**Why?**
+It is a rather small increase, so ICC1 and ICC2 are not that different.
+
+For a bias 15 degrees, the addivity of the variances remains.
+The patient variability increases from $223.89$ (ICC1) to $270.882$ (ICC2),
+hence the difference in ICCs is larger ($ICC1=0.613$ vs. $ICC2=0.657$).
+
+ICC3 considers the bias in the model but does not include it in the measurement 
+error since the raters are fixed.
+
 
 ### Difference between correlation and ICC
 
 If we do not introduce a bias in the data, the correlation coefficient
 is the same as the ICC (as seen above). On page 110, Figure 5.3, the authors show nicely 
-what the difference is between the correlation coefficient and the ICC. We note:
+what the difference is between the correlation coefficient and the ICC. 
+It is also shown how $ICC_{agreement}$ and $ICC_{consistency}$ change with the bias.
 
-- The $ICC_{agreement}$ measures how tightly the two measurements are 
-  clustered around the line of equality ($y=x$)........
-  ........
+$ICC_{consistency}$ stays $1$ if bias is introduced. Peter and Mary still rank the Patients
+in the same order.
+
+Correlation $r$ is always 1, no matter at what slope ($!= 0$) the line is.
+It measures the strength and direction of the *linear* relationship between two variables.
+
+$ICC_{agreement}$ changes as soon as you depart from the 45 degree line or 
+shift the line up or down (i.e., introducce a bias).
 
 
 ### Bad news about the ICC?

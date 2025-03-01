@@ -168,7 +168,7 @@ length(df$ROMas.Mary) # 50
 length(df$ROMas.Peter) # 50
 
 df_long_bias <- df_long %>%
-  mutate(ROM = ROM + ifelse(Rater == "ROMas.Mary", 5, 0))
+  mutate(ROM = ROM + ifelse(Rater == "ROMas.Mary", 15, 0))
 head(df_long_bias) # seems to have worked.
 
 # mean Mary
@@ -179,6 +179,26 @@ mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Peter"], na.rm = TRUE) # 66.2
 mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Mary"]) - 
   mean(df_long_bias$ROM[df_long_bias$Rater == "ROMas.Peter"], na.rm = TRUE) # 3.78
 # 3.78
+
+# scatterplot
+# put in wide format
+df_wide <- df_long_bias %>%
+  pivot_wider(names_from = Rater, values_from = ROM)
+
+# plot
+df_wide %>%
+  ggplot(aes(x = ROMas.Peter, y = ROMas.Mary)) +
+  geom_point() + 
+  geom_abline(intercept = 0, 
+              slope = 1, 
+              color = "red") +
+  geom_abline(intercept = 15, 
+              slope = 1, 
+              color = "blue") +
+  theme_minimal() +
+  ggtitle("ROMas.Peter vs. ROMas.Mary") +
+  theme(plot.title = element_text(hjust = 0.5))
+
 
 
 #_rethinking---------
@@ -318,5 +338,31 @@ ft <- flextable(icc_merged_df) %>%
   flextable::set_caption("Intraclass Correlation Coefficients - Unbiased vs. Biased") %>%
   flextable::set_table_properties(width = .5, layout = "autofit")
 ft
+
+# verify biased ICC with lmer:------
+m1 <- lmer(ROM ~ (1 | ID), data = df_long_bias)
+m2 <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = df_long_bias)
+
+print(VarCorr(m1), comp = "Variance")
+# Groups   Name        Variance
+# ID       (Intercept) 223.89  
+# Residual             141.55  
+# sum of variances:
+223.89 + 141.55
+
+print(VarCorr(m2), comp = "Variance")
+# Groups   Name        Variance
+# ID       (Intercept) 270.882 
+# Rater    (Intercept)  93.992 
+# Residual              47.557 
+# sum of variances
+270.882 + 93.992 + 47.557
+
+# ICC1:
+223.89 / (223.89 + 141.55) # 0.6126587
+# ICC2 (agreement in MIM):
+270.882 / (270.882 + 93.992 + 47.557) # 0.6567935
+# ICC3 (consistency in MIM):
+270.882 / (270.882 + 47.557) # 0.8506559
 
 
