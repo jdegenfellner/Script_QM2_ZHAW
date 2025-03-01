@@ -716,14 +716,15 @@ considers a potential bias between the raters. Since there is none,
 the ICCs are the same.
 
 In the **biased case**, there *is* as systematic difference between Mary and Peter.
-ICC1 does not care about it and shows a somehwat lower value compared to 
+
+**ICC1** does not care about it and shows a somehwat lower value compared to 
 before ($0.833$). The reason is because the agreement line is in a plot with 
 Mary on Y and Peter on X shifted upwards by 5 degrees.
 If you would introduce a bias of 15 degrees, the ICC would
 be even lower ($ICC1 = 0.61$, $ICC2 = 0.65$ -> verify as exercise). 
 The unbiased column would of course stay the same.
 
-ICC2 now considers the bias of 5 degrees. The model knows about the shift.
+**ICC2** now considers the bias of 5 degrees. The model knows about the shift.
 If we compare the variance components of ICC1 and ICC2, we see:
   
 ```{r, echo=FALSE}
@@ -747,14 +748,15 @@ $$53.75 = 47.557 + 6.193$$
 Hence, we just split up the error differently by considering the bias.
 The patient variability (`ID Variance` in the output) is slightly higher: 
 $270.882$ compared to $267.79$ before.
-**Why?**
+In the first model, patient variability was conflated with rater variation because rater effects 
+were not explicitly modeled. For this reason, `ID Variance` increases slightly.
 It is a rather small increase, so ICC1 and ICC2 are not that different.
 
 For a bias 15 degrees, the addivity of the variances remains.
 The patient variability increases from $223.89$ (ICC1) to $270.882$ (ICC2),
 hence the difference in ICCs is larger ($ICC1=0.613$ vs. $ICC2=0.657$).
 
-ICC3 considers the bias in the model but does not include it in the measurement 
+**ICC3** considers the bias in the model but does not include it in the measurement 
 error since the raters are fixed.
 
 
@@ -768,7 +770,7 @@ It is also shown how $ICC_{agreement}$ and $ICC_{consistency}$ change with the b
 $ICC_{consistency}$ stays $1$ if bias is introduced. Peter and Mary still rank the Patients
 in the same order.
 
-Correlation $r$ is always 1, no matter at what slope ($!= 0$) the line is.
+Correlation $r$ is always 1, no matter at what slope ($\ne 0$) the line is.
 It measures the strength and direction of the *linear* relationship between two variables.
 
 $ICC_{agreement}$ changes as soon as you depart from the 45 degree line or 
