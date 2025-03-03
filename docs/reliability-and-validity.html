@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-03-01" />
+<meta name="date" content="2025-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -351,7 +351,7 @@ trying to determine the so-called <strong>inter-rater reliability</strong>.</li>
 the same patient twice, you are trying to determine the so-called
 <strong>intra-rater reliability</strong>.</li>
 </ul>
-<p>Assuming there is a true (but unknown) underlying value (of ROM),
+<p>Assuming there is a true (but unknown) underlying value (of Range of Motion, ROM),
 it is clear that measurements will not be <em>exactly</em> the same.
 Possible influences (potentially) causing different results are:</p>
 <ul>
@@ -361,12 +361,13 @@ Possible influences (potentially) causing different results are:</p>
 <li>the environment (e.g., the room temperature).</li>
 </ul>
 <p>Note that the <strong>true score</strong> is defined in our context as the average of all measurements
-if we would measure repeat it an infinite number of times.</p>
+if we would measure repeatedly an infinite number of times.</p>
 <div id="peter-and-marys-rom-measurements" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Peter and Mary’s ROM measurements<a href="reliability-and-validity.html#peter-and-marys-rom-measurements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The data can be found <a href="http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html">here</a>.
 We randomly select 50 measurements from Peter and Mary in 50 different patients,
-plot their measurements and annotate the absolutely largest one.</p>
+plot their measurements and annotate the absolutely largest one(s). At first the
+<em>not affected shoulder</em> (nas) and then the <em>affected shoulder</em> (as).</p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="reliability-and-validity.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
 <span id="cb253-2"><a href="reliability-and-validity.html#cb253-2" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, readxl)</span>
 <span id="cb253-3"><a href="reliability-and-validity.html#cb253-3" tabindex="-1"></a></span>
@@ -424,20 +425,20 @@ plot their measurements and annotate the absolutely largest one.</p>
 <p>The red line represents the line of equality (<span class="math inline">\(y=x\)</span>). If the measurements are
 exactly the same,
 all points would lie on this line. The blue point represents the largest
-difference in measured Range of Motion (ROM) values between Peter and Mary
+absolute difference in measured Range of Motion (ROM) values between Peter and Mary
 from the randomly chosen 50 people. Note that the maximum difference in
 all 155 patients is 35 degrees.</p>
-<p>The first simple measure of agreement we could use is the correlation, which
-measures the strength and direction of a linear relationship between two variables.
+<p>The first simple measure of agreement we could use is the (Pearson) correlation, which
+measures the <strong>strength and direction of a linear relationship between two variables</strong>.
 But correlation does not exactly measure what we want. If there was a bias
 (e.g., Mary systematically measures 5 degrees more than Peter), correlation would not
 notice this. (-&gt; exercise later…). It actually is too optimistic about
 the agreement since it only cares about the linearity and not about a potential bias.
 <span class="math inline">\(r=0.2403213\)</span> which indicates a weak positive correlation. Higher values of Peter’s
 are associated with higher values of Mary’s measurements.
-But: Knowing Peter’s measurement does not help us to <em>predict</em> Mary’s measurement
-at such a low correlation (-&gt; exercise later).
-So, on the <em>not affected shoulder</em> (nas), the agreement is really bad.</p>
+But: Knowing Peter’s measurement does not help us to <a href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient#Interpretation_of_the_size_of_a_correlation"><em>predict</em></a>
+Mary’s measurement at such a low correlation (-&gt; exercise later).
+So, on the <em>not affected shoulder</em> (nas), agreement is really bad.</p>
 <p>What about the affected shoulder (as)?</p>
 <div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="reliability-and-validity.html#cb264-1" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
 <span id="cb264-2"><a href="reliability-and-validity.html#cb264-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
@@ -483,8 +484,8 @@ Mary’s measurement (-&gt; exercise later).</p>
 <div id="intraclass-correlation-coefficient-icc" class="section level3 hasAnchor" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> Intraclass Correlation Coefficient (ICC)<a href="reliability-and-validity.html#intraclass-correlation-coefficient-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to measure reliability is to use the intraclass correlation coefficient (ICC).</p>
-<p>This measure is based on the idea that observed score <span class="math inline">\(Y_i\)</span> consists of the true score
-(ROM) and a measurement error (for each person).
+<p>This measure is based on the idea that the observed score <span class="math inline">\(Y_i\)</span> consists of the true score
+(ROM) (<span class="math inline">\(\eta_i\)</span>) and a measurement error (for each person).
 The proportion of the true score variability to the total variability is the ICC.</p>
 <p>In the background one thinks of a statistical model from the
 <a href="https://en.wikipedia.org/wiki/Classical_test_theory">Classical Test Theory (CTT)</a>.
@@ -498,36 +499,44 @@ score and</li>
 <p><span class="math display">\[ Y_i = \eta_i + \varepsilon_i \]</span></p>
 <p>It is assumed that <span class="math inline">\(\eta_i\)</span> and <span class="math inline">\(\varepsilon_i\)</span> are independent: (<span class="math inline">\(\mathbb{C}ov(\eta_i, \varepsilon_i)=0\)</span>).
 This is a nice assumption because now we know (see <a href="https://en.wikipedia.org/wiki/Variance#Addition_and_multiplication_by_a_constant">here</a>)
-that the variability
-of the observed score <span class="math inline">\(Y_i\)</span> is just the sum of the variability of the true score <span class="math inline">\(\eta_i\)</span>
-and the variability of the error term <span class="math inline">\(\varepsilon_i\)</span>:</p>
+that the variance
+of the observed score <span class="math inline">\(Y_i\)</span> is just the sum of the variance of the true score <span class="math inline">\(\eta_i\)</span>
+and the variance of the error term <span class="math inline">\(\varepsilon_i\)</span>:</p>
 <p><span class="math display">\[ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) \]</span>
 <span class="math display">\[ \sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2 \]</span></p>
 <p>We want most of the variability in our observed scores <span class="math inline">\(Y_i\)</span> to be explained by the
 true but unobservable scores <span class="math inline">\(\eta_i\)</span>. The measurement error <span class="math inline">\(\varepsilon_i\)</span> should be
 be comparatively small. If it is large, we are mostly measuring noise or at least not
 what we want to measure.</p>
+<p><strong>How do we get to the theoretical definition of the ICC?</strong></p>
 <p>If you either pull two people with the same true but unobservable score <span class="math inline">\(\eta\)</span> out of the population
-or measure the same person twice and the score does not change in between, we can
+or measure the same person twice and the score (<span class="math inline">\(\eta\)</span>) does not change in between, we can
 <strong>define reliability as correlation between these two measurements</strong>:</p>
 <p><span class="math display">\[Y_1 = \eta + \varepsilon_1\]</span>
 <span class="math display">\[Y_2 = \eta + \varepsilon_2\]</span></p>
 <p><span class="math display">\[cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) =
 \frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  = \]</span></p>
-<p>If we use the <a href="https://en.wikipedia.org/wiki/Covariance#Properties">properties of the covariance</a>,
-and the fact that the errors <span class="math inline">\(\varepsilon_1\)</span> and <span class="math inline">\(\varepsilon_2\)</span> are independent, we get:</p>
+<p>If we use</p>
+<ul>
+<li>the <a href="https://en.wikipedia.org/wiki/Covariance#Properties">properties of the covariance</a>,</li>
+<li>the fact that the true score <span class="math inline">\(\eta\)</span> and the errors <span class="math inline">\(\varepsilon_i\)</span> are independent, and</li>
+<li>the fact that the errors <span class="math inline">\(\varepsilon_1\)</span> and <span class="math inline">\(\varepsilon_2\)</span> are independent, we get:</li>
+</ul>
 <p><span class="math display">\[ \frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  = \]</span>
 <span class="math display">\[ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}\]</span></p>
 <p>Since <span class="math inline">\(\eta\)</span> is a random variable (we draw a person randomly from the population),
 it is well defined to talk about the variance of <span class="math inline">\(\eta\)</span> (i.e., <span class="math inline">\(\sigma_{\eta}^2\)</span>).
 I think this aspect may not come across in the book quite so clearly.</p>
-<p>Furthermore, it does not matter if I call the measurement <span class="math inline">\(Y_1\)</span>, <span class="math inline">\(Y_2\)</span> or more gerneral
+<p>Furthermore, it does not matter if I call the measurement <span class="math inline">\(Y_1\)</span>, <span class="math inline">\(Y_2\)</span> or more general
 <span class="math inline">\(Y\)</span>, since they have the same variance and true score:</p>
 <p><span class="math display">\[\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}\]</span></p>
 <p>Hence, it follows that:</p>
-<p><span class="math display">\[cor(Y_1, Y_2) =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span></p>
-<p>This is the <strong>intraclass correlation coefficient (ICC)</strong>. It is the proportion of the
-true score variability to the total variability. The ICC is a number between 0 and 1 (think about why!).</p>
+<p><span class="math display">\[cor(Y_1, Y_2) = \frac{\sigma_{\eta}^2}{\sigma_{Y_1}^2} = \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span></p>
+<p>This is the <strong>intraclass correlation coefficient (ICC)</strong>.
+It is (as seen in the formula above) the proportion of the
+true score variability to the total variability.
+It ranges from 0 and 1 (think about why!).</p>
+<p>A little manipulation to improve understanding:</p>
 <p>Let’s look again at the term for the ICC above and divide the numerator and the denominator by
 <span class="math inline">\(\sigma_{\eta}^2\)</span>, which we can do, since it is a positive number:</p>
 <p><span class="math display">\[ \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} =
@@ -538,7 +547,7 @@ The higher this ratio, the lower the ICC. The lower the ratio, the higher the IC
 <li>If you increase the noise (measurement error <span class="math inline">\(\sigma_{\varepsilon}^2\)</span>) for fixed
 true score variability <span class="math inline">\(\sigma_{\eta}^2\)</span>, the ICC decreases, because the denominator
 increases.</li>
-<li>If you increase the true score variability <span class="math inline">\(\sigma_{\eta}^2\)</span> for fixed noise<span class="math inline">\(\sigma_{\varepsilon}^2\)</span>,
+<li>If you increase the true score variability <span class="math inline">\(\sigma_{\eta}^2\)</span> for fixed noise <span class="math inline">\(\sigma_{\varepsilon}^2\)</span>,
 the ICC increases, since the denominator decreases.</li>
 </ul>
 <p>Btw, we could also divide by <span class="math inline">\(\sigma_{\varepsilon}^2\)</span> and get the signal-to-noise ratio.</p>
@@ -572,30 +581,12 @@ R packages to do this. We will use the <code>irr</code> package.</p>
 ## 
 ##  95%-Confidence Interval for ICC Population Values:
 ##   0.753 &lt; ICC &lt; 0.913</code></pre>
-<p>We get the result: <span class="math inline">\(ICC(1) = 0.851\)</span>.</p>
-<p>Since we are regression model experts, we would like to see if we can get the result using the Bayesian
+<p>We get the result: <span class="math inline">\(ICC(1) = 0.851\)</span>, which is identical to the correlation coefficient
+because there is no systematic difference between Peter and Mary.</p>
+<p>Since we are forward looking and modern regression model experts,
+we would like to see if we can get the result using the Bayesian
 framework.</p>
 <p>Below is the model structure.</p>
-<p><strong>Model details:</strong></p>
-<ul>
-<li><span class="math inline">\(ROM_i\)</span> is the observed ROM-score for observation <span class="math inline">\(i\)</span>.
-Every patient has two observations (one each from Mary and Peter).
-So, for instance <span class="math inline">\(i=1,2\)</span> could be patient <span class="math inline">\(ID=1\)</span>.</li>
-<li><span class="math inline">\(\mu_i\)</span> is the expected value of the observed score for patient <span class="math inline">\(ID\)</span>.</li>
-<li><span class="math inline">\(\sigma_{\varepsilon}\)</span> is the standard deviation of the measurement error.</li>
-<li><span class="math inline">\(\alpha[ID]\)</span> is the patient-specific intercept.
-Since every patient has a different intercept and they
-come from a normal distribution, we have a <strong>random intercepts model</strong>.</li>
-<li><span class="math inline">\(\mu_{\alpha}\)</span> is the mean of the prior for the patient-specific intercepts.
-This is the overall mean of the scores.</li>
-<li><span class="math inline">\(\sigma_{\alpha}\)</span> is the standard deviation of the patient-specific intercepts.
-<strong>This is the patient variability</strong>! The nice thing about presenting a model in this
-way is that it’s easier to interpret. <span class="math inline">\(\sigma_{\alpha}\)</span> says how much
-the scores of the patients vary in relation to their respective level <span class="math inline">\(\alpha[ID]\)</span>.</li>
-</ul>
-<p>The <strong>$ICC</strong> is then calculated as the ratio of the between-patient variance and
-the total variance:</p>
-<p><span class="math display">\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]</span></p>
 <p><span class="math display">\[
 \begin{array}{rcl}
 ROM_i &amp;\sim&amp; N(\mu_i, \sigma_{\varepsilon}) \\
@@ -606,10 +597,33 @@ ROM_i &amp;\sim&amp; N(\mu_i, \sigma_{\varepsilon}) \\
 \sigma_{\varepsilon} &amp;\sim&amp; \text{Uniform}(0,20)
 \end{array}
 \]</span></p>
+<p><strong>Model details:</strong></p>
+<ul>
+<li><span class="math inline">\(ROM_i\)</span> is the observed ROM-score for patient <span class="math inline">\(i\)</span>.
+Every patient has two observations (one each from Mary and Peter).
+So, for instance <span class="math inline">\(i=1,2\)</span> could be patient <span class="math inline">\(ID=1\)</span>.</li>
+<li><span class="math inline">\(\mu_i\)</span> is the expected value of the observed score for patient <span class="math inline">\(ID\)</span>.</li>
+<li><span class="math inline">\(\sigma_{\varepsilon}\)</span> is the standard deviation of the measurement error.</li>
+<li><span class="math inline">\(\alpha[ID]\)</span> is the patient-specific intercept (<span class="math inline">\(=\eta_i\)</span>).
+Since every patient has a different intercept and they
+come from a normal distribution, we have a <strong>random intercepts model</strong>.</li>
+<li><span class="math inline">\(\mu_{\alpha}\)</span> is the mean of the prior for the patient-specific intercepts.
+This is the overall mean of the scores.</li>
+<li><span class="math inline">\(\sigma_{\alpha}\)</span> is the standard deviation of the patient-specific intercepts.
+<strong>This is the patient variability</strong>! The nice thing about presenting a model in this
+way is that it’s easier to interpret. <span class="math inline">\(\sigma_{\alpha}\)</span> says how much
+the scores of the patients vary in relation to their respective level <span class="math inline">\(\alpha[ID]\)</span>.</li>
+<li>The prior distributions express (as always) our prior beliefs about the parameters.</li>
+</ul>
+<p>The <strong>ICC</strong> is then calculated as the ratio of the between-patient variance and
+the total variance:</p>
+<p><span class="math display">\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]</span></p>
 <p>We did not even notice it, but this was our first <strong>multilevel regression model</strong>.
 It is multilevel due to the extra layer of patient-specific intercepts.
 The <strong>observations</strong> are obviously <strong>clustered within patients</strong>, since observations
-from the <strong>same patient</strong> are <strong>more similar than observations from different patients</strong>.</p>
+from the <strong>same patient</strong> are <strong>more similar than observations from different patients</strong>.
+If one would run a normal linear regression model, one would ignore this clustering
+and the assumption of independent error terms would be violated.</p>
 <p>Draw model structure … exercise..</p>
 <p>This time we fire up the <code>rethinking</code> package and use the <code>ulam</code> function
 to fit the model.
@@ -669,7 +683,7 @@ the chains, which saves some time.</p></li>
 ## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf36967492.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c1b55a352.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
@@ -686,7 +700,7 @@ the chains, which saves some time.</p></li>
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf36967492.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c1b55a352.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
@@ -715,7 +729,7 @@ the chains, which saves some time.</p></li>
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf36967492.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c1b55a352.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
@@ -736,7 +750,7 @@ the chains, which saves some time.</p></li>
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf36967492.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c1b55a352.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 5</code></pre>
@@ -753,7 +767,7 @@ the chains, which saves some time.</p></li>
 ## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 6 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf36967492.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c1b55a352.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 6 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 6 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 6</code></pre>
@@ -788,9 +802,9 @@ the chains, which saves some time.</p></li>
 ## 
 ## All 8 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.6 seconds.</code></pre>
+## Total execution time: 0.7 seconds.</code></pre>
 <div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="reliability-and-validity.html#cb307-1" tabindex="-1"></a><span class="fu">toc</span>() <span class="co"># 7s</span></span></code></pre></div>
-<pre><code>## 7.109 sec elapsed</code></pre>
+<pre><code>## 7.783 sec elapsed</code></pre>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="reliability-and-validity.html#cb309-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               mean        sd      5.5%     94.5%      rhat ess_bulk
 ## a[1]     67.722244 4.9090800 59.884240 75.424230 1.0011883 6619.262
@@ -861,15 +875,9 @@ the chains, which saves some time.</p></li>
 <li><code>sigma</code> is the <strong>residual variability</strong>.</li>
 </ul>
 <p>We just square the sigmas to get the variances.</p>
-<p>The trick to do these calculations by “hand” is to get the
-variance decomposition correct.
-We stumbled upon variance decomposition in the context of ANOVA,
-where we decomposed the total variance into the regression variance
-and the residual variance. Here, we decompose the total variance
-into the between-patient variance and the residual variance.</p>
 <p>Remember: In the background, there is just a statistical model to predict
 the outcome. Depending on the predictors, we get different models and
-probably different ICCs</p>
+probably different ICCs.</p>
 <p>We can also estimate a <strong>random intercept model</strong> with the <code>lme4</code> package using
 the command <code>lmer</code>in the Frequentist framework. No priors.</p>
 <div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="reliability-and-validity.html#cb314-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
@@ -1013,9 +1021,10 @@ a learning effect or something.</p>
 ## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling)</code></pre>
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf56310ae8.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c347dcf24.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
@@ -1023,7 +1032,7 @@ a learning effect or something.</p>
 ## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf56310ae8.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c347dcf24.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
@@ -1035,12 +1044,11 @@ a learning effect or something.</p>
 ## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf56310ae8.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c347dcf24.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
-<pre><code>## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+<pre><code>## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
@@ -1086,7 +1094,7 @@ a learning effect or something.</p>
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf56310ae8.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c347dcf24.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 5</code></pre>
@@ -1100,6 +1108,7 @@ a learning effect or something.</p>
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -1108,14 +1117,13 @@ a learning effect or something.</p>
 ## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)</code></pre>
 <pre><code>## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpLfwWC3/model-1bcf56310ae8.stan&#39;, line 21, column 4 to column 45)</code></pre>
+<pre><code>## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpevf5sF/model-14e0c347dcf24.stan&#39;, line 21, column 4 to column 45)</code></pre>
 <pre><code>## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 7</code></pre>
 <pre><code>## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 5 finished in 0.2 seconds.
-## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 6 finished in 0.2 seconds.
 ## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
@@ -1308,28 +1316,28 @@ elicit the ICC.</p>
 <div id="explanation-of-iccs-in-the-psych-output" class="section level3 hasAnchor" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> Explanation of ICCs in the <code>psych</code> output<a href="reliability-and-validity.html#explanation-of-iccs-in-the-psych-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If you want to know all the details, refer to <a href="https://d1wqtxts1xzle7.cloudfront.net/50483847/syarat_reliabilitas_icc-libre.pdf?1479841049=&amp;response-content-disposition=inline%3B+filename%3DIntraclass_Correlations_Uses_in_Assessin.pdf&amp;Expires=1740684631&amp;Signature=hHiFbcQD3PDVIyWDJ-bUhcm3WtsK19YhHm6FKtnafNdqsm9NhR6cr9lbCf~gVV5SYG1XlTwLlcfJkQ9Z-ahjmmNV893aWi5plo~yL4oZBEjrmFa9WCd7k6vzFTkri1Xbgfh~GyPARWXBtqABytovtL-RD1420Kw9qk150nw3-kUWcuvRiIc~r0y65XQaXf-V9mm~uXRFdUqec4Vs-Bwh~IrJfHWQASGgp8wZjzh2130MCP3-iaorxNn~79c~nm2f1aIl5WRqRXB6EIy8HlrNFpxNSt1pgTPZoZadEECM4qH395KLY5ijUnhoCDT9AmcOplPnFiC5t8dKW-n25ziofQ__&amp;Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA">Shrout and Fleiss (1979)</a>.
-The help-function <code>?psych::ICC</code> containts a relatively good and much shorter explanation.
+The help-function <code>?psych::ICC</code> contains a relatively good and much shorter explanation.
 The variance formulae given in the help-file are probably somewhat confusing.
 We try to stick to the notation of the book.</p>
 <p>Let’s talk about the first three <strong>ICCs in the <code>psych</code> output</strong>:.</p>
 <ul>
 <li><p><strong>Single_raters_absolute ICC1:</strong>
-According to the help file: “Each target is rated by a different
-judge and the judges are selected at random.” So, variability due to raters
+According to the help file: “Each target [i.e. patient] is rated by a different
+judge [i.e. rater] and the judges are selected at random.” So, variability due to raters
 is implied and cannot be disentangled.
 This is formally not our situation, since we have only two raters and
 50 patients. But for this case, we do not care who measures, since we do not
 model it, hence, we cannot know if there are systematic differences between
 the raters. There might as well be 50 raters doing their thing, or just 2 as in our case.
-This is the ICC we calculated above; called <span class="math inline">\(ICC_{consistency}\)</span>
+This is the ICC we calculated above; the overall ICC.
 in the book and based on the following model:</p>
 <p><span class="math display">\[ Y_{ij} = \eta_i + \varepsilon_i \]</span>
 where <span class="math inline">\(i \in {1,...,50}\)</span> is the patient and <span class="math inline">\(j \in {1,2}\)</span> is the <em>measurement</em>
 (<span class="math inline">\(=50*2=100\)</span> rows in long format).
 Note that we do not mention a rater here, since we do not care who took the
-measurement. It is not part of the model. The ICC is then calculated as:
-<span class="math display">\[ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span>
-whereas we could get the variance components from either the posterior in the Bayesian
+measurement. It is not part of the model. The ICC is then calculated as:</p>
+<p><span class="math display">\[ ICC = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]</span></p>
+<p>whereas we could get the variance components from either the posterior in the Bayesian
 setting or from the <code>lmer</code> output in the Frequentist setting.</p></li>
 <li><p><strong>Single_random_raters ICC2:</strong>
 ICC2 (<span class="math inline">\(=ICC_{agreement}\)</span> in the book) and ICC3 (<span class="math inline">\(=ICC_{consistency}\)</span> in the book)
@@ -1341,7 +1349,7 @@ in 50 patients. That’s why we can model their bias. One observation would not 
 The help file says: “A random sample of k judges rate each target.
 The measure is one of absolute agreement in the ratings.”
 A random sample of k (2 in our case) judges means that we cannot rule out the variability
-due to raters (you get a variety of them and they biases are different).</p>
+due to raters (you get a variety of them and their biases are different).</p>
 <p><span class="math display">\[ Y_{ij} = \eta_i + \beta_j + \varepsilon_i \]</span>
 where <span class="math inline">\(i \in {1,...,50}\)</span> is the patient, <span class="math inline">\(j \in {1,2}\)</span> is the <strong>rater</strong>
 (doing one measurement in each patient). The ICC is then calculated as:</p>
@@ -1354,7 +1362,7 @@ This means that <strong>the raters are the same for all patients</strong> in the
 So, we have considered the rater variability in the model
 (which was possible due to the repeated measurements from the same raters in 50 patients),
 but do not care since Mary and Peter will be the people doing the future
-measurements, not other therapists. If you fix a stochastic variable
+measurements, not other therapists. If you fix a random variable
 (raters in this case), variance is zero. The help file says:
 “A fixed set of k judges rate each target.
 There is no generalization to a larger population of judges.”
@@ -1368,7 +1376,7 @@ ICC2 and ICC3 are based on the <em>same</em> model.</p></li>
 correlation (r) are the same (see Figure 5.3 in the book).</p>
 <p><span class="math inline">\(ICC_{consistency}\)</span> vs. <span class="math inline">\(ICC_{agreement}\)</span>:
 The latter is used, when we need Peter and Mary to concur in their measurements.
-Patients coming to Peters practice will get the same “diagnosis” (ROM-value)
+Patients coming to Peters practice will get the same (or very similar) “diagnosis” (ROM-value)
 from Mary. When there is systematic difference (line is shifted downwards in Figure 5.3),
 this cannot be guaranteed.
 If we only need Peter and Mary to <em>rank</em> the patients in the same order,
@@ -1417,22 +1425,22 @@ for the unbiased and biased case (Mary measures on average 5 degrees more than p
 <span id="cb395-24"><a href="reliability-and-validity.html#cb395-24" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">&quot;Intraclass Correlation Coefficients - Unbiased vs. Biased&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb395-25"><a href="reliability-and-validity.html#cb395-25" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_table_properties</span>(<span class="at">width =</span> .<span class="dv">5</span>, <span class="at">layout =</span> <span class="st">&quot;autofit&quot;</span>)</span>
 <span id="cb395-26"><a href="reliability-and-validity.html#cb395-26" tabindex="-1"></a>ft</span></code></pre></div>
-<div class="tabwid"><style>.cl-bea35ee4{table-layout:auto;width:50%;}.cl-be9cfea0{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-be9e66fa{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-be9e6704{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-be9e765e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-be9e7668{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-be9e7669{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-be9e766a{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-be9e7686{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-be9e7687{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-bea35ee4'>
+<div class="tabwid"><style>.cl-1dc08a6a{table-layout:auto;width:50%;}.cl-1dba0366{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1dbb8b32{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1dbb8b3c{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-1dbb9910{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1dbb991a{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1dbb9924{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1dbb9925{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1dbb9926{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-1dbb992e{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-1dc08a6a'>
 <caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-104">Table 5.1: </span><span>Intraclass Correlation Coefficients - Unbiased vs. Biased</span></caption>
-<thead><tr style="overflow-wrap:break-word;"><th class="cl-be9e765e"><p class="cl-be9e66fa"><span class="cl-be9cfea0">ICC Type</span></p></th><th class="cl-be9e7668"><p class="cl-be9e6704"><span class="cl-be9cfea0">Unbiased ICC</span></p></th><th class="cl-be9e7668"><p class="cl-be9e6704"><span class="cl-be9cfea0">Biased ICC</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-be9e7669"><p class="cl-be9e66fa"><span class="cl-be9cfea0">ICC1</span></p></td><td class="cl-be9e766a"><p class="cl-be9e6704"><span class="cl-be9cfea0">0.8512574</span></p></td><td class="cl-be9e766a"><p class="cl-be9e6704"><span class="cl-be9cfea0">0.8328336</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-be9e7669"><p class="cl-be9e66fa"><span class="cl-be9cfea0">ICC2</span></p></td><td class="cl-be9e766a"><p class="cl-be9e6704"><span class="cl-be9cfea0">0.8512574</span></p></td><td class="cl-be9e766a"><p class="cl-be9e6704"><span class="cl-be9cfea0">0.8344281</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-be9e7686"><p class="cl-be9e66fa"><span class="cl-be9cfea0">ICC3</span></p></td><td class="cl-be9e7687"><p class="cl-be9e6704"><span class="cl-be9cfea0">0.8512574</span></p></td><td class="cl-be9e7687"><p class="cl-be9e6704"><span class="cl-be9cfea0">0.8506562</span></p></td></tr></tbody></table></div>
-<p>The <strong>left cloumn</strong> shows that the ICCs are identical for the <strong>unbiased case</strong>.
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-1dbb9910"><p class="cl-1dbb8b32"><span class="cl-1dba0366">ICC Type</span></p></th><th class="cl-1dbb991a"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">Unbiased ICC</span></p></th><th class="cl-1dbb991a"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">Biased ICC</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-1dbb9924"><p class="cl-1dbb8b32"><span class="cl-1dba0366">ICC1</span></p></td><td class="cl-1dbb9925"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">0.8512574</span></p></td><td class="cl-1dbb9925"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">0.8328336</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1dbb9924"><p class="cl-1dbb8b32"><span class="cl-1dba0366">ICC2</span></p></td><td class="cl-1dbb9925"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">0.8512574</span></p></td><td class="cl-1dbb9925"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">0.8344281</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-1dbb9926"><p class="cl-1dbb8b32"><span class="cl-1dba0366">ICC3</span></p></td><td class="cl-1dbb992e"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">0.8512574</span></p></td><td class="cl-1dbb992e"><p class="cl-1dbb8b3c"><span class="cl-1dba0366">0.8506562</span></p></td></tr></tbody></table></div>
+<p>The <strong>left column</strong> shows that the ICCs are identical for the <strong>unbiased case</strong>.
 Specifically, ICC2 (=<span class="math inline">\(ICC_{agreement}\)</span> in the book) and
 ICC3 (<span class="math inline">\(ICC_{consistency}\)</span> in the book) are based on the same model which explicitely
 considers a potential bias between the raters. Since there is none,
 the ICCs are the same.</p>
-<p>In the <strong>biased case</strong>, there <em>is</em> as systematic difference between Mary and Peter.
-ICC1 does not care about it and shows a somehwat lower value compared to
+<p>In the <strong>biased case</strong>, there <em>is</em> as systematic difference between Mary and Peter.</p>
+<p><strong>ICC1</strong> does not care about it and shows a somewhat lower value compared to
 before (<span class="math inline">\(0.833\)</span>). The reason is because the agreement line is in a plot with
 Mary on Y and Peter on X shifted upwards by 5 degrees.
 If you would introduce a bias of 15 degrees, the ICC would
 be even lower (<span class="math inline">\(ICC1 = 0.61\)</span>, <span class="math inline">\(ICC2 = 0.65\)</span> -&gt; verify as exercise).
 The unbiased column would of course stay the same.</p>
-<p>ICC2 now considers the bias of 5 degrees. The model knows about the shift.
+<p><strong>ICC2</strong> now considers the bias of 5 degrees. The model knows about the shift.
 If we compare the variance components of ICC1 and ICC2, we see:</p>
 <pre><code>## [1] &quot;Model for ICC1: ROM ~ (1 | ID)&quot;</code></pre>
 <pre><code>##  Groups   Name        Variance
@@ -1454,10 +1462,10 @@ The patient variability (<code>ID Variance</code> in the output) is slightly hig
 In the first model, patient variability was conflated with rater variation because rater effects
 were not explicitly modeled. For this reason, <code>ID Variance</code> increases slightly.
 It is a rather small increase, so ICC1 and ICC2 are not that different.</p>
-<p>For a bias 15 degrees, the addivity of the variances remains.
+<p>For a bias of 15 degrees, the additivity of the variances remains.
 The patient variability increases from <span class="math inline">\(223.89\)</span> (ICC1) to <span class="math inline">\(270.882\)</span> (ICC2),
 hence the difference in ICCs is larger (<span class="math inline">\(ICC1=0.613\)</span> vs. <span class="math inline">\(ICC2=0.657\)</span>).</p>
-<p>ICC3 considers the bias in the model but does not include it in the measurement
+<p><strong>ICC3</strong> considers the bias in the model but does not include it in the measurement
 error since the raters are fixed.</p>
 </div>
 <div id="difference-between-correlation-and-icc" class="section level3 hasAnchor" number="5.1.5">
@@ -1466,24 +1474,446 @@ error since the raters are fixed.</p>
 is the same as the ICC (as seen above). On page 110, Figure 5.3, the authors show nicely
 what the difference is between the correlation coefficient and the ICC.
 It is also shown how <span class="math inline">\(ICC_{agreement}\)</span> and <span class="math inline">\(ICC_{consistency}\)</span> change with the bias.</p>
-<p><span class="math inline">\(ICC_{consistency}\)</span> stays <span class="math inline">\(1\)</span> if bias is introduced. Peter and Mary still rank the Patients
+<p><span class="math inline">\(ICC_{consistency}\)</span> stays <span class="math inline">\(1\)</span> if bias is introduced (assuming a hypothetical
+perfect agreement before). Peter and Mary still rank the patients
 in the same order.</p>
 <p>Correlation <span class="math inline">\(r\)</span> is always 1, no matter at what slope (<span class="math inline">\(\ne 0\)</span>) the line is.
 It measures the strength and direction of the <em>linear</em> relationship between two variables.</p>
-<p><span class="math inline">\(ICC_{agreement}\)</span> changes as soon as you depart from the 45 degree line or
-shift the line up or down (i.e., introducce a bias).</p>
+<p><span class="math inline">\(ICC_{agreement}\)</span> changes as soon as you depart from the 45 degree line
+with respect to slope or
+shift the line up or down (i.e., introduce a bias).</p>
+<p>This is a good point in time to think for a moment about the type of measurement
+for agreement with respect to <strong>costs</strong>. The ICC below weights each measurement
+equally, although one larger outlier (large discrepancy between Peter and Mary)
+may influence the ICC notably (exercise later). One could easily think of a situation where
+overall agreement measure like the ICC is not adequate since,
+for instance, exceeding a certain
+difference threshold could decide between life and death.</p>
 </div>
 <div id="bad-news-about-the-icc" class="section level3 hasAnchor" number="5.1.6">
 <h3><span class="header-section-number">5.1.6</span> Bad news about the ICC?<a href="reliability-and-validity.html#bad-news-about-the-icc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>…</p>
+<p>Let’s try to expand our intuitive understanding of what an ICC of 0.8 or so means.
+For simplicity, we take the overall ICC, which is equal to the correlation coefficient,
+if there is no bias present.</p>
+<p>The following example demonstrates the meaning of the Test-Retest reliability of
+the Hospital Anxiety and Depression Scale - Anxiety subscale (HADS-A). We could take
+all kinds of other scores where ICC values and a
+<a href="https://en.wikipedia.org/wiki/Minimal_important_difference">minimally clinically important difference (MCID)</a>
+is given. Briefly, the MCID is the smallest change in a score that is considered
+important to the patient. For example, a 5% change in BMI is (in some populations)
+considered meaningful.</p>
+<p>Specifically, we:</p>
+<ul>
+<li>Simulate two correlated measurement at two time points (TP1 and TP2)
+to get predetermined ICC (<span class="math inline">\(=\rho\)</span>).</li>
+<li>Calculate the Intraclass Correlation Coefficient (ICC).</li>
+<li>Compare the Minimal Clinically Important Difference (MCID) to prediction intervals.</li>
+<li>Visualize how often a clinically meaningful change of 1.68 points is
+detected, even if no real change has occurred.</li>
+</ul>
+<p>The code can be found <a href="https://github.com/jdegenfellner/ICC_MCID/blob/main/ICC_MCID.R">here</a>
+and in the github repo of the script. In the code, the sources for the ICC and MCID are
+cited.</p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="reliability-and-validity.html#cb400-1" tabindex="-1"></a><span class="co"># ICC and Test-Retest-Reliability</span></span>
+<span id="cb400-2"><a href="reliability-and-validity.html#cb400-2" tabindex="-1"></a></span>
+<span id="cb400-3"><a href="reliability-and-validity.html#cb400-3" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb400-4"><a href="reliability-and-validity.html#cb400-4" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, lme4, conflicted, psych, MASS)</span>
+<span id="cb400-5"><a href="reliability-and-validity.html#cb400-5" tabindex="-1"></a></span>
+<span id="cb400-6"><a href="reliability-and-validity.html#cb400-6" tabindex="-1"></a><span class="co"># MCID Minimal Clinically Important Difference---------</span></span>
+<span id="cb400-7"><a href="reliability-and-validity.html#cb400-7" tabindex="-1"></a></span>
+<span id="cb400-8"><a href="reliability-and-validity.html#cb400-8" tabindex="-1"></a><span class="co"># HADS score---------</span></span>
+<span id="cb400-9"><a href="reliability-and-validity.html#cb400-9" tabindex="-1"></a><span class="co"># The Hospital Anxiety and Depression Scale </span></span>
+<span id="cb400-10"><a href="reliability-and-validity.html#cb400-10" tabindex="-1"></a></span>
+<span id="cb400-11"><a href="reliability-and-validity.html#cb400-11" tabindex="-1"></a><span class="co"># Test-Retest-Reliability:</span></span>
+<span id="cb400-12"><a href="reliability-and-validity.html#cb400-12" tabindex="-1"></a><span class="co"># https://doi.org/10.1016/S1361-9004(02)00029-8</span></span>
+<span id="cb400-13"><a href="reliability-and-validity.html#cb400-13" tabindex="-1"></a></span>
+<span id="cb400-14"><a href="reliability-and-validity.html#cb400-14" tabindex="-1"></a><span class="co"># Use the numbers from here (Table 1):</span></span>
+<span id="cb400-15"><a href="reliability-and-validity.html#cb400-15" tabindex="-1"></a><span class="co"># https://www.sciencedirect.com/science/article/abs/pii/S1361900402000298</span></span>
+<span id="cb400-16"><a href="reliability-and-validity.html#cb400-16" tabindex="-1"></a><span class="co"># for demonstration purposes.</span></span>
+<span id="cb400-17"><a href="reliability-and-validity.html#cb400-17" tabindex="-1"></a></span>
+<span id="cb400-18"><a href="reliability-and-validity.html#cb400-18" tabindex="-1"></a><span class="co"># Minimal Clinically Important Difference (MCID) for HADS-A:</span></span>
+<span id="cb400-19"><a href="reliability-and-validity.html#cb400-19" tabindex="-1"></a><span class="co"># https://pmc.ncbi.nlm.nih.gov/articles/PMC2459149/</span></span>
+<span id="cb400-20"><a href="reliability-and-validity.html#cb400-20" tabindex="-1"></a><span class="co"># Not exactly the same population as shift workers, but suffices for demonstration purposes.</span></span>
+<span id="cb400-21"><a href="reliability-and-validity.html#cb400-21" tabindex="-1"></a><span class="co"># MCID HADS anxiety score and 1.68 (1.48–1.87)</span></span>
+<span id="cb400-22"><a href="reliability-and-validity.html#cb400-22" tabindex="-1"></a></span>
+<span id="cb400-23"><a href="reliability-and-validity.html#cb400-23" tabindex="-1"></a><span class="co"># Simplification: Score is deemed to be continuous.</span></span>
+<span id="cb400-24"><a href="reliability-and-validity.html#cb400-24" tabindex="-1"></a></span>
+<span id="cb400-25"><a href="reliability-and-validity.html#cb400-25" tabindex="-1"></a><span class="co"># Create 2 correlated measurements:</span></span>
+<span id="cb400-26"><a href="reliability-and-validity.html#cb400-26" tabindex="-1"></a><span class="co"># Use HADS-A Anxiety subscale</span></span>
+<span id="cb400-27"><a href="reliability-and-validity.html#cb400-27" tabindex="-1"></a><span class="co"># Use n=100, instead of n=24 for more stability</span></span>
+<span id="cb400-28"><a href="reliability-and-validity.html#cb400-28" tabindex="-1"></a></span>
+<span id="cb400-29"><a href="reliability-and-validity.html#cb400-29" tabindex="-1"></a>sigma1 <span class="ot">&lt;-</span> <span class="fl">3.93</span>  <span class="co"># Standard deviation of variable 1</span></span>
+<span id="cb400-30"><a href="reliability-and-validity.html#cb400-30" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">3.52</span>  <span class="co"># Standard deviation of variable 2</span></span>
+<span id="cb400-31"><a href="reliability-and-validity.html#cb400-31" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fl">0.82</span>    <span class="co"># Correlation</span></span>
+<span id="cb400-32"><a href="reliability-and-validity.html#cb400-32" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma1<span class="sc">^</span><span class="dv">2</span>, rho <span class="sc">*</span> sigma1 <span class="sc">*</span> sigma2,</span>
+<span id="cb400-33"><a href="reliability-and-validity.html#cb400-33" tabindex="-1"></a>                       rho <span class="sc">*</span> sigma1 <span class="sc">*</span> sigma2, sigma2<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb400-34"><a href="reliability-and-validity.html#cb400-34" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb400-35"><a href="reliability-and-validity.html#cb400-35" tabindex="-1"></a></span>
+<span id="cb400-36"><a href="reliability-and-validity.html#cb400-36" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">188</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb400-37"><a href="reliability-and-validity.html#cb400-37" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu =</span> <span class="fu">c</span>(<span class="fl">7.92</span>, <span class="fl">7.83</span>), <span class="at">Sigma =</span> cov_matrix)</span>
+<span id="cb400-38"><a href="reliability-and-validity.html#cb400-38" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(samples)</span>
+<span id="cb400-39"><a href="reliability-and-validity.html#cb400-39" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TP1&quot;</span>, <span class="st">&quot;TP2&quot;</span>)</span>
+<span id="cb400-40"><a href="reliability-and-validity.html#cb400-40" tabindex="-1"></a></span>
+<span id="cb400-41"><a href="reliability-and-validity.html#cb400-41" tabindex="-1"></a><span class="fu">plot</span>(df, <span class="at">main =</span> <span class="st">&quot;Scatterplot of Multivariate Normal Samples&quot;</span>,</span>
+<span id="cb400-42"><a href="reliability-and-validity.html#cb400-42" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;TP1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;TP2&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="reliability-and-validity.html#cb401-1" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/Intraclass_correlation#Modern_ICC_definitions:_simpler_formula_but_positive_bias</span></span>
+<span id="cb401-2"><a href="reliability-and-validity.html#cb401-2" tabindex="-1"></a><span class="co"># ICC should be the correlation within the group (i.e. patient)</span></span>
+<span id="cb401-3"><a href="reliability-and-validity.html#cb401-3" tabindex="-1"></a></span>
+<span id="cb401-4"><a href="reliability-and-validity.html#cb401-4" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>TP1, df<span class="sc">$</span>TP2, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>) <span class="co"># ~0.8-0.9</span></span></code></pre></div>
+<pre><code>## [1] 0.8184881</code></pre>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="reliability-and-validity.html#cb403-1" tabindex="-1"></a><span class="fu">ICC</span>(df) <span class="co"># 0.82</span></span></code></pre></div>
+<pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
+<pre><code>## Call: ICC(x = df)
+## 
+## Intraclass correlation coefficients 
+##                          type  ICC  F df1 df2       p lower bound upper bound
+## Single_raters_absolute   ICC1 0.82 10  99 100 5.6e-26        0.74        0.87
+## Single_random_raters     ICC2 0.82 10  99  99 8.7e-26        0.74        0.87
+## Single_fixed_raters      ICC3 0.82 10  99  99 8.7e-26        0.74        0.87
+## Average_raters_absolute ICC1k 0.90 10  99 100 5.6e-26        0.85        0.93
+## Average_random_raters   ICC2k 0.90 10  99  99 8.7e-26        0.85        0.93
+## Average_fixed_raters    ICC3k 0.90 10  99  99 8.7e-26        0.85        0.93
+## 
+##  Number of subjects = 100     Number of Judges =  2
+## See the help file for a discussion of the other 4 McGraw and Wong estimates,</code></pre>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="reliability-and-validity.html#cb406-1" tabindex="-1"></a><span class="co"># check manually</span></span>
+<span id="cb406-2"><a href="reliability-and-validity.html#cb406-2" tabindex="-1"></a>df_mod <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span>n, df<span class="sc">$</span>TP1, df<span class="sc">$</span>TP2)</span>
+<span id="cb406-3"><a href="reliability-and-validity.html#cb406-3" tabindex="-1"></a><span class="fu">names</span>(df_mod) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;TP1&quot;</span>, <span class="st">&quot;TP2&quot;</span>)</span>
+<span id="cb406-4"><a href="reliability-and-validity.html#cb406-4" tabindex="-1"></a>df_mod_long <span class="ot">&lt;-</span> df_mod <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(TP1, TP2), <span class="at">names_to =</span> <span class="st">&quot;time_point&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb406-5"><a href="reliability-and-validity.html#cb406-5" tabindex="-1"></a>mod <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(score <span class="sc">~</span> time_point <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>id), <span class="at">data =</span> df_mod_long)</span>
+<span id="cb406-6"><a href="reliability-and-validity.html#cb406-6" tabindex="-1"></a>variance_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(mod)<span class="sc">$</span>varcor)</span>
+<span id="cb406-7"><a href="reliability-and-validity.html#cb406-7" tabindex="-1"></a><span class="co"># ICC=</span></span>
+<span id="cb406-8"><a href="reliability-and-validity.html#cb406-8" tabindex="-1"></a>variance_df<span class="sc">$</span>sdcor[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (variance_df<span class="sc">$</span>sdcor[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> variance_df<span class="sc">$</span>sdcor[<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>) <span class="co"># ~0.9</span></span></code></pre></div>
+<pre><code>## [1] 0.8170566</code></pre>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="reliability-and-validity.html#cb408-1" tabindex="-1"></a><span class="co"># cor and ICC are very very similar, should actually be identical.</span></span>
+<span id="cb408-2"><a href="reliability-and-validity.html#cb408-2" tabindex="-1"></a></span>
+<span id="cb408-3"><a href="reliability-and-validity.html#cb408-3" tabindex="-1"></a><span class="co"># check</span></span>
+<span id="cb408-4"><a href="reliability-and-validity.html#cb408-4" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>TP1)</span></code></pre></div>
+<pre><code>## [1] 7.964553</code></pre>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="reliability-and-validity.html#cb410-1" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>TP2) </span></code></pre></div>
+<pre><code>## [1] 7.782436</code></pre>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="reliability-and-validity.html#cb412-1" tabindex="-1"></a><span class="co">#data.frame(TP1 = df$TP1, TP2 = df$TP2) %&gt;% </span></span>
+<span id="cb412-2"><a href="reliability-and-validity.html#cb412-2" tabindex="-1"></a><span class="co">#  ggplot(aes(x = TP1, y = TP2)) +</span></span>
+<span id="cb412-3"><a href="reliability-and-validity.html#cb412-3" tabindex="-1"></a><span class="co">#  geom_point() +</span></span>
+<span id="cb412-4"><a href="reliability-and-validity.html#cb412-4" tabindex="-1"></a><span class="co">#  xlab(&quot;Measurement of patients at time point 1&quot;) +</span></span>
+<span id="cb412-5"><a href="reliability-and-validity.html#cb412-5" tabindex="-1"></a><span class="co">#  ylab(&quot;Measurement of the same patients at time point 2&quot;)</span></span>
+<span id="cb412-6"><a href="reliability-and-validity.html#cb412-6" tabindex="-1"></a></span>
+<span id="cb412-7"><a href="reliability-and-validity.html#cb412-7" tabindex="-1"></a><span class="co"># Range for HADS-A should be 0-21 </span></span>
+<span id="cb412-8"><a href="reliability-and-validity.html#cb412-8" tabindex="-1"></a><span class="co"># (according to &quot;The Hospital Anxiety and Depression Scale, Zigmond &amp; Snaith, 1983&quot;)</span></span>
+<span id="cb412-9"><a href="reliability-and-validity.html#cb412-9" tabindex="-1"></a></span>
+<span id="cb412-10"><a href="reliability-and-validity.html#cb412-10" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TP1 =</span> df<span class="sc">$</span>TP1, <span class="at">TP2 =</span> df<span class="sc">$</span>TP2) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-11"><a href="reliability-and-validity.html#cb412-11" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP1 <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb412-12"><a href="reliability-and-validity.html#cb412-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP2 <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="co"># negative not possible</span></span>
+<span id="cb412-13"><a href="reliability-and-validity.html#cb412-13" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP1 <span class="sc">&lt;=</span> <span class="dv">21</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb412-14"><a href="reliability-and-validity.html#cb412-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP2 <span class="sc">&lt;=</span> <span class="dv">21</span>) <span class="co"># max. score is 21</span></span>
+<span id="cb412-15"><a href="reliability-and-validity.html#cb412-15" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>##          TP1       TP2
+## 1  13.003089 14.539674
+## 2   6.980669  9.312346
+## 3  17.751972 12.957041
+## 4  10.344489  6.995323
+## 5   7.861347  7.568915
+## 6  12.892886 11.703021
+## 7   5.478497  7.952075
+## 8   9.583384  7.515242
+## 9   7.519451  4.043160
+## 10 11.499240 11.652541
+## 11  6.468033  6.660218
+## 12  6.048513  3.471018
+## 13  7.697834  9.065112
+## 14 12.254369  8.811619
+## 15  1.614857  4.614998
+## 16 10.619077 10.125575
+## 17  9.419930  8.518226
+## 18  2.937867  4.456727
+## 19  8.236834 11.196117
+## 20  8.954668 12.675367
+## 21 12.320423 12.768905
+## 22 12.314754 10.081370
+## 23  2.160930  6.959311
+## 24  6.832022  6.613443
+## 25  1.093221  4.571882
+## 26  9.725573  9.440133
+## 27  1.355585  4.171266
+## 28  7.752631  9.028429
+## 29  8.764755  5.020493
+## 30  6.347606  3.694110
+## 31  5.375775  4.932552
+## 32 11.278457 10.079779
+## 33  6.740993  6.092677
+## 34  5.812009  4.668937
+## 35  4.349329  6.225931
+## 36  9.895140 12.126645
+## 37 11.148574  9.213335
+## 38  2.047422  2.430490
+## 39  6.486131  6.032311
+## 40  5.645763  7.611138
+## 41  6.726079 10.071178
+## 42  5.755609  7.947849
+## 43 10.642786  9.117806
+## 44  5.141220  5.304112
+## 45  2.642085  1.933020
+## 46  7.684671  6.640758
+## 47  9.262502  8.538370
+## 48 16.254728 15.559716
+## 49  7.156983  6.978574
+## 50 12.081541 10.935277
+## 51 11.764108  9.705782
+## 52 11.558231 10.001998
+## 53  7.207230  8.702822
+## 54 13.271195 12.305426
+## 55  8.662632  9.794167
+## 56  7.202986  3.372489
+## 57  5.857393 10.673803
+## 58 12.606715  8.961083
+## 59 11.081861 13.549278
+## 60  4.900769  5.337160
+## 61 15.309336 11.034889
+## 62 14.589373 13.720623
+## 63 13.671753 10.925029
+## 64 12.180305 12.781404
+## 65  1.762711  5.561035
+## 66  3.140391  6.372191
+## 67  5.492213  5.996299
+## 68  4.466991  8.914347
+## 69  2.502974  2.742313
+## 70 12.667048  9.000329
+## 71  4.580641  6.028937
+## 72 11.858807 10.368234
+## 73  4.537198  2.709857
+## 74  7.419888 10.998858
+## 75  4.879237  4.827545
+## 76 13.618764  9.062266
+## 77 14.472807 14.418930
+## 78  7.952580  7.896180
+## 79  1.912410  3.428163
+## 80  7.801004  2.616797
+## 81 10.336987 11.858491
+## 82  8.417477 10.399787
+## 83  5.491992  7.532053
+## 84  7.596043  3.712851
+## 85  6.912368  8.655686
+## 86  6.201155  2.107871
+## 87 11.707088 13.145075
+## 88  3.443512  1.810893
+## 89 12.406231 12.175912
+## 90  7.231295  8.403967
+## 91 11.070856 10.877902
+## 92 14.508512 13.754604
+## 93  9.936188 10.610818
+## 94  6.590862  3.507825
+## 95 11.660322 10.722280</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="reliability-and-validity.html#cb414-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(TP2 <span class="sc">~</span> TP1, <span class="at">data =</span> df)</span>
+<span id="cb414-2"><a href="reliability-and-validity.html#cb414-2" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, df, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span>
+<span id="cb414-3"><a href="reliability-and-validity.html#cb414-3" tabindex="-1"></a></span>
+<span id="cb414-4"><a href="reliability-and-validity.html#cb414-4" tabindex="-1"></a><span class="co"># How wide are the prediction intervals for a patient?</span></span>
+<span id="cb414-5"><a href="reliability-and-validity.html#cb414-5" tabindex="-1"></a><span class="fu">as.data.frame</span>(pred) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">width_prediction_interval =</span> upr <span class="sc">-</span> lwr) <span class="co"># width of the prediction interval 8-10 points!</span></span></code></pre></div>
+<pre><code>##          fit         lwr       upr width_prediction_interval
+## 1  11.517789  7.32000445 15.715573                  8.395568
+## 2   7.260698  3.09356695 11.427829                  8.334262
+## 3  14.874649 10.57640522 19.172893                  8.596488
+## 4   9.638494  5.46784345 13.809144                  8.341301
+## 5   7.883226  3.71851506 12.047937                  8.329422
+## 6  11.439889  7.24365214 15.636126                  8.392473
+## 7   6.198852  2.02213714 10.375568                  8.353431
+## 8   9.100489  4.93366030 13.267318                  8.333658
+## 9   7.641549  3.47617950 11.806918                  8.330738
+## 10 10.454757  6.27494432 14.634571                  8.359626
+## 11  6.898329  2.72869927 11.067959                  8.339260
+## 12  6.601781  2.42951087 10.774051                  8.344541
+## 13  7.767643  3.60266181 11.932624                  8.329962
+## 14 10.988538  6.80055090 15.176525                  8.375974
+## 15  3.467747 -0.76481930  7.700313                  8.465132
+## 16  9.832593  5.66013066 14.005055                  8.344925
+## 17  8.984947  4.81870889 13.151186                  8.332477
+## 18  4.402947  0.19450442  8.611390                  8.416885
+## 19  8.148648  3.98424793 12.313048                  8.328800
+## 20  8.656066  4.49106133 12.821072                  8.330010
+## 21 11.035230  6.84644646 15.224014                  8.377568
+## 22 11.031223  6.84250820 15.219938                  8.377430
+## 23  3.853751 -0.36823502  8.075737                  8.443972
+## 24  7.155623  2.98785021 11.323396                  8.335546
+## 25  3.099016 -1.14446756  7.342499                  8.486967
+## 26  9.200999  5.03359021 13.368407                  8.334817
+## 27  3.284474 -0.95341998  7.522367                  8.475787
+## 28  7.806378  3.64149615 11.971259                  8.329763
+## 29  8.521822  4.35713015 12.686514                  8.329383
+## 30  6.813202  2.64286933 10.983535                  8.340666
+## 31  6.126241  1.94861984 10.303862                  8.355242
+## 32 10.298692  6.12094325 14.476441                  8.355497
+## 33  7.091277  2.92307764 11.259477                  8.336399
+## 34  6.434603  2.26060789 10.608598                  8.347990
+## 35  5.400673  1.21224884  9.589097                  8.376848
+## 36  9.320861  5.15268035 13.489042                  8.336361
+## 37 10.206881  6.03027765 14.383484                  8.353206
+## 38  3.773515 -0.45059795  7.997629                  8.448227
+## 39  6.911122  2.74159427 11.080650                  8.339056
+## 40  6.317088  2.14177936 10.492397                  8.350617
+## 41  7.080735  2.91246298 11.249007                  8.336544
+## 42  6.394735  2.22030395 10.569166                  8.348862
+## 43  9.849352  5.67672294 14.021982                  8.345259
+## 44  5.960440  1.78063088 10.140249                  8.359619
+## 45  4.193867 -0.01952182  8.407256                  8.426777
+## 46  7.758338  3.59333195 11.923345                  8.330013
+## 47  8.873666  4.70791894 13.039413                  8.331494
+## 48 13.816287  9.55673194 18.075843                  8.519111
+## 49  7.385330  3.21887319 11.551787                  8.332914
+## 50 10.866371  6.68040625 15.052336                  8.371929
+## 51 10.641986  6.45950156 14.824470                  8.364969
+## 52 10.496456  6.31606656 14.676846                  8.360780
+## 53  7.420848  3.25456616 11.587130                  8.332564
+## 54 11.707306  7.50560608 15.909006                  8.403400
+## 55  8.449634  4.28506471 12.614202                  8.329138
+## 56  7.417848  3.25155183 11.584145                  8.332593
+## 57  6.466683  2.29303270 10.640334                  8.347301
+## 58 11.237603  7.04521442 15.429991                  8.384777
+## 59 10.159723  5.98368848 14.335757                  8.352069
+## 60  5.790471  1.60824613  9.972696                  8.364450
+## 61 13.148015  8.90959977 17.386429                  8.476830
+## 62 12.639092  8.41504000 16.863143                  8.448103
+## 63 11.990450  7.78250179 16.198399                  8.415897
+## 64 10.936184  6.74907482 15.123294                  8.374219
+## 65  3.572261 -0.65735481  7.801876                  8.459231
+## 66  4.546106  0.34090074  8.751312                  8.410411
+## 67  6.208548  2.03195085 10.385144                  8.353194
+## 68  5.483845  1.29682048  9.670870                  8.374049
+## 69  4.095533 -0.12027142  8.311337                  8.431609
+## 70 11.280250  7.08707078 15.473429                  8.386359
+## 71  5.564181  1.37846891  9.749893                  8.371425
+## 72 10.708926  6.52543503 14.892417                  8.366982
+## 73  5.533472  1.34726300  9.719682                  8.372419
+## 74  7.571170  3.40554231 11.736798                  8.331256
+## 75  5.775251  1.59280130  9.957701                  8.364900
+## 76 11.952994  7.74589920 16.160088                  8.414189
+## 77 12.556694  8.33482530 16.778563                  8.443737
+## 78  7.947716  3.78312039 12.112312                  8.329192
+## 79  3.678079 -0.54861400  7.904772                  8.453386
+## 80  7.840572  3.67577039 12.005373                  8.329602
+## 81  9.633192  5.46258745 13.803796                  8.341208
+## 82  8.276340  4.11193632 12.440744                  8.328808
+## 83  6.208392  2.03179294 10.384990                  8.353197
+## 84  7.695690  3.53049953 11.860881                  8.330381
+## 85  7.212418  3.04500055 11.379836                  8.334835
+## 86  6.709680  2.53843261 10.880928                  8.342495
+## 87 10.601680  6.41978859 14.783572                  8.363783
+## 88  4.760375  0.55978683  8.960963                  8.401176
+## 89 11.095886  6.90604714 15.285724                  8.379677
+## 90  7.437859  3.27165782 11.604060                  8.332402
+## 91 10.151944  5.97600166 14.327886                  8.351884
+## 92 12.581933  8.35939957 16.804466                  8.445066
+## 93  9.349877  5.18149616 13.518258                  8.336761
+## 94  6.985154  2.81619604 11.154112                  8.337916
+## 95 10.568622  6.38720944 14.750034                  8.362825</code></pre>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="reliability-and-validity.html#cb416-1" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb416-2"><a href="reliability-and-validity.html#cb416-2" tabindex="-1"></a><span class="fu">predict</span>(mod, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">TP1 =</span> <span class="dv">10</span>), <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>) <span class="co"># 95% prediction interval for a patient with a score of 10 at time point 1.</span></span></code></pre></div>
+<pre><code>##        fit      lwr      upr
+## 1 9.394984 5.226282 13.56369</code></pre>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="reliability-and-validity.html#cb418-1" tabindex="-1"></a>(<span class="fl">13.56369</span> <span class="sc">-</span> <span class="fl">5.226282</span>)<span class="sc">/</span><span class="fl">1.68</span></span></code></pre></div>
+<pre><code>## [1] 4.962743</code></pre>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="reliability-and-validity.html#cb420-1" tabindex="-1"></a><span class="co"># Prediction interval width is ~5 times our minimally clinically important </span></span>
+<span id="cb420-2"><a href="reliability-and-validity.html#cb420-2" tabindex="-1"></a><span class="co"># change of 1.68 for HADS-A.</span></span>
+<span id="cb420-3"><a href="reliability-and-validity.html#cb420-3" tabindex="-1"></a></span>
+<span id="cb420-4"><a href="reliability-and-validity.html#cb420-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb420-5"><a href="reliability-and-validity.html#cb420-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> TP1, <span class="at">y =</span> TP2)) <span class="sc">+</span></span>
+<span id="cb420-6"><a href="reliability-and-validity.html#cb420-6" tabindex="-1"></a>  <span class="co"># Color points conditionally</span></span>
+<span id="cb420-7"><a href="reliability-and-validity.html#cb420-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(TP2 <span class="sc">&gt;</span> TP1 <span class="sc">+</span> <span class="fl">1.68</span> <span class="sc">|</span> TP2 <span class="sc">&lt;</span> TP1 <span class="sc">-</span> <span class="fl">1.68</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb420-8"><a href="reliability-and-validity.html#cb420-8" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb420-9"><a href="reliability-and-validity.html#cb420-9" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>], <span class="at">slope =</span> mod<span class="sc">$</span>coefficients[<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb420-10"><a href="reliability-and-validity.html#cb420-10" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb420-11"><a href="reliability-and-validity.html#cb420-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> pred[,<span class="dv">2</span>], <span class="at">ymax =</span> pred[,<span class="dv">3</span>]), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb420-12"><a href="reliability-and-validity.html#cb420-12" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;HADS-A and 95% Prediction Interval for TP2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb420-13"><a href="reliability-and-validity.html#cb420-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb420-14"><a href="reliability-and-validity.html#cb420-14" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb420-15"><a href="reliability-and-validity.html#cb420-15" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fl">1.68</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb420-16"><a href="reliability-and-validity.html#cb420-16" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="sc">-</span><span class="fl">1.68</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-106-2.png" width="672" /></p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="reliability-and-validity.html#cb422-1" tabindex="-1"></a><span class="co"># How often is TP2 within the MCIC of 1.68 points?---------</span></span>
+<span id="cb422-2"><a href="reliability-and-validity.html#cb422-2" tabindex="-1"></a>df<span class="sc">$</span>abs_diff <span class="ot">&lt;-</span> <span class="fu">abs</span>(df<span class="sc">$</span>TP1 <span class="sc">-</span> df<span class="sc">$</span>TP2)</span>
+<span id="cb422-3"><a href="reliability-and-validity.html#cb422-3" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>abs_diff)</span>
+<span id="cb422-4"><a href="reliability-and-validity.html#cb422-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">1.68</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-106-3.png" width="672" /></p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="reliability-and-validity.html#cb423-1" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>abs_diff <span class="sc">&gt;</span> <span class="fl">1.68</span>)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">table</span>(df<span class="sc">$</span>abs_diff <span class="sc">&gt;</span> <span class="fl">1.68</span>)) <span class="co"># </span></span></code></pre></div>
+<pre><code>## 
+##     FALSE      TRUE 
+## 0.5368421 0.4631579</code></pre>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="reliability-and-validity.html#cb425-1" tabindex="-1"></a><span class="co"># -&gt; in ~46% of cases we detect a minimally clinically important change of 1.68 points.</span></span>
+<span id="cb425-2"><a href="reliability-and-validity.html#cb425-2" tabindex="-1"></a><span class="co"># even though the underlying truth did not change.</span></span>
+<span id="cb425-3"><a href="reliability-and-validity.html#cb425-3" tabindex="-1"></a></span>
+<span id="cb425-4"><a href="reliability-and-validity.html#cb425-4" tabindex="-1"></a><span class="co"># This result is near random guessing</span></span></code></pre></div>
+<p>The example shows that for the given value of ICC (<span class="math inline">\(&gt;0.8\)</span>) and MCID, the test retest reliability
+is near random guessing with respect to detecting a change, since the second prediction is
+very often outside the MCID (red dashed lines). Or in short: Even if Mary measures twice
+with this ICC value, she will detect a clinically meaningful change in almost half of the cases,
+although the underlying
+truth did not change.</p>
+<p>One could play around a little bit with the parameters here
+(and maybe make the argument more rigorous),
+but my guess would be that the main message remains stable.</p>
+<p>What do you think? Can you find literature or logical arguments against this
+simulation? I would be pleased to hear your thoughts.</p>
 </div>
 <div id="standard-error-of-measurement-sem" class="section level3 hasAnchor" number="5.1.7">
 <h3><span class="header-section-number">5.1.7</span> Standard Error of Measurement (SEM)<a href="reliability-and-validity.html#standard-error-of-measurement-sem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>…</p>
+<p>Above, we defined the overall ICC as:</p>
+<p><span class="math display">\[ICC = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]</span></p>
+<p>The SEM is defined as: <span class="math inline">\(\sqrt{\sigma_{\varepsilon}^2}\)</span>.</p>
+<p>This is a measure for the precision of the model. If this number is small,
+we know the true but unknown score (<span class="math inline">\(\eta\)</span>) very precisely. As we have seen, for the
+<span class="math inline">\(ICC_{agreement}\)</span> the error term includes the rater variability <span class="math inline">\(\sigma_{rater}\)</span>.</p>
+<p>For ICC2 and 3 the model is the same and:</p>
+<p><span class="math display">\[ Y_{ij} = \eta_i + \beta_j + \varepsilon_i \]</span></p>
+<p>For <span class="math inline">\(ICC_{agreement}\)</span>, the SEM is then:
+<span class="math display">\[ \sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\text{rater}}^2 + \sigma_{\varepsilon}^2}_{SEM_{agreement}^2} \]</span></p>
+<p>For <span class="math inline">\(ICC_{consistency}\)</span>, the SEM is then:
+<span class="math display">\[ \sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\varepsilon}^2}_{SEM_{consistency}^2} \]</span></p>
+<p>And since ICC 2 and 3 are based on the same model:
+<span class="math display">\[ SEM_{consistency} \le SEM_{agreement}\]</span>
+(equality if there is no bias)</p>
+<p>This yields the <strong>first method</strong> of getting the SEM: Estimate the
+model (as we did above) and take the square root of the respective error term
+(with or without the rater variability).</p>
+<p>One can also show (excercise…) that we can find the <span class="math inline">\(SEM_{consistency}\)</span> by using
+the standard deviation of the differences between the two measurements
+of Peter and Mary:</p>
+<p>We verify this immediately:</p>
+<p><span class="math display">\[ SEM_{consistency} = \frac{SD_{difference}}{\sqrt{2}} \]</span></p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="reliability-and-validity.html#cb426-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span> <span class="sc">|</span> ID) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Rater), <span class="at">data =</span> df_long_bias)</span>
+<span id="cb426-2"><a href="reliability-and-validity.html#cb426-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">VarCorr</span>(mod))</span></code></pre></div>
+<pre><code>##  Groups   Name        Std.Dev.
+##  ID       (Intercept) 16.4585 
+##  Rater    (Intercept)  2.4886 
+##  Residual              6.8961</code></pre>
+<p><span class="math display">\[ SEM_{consistency} = \sigma_{residual} = 6.8961 \]</span></p>
+<p>Let’s calculate the SEM from the differences between the two measurements:</p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="reliability-and-validity.html#cb428-1" tabindex="-1"></a><span class="co"># SEM from differences</span></span>
+<span id="cb428-2"><a href="reliability-and-validity.html#cb428-2" tabindex="-1"></a><span class="fu">sd</span>(df_long_bias<span class="sc">$</span>ROM[df_long_bias<span class="sc">$</span>Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>] <span class="sc">-</span></span>
+<span id="cb428-3"><a href="reliability-and-validity.html#cb428-3" tabindex="-1"></a>   df_long_bias<span class="sc">$</span>ROM[df_long_bias<span class="sc">$</span>Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Peter&quot;</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 6.896154</code></pre>
+<p>This is a perfect match!</p>
 </div>
 <div id="bland-altman-plot" class="section level3 hasAnchor" number="5.1.8">
 <h3><span class="header-section-number">5.1.8</span> Bland-Altman Plot<a href="reliability-and-validity.html#bland-altman-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>…</p>
+<p>The Bland-Altman plot is a graphical method to compare two measurements
+techniques or raters. The goal is to spot systematic differences between the two
+methods/raters. On the x axis, we plot the average of the two measurements
+and on the y axis the difference between the two measurements. So, we could
+for instance see larger variability in points with higher average values,
+indicating that Peter and Mary disagree more for higher values.</p>
+<p>Let’s quickly draw one and explain it:</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="reliability-and-validity.html#cb430-1" tabindex="-1"></a><span class="fu">library</span>(BlandAltmanLeh)</span>
+<span id="cb430-2"><a href="reliability-and-validity.html#cb430-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb430-3"><a href="reliability-and-validity.html#cb430-3" tabindex="-1"></a>df_long_bias <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(df_long_bias)</span>
+<span id="cb430-4"><a href="reliability-and-validity.html#cb430-4" tabindex="-1"></a><span class="co"># https://cran.r-project.org/web/packages/BlandAltmanLeh/BlandAltmanLeh.pdf</span></span>
+<span id="cb430-5"><a href="reliability-and-validity.html#cb430-5" tabindex="-1"></a><span class="fu">bland.altman.plot</span>(df_long_bias[Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>, ]<span class="sc">$</span>ROM,</span>
+<span id="cb430-6"><a href="reliability-and-validity.html#cb430-6" tabindex="-1"></a>                  df_long_bias[Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Peter&quot;</span>, ]<span class="sc">$</span>ROM,</span>
+<span id="cb430-7"><a href="reliability-and-validity.html#cb430-7" tabindex="-1"></a>                  <span class="at">two =</span> <span class="fl">1.96</span>,</span>
+<span id="cb430-8"><a href="reliability-and-validity.html#cb430-8" tabindex="-1"></a>                  <span class="at">mode =</span> <span class="dv">1</span>,</span>
+<span id="cb430-9"><a href="reliability-and-validity.html#cb430-9" tabindex="-1"></a>                  <span class="at">conf.int =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<pre><code>## NULL</code></pre>
+<p>… describe.. LOA … and so on.</p>
 </div>
 </div>
 <div id="validity" class="section level2 hasAnchor" number="5.2">
@@ -1493,6 +1923,7 @@ shift the line up or down (i.e., introducce a bias).</p>
 <div id="todos" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> TODOS<a href="reliability-and-validity.html#todos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
+<li><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/cdoe.12617?casa_token=3IzTqt8cjzQAAAAA%3AhKH7i2yhPi9tIVbOz89JVMT2yuSuyhejGLcJqXVINfgo7kjxlkzzBhqu3iH0zW7ClZef0ivw790enq1I">table 2 fallacy</a></li>
 <li>mention missing values, missingness mechanisms -&gt; Methodenvertiefung</li>
 <li>Logistic Regression, Poisson, -&gt; Methodenvertiefung</li>
 <li>Exercise: Show by simulation what Gelman talks about with significant p values. So I scan the data

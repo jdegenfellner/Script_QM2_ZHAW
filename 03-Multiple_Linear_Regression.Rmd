@@ -1415,6 +1415,7 @@ df_age %>%
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
 ```
+
 Not quite normal, but we will assume it for now.
 
 #### Priors
@@ -1476,7 +1477,7 @@ sigma_vec <- runif(n_sims, 0, 50)
 BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
 ```
 
-This yields also negative values (please verify) for* BPSysAve*, which is not plausible.
+This yields also negative values (please verify) for *BPSysAve*, which is not plausible.
 
 In [exercise 15](#exercise15_multiple_regression) we will play around with the priors 
 until the prior predictive check producues plausible values. 
@@ -1592,12 +1593,12 @@ The results are similar to the Bayesian approach.
 In the summary output we see that the effect of physical activity is $-0.73693$
 with a small $p$-value ($0.051$). This is one example for the absurdity of strict cutoffs
 for $p$-values. The other coefficients including the estimate for $\sigma$ are also similar.
-It's alsways a good idea to double-check. 
+It's always a good idea to double-check. 
 
 Model fit could be better, the model thinks the blood pressure is normally distributed.
 There also seems to be some heteroscadasticity and the residuals are not normally distributed.
 
-**Usually**, one would fit this model by throwing in all variables into the model, including BMI.
+**By the way, usually**, one would fit this model by throwing in all variables into the model, including BMI.
 Let's see if this approach changes the results:
 
 ```{r}
@@ -1721,8 +1722,7 @@ After improving the model fit, we concluded that the small but clinically irrele
 from the first model dissapeared.
 It would be interesting to see how other variables containing more information 
 influence blood pressure, like *PhysActiveDays* (Number of days in a typical week 
-that participant does 
-moderate or vigorousintensity activity).
+that participant does moderate or vigorous intensity activity).
 
 ### Concluding remarks
 
