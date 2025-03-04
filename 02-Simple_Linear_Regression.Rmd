@@ -1683,11 +1683,11 @@ above ([Fit the model](#fit_model_simple_lin_reg_classic))
 in the classical framework.
 
 - Simulate data from the simple linear regression model 
-  using the estimated regression coefficients ($\hat{\beta_0} = 113.87939$,
+  using the estimated coefficients ($\hat{\beta_0} = 113.87939$,
   $\hat{\beta_1} = 0.90574$, \hat{\sigma} = 5.086).
 - Use the formulae from above to calculate $\beta_0$ and $\beta_1$ by "hand".
 - Change your true parameters ($\beta_0, \beta_1, \sigma$) and see how the 
-  estimates change and observe how the standard deviation of simulated heights, weights
+  estimates for the standard deviation of simulated heights, weights
   and the correlation between simulated heights and weights change.
 - Create a scatterplot to see the data as well.
 
