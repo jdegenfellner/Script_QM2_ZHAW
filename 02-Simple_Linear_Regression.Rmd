@@ -1703,8 +1703,10 @@ improves if the true (but usually unknown) slope increases.
 ### [H] Exercise 6 {#exercise6_simpl_lin_reg}
 
 Go to the model assumptions in the classical regression model ([Model Assumptions](#_model_assumptions)).
+
 - Use the code from [github](https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd) 
   to recreate the regression model with the sine-curve.
+
 - Check the independence assumption as described. Look at the residuals, when $X=2$ and $X=4.5$. 
   You can get those by filtering residuals that are $>0.5$ and $<0.5$.
 
@@ -1722,7 +1724,7 @@ Go to the model assumptions in the classical regression model ([Model Assumption
 
 ### [M] Exercise 9 {#exercise9_simpl_lin_reg}
 
-Go to the resuials [above](#normality_assumption) where we tested the normality assumption.
+Go to the residuals [above](#normality_assumption) where we tested the normality assumption.
 
 - Calcuate mean and standard deviation from the residuals of the model
   that regresses height on weight.
