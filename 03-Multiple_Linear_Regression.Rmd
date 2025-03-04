@@ -568,18 +568,20 @@ This is a very complex question. We will go into it in later chapters and the ne
 At this point we can say this:
 We add variables to the model (and probably use 
 other models apart from linear regression) *depending* on the goal at hand (prediction or explanation).
-Prediction seems to be easier than explanation. For instance, within linear models and 
-just a handful of predictors, one can even brute force the problem by searching through
-all subsets of predictors. If that is not possible, one could use clever algortithms, like 
-[best subest selection](https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/). 
 
-- What is **not** a good idea is to throw all variables into the model and hope for the best - 
-  especially if we want to learn the true relationships between the variables.
-- What is also not a good idea is to select variables depending on the $p$-values of the coefficients (Westfall Chapter 11).
-- **Leaving variables out**, that are important, can lead to biased estimates of the coefficients 
+- **Prediction** (i.e. guessing the outcome as good as possible) seems to be easier 
+  than explanation. For instance, within linear models and 
+  just a handful of predictors, one can even brute force the problem by searching through
+  all subsets of predictors. If that is not possible, one could use clever algortithms, like 
+  [best subest selection](https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/). 
+
+- **Explanation** (looking for causal relationships between variables) is more difficult.
+  - What is **not** a good idea if you want to find *causal* relationships,
+  is to throw all variables into the model and hope for the best.
+  - What is also not a good idea is to select variables depending on the $p$-values of the coefficients (Westfall Chapter 11).
+  - **Leaving variables out**, that are important, can lead to biased estimates of the coefficients 
   ([omitted variable bias](https://en.wikipedia.org/wiki/Omitted-variable_bias)).
-- Importantly, also **adding variables** can hurt conclusions from the model (see Statistical Rethinking 6.2).
-
+  - Importantly, also **adding variables** can hurt conclusions from the model (see Statistical Rethinking 6.2).
 
 ### Interaction Term $X_1 \times X_2$ {#interaction_term}
 
@@ -603,7 +605,9 @@ $$ \mathbb{E}(Y_i|X_1 = x_1; X_2 = x_2) = 10 + 0.5 x_1 + 1 x_2 + 0.89 x_1 \times
 $$ i = 1 \ldots n$$
 
 The second equation states that the conditional expectation of $Y_i$ given $X_1=x_1$ and $X_2=x_2$ 
-is a function of $x_1$ and $x_2$ and their interaction $x_1 \times x_2$ (i.e., the product). We are in a different situation now.
+is a function of $x_1$ and $x_2$ and their interaction $x_1 \times x_2$ (i.e., the product). 
+
+We are in a different situation now.
 Set for instance $x_2$ to a certain value, say $x_2 = 7$. Then the relationship (in expectation) 
 between $Y$ and $X_1$ is:
 
@@ -616,7 +620,7 @@ $X_1$ and $X_2$ **interact** with respect to $Y$. Remember, the word *effect* is
 used in a strictly technical/statistical sense and **not in a causal** sense.
 It does not mean that if we *do* change $X_1$ by one unit, 
 $Y$ will also change in an experiment. We are purely describing the relationship
-in an associative way. We will probably touch causality in a later chapter.
+in an associative way. We will probably touch causality later.
 Bayesian statistics and causal inference are gaining popularity. Hence, we should try to keep up.
 
 Let's draw 100 points from this model, fit the model and add the plane (see also [exercise 4](#exercise3_multiple_regression)):
