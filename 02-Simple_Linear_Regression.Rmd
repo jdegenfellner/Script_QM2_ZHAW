@@ -321,10 +321,11 @@ for (i in 1:100) {
 ```
 
 The `link` function fixes the weight at the values in `weight.seq` and
-draws samples from the posterior distribution of the parameters. We will do 
-the analog thing in the Frequentist framework.
+draws samples from the posterior distribution of the parameters. Above, 
+the first $100$ (of $1000$) rows are used.
 
-We can also draw a nice shade for the regression line:
+We can also draw a nice shade (using all 1000 rows of the $\mu$-matrix) 
+for the regression line:
 
 ```{r}
 # Summarize the distribution of mu
@@ -576,14 +577,23 @@ The question is **how** "badly" the assumptions are violated?
 
 Remember, **all models are wrong, but some are useful**.
 
-In full, the classical linear regression model can be written as:
+In full, **the classical linear regression model** can be written as:
 
 $$ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)$$
 for $i = 1, \dots, n$.
 
+Interpretation of this formula:
+
+The outcome variables $Y_i$ are independently (from each other, 
+since the errors are indepentent from each other) conditionally normally distributed
+(conditioned on $X_i=x_i$) with a mean that is linearly depending on
+true but unknown parameters $\beta_0, \beta_1, \dots, \beta_k$ and a 
+constant variance $\sigma^2$.
+
 ### Fit the model {#fit_model_simple_lin_reg_classic}
 
-Again, we fit the model using the least squares method. For a neat animated explanation, 
+Again, we fit the model using the [**least squares method**](https://en.wikipedia.org/wiki/Least_squares). 
+For a neat animated explanation, 
 visit [this video](https://www.youtube.com/watch?v=jEEJNz0RK4Q&ab_channel=COCCmath).
 There are literally hundreds of videos on the topic. Choose wisely. Not all are good.
 If in doubt, use our recommended books as reading materials. This is the most reliable source.
@@ -630,9 +640,10 @@ summary(mod)
 - `Call`: The model that was fitted.
 - `Residuals`: $r_i = height_i - \widehat{height}_i$. 
    Differences between true heights and model-predicted heights.
-- `Coefficients`: Estimated for $\beta_0$ and $\beta_1$. We call them $\hat{\beta}_0$ and $\hat{\beta}_1$.
+- `Coefficients`: Names for $\beta_0$ and $\beta_1$. We call them $\hat{\beta}_0$ and $\hat{\beta}_1$.
    - `Estimate`: The (least squares) estimated value of the coefficient.
-   - `Std. Error`: The standard error of the estimate.
+   - `Std. Error`: The standard error of the estimate. 
+                   This is a measure of how precise the estimator for the coefficient is.
    - `t value`: The value of the $t$-statistic for the (Wald-) hypothesis test
         $H_0: \beta_i = 0$.
    - `Pr(>|t|)`: The $p$-value of the hypothesis test. 
@@ -652,11 +663,11 @@ values of $\beta_0$ and $\beta_1$ that minimize the sum of squared differences
 which can be plotted as 3D function. Since the function is a sum of squared terms,
 we should expected a paraboloid form.
 All we have to do is to ask R which of 
-the coordinates ($\beta_0$, $\beta_1$) minimizes the sum of squared errors. The result confirmes
+the coordinates ($\beta_0$, $\beta_1$) minimizes the sum of squared errors. 
+The result confirms
 the results from the `lm` function. The dot in red marks the spot 
 (Code is in the [git repository](https://github.com/jdegenfellner/Script_QM2_ZHAW)):
 
-**---COMPILE CODE AT DEOPLOYMENT (takes a bit)---**
 
 ```{r, echo=FALSE, eval=TRUE}
 library(pacman)
@@ -718,7 +729,7 @@ confint(mod, level = 0.96)
 
 Remember, these are Frequentist confidence intervals. 
 
-**If one repeats the experiment
+**If one repeats the experiment (i.e. draws new data from the true model)
 many times, the true but unknown value of the parameter will 
 be in the interval in 96% of the cases.**
 
@@ -870,7 +881,6 @@ the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
 is the distance from the regression line to the point (unexplained variance).
 We see that it adds up. I find this fact quite fascinating.
-One finds additivity by considering not determinisic values, but variances.
 Thank you [Ronald Fisher](https://en.wikipedia.org/wiki/Analysis_of_variance#:~:text=ANOVA%20was%20developed%20by%20the,to%20different%20sources%20of%20variation.).
 
 See [exercise 13](#exercise13_simpl_lin_reg).
@@ -1114,7 +1124,7 @@ Thus, the evaluation of the assumptions should involve subject matter knowledge.
 $p$-values to evaluate model assumptions are not a good idea. To [quote](https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108#d1e949) the 
 American Statistical Association (ASA): "By itself, a $p$-value does not provide a good measure 
 of evidence regarding a model or hypothesis."
-Deicision-tree thinking might not be the best idea for statistical modeling.
+Decision-tree thinking might not be the best idea for statistical modeling.
 
 We will not use hypothesis tests for assumptions, because
 
@@ -1239,6 +1249,8 @@ less with the height at time $t-2$ and so on. If I am tall today, it is
 very likely that I was tall yesterday.
 
 In our case of the !Kung San data, we do not have autocorrelated data.
+Just because the first person we drew is tall, does not mean that the second
+person we draw is tall. We could draw a very young person for instance.
 
 But still, we could look at the correlations the residuals with lagged residuals. 
 A $lag=1$ means I compare the residuals with the ones right next to me and check if
@@ -1265,6 +1277,10 @@ It least with a lag of $1$, there so no large correlation between the residuals.
 This assumptions states that the conditional distribution $Y|X=x$ 
 is a normal distribution. We do not look at the normality of $Y$ itself,
 since it is not a formal requirement, that $Y$ is normally distributed.
+It might well occur that the conditional distributions are all normal,
+but the variance is not constant. Then we would have heteroskedasticity,
+but the assumption of normality would be fullfilled.
+
 We need to assess the normality of the residuals $$e_i = y_i - \hat{y}_i$$
 I like doing this with a [Q-Q plot](https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html#q-q-plots) 
 from the R package `car` (command `qqPlot`):
@@ -1292,7 +1308,7 @@ library(performance)
 check_model(mod)
 ```
 
-In this case, everything looks fine. Let's go through the plots and explain them one by one:
+In this case, everything looks fine. Let`s go through the plots and explain them one by one:
 
 ##### Posterior predictive check (upper left)
 
@@ -1303,16 +1319,17 @@ You could also try the command `extract.samples()`from the `rethinking` package
 new data from the Frequentist model. You can try this in our exercises sessions. 
 Using least squares, the estimated model was:
 $$ height_i = 113.87939 + 0.90503 \cdot weight_i + Normal(0, 5.086) $$
-From this model, we can simulate new data (or the original weights, if we want to use fixed X) 
+From this model, we can simulate new data (or the original weights, if we want to use fixed $X$) 
 by plugging in different weights, and adding a random error from a normal distribution 
 with mean 0 and standard deviation 5.086.
 Then, we can compare the distribution of the simulated data with the observed data.
-The blue lines in the graph are model predicted heights, the green line are the
+The blue lines in the graph (output from `check_model`) are density 
+estimations of model predicted heights, the green line is the density estimate of the
 observed heights. 
 
-Let's try to replicate this plot.
+Let`s try to replicate this plot.
 First, we want to simulate new data from the model.
-A scatter plot is also a nice way to check of the model predictions
+A scatter plot is another nice way to check if model predictions
 are in line with the observed data. One could repeat this process
 multiple times to get a feeling for the variability of the model predictions.
 
@@ -1369,7 +1386,7 @@ legend("topright", legend = c("Observed", "Simulated"),
 
 As you can see, the densities of the observed and simulated data are broadly similar.
 One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
-Depending on the context, this might be a problem or not. Let's accept the model for now.
+Depending on the context, this might be a problem or not. Let`s accept the model for now.
 
 ##### Linear fit (upper right)
 This is the same plot as [above](#linearity): $(\hat{y}_i, e_i)$.
@@ -1389,12 +1406,12 @@ are on the y-axis. In short, a high leverage means that the estimated value $\ha
 is potentially far away from the original value $y_i$. 
 The contours (dotted green lines) are the Cook's distance, in this 
 case at a Cook's distance of 0.5.
-There is [formula](https://en.wikipedia.org/wiki/Cook%27s_distance#Relationship_to_other_influence_measures_(and_interpretation))
+There is a [formula](https://en.wikipedia.org/wiki/Cook%27s_distance#Relationship_to_other_influence_measures_(and_interpretation))
 that relates the leverage ($h_{ii}$), the Cook's distance
 and the residuals. Holding Cook`s distant constant at 0.5, 
 gives you the green dotted line in the plot.
 
-Let's create an outlier and see what happens:
+Let`s create a nasty outlier and see what happens:
 
 ```{r, echo=FALSE}
 library(rethinking)
@@ -1441,7 +1458,7 @@ coef(mod2)
 Admitted, this is a somewhat artificial example.
 
 ##### Normality of residuals (lower left)
-This is basically the same plot as above, just [detrended](https://cran.r-project.org/web/packages/qqplotr/vignettes/introduction.html). 
+This is basically the same plot as [above](#normality_assumption), just [detrended](https://cran.r-project.org/web/packages/qqplotr/vignettes/introduction.html). 
 Let's try to replicate it:
 
 ```{r, echo=FALSE, warning=FALSE}
@@ -1485,13 +1502,13 @@ or exclude points.
 and we feel comfortable with the model, we get exact confidence intervals
 for the effect sizes ($\beta$s) using `confint()` (p. 74 in Westfall).
 
-Heureka! We have a model that fits the data well.
+**Heureka!** We have a model that fits the data well.
 
 ### Bootstrap fit
 In order to get a feeling for the variability of the model with regards to the predictors as well, 
 we can bootstrap the whole data set, fit the model and draw regression lines.
 We create $100$ bootrap replicates of our data set `d2` by drawing with 
-replication. For every bootstrap replicate, we fit the model and draw the regression line.
+repetition. For every bootstrap replicate, we fit the model and draw the regression line.
 
 ```{r, echo=FALSE, warning=FALSE}
 # Required Libraries
@@ -1536,10 +1553,11 @@ ggplot(mod$model, aes(x = .data[[names(mod$model)[2]]], y = .data[[names(mod$mod
     x = "Predictor",
     y = "Response"
   ) +
-  theme_minimal()
+  theme_minimal() + 
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
-The results is very stable. Neither intercept nor slope change much.
+The result is very stable. Neither intercept nor slope change much.
 
 ### Regression towards the mean
 
