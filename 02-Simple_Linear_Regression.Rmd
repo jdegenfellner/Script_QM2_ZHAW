@@ -1695,10 +1695,13 @@ in the classical framework.
 
 Verify the statement above in the text for high and low values of $R^2$.
 
-### [M] Exercise 5 {#exercise5_simpl_lin_reg}
+### [H] Exercise 5 {#exercise5_simpl_lin_reg}
 
 Verify with simulation in R that the separation of the distributions in the simple linear regression model
 improves if the true (but usually unknown) slope increases.
+The code for the plots can be found 
+[here](https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd).
+Hint: Use GPT for coding.
 
 ### [H] Exercise 6 {#exercise6_simpl_lin_reg}
 
