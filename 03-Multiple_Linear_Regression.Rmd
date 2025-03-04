@@ -728,7 +728,7 @@ The $p$-value is the probability of observing a value of the F statistic as extr
 extreme than the one we observed, given that the null hypothesis is true. Here, 
 the $p$-value is extremely small. So, statistically we would see an improvement in RSS
 which is not explainable by chance alone.
-But **let's be careful with $p$-values** and especially with fixed cutoff values for $\alpha$, 
+But **let's be careful with $p$-values** and especially with fixed cutoff values for $p$, 
 which we will **never** use in this script.
 Even for a rather small effect $\beta_3$, we would reject the null hypothesis, if only the sample
 size is large enough. Since a very small effect relative to $\beta_1$ and $\beta_2$ would
@@ -742,11 +742,11 @@ The difference is huge. We have already mentioned in the context of $R^2$ not to
 such metric, because RSS is monotonically descreasing with number of variables added and reaches
 zero when the number of variables equals the number of data points (see [exercise 3](#exercise3_multiple_regression)).
 
-### Using an interaction plot to see a potential interaction {#interaction_plot}
+### Using an interaction plot to suspect a potential interaction {#interaction_plot}
 
 Chronologically before we include an interaction term in the model, we can use an interaction plot
 to see if there is a potential interaction between the predictors.
-We can just create a catorical predictor out of the continuous predictors.
+We can just create a categorical predictor out of the continuous predictors.
 Just categorize the predictors into quartiles and plot the means of the dependent variable ($Y$).
 If the lines are parallel, there is probably no interaction. If the lines are not parallel, 
 there might be an interaction.
@@ -831,9 +831,6 @@ ggplot(d, aes(x = training, y = strength, color = age)) +
      is therefore a [*confounder*](https://en.wikipedia.org/wiki/Confounding) in the relationship between *training* and *strength*. 
      Not adjusting (=including it in the regression model as predictor) for *age* leads to a misleading association.
 
-This (fictitious) example shows that throwing variables into a multiple regression 
-model without thinking about it, is not a good idea.
-
 ## What happens when you just throw variables into multiple regression? {#throwing_variables}
 
 This sub-chapter is **important**. I can guarantee you that not too many applied 
@@ -850,14 +847,14 @@ way and explains this in a
 We will look at these below - **the pipe, the fork and the collider**. These are causal graphs showing the 
 relationships between the variables. One is interested in the **effect** of X on Y.
 In this case, it is truly an *effect*, since we create the models in such a way that changing
-one variable, changes the other - which is indicated by an arrow in the graph.
+one variable ($X$), changes the other ($Y$) - which is indicated by an arrow in the graph.
 These graphs are called DAGs - directed acyclic graphs. *Directed* because of the arrows,
 *acyclic* because there are no cycles in the graph. One nice tool for drawing them is
 [dagitty](https://www.dagitty.net/), which is also 
 [implemented in R](https://cran.r-project.org/web/packages/dagitty/index.html).
 The [online drawing tool](https://www.dagitty.net/dags.html) is handy.
 
-Note: Not only can it hurt to add variables to the model in an explanatory (causal) context,
+**Remember**: Not only can it hurt to add variables to the model in an explanatory (causal) context,
 but also in a predictive context. The model can become unstable and the predictions
 can become worse. This is called [overfitting](https://en.wikipedia.org/wiki/Overfitting).
 
@@ -964,6 +961,7 @@ low number of hours and achieve good results. If we know that a person has gaine
 *understanding/knowledge*, the *hours of studying* do not give us any additional 
 information with respect to *exam performance*.
 
+So, in order to see the effect of $X$ on $Y$, we do *not* condition on $Z$.
 
 ### Fork {#fork}
 
