@@ -1710,8 +1710,7 @@ Go to the model assumptions in the classical regression model ([Model Assumption
 - Use the code from [github](https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd) 
   to recreate the regression model with the sine-curve.
 
-- Check the independence assumption as described. Look at the residuals, when $X=2$ and $X=4.5$. 
-  You can get those by filtering residuals that are $>0.5$ and $<0.5$.
+- Use the autocorrelation function `acf` to check for autocorrelation in the residuals.
 
 ### [M] Exercise 7 {#exercise7_simpl_lin_reg}
 

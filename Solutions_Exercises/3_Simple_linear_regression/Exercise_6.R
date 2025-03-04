@@ -1,7 +1,7 @@
 set.seed(123)
 
 # Generate data from a sine function
-x <- seq(0, 2 * pi, length.out = 100)       # Predictor variable
+x <- seq(0, 2 * pi, length.out = 250)       # Predictor variable
 true_y <- sin(x)                            # True values based on sine function
 
 plot(x, true_y, type = "l", col = "blue", lwd = 2, 
@@ -21,3 +21,12 @@ linear_model <- lm(observed_y ~ x)
 
 # add regression line 
 abline(linear_model, col = "green", lwd = 2)
+
+res <- residuals(linear_model)
+hist(res)
+
+# Extract residuals
+res <- residuals(linear_model)
+
+# Autocorrelation function (ACF) plot
+acf(res, main = "Autocorrelation of Residuals", col = "blue", lwd = 2)
