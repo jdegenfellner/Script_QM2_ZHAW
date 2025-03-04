@@ -50,7 +50,8 @@ can become quite large. Using a polynomial of high degree implies to have a lot 
 to estimate. Increasing the degree of the polynomial increases $R^2$ but also the risk of overfitting.
 (see Statistical Rethinking p. 200). So this is - of course - not the final solution to regression problems.
 
-This time, lets look at the whole age range of data from the !Kung San people.
+This time, lets look at the whole age range of data from the !Kung San people
+including people with age $\le 18$ years.
 
 ```{r}
 library(rethinking)
@@ -71,7 +72,7 @@ The blue line is the usual line from classic linear regression (from the previou
 Which one describes the data more accurately? 
 In this case it is obvious, a non-linear relationship is present and it might be a good idea 
 to model it. Modeling the relationship with a linear trend leads to bad residuals with structure.
-We will demonstrate this in the freuqentist setting.
+We will demonstrate this in the Frequentist setting.
 Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
 
 This time, we use the mean for the prior from the book ($178 cm$).
@@ -130,7 +131,7 @@ plot(precis(m4.1, pars = c("b1", "b2", "sigma")))
 $\beta_2$ is indeed negative. 
 In the estimate-plot above I have left out the intercept $\alpha$ to 
 make the other coefficients more visible. As you can see, the credible intervals
-are very tight. Using prior knowledge an data, the model is very sure about the 
+are very tight. Using prior knowledge and data, the model is very sure about the 
 coefficients.
 We get our **[joint distribution](https://en.wikipedia.org/wiki/Joint_probability_distribution)** 
 of the **four model parameters**.
@@ -191,15 +192,25 @@ legend("topright", legend = c("Observed Data", "Simulated Data"),
 
 ```
 
-This fits much better than the linear model without the quadratic term. In the book,
-there is also a polynomial regression with a cubic term for weight.
 The second plot shows the original heights and simulated heights from the 
 posterior distribution in one plot. This fits quite well.
+
+The quadratic model fits much better than the linear model without the quadratic term. 
+In the book, there is also a polynomial regression with a cubic term for weight.
 Maybe this fits even better (see [exercise 1](#exercise1_multiple_regression)).
+
+The quadratic model has a very high $R^2$ value. In this case,
+this is a good sign. The height values "wiggle" around the fitted curve
+very narrowly. We do not need other variables to explain the heights.
+In short: If you know a person's weight, you can predict the height very well
+(in this population at least). One might hypothesize that the population
+behaves rather similarly with respect to nutritional and life style factors.
+If different groups within the !Kung San people would have high calorie intake
+and few physical activity, the model would probably not fit so well.
 
 ### Adding another predictor to the model {#adding_predictor_bayes}
 
-Since the !Kung San data set has already such a high $R^2$ with the quadratic term 
+Since the !Kung San data set has already such a high $R^2$ ($=0.95$!) with the quadratic term 
 (and possibly higher with the cubic term), we will use the created data set from 
 [below](#adding_predictor_freq) in the frequentist setting
 to estimate the coefficients of the model with two predictors here as well.
