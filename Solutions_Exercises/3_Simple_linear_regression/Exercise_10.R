@@ -24,3 +24,9 @@ summary(mod_wh)
 plot(d2$height, d2$weight, pch = 19, col = "blue", xlab = "Height", ylab = "Weight")
 abline(mod_wh)
 abline(-125.8294, 1.104936, col = "red")
+
+
+# if cor=1, regression lines are identical
+
+# depending which variable I want to predict or explain with which one,
+# the analysis could be wrong.
