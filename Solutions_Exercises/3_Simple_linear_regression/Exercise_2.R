@@ -19,11 +19,12 @@ mod <- quap(
 precis(mod)
 
 post <- extract.samples(mod)
-
+dim(post)
+head(post)
 # basic density plots using dens from package rethinking------
-dens(post$a)
-dens(post$b)
-dens(post$sigma)
+dens(post$a) # alpha
+dens(post$b) # beta
+dens(post$sigma) # sigma
 
 # density of a using ggplot and 99% credible interval:---------
 # Compute the 99% credible interval
@@ -66,8 +67,10 @@ ggplot(density_df, aes(x = x, y = y)) +
 
 # density of sigma using ggplot and 99% credible interval:-----
 # Compute the 99% credible interval
-ci_lower <- quantile(post$sigma, 0.005)
-ci_upper <- quantile(post$sigma, 0.995)
+( ci_lower <- quantile(post$sigma, 0.005) )
+( ci_upper <- quantile(post$sigma, 0.995) )
+mean(post$sigma) # sigma hat
+median(post$sigma) # sigma median
 
 # Create density data
 density_data <- density(post$sigma)
@@ -83,8 +86,10 @@ ggplot(density_df, aes(x = x, y = y)) +
   labs(title = "Density of sigma with 99% Credible Interval", x = "sigma", y = "Density") + 
   theme(plot.title = element_text(hjust = 0.5))
 
-
-
+post$sigma
+post$sigma > 6
+sum(post$sigma > 6) / length(post$sigma)
+mean(post$sigma > 4.5 & post$sigma < 5) # 0.3452 a posteriori
 
 
 

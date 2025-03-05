@@ -1270,7 +1270,7 @@ cat("cor=",cor(residuals, residuals_lagged, use = "pairwise.complete.obs"))
 plot(residuals, residuals_lagged)
 ```
 
-It least with a lag of $1$, there so no large correlation between the residuals.
+At least with a lag of $1$, there so no large correlation between the residuals.
 
 #### Normality {#normality_assumption}
 

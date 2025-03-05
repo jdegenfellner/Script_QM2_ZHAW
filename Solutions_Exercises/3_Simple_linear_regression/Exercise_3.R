@@ -14,26 +14,41 @@ summary(d2$weight)
 sd(d2$weight)
 dim(d2)
 
+mod <- lm(height ~ weight, data = d2)
+summary(mod)
+
+# Simulate new heights from the model! 100 new heights
+# sigma = 5.086
+# beta_0 = 113.87939
+# beta_1 = 0.90574
+
+# produce a single new height in cm for a person of 67 kg:
+113.87939 + 0.90574*45 + rnorm(1, 0, 5.086)
+
+dim(d2) # 352 people in the sample
+
 height <- numeric(352)
 weight <- numeric(352)
+hist(d2$weight)
+mean(d2$weight) # 44.99 kg
+sd(d2$weight) # 6.456708 kg
+#shapiro.test(d2$weight) # don't do this!
 
 # simulate data from model-----------
 for (i in 1:352) {
   weight[i] <- rnorm(1, 45, 6.45) # draw new weights
   height[i] <- 113.87939 + 0.90574 * weight[i] + rnorm(1, 0, 5.086 ) # draw new heights from the model
 }
+plot(weight, height, xlab = "weight", ylab = "height", main = "weight height plot")
 
 # manual estimates by "hand":
 # beta_1 = 
-( beta_1_hat <- cor(weight, height)*sd(height)/(sd(weight)) )
+( beta_1_hat <- cor(weight, height) * sd(height)/(sd(weight)) )
 # beta_0 =
 ( beta_0_hat <- mean(height) - beta_1_hat * mean(weight) )
 # -> reconstructs nicely the true coefficients!
 
 cor(weight, height)
-
-# plot height weight
-plot(height, weight, xlab = "height", ylab = "weight", main = "height weight plot")
 
 # change parameters----------
 # _change intercept:---------
