@@ -50,6 +50,10 @@ We **always** visualize the data first to improve our understanding.
 First comes descriptive statistics, then one can think about modeling.
 
 ```{r}
+library(rethinking)
+data(Howell1)
+d <- Howell1
+d2 <- d[d$age >= 18, ]
 plot(d2$height ~ d2$weight)
 ```
 
@@ -171,7 +175,7 @@ One possibility to do this
 is to use a [log-normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) 
 for the prior of $\beta$ which can only take non-negative values.
 
-$$ \beta \sim \text{Log-Normal}(0, 1) $$
+$$\beta \sim \text{Log-Normal}(0, 1)$$
 
 Lets plot the priors again.
 
@@ -461,7 +465,7 @@ I recommend reading the first couple of chapters from [Westfall](https://www.rou
 
 Our linear model is defined as:
 
-$$ h_i = \beta_0 + \beta_1 x_i + \varepsilon_i $$
+$$h_i = \beta_0 + \beta_1 x_i + \varepsilon_i$$
 
 where
 
@@ -473,7 +477,7 @@ where
 
 The first and **most important assumption** is that the data are produced  
 probabilistically, which is specifically stated as
-$$ Y|X = x \sim p(y|x)$$
+$$Y|X = x \sim p(y|x)$$
 
 What does this mean? 
 
@@ -579,7 +583,7 @@ Remember, **all models are wrong, but some are useful**.
 
 In full, **the classical linear regression model** can be written as:
 
-$$ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)$$
+$$Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)$$
 for $i = 1, \dots, n$.
 
 Interpretation of this formula:
@@ -604,7 +608,7 @@ the vast amount of training data.
 One has to minimize the sum of squared differences between the true heights and 
 the model-predicted heights in order to find $\beta_0$ and $\beta_1$.
 
-$$ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 $$
+$$SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2$$
 
 We omit the technical details (set derivative to zero and solve the system) and give the results for $\beta_0$ and $\beta_1$:
 
@@ -800,11 +804,11 @@ into two parts:
 - The variability explained by the model (the regression line): SSR
 - The variability not explained by the model (the residuals): SSE
 
-$$ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} $$
+$$\text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors}$$
 
-$$ SST = SSR + SSE $$
+$$SST = SSR + SSE$$
 
-$$ \sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
+$$\sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^{n} (y_i - \hat{y}_i)^2$$
 
 If you are interested in the details, check out [this](https://en.wikipedia.org/wiki/Explained_sum_of_squares#Partitioning_in_the_general_ordinary_least_squares_model).
 
@@ -897,7 +901,7 @@ and the variance not explained by the model (SSE).
 
 Maybe the most intuitive definition of $R^2$ is:
 
-$$ R^2 = \frac{SSR}{SST} = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}$$
+$$R^2 = \frac{SSR}{SST} = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}$$
 
 The value is between 0 and 1. The higher the value, the more variance is explained.
 But be cautious. Depending on the context, a really high $R^2$ is not 
@@ -1281,7 +1285,7 @@ It might well occur that the conditional distributions are all normal,
 but the variance is not constant. Then we would have heteroskedasticity,
 but the assumption of normality would be fullfilled.
 
-We need to assess the normality of the residuals $$e_i = y_i - \hat{y}_i$$
+We need to assess the normality of the residuals $e_i = y_i - \hat{y}_i$
 I like doing this with a [Q-Q plot](https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html#q-q-plots) 
 from the R package `car` (command `qqPlot`):
 
@@ -1318,7 +1322,9 @@ You could also try the command `extract.samples()`from the `rethinking` package
 (Statistical Rethinking p. 196) to create
 new data from the Frequentist model. You can try this in our exercises sessions. 
 Using least squares, the estimated model was:
-$$ height_i = 113.87939 + 0.90503 \cdot weight_i + Normal(0, 5.086) $$
+
+$$height_i = 113.87939 + 0.90503 \cdot weight_i + Normal(0, 5.086)$$
+
 From this model, we can simulate new data (or the original weights, if we want to use fixed $X$) 
 by plugging in different weights, and adding a random error from a normal distribution 
 with mean 0 and standard deviation 5.086.
@@ -1676,7 +1682,7 @@ Look at the marginal distrubutions of the parameters in the Bayesian model.
 - Plot the posterior distribution of all 3 parameters.
 - Include in the plot a 99% credible interval (HDI).
 
-### [M] Exercise 3 {#exercise3_simpl_lin_reg}
+### [H] Exercise 3 {#exercise3_simpl_lin_reg}
 
 Go to the coefficient estimates in the simple linear regression setting 
 above ([Fit the model](#fit_model_simple_lin_reg_classic))
@@ -1684,7 +1690,7 @@ in the classical framework.
 
 - Simulate data from the simple linear regression model 
   using the estimated coefficients ($\hat{\beta_0} = 113.87939$,
-  $\hat{\beta_1} = 0.90574$, \hat{\sigma} = 5.086).
+  $\hat{\beta_1} = 0.90574$, $\hat{\sigma} = 5.086$).
 - Use the formulae from above to calculate $\beta_0$ and $\beta_1$ by "hand".
 - Change your true parameters ($\beta_0, \beta_1, \sigma$) and see how the 
   estimates for the standard deviation of simulated heights, weights

@@ -188,7 +188,7 @@ There is
 score and 
 - the observed score $Y_i$.
 
-$$ Y_i = \eta_i + \varepsilon_i $$
+$$Y_i = \eta_i + \varepsilon_i$$
 
 It is assumed that $\eta_i$ and $\varepsilon_i$ are independent: ($\mathbb{C}ov(\eta_i, \varepsilon_i)=0$).
 This is a nice assumption because now we know (see [here](https://en.wikipedia.org/wiki/Variance#Addition_and_multiplication_by_a_constant)) 
@@ -196,8 +196,8 @@ that the variance
 of the observed score $Y_i$ is just the sum of the variance of the true score $\eta_i$
 and the variance of the error term $\varepsilon_i$:
 
-$$ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) $$
-$$ \sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2 $$
+$$\mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i)$$
+$$\sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2$$
 
 We want most of the variability in our observed scores $Y_i$ to be explained by the 
 true but unobservable scores $\eta_i$. The measurement error $\varepsilon_i$ should be
@@ -213,8 +213,7 @@ or measure the same person twice and the score ($\eta$) does not change in betwe
 $$Y_1 = \eta + \varepsilon_1$$
 $$Y_2 = \eta + \varepsilon_2$$
 
-$$cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) = 
-\frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  = $$
+$$cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) = \frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  =$$
 
 If we use 
 
@@ -222,8 +221,8 @@ If we use
 - the fact that the true score $\eta$ and the errors $\varepsilon_i$ are independent, and 
 - the fact that the errors $\varepsilon_1$ and $\varepsilon_2$ are independent, we get:
 
-$$ \frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  = $$
-$$ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}$$
+$$\frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  =$$
+$$\frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}$$
 
 Since $\eta$ is a random variable (we draw a person randomly from the population),
 it is well defined to talk about the variance of $\eta$ (i.e., $\sigma_{\eta}^2$).
@@ -248,8 +247,7 @@ A little manipulation to improve understanding:
 Let's look again at the term for the ICC above and divide the numerator and the denominator by
 $\sigma_{\eta}^2$, which we can do, since it is a positive number:
 
-$$ \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} = 
-\frac{1}{1 + \frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}}$$
+$$\frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} = \frac{1}{1 + \frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}}$$
 
 We could call the term $\frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}$ the noise-to-signal ratio.
 The higher this ratio, the lower the ICC. The lower the ratio, the higher the ICC.
@@ -441,12 +439,11 @@ of the ICC, an additional variance component.
 
 From the same statistical model (!) we take the variance components to calculate:
 
-$$ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + 
-\mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}$$
+$$ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}$$
 
 where $\sigma_{rater}^2$ is the variance due to systematic rater differences.
 
-$$$ ICC_{consistency} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$$
+$$ICC_{consistency} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}$$
 
 We will now introduce the 5 degree bias and use our Bayesian 
 framework to estimate the ICC.
@@ -495,11 +492,13 @@ a learning effect or something.
 Draw model structure ... exercise..
 
 ```{r}
+library(rethinking)
+library(conflicted)
+conflicts_prefer(posterior::sd)
 df_long_bias <- df_long %>%
   mutate(ROM = ROM + ifelse(Rater == "ROMas.Mary", 5, 0))
 head(df_long_bias)
 
-library(rethinking)
 set.seed(123)
 m5.2 <- ulam(
   alist(
@@ -507,13 +506,13 @@ m5.2 <- ulam(
     ROM ~ dnorm(mu, sigma_eps),
     
     # Model for mean ROM with patient and rater effects
-    mu <- alpha[ID] + beta[Rater],  
+    mu <- alpha[ID] + beta[Rater],
     
     # Patient-specific random effects
-    alpha[ID] ~ dnorm(mu_alpha, sigma_alpha),  
+    alpha[ID] ~ dnorm(mu_alpha, sigma_alpha),
     
     # Rater effect (Peter/Mary)
-    beta[Rater] ~ dnorm(0, sigma_beta),  
+    beta[Rater] ~ dnorm(0, sigma_beta),
     
     # Priors for hyperparameters
     mu_alpha ~ dnorm(66, 10),  # Population mean ROM
@@ -530,7 +529,7 @@ precis(m5.2)
 
 # check systematic difference for rater in posterior
 post <- extract.samples(m5.2)
-mean(post$beta[,1] - post$beta[,2])  
+mean(post$beta[,1] - post$beta[,2])
 
 # ICC agreement:
 post <- extract.samples(m5.2)
@@ -563,11 +562,12 @@ elicit the ICC.
 **`psych` package**:
 ```{r}
 library(psych)
+library(conflicted)
 # needs wide format
-conflicts_prefer(dplyr::select)
+#conflicts_prefer(dplyr::select)
 df_wide <- df_long_bias %>%
   pivot_wider(names_from = Rater, values_from = ROM)
-df_wide_values <- df_wide %>% select(-ID)
+df_wide_values <- df_wide %>% dplyr::select(-ID)
 psych::ICC(df_wide_values) # ICC1 = 0.83
 ```
 
@@ -612,13 +612,13 @@ Let's talk about the first three **ICCs in the `psych` output**:.
   This is the ICC we calculated above; the overall ICC. 
   in the book and based on the following model:
   
-  $$ Y_{ij} = \eta_i + \varepsilon_i $$
+  $$Y_{ij} = \eta_i + \varepsilon_i$$
   where $i \in {1,...,50}$ is the patient and $j \in {1,2}$ is the *measurement* 
   ($=50*2=100$ rows in long format).
   Note that we do not mention a rater here, since we do not care who took the
   measurement. It is not part of the model. The ICC is then calculated as:
 
-  $$ ICC = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
+  $$ICC = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
   
   whereas we could get the variance components from either the posterior in the Bayesian
   setting or from the `lmer` output in the Frequentist setting.
@@ -635,12 +635,11 @@ Let's talk about the first three **ICCs in the `psych` output**:.
   A random sample of k (2 in our case) judges means that we cannot rule out the variability
   due to raters (you get a variety of them and their biases are different).
   
-  $$ Y_{ij} = \eta_i + \beta_j + \varepsilon_i $$
+  $$Y_{ij} = \eta_i + \beta_j + \varepsilon_i$$
   where $i \in {1,...,50}$ is the patient, $j \in {1,2}$ is the **rater** 
   (doing one measurement in each patient). The ICC is then calculated as:
   
-  $$ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + 
-  \sigma_{\varepsilon}^2}$$
+  $$ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}$$
 
 - **Single_fixed_raters ICC3:**
   ICC3 ($=ICC_{consistency}$ in the book) is based on the **same model as ICC2**, 
@@ -655,7 +654,7 @@ Let's talk about the first three **ICCs in the `psych` output**:.
   There is no generalization to a larger population of judges."
   The ICC is then calculated as:
 
-  $$ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
+  $$ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}$$
 
   ICC1 and ICC3 are **not** identical, since ICC1 does not consider the rater variability
   in the model. They are based on *different* statistiacal models.
@@ -682,12 +681,12 @@ library(pacman)
 p_load(conflicted, tidyverse, flextable)
 
 # Ensure select() from dplyr is used
-conflicts_prefer(dplyr::select)
+#conflicted::conflicts_prefer("select", "dplyr")
 
 # Unbiased ICC Calculation
 df_wide_unbiased <- df_long %>%
   pivot_wider(names_from = Rater, values_from = ROM)
-df_wide_values_unbiased <- df_wide_unbiased %>% select(-ID)
+df_wide_values_unbiased <- df_wide_unbiased %>% dplyr::select(-ID)
 icc_results_unbiased <- psych::ICC(df_wide_values_unbiased)
 
 # Extract relevant ICC values
@@ -698,13 +697,13 @@ icc_unbiased_df <- icc_results_unbiased$results %>%
 # Biased ICC Calculation
 df_wide_biased <- df_long_bias %>%
   pivot_wider(names_from = Rater, values_from = ROM)
-df_wide_values_biased <- df_wide_biased %>% select(-ID)
+df_wide_values_biased <- df_wide_biased %>% dplyr::select(-ID)
 icc_results_biased <- psych::ICC(df_wide_values_biased)
 
 # Extract relevant ICC values
 icc_biased_df <- icc_results_biased$results %>%
   dplyr::select(type, ICC) %>%
-  rename(`Biased ICC` = ICC)
+  dplyr::rename(`Biased ICC` = ICC)
 
 icc_merged_df <- left_join(icc_unbiased_df, 
                            icc_biased_df, 
@@ -969,17 +968,17 @@ $ICC_{agreement}$ the error term includes the rater variability $\sigma_{rater}$
 
 For ICC2 and 3 the model is the same and:
 
-$$ Y_{ij} = \eta_i + \beta_j + \varepsilon_i $$
+$$Y_{ij} = \eta_i + \beta_j + \varepsilon_i$$
 
 For $ICC_{agreement}$, the SEM is then:
-$$ \sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\text{rater}}^2 + \sigma_{\varepsilon}^2}_{SEM_{agreement}^2} $$
+$$\sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\text{rater}}^2 + \sigma_{\varepsilon}^2}_{SEM_{agreement}^2}$$
 
 
 For $ICC_{consistency}$, the SEM is then:
-$$ \sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\varepsilon}^2}_{SEM_{consistency}^2} $$
+$$\sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\varepsilon}^2}_{SEM_{consistency}^2}$$
 
 And since ICC 2 and 3 are based on the same model:
-$$ SEM_{consistency} \le SEM_{agreement}$$
+$$SEM_{consistency} \le SEM_{agreement}$$
 (equality if there is no bias)
 
 This yields the **first method** of getting the SEM: Estimate the 
@@ -992,14 +991,14 @@ of Peter and Mary:
 
 We verify this immediately:
 
-$$ SEM_{consistency} = \frac{SD_{difference}}{\sqrt{2}} $$
+$$SEM_{consistency} = \frac{SD_{difference}}{\sqrt{2}}$$
 
 ```{r}
 mod <- lmer(ROM ~ (1 | ID) + (1 | Rater), data = df_long_bias)
 print(VarCorr(mod))
 ```
 
-$$ SEM_{consistency} = \sigma_{residual} = 6.8961 $$
+$$SEM_{consistency} = \sigma_{residual} = 6.8961$$
 
 Let's calculate the SEM from the differences between the two measurements:
 

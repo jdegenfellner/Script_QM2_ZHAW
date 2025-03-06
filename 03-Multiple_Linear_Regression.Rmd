@@ -443,6 +443,7 @@ We could also create a new variable as before. Whatever you prefer.
 #### Checking model assumptions
 
 ```{r, warnings=FALSE}
+library(performance)
 check_model(m4.2)
 ```
 
@@ -1580,7 +1581,10 @@ post$diff_G <- post$beta_3[,2] - post$beta_3[,1]
 
 library(conflicted)
 conflicts_prefer(posterior::sd)
-precis(post, depth = 2)
+
+#as.data.frame(precis(post, depth = 2, digits = 3))
+post_summary <- as.data.frame(precis(post, depth = 2, digits = 3))  # Convert to dataframe
+post_summary[, -which(names(post_summary) == "histogram")]  # Remove histogram column
 ```
 
 The summary tells us that `diff_PhysActive` is $-0.74$ with a large proportion
@@ -1685,13 +1689,17 @@ m_NHANES_lnorm <- quap(
   start = list(beta_0 = 140, beta_1 = c(0.5, 0), beta_2 = 0, beta_3 = c(0.5, 0), beta_4 = 1, beta_5 = 0)
 )
 
-precis(m_NHANES_lnorm, depth = 2)
+#precis(m_NHANES_lnorm, depth = 2)
+nhanes_summary <- as.data.frame(precis(m_NHANES_lnorm, depth = 2))  # Convert to dataframe
+nhanes_summary[, -which(names(nhanes_summary) == "histogram")]  # Remove histogram column
 
 # difference in levels of PhysActive and Gender (catorical variables):
 post_lnorm <- extract.samples(m_NHANES_lnorm)
 post_lnorm$diff_PhysActive <- post_lnorm$beta_1[,2] - post_lnorm$beta_1[,1]
 post_lnorm$diff_G <- post_lnorm$beta_3[,2] - post_lnorm$beta_3[,1]
-precis(post_lnorm, depth = 2)
+#precis(post_lnorm, depth = 2)
+post_lnorm_summary <- as.data.frame(precis(post_lnorm, depth = 2))  # Convert to dataframe
+post_lnorm_summary[, -which(names(post_lnorm_summary) == "histogram")]  # Remove histogram column
 ```
 
 `diff_PhysActive` is now  $-0.003350291$ with a very tight credible interval
@@ -1718,7 +1726,6 @@ ggplot() +
        y = "Density") +
   theme_minimal() +
   theme(plot.title = element_text(hjust = 0.5))
-
 ```
 
 With respect to the distribution of blood pressure, the model looks much better now.

@@ -137,7 +137,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-02-28}
+\date{2025-03-05}
 
 \begin{document}
 \maketitle
@@ -660,8 +660,8 @@ The \texttt{precis}function displays concise parameter estimate information
 
 \begin{verbatim}
 ##             mean        sd       5.5%      94.5%
-## mu    154.607750 0.4120095 153.949279 155.266221
-## sigma   7.731611 0.2914122   7.265878   8.197344
+## mu    154.605541 0.4118146 153.947381 155.263700
+## sigma   7.727955 0.2910679   7.262772   8.193138
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -681,12 +681,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 155.0342 7.743192
-## 2 154.7046 7.026584
-## 3 154.5585 7.574873
-## 4 154.7631 7.889646
-## 5 154.0734 8.103631
-## 6 154.3939 8.017522
+## 1 154.7729 8.054008
+## 2 154.3682 8.090800
+## 3 154.3361 7.705029
+## 4 155.1842 7.312815
+## 5 154.5261 7.768222
+## 6 155.0282 7.447327
 \end{verbatim}
 
 \begin{Shaded}
@@ -726,8 +726,8 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 
 \begin{verbatim}
 ##                 mu        sigma
-## mu    0.1697518667 0.0002340078
-## sigma 0.0002340078 0.0849210717
+## mu    0.1695912456 0.0001851471
+## sigma 0.0001851471 0.0847205021
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -740,8 +740,8 @@ distribution. In the diagonal you see the variance of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-##         mu      sigma 
-## 0.16975187 0.08492107
+##        mu     sigma 
+## 0.1695912 0.0847205
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -754,8 +754,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001949015
-## sigma 0.001949015 1.000000000
+## mu    1.000000000 0.001544617
+## sigma 0.001544617 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1319,6 +1319,10 @@ First comes descriptive statistics, then one can think about modeling.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{data}\NormalTok{(Howell1)}
+\NormalTok{d }\OtherTok{\textless{}{-}}\NormalTok{ Howell1}
+\NormalTok{d2 }\OtherTok{\textless{}{-}}\NormalTok{ d[d}\SpecialCharTok{$}\NormalTok{age }\SpecialCharTok{\textgreater{}=} \DecValTok{18}\NormalTok{, ]}
 \FunctionTok{plot}\NormalTok{(d2}\SpecialCharTok{$}\NormalTok{height }\SpecialCharTok{\textasciitilde{}}\NormalTok{ d2}\SpecialCharTok{$}\NormalTok{weight)}
 \end{Highlighting}
 \end{Shaded}
@@ -1359,7 +1363,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/filed48f204c02c0/widgetd48f5e489bd0.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a77254ffca/widget83a72a65616a.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -1443,7 +1447,7 @@ One possibility to do this
 is to use a \href{https://en.wikipedia.org/wiki/Log-normal_distribution}{log-normal distribution}
 for the prior of \(\beta\) which can only take non-negative values.
 
-\[ \beta \sim \text{Log-Normal}(0, 1) \]
+\[\beta \sim \text{Log-Normal}(0, 1)\]
 
 Lets plot the priors again.
 
@@ -1668,10 +1672,11 @@ for all details.
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-29-1.pdf}}
 
 The \texttt{link} function fixes the weight at the values in \texttt{weight.seq} and
-draws samples from the posterior distribution of the parameters. We will do
-the analog thing in the Frequentist framework.
+draws samples from the posterior distribution of the parameters. Above,
+the first \(100\) (of \(1000\)) rows are used.
 
-We can also draw a nice shade for the regression line:
+We can also draw a nice shade (using all 1000 rows of the \(\mu\)-matrix)
+for the regression line:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1798,7 +1803,7 @@ I recommend reading the first couple of chapters from \href{https://www.routledg
 
 Our linear model is defined as:
 
-\[ h_i = \beta_0 + \beta_1 x_i + \varepsilon_i \]
+\[h_i = \beta_0 + \beta_1 x_i + \varepsilon_i\]
 
 where
 
@@ -1816,7 +1821,7 @@ where
 
 The first and \textbf{most important assumption} is that the data are produced\\
 probabilistically, which is specifically stated as
-\[ Y|X = x \sim p(y|x)\]
+\[Y|X = x \sim p(y|x)\]
 
 What does this mean?
 
@@ -1897,14 +1902,23 @@ The question is \textbf{how} ``badly'' the assumptions are violated?
 
 Remember, \textbf{all models are wrong, but some are useful}.
 
-In full, the classical linear regression model can be written as:
+In full, \textbf{the classical linear regression model} can be written as:
 
-\[ Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)\]
+\[Y_i|X_i = x_i \sim_{independent} N(\beta_0 + \beta_1 x_{i1} + \dots \beta_k x_{ik},\sigma^2)\]
 for \(i = 1, \dots, n\).
+
+Interpretation of this formula:
+
+The outcome variables \(Y_i\) are independently (from each other,
+since the errors are indepentent from each other) conditionally normally distributed
+(conditioned on \(X_i=x_i\)) with a mean that is linearly depending on
+true but unknown parameters \(\beta_0, \beta_1, \dots, \beta_k\) and a
+constant variance \(\sigma^2\).
 
 \subsection{Fit the model}\label{fit_model_simple_lin_reg_classic}
 
-Again, we fit the model using the least squares method. For a neat animated explanation,
+Again, we fit the model using the \href{https://en.wikipedia.org/wiki/Least_squares}{\textbf{least squares method}}.
+For a neat animated explanation,
 visit \href{https://www.youtube.com/watch?v=jEEJNz0RK4Q&ab_channel=COCCmath}{this video}.
 There are literally hundreds of videos on the topic. Choose wisely. Not all are good.
 If in doubt, use our recommended books as reading materials. This is the most reliable source.
@@ -1915,12 +1929,12 @@ the vast amount of training data.
 One has to minimize the sum of squared differences between the true heights and
 the model-predicted heights in order to find \(\beta_0\) and \(\beta_1\).
 
-\[ SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2 \]
+\[SSE(\beta_0, \beta_1) = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_i))^2\]
 
 We omit the technical details (set derivative to zero and solve the system) and give the results for \(\beta_0\) and \(\beta_1\):
 
 \[
-\hat{\beta_0} = \bar{y} - (\hat{\beta_1} \bar{x}),
+\hat{\beta_0} = \bar{y} - \hat{\beta_1} \bar{x},
 \]
 \[
 \hat{\beta_1} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2} =
@@ -1985,7 +1999,7 @@ Let's \textbf{use R again to solve the problem}:
   \texttt{Residuals}: \(r_i = height_i - \widehat{height}_i\).
   Differences between true heights and model-predicted heights.
 \item
-  \texttt{Coefficients}: Estimated for \(\beta_0\) and \(\beta_1\). We call them \(\hat{\beta}_0\) and \(\hat{\beta}_1\).
+  \texttt{Coefficients}: Names for \(\beta_0\) and \(\beta_1\). We call them \(\hat{\beta}_0\) and \(\hat{\beta}_1\).
 
   \begin{itemize}
   \tightlist
@@ -1993,6 +2007,7 @@ Let's \textbf{use R again to solve the problem}:
     \texttt{Estimate}: The (least squares) estimated value of the coefficient.
   \item
     \texttt{Std.\ Error}: The standard error of the estimate.
+    This is a measure of how precise the estimator for the coefficient is.
   \item
     \texttt{t\ value}: The value of the \(t\)-statistic for the (Wald-) hypothesis test
     \(H_0: \beta_i = 0\).
@@ -2020,11 +2035,10 @@ values of \(\beta_0\) and \(\beta_1\) that minimize the sum of squared differenc
 which can be plotted as 3D function. Since the function is a sum of squared terms,
 we should expected a paraboloid form.
 All we have to do is to ask R which of
-the coordinates (\(\beta_0\), \(\beta_1\)) minimizes the sum of squared errors. The result confirmes
+the coordinates (\(\beta_0\), \(\beta_1\)) minimizes the sum of squared errors.
+The result confirms
 the results from the \texttt{lm} function. The dot in red marks the spot
 (Code is in the \href{https://github.com/jdegenfellner/Script_QM2_ZHAW}{git repository}):
-
-\textbf{---COMPILE CODE AT DEOPLOYMENT (takes a bit)---}
 
 \begin{verbatim}
 ## Intercept beta_0:  113.8794
@@ -2035,7 +2049,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/filed48f6dc2b585/widgetd48fa1b670f.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a770fd33dc/widget83a77f57ea77.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -2058,7 +2072,7 @@ You can get CI's conveniently with the \texttt{confint} function:
 
 Remember, these are Frequentist confidence intervals.
 
-\textbf{If one repeats the experiment
+\textbf{If one repeats the experiment (i.e.~draws new data from the true model)
 many times, the true but unknown value of the parameter will
 be in the interval in 96\% of the cases.}
 
@@ -2147,11 +2161,11 @@ into two parts:
   The variability not explained by the model (the residuals): SSE
 \end{itemize}
 
-\[ \text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors} \]
+\[\text{Sum of Squares in Total} = \text{Sum of Squares from Regression} + \text{Sum of Squared Errors}\]
 
-\[ SST = SSR + SSE \]
+\[SST = SSR + SSE\]
 
-\[ \sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \]
+\[\sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^{n} (y_i - \hat{y}_i)^2\]
 
 If you are interested in the details, check out \href{https://en.wikipedia.org/wiki/Explained_sum_of_squares\#Partitioning_in_the_general_ordinary_least_squares_model}{this}.
 
@@ -2171,7 +2185,6 @@ the mean to the point (total variance), the red dotted line is the distance from
 the mean to the regression line (explained variance) and the green dotted line
 is the distance from the regression line to the point (unexplained variance).
 We see that it adds up. I find this fact quite fascinating.
-One finds additivity by considering not determinisic values, but variances.
 Thank you \href{https://en.wikipedia.org/wiki/Analysis_of_variance\#:~:text=ANOVA\%20was\%20developed\%20by\%20the,to\%20different\%20sources\%20of\%20variation.}{Ronald Fisher}.
 
 See \hyperref[exercise13_simpl_lin_reg]{exercise 13}.
@@ -2189,7 +2202,7 @@ and the variance not explained by the model (SSE).
 
 Maybe the most intuitive definition of \(R^2\) is:
 
-\[ R^2 = \frac{SSR}{SST} = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}\]
+\[R^2 = \frac{SSR}{SST} = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}\]
 
 The value is between 0 and 1. The higher the value, the more variance is explained.
 But be cautious. Depending on the context, a really high \(R^2\) is not
@@ -2327,7 +2340,7 @@ Thus, the evaluation of the assumptions should involve subject matter knowledge.
 \(p\)-values to evaluate model assumptions are not a good idea. To \href{https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108\#d1e949}{quote} the
 American Statistical Association (ASA): ``By itself, a \(p\)-value does not provide a good measure
 of evidence regarding a model or hypothesis.''
-Deicision-tree thinking might not be the best idea for statistical modeling.
+Decision-tree thinking might not be the best idea for statistical modeling.
 
 We will not use hypothesis tests for assumptions, because
 
@@ -2442,6 +2455,8 @@ less with the height at time \(t-2\) and so on. If I am tall today, it is
 very likely that I was tall yesterday.
 
 In our case of the !Kung San data, we do not have autocorrelated data.
+Just because the first person we drew is tall, does not mean that the second
+person we draw is tall. We could draw a very young person for instance.
 
 But still, we could look at the correlations the residuals with lagged residuals.
 A \(lag=1\) means I compare the residuals with the ones right next to me and check if
@@ -2453,14 +2468,18 @@ they are correlated.
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf}}
 
-It least with a lag of \(1\), there so no large correlation between the residuals.
+At least with a lag of \(1\), there so no large correlation between the residuals.
 
 \subsubsection{Normality}\label{normality_assumption}
 
 This assumptions states that the conditional distribution \(Y|X=x\)
 is a normal distribution. We do not look at the normality of \(Y\) itself,
 since it is not a formal requirement, that \(Y\) is normally distributed.
-We need to assess the normality of the residuals \[e_i = y_i - \hat{y}_i\]
+It might well occur that the conditional distributions are all normal,
+but the variance is not constant. Then we would have heteroskedasticity,
+but the assumption of normality would be fullfilled.
+
+We need to assess the normality of the residuals \(e_i = y_i - \hat{y}_i\)
 I like doing this with a \href{https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html\#q-q-plots}{Q-Q plot}
 from the R package \texttt{car} (command \texttt{qqPlot}):
 
@@ -2508,7 +2527,7 @@ is to use the \texttt{check\_model} function from the \texttt{performance} packa
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-50-1.pdf}}
 
-In this case, everything looks fine. Let's go through the plots and explain them one by one:
+In this case, everything looks fine. Let`s go through the plots and explain them one by one:
 
 \paragraph{Posterior predictive check (upper left)}\label{posterior-predictive-check-upper-left}
 
@@ -2518,17 +2537,20 @@ You could also try the command \texttt{extract.samples()}from the \texttt{rethin
 (Statistical Rethinking p.~196) to create
 new data from the Frequentist model. You can try this in our exercises sessions.
 Using least squares, the estimated model was:
-\[ height_i = 113.87939 + 0.90503 \cdot weight_i + Normal(0, 5.086) \]
-From this model, we can simulate new data (or the original weights, if we want to use fixed X)
+
+\[height_i = 113.87939 + 0.90503 \cdot weight_i + Normal(0, 5.086)\]
+
+From this model, we can simulate new data (or the original weights, if we want to use fixed \(X\))
 by plugging in different weights, and adding a random error from a normal distribution
 with mean 0 and standard deviation 5.086.
 Then, we can compare the distribution of the simulated data with the observed data.
-The blue lines in the graph are model predicted heights, the green line are the
+The blue lines in the graph (output from \texttt{check\_model}) are density
+estimations of model predicted heights, the green line is the density estimate of the
 observed heights.
 
-Let's try to replicate this plot.
+Let`s try to replicate this plot.
 First, we want to simulate new data from the model.
-A scatter plot is also a nice way to check of the model predictions
+A scatter plot is another nice way to check if model predictions
 are in line with the observed data. One could repeat this process
 multiple times to get a feeling for the variability of the model predictions.
 
@@ -2546,7 +2568,7 @@ And now the density plots of the model created data (blue) and the observed data
 
 As you can see, the densities of the observed and simulated data are broadly similar.
 One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
-Depending on the context, this might be a problem or not. Let's accept the model for now.
+Depending on the context, this might be a problem or not. Let`s accept the model for now.
 
 \paragraph{Linear fit (upper right)}\label{linear-fit-upper-right}
 
@@ -2569,12 +2591,12 @@ are on the y-axis. In short, a high leverage means that the estimated value \(\h
 is potentially far away from the original value \(y_i\).
 The contours (dotted green lines) are the Cook's distance, in this
 case at a Cook's distance of 0.5.
-There is \href{https://en.wikipedia.org/wiki/Cook\%27s_distance\#Relationship_to_other_influence_measures_(and_interpretation)}{formula}
+There is a \href{https://en.wikipedia.org/wiki/Cook\%27s_distance\#Relationship_to_other_influence_measures_(and_interpretation)}{formula}
 that relates the leverage (\(h_{ii}\)), the Cook's distance
 and the residuals. Holding Cook`s distant constant at 0.5,
 gives you the green dotted line in the plot.
 
-Let's create an outlier and see what happens:
+Let`s create a nasty outlier and see what happens:
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf}}
 
@@ -2616,7 +2638,7 @@ Admitted, this is a somewhat artificial example.
 
 \paragraph{Normality of residuals (lower left)}\label{normality-of-residuals-lower-left}
 
-This is basically the same plot as above, just \href{https://cran.r-project.org/web/packages/qqplotr/vignettes/introduction.html}{detrended}.
+This is basically the same plot as \hyperref[normality_assumption]{above}, just \href{https://cran.r-project.org/web/packages/qqplotr/vignettes/introduction.html}{detrended}.
 Let's try to replicate it:
 
 \begin{verbatim}
@@ -2641,18 +2663,18 @@ or exclude points.
 and we feel comfortable with the model, we get exact confidence intervals
 for the effect sizes (\(\beta\)s) using \texttt{confint()} (p.~74 in Westfall).
 
-Heureka! We have a model that fits the data well.
+\textbf{Heureka!} We have a model that fits the data well.
 
 \subsection{Bootstrap fit}\label{bootstrap-fit}
 
 In order to get a feeling for the variability of the model with regards to the predictors as well,
 we can bootstrap the whole data set, fit the model and draw regression lines.
 We create \(100\) bootrap replicates of our data set \texttt{d2} by drawing with
-replication. For every bootstrap replicate, we fit the model and draw the regression line.
+repetition. For every bootstrap replicate, we fit the model and draw the regression line.
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-56-1.pdf}}
 
-The results is very stable. Neither intercept nor slope change much.
+The result is very stable. Neither intercept nor slope change much.
 
 \subsection{Regression towards the mean}\label{regression-towards-the-mean}
 
@@ -2742,7 +2764,7 @@ Look at the marginal distrubutions of the parameters in the Bayesian model.
   Include in the plot a 99\% credible interval (HDI).
 \end{itemize}
 
-\subsection{{[}M{]} Exercise 3}\label{exercise3_simpl_lin_reg}
+\subsection{{[}H{]} Exercise 3}\label{exercise3_simpl_lin_reg}
 
 Go to the coefficient estimates in the simple linear regression setting
 above (\hyperref[fit_model_simple_lin_reg_classic]{Fit the model})
@@ -2751,30 +2773,42 @@ in the classical framework.
 \begin{itemize}
 \tightlist
 \item
-  Create an R file to simulate the simple linear regression model.
+  Simulate data from the simple linear regression model
+  using the estimated coefficients (\(\hat{\beta_0} = 113.87939\),
+  \(\hat{\beta_1} = 0.90574\), \(\hat{\sigma} = 5.086\)).
 \item
-  Change your input parameters and see how the estimates change.
+  Use the formulae from above to calculate \(\beta_0\) and \(\beta_1\) by ``hand''.
 \item
-  Does this make sense with respect to the estimates given, specifically with respect
-  to \(\beta_1\)?
+  Change your true parameters (\(\beta_0, \beta_1, \sigma\)) and see how the
+  estimates for the standard deviation of simulated heights, weights
+  and the correlation between simulated heights and weights change.
+\item
+  Create a scatterplot to see the data as well.
 \end{itemize}
 
 \subsection{{[}H{]} Exercise 4}\label{exercise4_simpl_lin_reg}
 
 Verify the statement above in the text for high and low values of \(R^2\).
 
-\subsection{{[}M{]} Exercise 5}\label{exercise5_simpl_lin_reg}
+\subsection{{[}H{]} Exercise 5}\label{exercise5_simpl_lin_reg}
 
 Verify with simulation in R that the separation of the distributions in the simple linear regression model
 improves if the true (but usually unknown) slope increases.
+The code for the plots can be found
+\href{https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd}{here}.
+Hint: Use GPT for coding.
 
 \subsection{{[}H{]} Exercise 6}\label{exercise6_simpl_lin_reg}
 
 Go to the model assumptions in the classical regression model (\hyperref[_model_assumptions]{Model Assumptions}).
-- Use the code from \href{https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd}{github}
-to recreate the regression model with the sine-curve.
-- Check the independence assumption as described. Look at the residuals, when \(X=2\) and \(X=4.5\).
-You can get those by filtering residuals that are \(>0.5\) and \(<0.5\).
+
+\begin{itemize}
+\item
+  Use the code from \href{https://github.com/jdegenfellner/Script_QM2_ZHAW/blob/main/02-Simple_Linear_Regression.Rmd}{github}
+  to recreate the regression model with the sine-curve.
+\item
+  Use the autocorrelation function \texttt{acf} to check for autocorrelation in the residuals.
+\end{itemize}
 
 \subsection{{[}M{]} Exercise 7}\label{exercise7_simpl_lin_reg}
 
@@ -2802,7 +2836,7 @@ You can get those by filtering residuals that are \(>0.5\) and \(<0.5\).
 
 \subsection{{[}M{]} Exercise 9}\label{exercise9_simpl_lin_reg}
 
-Go to the resuials \hyperref[normality_assumption]{above} where we tested the normality assumption.
+Go to the residuals \hyperref[normality_assumption]{above} where we tested the normality assumption.
 
 \begin{itemize}
 \tightlist
@@ -2974,7 +3008,8 @@ can become quite large. Using a polynomial of high degree implies to have a lot 
 to estimate. Increasing the degree of the polynomial increases \(R^2\) but also the risk of overfitting.
 (see Statistical Rethinking p.~200). So this is - of course - not the final solution to regression problems.
 
-This time, lets look at the whole age range of data from the !Kung San people.
+This time, lets look at the whole age range of data from the !Kung San people
+including people with age \(\le 18\) years.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3004,7 +3039,7 @@ The blue line is the usual line from classic linear regression (from the previou
 Which one describes the data more accurately?
 In this case it is obvious, a non-linear relationship is present and it might be a good idea
 to model it. Modeling the relationship with a linear trend leads to bad residuals with structure.
-We will demonstrate this in the freuqentist setting.
+We will demonstrate this in the Frequentist setting.
 Unfortunately, in more complex settings, with more predictors, it is not always so easy to see.
 
 This time, we use the mean for the prior from the book (\(178 cm\)).
@@ -3080,7 +3115,7 @@ Let's fit the model with the quadratic term for weight:
 \(\beta_2\) is indeed negative.
 In the estimate-plot above I have left out the intercept \(\alpha\) to
 make the other coefficients more visible. As you can see, the credible intervals
-are very tight. Using prior knowledge an data, the model is very sure about the
+are very tight. Using prior knowledge and data, the model is very sure about the
 coefficients.
 We get our \textbf{\href{https://en.wikipedia.org/wiki/Joint_probability_distribution}{joint distribution}}
 of the \textbf{four model parameters}.
@@ -3150,15 +3185,25 @@ Let's look at the fit using the mean estimates of the posterior distribution:
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf}}
 
-This fits much better than the linear model without the quadratic term. In the book,
-there is also a polynomial regression with a cubic term for weight.
 The second plot shows the original heights and simulated heights from the
 posterior distribution in one plot. This fits quite well.
+
+The quadratic model fits much better than the linear model without the quadratic term.
+In the book, there is also a polynomial regression with a cubic term for weight.
 Maybe this fits even better (see \hyperref[exercise1_multiple_regression]{exercise 1}).
+
+The quadratic model has a very high \(R^2\) value. In this case,
+this is a good sign. The height values ``wiggle'' around the fitted curve
+very narrowly. We do not need other variables to explain the heights.
+In short: If you know a person's weight, you can predict the height very well
+(in this population at least). One might hypothesize that the population
+behaves rather similarly with respect to nutritional and life style factors.
+If different groups within the !Kung San people would have high calorie intake
+and few physical activity, the model would probably not fit so well.
 
 \subsection{Adding another predictor to the model}\label{adding_predictor_bayes}
 
-Since the !Kung San data set has already such a high \(R^2\) with the quadratic term
+Since the !Kung San data set has already such a high \(R^2\) (\(=0.95\)!) with the quadratic term
 (and possibly higher with the cubic term), we will use the created data set from
 \hyperref[adding_predictor_freq]{below} in the frequentist setting
 to estimate the coefficients of the model with two predictors here as well.
@@ -3483,6 +3528,7 @@ We could also create a new variable as before. Whatever you prefer.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(performance)}
 \FunctionTok{check\_model}\NormalTok{(m4}\FloatTok{.2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3636,7 +3682,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/filed48f5d38d518/widgetd48f3e2e4a78.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a75a92bef2/widget83a758363052.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3692,23 +3738,30 @@ This is a very complex question. We will go into it in later chapters and the ne
 At this point we can say this:
 We add variables to the model (and probably use
 other models apart from linear regression) \emph{depending} on the goal at hand (prediction or explanation).
-Prediction seems to be easier than explanation. For instance, within linear models and
-just a handful of predictors, one can even brute force the problem by searching through
-all subsets of predictors. If that is not possible, one could use clever algortithms, like
-\href{https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/}{best subest selection}.
 
 \begin{itemize}
-\tightlist
 \item
-  What is \textbf{not} a good idea is to throw all variables into the model and hope for the best -
-  especially if we want to learn the true relationships between the variables.
+  \textbf{Prediction} (i.e.~guessing the outcome as good as possible) seems to be easier
+  than explanation. For instance, within linear models and
+  just a handful of predictors, one can even brute force the problem by searching through
+  all subsets of predictors. If that is not possible, one could use clever algortithms, like
+  \href{https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/}{best subest selection}.
 \item
-  What is also not a good idea is to select variables depending on the \(p\)-values of the coefficients (Westfall Chapter 11).
-\item
-  \textbf{Leaving variables out}, that are important, can lead to biased estimates of the coefficients
-  (\href{https://en.wikipedia.org/wiki/Omitted-variable_bias}{omitted variable bias}).
-\item
-  Importantly, also \textbf{adding variables} can hurt conclusions from the model (see Statistical Rethinking 6.2).
+  \textbf{Explanation} (looking for causal relationships between variables) is more difficult.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    What is \textbf{not} a good idea if you want to find \emph{causal} relationships,
+    is to throw all variables into the model and hope for the best.
+  \item
+    What is also not a good idea is to select variables depending on the \(p\)-values of the coefficients (Westfall Chapter 11).
+  \item
+    \textbf{Leaving variables out}, that are important, can lead to biased estimates of the coefficients
+    (\href{https://en.wikipedia.org/wiki/Omitted-variable_bias}{omitted variable bias}).
+  \item
+    Importantly, also \textbf{adding variables} can hurt conclusions from the model (see Statistical Rethinking 6.2).
+  \end{itemize}
 \end{itemize}
 
 \subsection{\texorpdfstring{Interaction Term \(X_1 \times X_2\)}{Interaction Term X\_1 \textbackslash times X\_2}}\label{interaction_term}
@@ -3733,7 +3786,9 @@ for example:
 \[ i = 1 \ldots n\]
 
 The second equation states that the conditional expectation of \(Y_i\) given \(X_1=x_1\) and \(X_2=x_2\)
-is a function of \(x_1\) and \(x_2\) and their interaction \(x_1 \times x_2\) (i.e., the product). We are in a different situation now.
+is a function of \(x_1\) and \(x_2\) and their interaction \(x_1 \times x_2\) (i.e., the product).
+
+We are in a different situation now.
 Set for instance \(x_2\) to a certain value, say \(x_2 = 7\). Then the relationship (in expectation)
 between \(Y\) and \(X_1\) is:
 
@@ -3746,7 +3801,7 @@ Hence, \(X_2\) \textbf{modifies} the relationship between \(X_1\) and \(Y\), or 
 used in a strictly technical/statistical sense and \textbf{not in a causal} sense.
 It does not mean that if we \emph{do} change \(X_1\) by one unit,
 \(Y\) will also change in an experiment. We are purely describing the relationship
-in an associative way. We will probably touch causality in a later chapter.
+in an associative way. We will probably touch causality later.
 Bayesian statistics and causal inference are gaining popularity. Hence, we should try to keep up.
 
 Let's draw 100 points from this model, fit the model and add the plane (see also \hyperref[exercise3_multiple_regression]{exercise 4}):
@@ -3828,7 +3883,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/filed48f6a1a78c4/widgetd48f6feec247.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a76eb313a8/widget83a72ecfb35f.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -3919,7 +3974,7 @@ The \(p\)-value is the probability of observing a value of the F statistic as ex
 extreme than the one we observed, given that the null hypothesis is true. Here,
 the \(p\)-value is extremely small. So, statistically we would see an improvement in RSS
 which is not explainable by chance alone.
-But \textbf{let's be careful with \(p\)-values} and especially with fixed cutoff values for \(\alpha\),
+But \textbf{let's be careful with \(p\)-values} and especially with fixed cutoff values for \(p\),
 which we will \textbf{never} use in this script.
 Even for a rather small effect \(\beta_3\), we would reject the null hypothesis, if only the sample
 size is large enough. Since a very small effect relative to \(\beta_1\) and \(\beta_2\) would
@@ -3933,11 +3988,11 @@ The difference is huge. We have already mentioned in the context of \(R^2\) not 
 such metric, because RSS is monotonically descreasing with number of variables added and reaches
 zero when the number of variables equals the number of data points (see \hyperref[exercise3_multiple_regression]{exercise 3}).
 
-\subsection{Using an interaction plot to see a potential interaction}\label{interaction_plot}
+\subsection{Using an interaction plot to suspect a potential interaction}\label{interaction_plot}
 
 Chronologically before we include an interaction term in the model, we can use an interaction plot
 to see if there is a potential interaction between the predictors.
-We can just create a catorical predictor out of the continuous predictors.
+We can just create a categorical predictor out of the continuous predictors.
 Just categorize the predictors into quartiles and plot the means of the dependent variable (\(Y\)).
 If the lines are parallel, there is probably no interaction. If the lines are not parallel,
 there might be an interaction.
@@ -4057,9 +4112,6 @@ the more muscle strength. But if we combine the groups, we will see a decreasing
   \end{itemize}
 \end{itemize}
 
-This (fictitious) example shows that throwing variables into a multiple regression
-model without thinking about it, is not a good idea.
-
 \section{What happens when you just throw variables into multiple regression?}\label{throwing_variables}
 
 This sub-chapter is \textbf{important}. I can guarantee you that not too many applied
@@ -4076,14 +4128,14 @@ way and explains this in a
 We will look at these below - \textbf{the pipe, the fork and the collider}. These are causal graphs showing the
 relationships between the variables. One is interested in the \textbf{effect} of X on Y.
 In this case, it is truly an \emph{effect}, since we create the models in such a way that changing
-one variable, changes the other - which is indicated by an arrow in the graph.
+one variable (\(X\)), changes the other (\(Y\)) - which is indicated by an arrow in the graph.
 These graphs are called DAGs - directed acyclic graphs. \emph{Directed} because of the arrows,
 \emph{acyclic} because there are no cycles in the graph. One nice tool for drawing them is
 \href{https://www.dagitty.net/}{dagitty}, which is also
 \href{https://cran.r-project.org/web/packages/dagitty/index.html}{implemented in R}.
 The \href{https://www.dagitty.net/dags.html}{online drawing tool} is handy.
 
-Note: Not only can it hurt to add variables to the model in an explanatory (causal) context,
+\textbf{Remember}: Not only can it hurt to add variables to the model in an explanatory (causal) context,
 but also in a predictive context. The model can become unstable and the predictions
 can become worse. This is called \href{https://en.wikipedia.org/wiki/Overfitting}{overfitting}.
 
@@ -4362,6 +4414,8 @@ and achieve low exam performance or one could study for a comparatively
 low number of hours and achieve good results. If we know that a person has gained the
 \emph{understanding/knowledge}, the \emph{hours of studying} do not give us any additional
 information with respect to \emph{exam performance}.
+
+So, in order to see the effect of \(X\) on \(Y\), we do \emph{not} condition on \(Z\).
 
 \subsection{Fork}\label{fork}
 
@@ -4728,7 +4782,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/filed48f4253de26/widgetd48f101db2cf.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a72ccee379/widget83a742b833ea.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -5160,6 +5214,7 @@ a normal density with paramaters estimated from the data (\(\mu\) sample mean of
 \end{Shaded}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-88-1.pdf}}
+
 Not quite normal, but we will assume it for now.
 
 \subsubsection{Priors}\label{priors-1}
@@ -5227,7 +5282,7 @@ Now we simply draw from the priors and thereby generate systolic blood pressure 
 \end{Highlighting}
 \end{Shaded}
 
-This yields also negative values (please verify) for* BPSysAve*, which is not plausible.
+This yields also negative values (please verify) for \emph{BPSysAve}, which is not plausible.
 
 In \hyperref[exercise15_multiple_regression]{exercise 15} we will play around with the priors
 until the prior predictive check producues plausible values.
@@ -5406,21 +5461,23 @@ We use \texttt{quap} for the model fitting.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{precis}\NormalTok{(post, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
+\CommentTok{\#as.data.frame(precis(post, depth = 2, digits = 3))}
+\NormalTok{post\_summary }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{precis}\NormalTok{(post, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{))  }\CommentTok{\# Convert to dataframe}
+\NormalTok{post\_summary[, }\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(}\FunctionTok{names}\NormalTok{(post\_summary) }\SpecialCharTok{==} \StringTok{"histogram"}\NormalTok{)]  }\CommentTok{\# Remove histogram column}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                        mean         sd        5.5%       94.5%   histogram
-## beta_0          120.5532300 5.79551096 111.3020105 129.8048366   ▁▁▃▇▇▃▁▁▁
-## beta_2            0.4196907 0.01127082   0.4016948   0.4374156 ▁▁▁▁▃▇▇▃▁▁▁
-## sigma            15.4161590 0.13110866  15.2076867  15.6279605  ▁▁▁▃▇▇▅▂▁▁
-## beta_1[1]         0.3487591 5.80968339  -8.9591156   9.5907618  ▁▁▁▃▇▇▃▁▁▁
-## beta_1[2]        -0.3866548 5.81170379  -9.7471463   8.8316285  ▁▁▁▃▇▇▃▁▁▁
-## beta_3[1]        -1.7463108 5.77133890 -11.1387559   7.3752075  ▁▁▂▅▇▅▂▁▁▁
-## beta_3[2]         2.7422693 5.77545948  -6.6404321  11.8947750   ▁▁▂▅▇▅▂▁▁
-## diff_PhysActive  -0.7354140 0.37500248  -1.3324591  -0.1257030     ▁▁▃▇▃▁▁
-## diff_G            4.4885801 0.37263071   3.8813342   5.0880217      ▁▂▇▇▁▁
+##                        mean         sd        5.5%       94.5%
+## beta_0          120.5532300 5.79551096 111.3020105 129.8048366
+## beta_2            0.4196907 0.01127082   0.4016948   0.4374156
+## sigma            15.4161590 0.13110866  15.2076867  15.6279605
+## beta_1[1]         0.3487591 5.80968339  -8.9591156   9.5907618
+## beta_1[2]        -0.3866548 5.81170379  -9.7471463   8.8316285
+## beta_3[1]        -1.7463108 5.77133890 -11.1387559   7.3752075
+## beta_3[2]         2.7422693 5.77545948  -6.6404321  11.8947750
+## diff_PhysActive  -0.7354140 0.37500248  -1.3324591  -0.1257030
+## diff_G            4.4885801 0.37263071   3.8813342   5.0880217
 \end{verbatim}
 
 The summary tells us that \texttt{diff\_PhysActive} is \(-0.74\) with a large proportion
@@ -5498,12 +5555,12 @@ The results are similar to the Bayesian approach.
 In the summary output we see that the effect of physical activity is \(-0.73693\)
 with a small \(p\)-value (\(0.051\)). This is one example for the absurdity of strict cutoffs
 for \(p\)-values. The other coefficients including the estimate for \(\sigma\) are also similar.
-It's alsways a good idea to double-check.
+It's always a good idea to double-check.
 
 Model fit could be better, the model thinks the blood pressure is normally distributed.
 There also seems to be some heteroscadasticity and the residuals are not normally distributed.
 
-\textbf{Usually}, one would fit this model by throwing in all variables into the model, including BMI.
+\textbf{By the way, usually}, one would fit this model by throwing in all variables into the model, including BMI.
 Let's see if this approach changes the results:
 
 \begin{Shaded}
@@ -5632,20 +5689,14 @@ to be log-normally distributed.
   \AttributeTok{start =} \FunctionTok{list}\NormalTok{(}\AttributeTok{beta\_0 =} \DecValTok{140}\NormalTok{, }\AttributeTok{beta\_1 =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{beta\_2 =} \DecValTok{0}\NormalTok{, }\AttributeTok{beta\_3 =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{beta\_4 =} \DecValTok{1}\NormalTok{, }\AttributeTok{beta\_5 =} \DecValTok{0}\NormalTok{)}
 \NormalTok{)}
 
-\FunctionTok{precis}\NormalTok{(m\_NHANES\_lnorm, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
+\CommentTok{\#precis(m\_NHANES\_lnorm, depth = 2)}
+\NormalTok{nhanes\_summary }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{precis}\NormalTok{(m\_NHANES\_lnorm, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{))  }\CommentTok{\# Convert to dataframe}
+\NormalTok{nhanes\_summary[, }\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(}\FunctionTok{names}\NormalTok{(nhanes\_summary) }\SpecialCharTok{==} \StringTok{"histogram"}\NormalTok{)]  }\CommentTok{\# Remove histogram column}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                    mean           sd          5.5%         94.5%
-## beta_0     69.940815482 7.0688162635  58.643481822  81.238149141
-## beta_1[1] -33.089453949 6.1218905701 -42.873417461 -23.305490436
-## beta_1[2] -33.092785217 6.1218905660 -42.876748723 -23.308821711
-## beta_2      0.003334919 0.0000845877   0.003199732   0.003470107
-## beta_3[1] -32.083866696 6.1249525109 -41.872723781 -22.295009611
-## beta_3[2] -32.042155145 6.1249525254 -41.831012254 -22.253298037
-## beta_4    -14.545840087 0.7396301298 -15.727911886 -13.363768287
-## beta_5      2.594743962 0.1546084882   2.347649737   2.841838187
+## data frame with 0 columns and 8 rows
 \end{verbatim}
 
 \begin{Shaded}
@@ -5654,7 +5705,9 @@ to be log-normally distributed.
 \NormalTok{post\_lnorm }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m\_NHANES\_lnorm)}
 \NormalTok{post\_lnorm}\SpecialCharTok{$}\NormalTok{diff\_PhysActive }\OtherTok{\textless{}{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_1[,}\DecValTok{1}\NormalTok{]}
 \NormalTok{post\_lnorm}\SpecialCharTok{$}\NormalTok{diff\_G }\OtherTok{\textless{}{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post\_lnorm}\SpecialCharTok{$}\NormalTok{beta\_3[,}\DecValTok{1}\NormalTok{]}
-\FunctionTok{precis}\NormalTok{(post\_lnorm, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{)}
+\CommentTok{\#precis(post\_lnorm, depth = 2)}
+\NormalTok{post\_lnorm\_summary }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{precis}\NormalTok{(post\_lnorm, }\AttributeTok{depth =} \DecValTok{2}\NormalTok{))  }\CommentTok{\# Convert to dataframe}
+\NormalTok{post\_lnorm\_summary[, }\SpecialCharTok{{-}}\FunctionTok{which}\NormalTok{(}\FunctionTok{names}\NormalTok{(post\_lnorm\_summary) }\SpecialCharTok{==} \StringTok{"histogram"}\NormalTok{)]  }\CommentTok{\# Remove histogram column}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5670,17 +5723,6 @@ to be log-normally distributed.
 ## beta_3[2]       -31.980336296 6.166495e+00 -41.611161302 -2.196006e+01
 ## diff_PhysActive  -0.003350291 2.668752e-03  -0.007636024  9.712922e-04
 ## diff_G            0.041706430 2.640623e-03   0.037460961  4.588615e-02
-##                      histogram
-## beta_0           ▁▁▁▁▂▅▇▇▃▂▁▁▁
-## beta_2          ▁▁▁▁▃▇▇▇▃▂▁▁▁▁
-## beta_4            ▁▁▁▂▅▇▇▃▂▁▁▁
-## beta_5          ▁▁▁▁▂▅▇▇▅▂▁▁▁▁
-## beta_1[1]           ▁▁▁▂▅▇▅▂▁▁
-## beta_1[2]           ▁▁▁▂▅▇▅▂▁▁
-## beta_3[1]           ▁▁▂▅▇▅▂▁▁▁
-## beta_3[2]           ▁▁▂▅▇▅▂▁▁▁
-## diff_PhysActive    ▁▁▁▃▇▇▅▂▁▁▁
-## diff_G             ▁▁▁▂▅▇▇▃▁▁▁
 \end{verbatim}
 
 \texttt{diff\_PhysActive} is now \(-0.003350291\) with a very tight credible interval
@@ -5727,8 +5769,7 @@ After improving the model fit, we concluded that the small but clinically irrele
 from the first model dissapeared.
 It would be interesting to see how other variables containing more information
 influence blood pressure, like \emph{PhysActiveDays} (Number of days in a typical week
-that participant does
-moderate or vigorousintensity activity).
+that participant does moderate or vigorous intensity activity).
 
 \subsection{Concluding remarks}\label{concluding-remarks}
 
@@ -6045,7 +6086,7 @@ the range of motion (ROM) of the shoulder.
   \textbf{intra-rater reliability}.
 \end{itemize}
 
-Assuming there is a true (but unknown) underlying value (of ROM),
+Assuming there is a true (but unknown) underlying value (of Range of Motion, ROM),
 it is clear that measurements will not be \emph{exactly} the same.
 Possible influences (potentially) causing different results are:
 
@@ -6062,13 +6103,14 @@ Possible influences (potentially) causing different results are:
 \end{itemize}
 
 Note that the \textbf{true score} is defined in our context as the average of all measurements
-if we would measure repeat it an infinite number of times.
+if we would measure repeatedly an infinite number of times.
 
 \subsection{Peter and Mary's ROM measurements}\label{peter-and-marys-rom-measurements}
 
 The data can be found \href{http://www.clinimetrics.nl/answers-to-the-assignments-in-textbook_22_0.html}{here}.
 We randomly select 50 measurements from Peter and Mary in 50 different patients,
-plot their measurements and annotate the absolutely largest one.
+plot their measurements and annotate the absolutely largest one(s). At first the
+\emph{not affected shoulder} (nas) and then the \emph{affected shoulder} (as).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6173,21 +6215,21 @@ plot their measurements and annotate the absolutely largest one.
 The red line represents the line of equality (\(y=x\)). If the measurements are
 exactly the same,
 all points would lie on this line. The blue point represents the largest
-difference in measured Range of Motion (ROM) values between Peter and Mary
+absolute difference in measured Range of Motion (ROM) values between Peter and Mary
 from the randomly chosen 50 people. Note that the maximum difference in
 all 155 patients is 35 degrees.
 
-The first simple measure of agreement we could use is the correlation, which
-measures the strength and direction of a linear relationship between two variables.
+The first simple measure of agreement we could use is the (Pearson) correlation, which
+measures the \textbf{strength and direction of a linear relationship between two variables}.
 But correlation does not exactly measure what we want. If there was a bias
 (e.g., Mary systematically measures 5 degrees more than Peter), correlation would not
 notice this. (-\textgreater{} exercise later\ldots). It actually is too optimistic about
 the agreement since it only cares about the linearity and not about a potential bias.
 \(r=0.2403213\) which indicates a weak positive correlation. Higher values of Peter's
 are associated with higher values of Mary's measurements.
-But: Knowing Peter's measurement does not help us to \emph{predict} Mary's measurement
-at such a low correlation (-\textgreater{} exercise later).
-So, on the \emph{not affected shoulder} (nas), the agreement is really bad.
+But: Knowing Peter's measurement does not help us to \href{https://en.wikipedia.org/wiki/Pearson_correlation_coefficient\#Interpretation_of_the_size_of_a_correlation}{\emph{predict}}
+Mary's measurement at such a low correlation (-\textgreater{} exercise later).
+So, on the \emph{not affected shoulder} (nas), agreement is really bad.
 
 What about the affected shoulder (as)?
 
@@ -6268,8 +6310,8 @@ Mary's measurement (-\textgreater{} exercise later).
 
 One way to measure reliability is to use the intraclass correlation coefficient (ICC).
 
-This measure is based on the idea that observed score \(Y_i\) consists of the true score
-(ROM) and a measurement error (for each person).
+This measure is based on the idea that the observed score \(Y_i\) consists of the true score
+(ROM) (\(\eta_i\)) and a measurement error (for each person).
 The proportion of the true score variability to the total variability is the ICC.
 
 In the background one thinks of a statistical model from the
@@ -6287,63 +6329,72 @@ There is
   the observed score \(Y_i\).
 \end{itemize}
 
-\[ Y_i = \eta_i + \varepsilon_i \]
+\[Y_i = \eta_i + \varepsilon_i\]
 
 It is assumed that \(\eta_i\) and \(\varepsilon_i\) are independent: (\(\mathbb{C}ov(\eta_i, \varepsilon_i)=0\)).
 This is a nice assumption because now we know (see \href{https://en.wikipedia.org/wiki/Variance\#Addition_and_multiplication_by_a_constant}{here})
-that the variability
-of the observed score \(Y_i\) is just the sum of the variability of the true score \(\eta_i\)
-and the variability of the error term \(\varepsilon_i\):
+that the variance
+of the observed score \(Y_i\) is just the sum of the variance of the true score \(\eta_i\)
+and the variance of the error term \(\varepsilon_i\):
 
-\[ \mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i) \]
-\[ \sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2 \]
+\[\mathbb{V}ar(Y_i) = \mathbb{V}ar(\eta_i) + \mathbb{V}ar(\varepsilon_i)\]
+\[\sigma_{Y_i}^2 = \sigma_{\eta_i}^2 + \sigma_{\varepsilon_i}^2\]
 
 We want most of the variability in our observed scores \(Y_i\) to be explained by the
 true but unobservable scores \(\eta_i\). The measurement error \(\varepsilon_i\) should be
 be comparatively small. If it is large, we are mostly measuring noise or at least not
 what we want to measure.
 
+\textbf{How do we get to the theoretical definition of the ICC?}
+
 If you either pull two people with the same true but unobservable score \(\eta\) out of the population
-or measure the same person twice and the score does not change in between, we can
+or measure the same person twice and the score (\(\eta\)) does not change in between, we can
 \textbf{define reliability as correlation between these two measurements}:
 
 \[Y_1 = \eta + \varepsilon_1\]
 \[Y_2 = \eta + \varepsilon_2\]
 
-\[cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) = 
-\frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  = \]
+\[cor(Y_1, Y_2) = cor(\eta + \varepsilon_1, \eta + \varepsilon_2) = \frac{Cov(\eta + \varepsilon_1, \eta + \varepsilon_2)}{\sigma_{Y_1}\sigma_{Y_2}}  =\]
 
-If we use the \href{https://en.wikipedia.org/wiki/Covariance\#Properties}{properties of the covariance},
-and the fact that the errors \(\varepsilon_1\) and \(\varepsilon_2\) are independent, we get:
+If we use
 
-\[ \frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  = \]
-\[ \frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}\]
+\begin{itemize}
+\tightlist
+\item
+  the \href{https://en.wikipedia.org/wiki/Covariance\#Properties}{properties of the covariance},
+\item
+  the fact that the true score \(\eta\) and the errors \(\varepsilon_i\) are independent, and
+\item
+  the fact that the errors \(\varepsilon_1\) and \(\varepsilon_2\) are independent, we get:
+\end{itemize}
+
+\[\frac{Cov(\eta, \eta) + Cov(\eta, \varepsilon_2) + Cov(\varepsilon_1, \eta) + Cov(\varepsilon_1, \varepsilon_2)}{\sigma_{Y_1} \sigma_{Y_2}}  =\]
+\[\frac{\sigma_{\eta}^2 + 0 + 0 + 0}{\sigma_{Y_1} \sigma_{Y_2}}\]
 
 Since \(\eta\) is a random variable (we draw a person randomly from the population),
 it is well defined to talk about the variance of \(\eta\) (i.e., \(\sigma_{\eta}^2\)).
 I think this aspect may not come across in the book quite so clearly.
 
-Furthermore, it does not matter if I call the measurement \(Y_1\), \(Y_2\) or more gerneral
+Furthermore, it does not matter if I call the measurement \(Y_1\), \(Y_2\) or more general
 \(Y\), since they have the same variance and true score:
 
 \[\sigma_{Y} = \sigma_{Y_1} = \sigma_{Y_2}\]
 
 Hence, it follows that:
 
-\[cor(Y_1, Y_2) =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
+\[cor(Y_1, Y_2) = \frac{\sigma_{\eta}^2}{\sigma_{Y_1}^2} = \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} =  \frac{\sigma_{\eta}^2}{\sigma_{Y}^2} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
 
-This is the \textbf{intraclass correlation coefficient (ICC)}. It is the proportion of the
-true score variability to the total variability. The ICC is a number between 0 and 1 (think about why!).
+This is the \textbf{intraclass correlation coefficient (ICC)}.
+It is (as seen in the formula above) the proportion of the
+true score variability to the total variability.
+It ranges from 0 and 1 (think about why!).
 
-Depending on how much deviation from the true but unknown \(\eta\) we throw into the error term \(\varepsilon\),
-you get different versions of the ICC. We will probably stick with the simple versions \(ICC_{agreement}\)
-and \(ICC_{consistency}\) here and make sure we understand those.
+A little manipulation to improve understanding:
 
 Let's look again at the term for the ICC above and divide the numerator and the denominator by
 \(\sigma_{\eta}^2\), which we can do, since it is a positive number:
 
-\[ \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} = 
-\frac{1}{1 + \frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}}\]
+\[\frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2} = \frac{1}{1 + \frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}}\]
 
 We could call the term \(\frac{\sigma_{\varepsilon}^2}{\sigma_{\eta}^2}\) the noise-to-signal ratio.
 The higher this ratio, the lower the ICC. The lower the ratio, the higher the ICC.
@@ -6355,7 +6406,7 @@ The higher this ratio, the lower the ICC. The lower the ratio, the higher the IC
   true score variability \(\sigma_{\eta}^2\), the ICC decreases, because the denominator
   increases.
 \item
-  If you increase the true score variability \(\sigma_{\eta}^2\) for fixed noise\(\sigma_{\varepsilon}^2\),
+  If you increase the true score variability \(\sigma_{\eta}^2\) for fixed noise \(\sigma_{\varepsilon}^2\),
   the ICC increases, since the denominator decreases.
 \end{itemize}
 
@@ -6412,43 +6463,14 @@ R packages to do this. We will use the \texttt{irr} package.
 ##   0.753 < ICC < 0.913
 \end{verbatim}
 
-We get the result: \(ICC(1) = 0.851\).
+We get the result: \(ICC(1) = 0.851\), which is identical to the correlation coefficient
+because there is no systematic difference between Peter and Mary.
 
-Since we are regression model experts, we would like to see if we can get the result using the Bayesian
+Since we are forward looking and modern regression model experts,
+we would like to see if we can get the result using the Bayesian
 framework.
 
 Below is the model structure.
-
-\textbf{Model details:}
-
-\begin{itemize}
-\tightlist
-\item
-  \(ROM_i\) is the observed ROM-score for observation \(i\).
-  Every patient has two observations (one each from Mary and Peter).
-  So, for instance \(i=1,2\) could be patient \(ID=1\).
-\item
-  \(\mu_i\) is the expected value of the observed score for patient \(ID\).
-\item
-  \(\sigma_{\varepsilon}\) is the standard deviation of the measurement error.
-\item
-  \(\alpha[ID]\) is the patient-specific intercept.
-  Since every patient has a different intercept and they
-  come from a normal distribution, we have a \textbf{random intercepts model}.
-\item
-  \(\mu_{\alpha}\) is the mean of the prior for the patient-specific intercepts.
-  This is the overall mean of the scores.
-\item
-  \(\sigma_{\alpha}\) is the standard deviation of the patient-specific intercepts.
-  \textbf{This is the patient variability}! The nice thing about presenting a model in this
-  way is that it's easier to interpret. \(\sigma_{\alpha}\) says how much
-  the scores of the patients vary in relation to their respective level \(\alpha[ID]\).
-\end{itemize}
-
-The \textbf{\(ICC_{consistency}\)} is then calculated as the ratio of the between-patient variance and
-the total variance:
-
-\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]
 
 \[
 \begin{array}{rcl}
@@ -6461,10 +6483,45 @@ ROM_i &\sim& N(\mu_i, \sigma_{\varepsilon}) \\
 \end{array}
 \]
 
+\textbf{Model details:}
+
+\begin{itemize}
+\tightlist
+\item
+  \(ROM_i\) is the observed ROM-score for patient \(i\).
+  Every patient has two observations (one each from Mary and Peter).
+  So, for instance \(i=1,2\) could be patient \(ID=1\).
+\item
+  \(\mu_i\) is the expected value of the observed score for patient \(ID\).
+\item
+  \(\sigma_{\varepsilon}\) is the standard deviation of the measurement error.
+\item
+  \(\alpha[ID]\) is the patient-specific intercept (\(=\eta_i\)).
+  Since every patient has a different intercept and they
+  come from a normal distribution, we have a \textbf{random intercepts model}.
+\item
+  \(\mu_{\alpha}\) is the mean of the prior for the patient-specific intercepts.
+  This is the overall mean of the scores.
+\item
+  \(\sigma_{\alpha}\) is the standard deviation of the patient-specific intercepts.
+  \textbf{This is the patient variability}! The nice thing about presenting a model in this
+  way is that it's easier to interpret. \(\sigma_{\alpha}\) says how much
+  the scores of the patients vary in relation to their respective level \(\alpha[ID]\).
+\item
+  The prior distributions express (as always) our prior beliefs about the parameters.
+\end{itemize}
+
+The \textbf{ICC} is then calculated as the ratio of the between-patient variance and
+the total variance:
+
+\[\frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]
+
 We did not even notice it, but this was our first \textbf{multilevel regression model}.
 It is multilevel due to the extra layer of patient-specific intercepts.
 The \textbf{observations} are obviously \textbf{clustered within patients}, since observations
 from the \textbf{same patient} are \textbf{more similar than observations from different patients}.
+If one would run a normal linear regression model, one would ignore this clustering
+and the assumption of independent error terms would be violated.
 
 Draw model structure \ldots{} exercise..
 
@@ -6542,7 +6599,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48f1dad68e8.stan', line 17, column 4 to column 34)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6577,7 +6634,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48f1dad68e8.stan', line 17, column 4 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6624,7 +6681,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48f1dad68e8.stan', line 17, column 4 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6663,7 +6720,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48f1dad68e8.stan', line 17, column 4 to column 34)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6698,7 +6755,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48f1dad68e8.stan', line 17, column 4 to column 34)
+## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6733,10 +6790,10 @@ distribution of the parameters.
 ## Chain 8 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 5 finished in 0.1 seconds.
 ## Chain 6 finished in 0.1 seconds.
 ## Chain 7 finished in 0.1 seconds.
-## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
@@ -6745,7 +6802,7 @@ distribution of the parameters.
 ## 
 ## All 8 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.7 seconds.
+## Total execution time: 0.6 seconds.
 \end{verbatim}
 
 \begin{Shaded}
@@ -6755,7 +6812,7 @@ distribution of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-## 7.88 sec elapsed
+## 6.92 sec elapsed
 \end{verbatim}
 
 \begin{Shaded}
@@ -6857,16 +6914,9 @@ In the output from \texttt{precis(m5.1,\ depth\ =\ 2)} above we see
 
 We just square the sigmas to get the variances.
 
-The trick to do these calculations by ``hand'' is to get the
-variance decomposition correct.
-We stumbled upon variance decomposition in the context of ANOVA,
-where we decomposed the total variance into the regression variance
-and the residual variance. Here, we decompose the total variance
-into the between-patient variance and the residual variance.
-
 Remember: In the background, there is just a statistical model to predict
 the outcome. Depending on the predictors, we get different models and
-probably different ICCs
+probably different ICCs.
 
 We can also estimate a \textbf{random intercept model} with the \texttt{lme4} package using
 the command \texttt{lmer}in the Frequentist framework. No priors.
@@ -6956,28 +7006,33 @@ a random intercept. This means that every patient (ID) gets its own intercept
 which is drawn from a normal distribution. We will probably talk about this in the
 next lecture (Methodenvertiefung) in greater detail.
 
-So far, we have only looked at the \textbf{\(ICC_{consistency}\)} (see also page 106 in the book).
+So far, we have only looked at the general \textbf{\(ICC\)} (ICC1 in the \texttt{psych}output)
+(see also page 106 in the book).
+
 There, we have not yet explicitely considered a bias (=systematic difference
 between the raters) that the raters could have. In the book,
 they introduce a bias of 5 degrees (Mary measures 5 degrees more than Peter on average).
 
-\textbf{There is also the \(ICC_{agreement}\)}, which explicitely considers this
+The model für ICC 2 and 3 in the \texttt{psych} output explicitely considers this
 (systematic) difference that could occur between the raters.
-This results in an extra term in the demoniator
-of the ICC, an additional variance component:
+This results in an extra term in the denominator
+of the ICC, an additional variance component.
 
-\[ ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + 
-\mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}\]
+From the same statistical model (!) we take the variance components to calculate:
+
+\[ICC_{agreement} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}\]
 
 where \(\sigma_{rater}^2\) is the variance due to systematic rater differences.
 
+\[ICC_{consistency} = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]
+
 We will now introduce the 5 degree bias and use our Bayesian
-framework to estimate the \(ICC_{agreement}\).
+framework to estimate the ICC.
 By introducing a bias, we should see
-a lower ICC (agreement). Note, that the prediction quality of Mary's scores
+a lower ICC. Note, that the prediction quality of Mary's scores
 given Peter's scores should not change, since we would only shift Mary's scores
 down by 5 degrees, which would not disturb the linear regression model. We can
-always move around the points to where we want them to be. We do that for instance
+always shift the points to where we want them to be. We do that for instance
 when we scale or standardize the data.
 
 Admitted, the Bayesian version in this case takes longer and is more complex.
@@ -6985,7 +7040,8 @@ The advantage is still that it's fully probabilistic and one could work with
 detailed prior information, especially for smaller smaple sizes.
 
 Anyhow, let's try to give the model equations considering
-the introduced bias:
+the introduced bias. This is the model for both
+\(ICC_{agreement}\) and \(ICC_{consistency}\)!
 
 \[
 \begin{array}{rcl}
@@ -7024,6 +7080,19 @@ Draw model structure \ldots{} exercise..
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rethinking)}
+\FunctionTok{library}\NormalTok{(conflicted)}
+\FunctionTok{conflicts\_prefer}\NormalTok{(posterior}\SpecialCharTok{::}\NormalTok{sd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [conflicted] Removing existing preference.
+## [conflicted] Will prefer posterior::sd over any other package.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{df\_long\_bias }\OtherTok{\textless{}{-}}\NormalTok{ df\_long }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ROM =}\NormalTok{ ROM }\SpecialCharTok{+} \FunctionTok{ifelse}\NormalTok{(Rater }\SpecialCharTok{==} \StringTok{"ROMas.Mary"}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{))}
 \FunctionTok{head}\NormalTok{(df\_long\_bias)}
@@ -7044,7 +7113,6 @@ Draw model structure \ldots{} exercise..
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(rethinking)}
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
 \NormalTok{m5}\FloatTok{.2} \OtherTok{\textless{}{-}} \FunctionTok{ulam}\NormalTok{(}
   \FunctionTok{alist}\NormalTok{(}
@@ -7052,13 +7120,13 @@ Draw model structure \ldots{} exercise..
 \NormalTok{    ROM }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu, sigma\_eps),}
     
     \CommentTok{\# Model for mean ROM with patient and rater effects}
-\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ alpha[ID] }\SpecialCharTok{+}\NormalTok{ beta[Rater],  }
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ alpha[ID] }\SpecialCharTok{+}\NormalTok{ beta[Rater],}
     
     \CommentTok{\# Patient{-}specific random effects}
-\NormalTok{    alpha[ID] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu\_alpha, sigma\_alpha),  }
+\NormalTok{    alpha[ID] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(mu\_alpha, sigma\_alpha),}
     
     \CommentTok{\# Rater effect (Peter/Mary)}
-\NormalTok{    beta[Rater] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, sigma\_beta),  }
+\NormalTok{    beta[Rater] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{0}\NormalTok{, sigma\_beta),}
     
     \CommentTok{\# Priors for hyperparameters}
 \NormalTok{    mu\_alpha }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dnorm}\NormalTok{(}\DecValTok{66}\NormalTok{, }\DecValTok{10}\NormalTok{),  }\CommentTok{\# Population mean ROM}
@@ -7082,52 +7150,33 @@ Draw model structure \ldots{} exercise..
 ## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48fed4aa72.stan', line 21, column 4 to column 45)
-\end{verbatim}
-
-\begin{verbatim}
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
 ## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 1
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48fed4aa72.stan', line 21, column 4 to column 45)
-\end{verbatim}
-
-\begin{verbatim}
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
 ## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 2
 \end{verbatim}
 
@@ -7135,6 +7184,7 @@ Draw model structure \ldots{} exercise..
 ## Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -7143,31 +7193,15 @@ Draw model structure \ldots{} exercise..
 
 \begin{verbatim}
 ## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48fed4aa72.stan', line 21, column 4 to column 45)
-\end{verbatim}
-
-\begin{verbatim}
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
 ## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 4
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
+## Chain 1 finished in 0.2 seconds.
 ## Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
@@ -7175,7 +7209,6 @@ Draw model structure \ldots{} exercise..
 ## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -7192,12 +7225,22 @@ Draw model structure \ldots{} exercise..
 ## Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 1 finished in 0.2 seconds.
+## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
+## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+## Chain 5
+\end{verbatim}
+
+\begin{verbatim}
 ## Chain 2 finished in 0.3 seconds.
 ## Chain 3 finished in 0.2 seconds.
 ## Chain 4 finished in 0.2 seconds.
-## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
-## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 5 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 5 Iteration: 400 / 1000 [ 40%]  (Warmup) 
@@ -7206,30 +7249,8 @@ Draw model structure \ldots{} exercise..
 ## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling)
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48fed4aa72.stan', line 21, column 4 to column 45)
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 5
-\end{verbatim}
-
-\begin{verbatim}
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 6 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 6 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -7240,44 +7261,31 @@ Draw model structure \ldots{} exercise..
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 7 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 7 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)
+## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling) 
+## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpA2mSas/model-d48fed4aa72.stan', line 21, column 4 to column 45)
-\end{verbatim}
-
-\begin{verbatim}
+## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
 ## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
-\end{verbatim}
-
-\begin{verbatim}
 ## Chain 7
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 5 finished in 0.2 seconds.
-## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 6 finished in 0.2 seconds.
-## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
@@ -7297,7 +7305,7 @@ Draw model structure \ldots{} exercise..
 ## 
 ## All 8 chains finished successfully.
 ## Mean chain execution time: 0.2 seconds.
-## Total execution time: 0.8 seconds.
+## Total execution time: 0.9 seconds.
 \end{verbatim}
 
 \begin{verbatim}
@@ -7393,7 +7401,7 @@ Draw model structure \ldots{} exercise..
 \begin{Highlighting}[]
 \CommentTok{\# check systematic difference for rater in posterior}
 \NormalTok{post }\OtherTok{\textless{}{-}} \FunctionTok{extract.samples}\NormalTok{(m5}\FloatTok{.2}\NormalTok{)}
-\FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{beta[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{beta[,}\DecValTok{2}\NormalTok{])  }
+\FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{beta[,}\DecValTok{1}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{beta[,}\DecValTok{2}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7468,7 +7476,7 @@ It should be noted that this ICC is very sensitive to the choice of the prior.
 If you choose too agressive priors for the standard deviations \(\sigma_{\alpha},
 \sigma_{\beta}, \sigma_{\varepsilon}\), you will get a too low ICC.
 
-We will proably talk about this in the next lecture (Methodenvertiefung) in greater detail.
+We will probably talk about this in the next lecture (Methodenvertiefung) in greater detail.
 I have played around a little with the parameters in the exponential priors
 to get the desired result which compares nicely to the two alternative methods below:
 using the \texttt{psych} package and with the \texttt{lmer}
@@ -7481,20 +7489,12 @@ elicit the ICC.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(psych)}
+\FunctionTok{library}\NormalTok{(conflicted)}
 \CommentTok{\# needs wide format}
-\FunctionTok{conflicts\_prefer}\NormalTok{(dplyr}\SpecialCharTok{::}\NormalTok{select)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [conflicted] Will prefer dplyr::select over any other package.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
+\CommentTok{\#conflicts\_prefer(dplyr::select)}
 \NormalTok{df\_wide }\OtherTok{\textless{}{-}}\NormalTok{ df\_long\_bias }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =}\NormalTok{ Rater, }\AttributeTok{values\_from =}\NormalTok{ ROM)}
-\NormalTok{df\_wide\_values }\OtherTok{\textless{}{-}}\NormalTok{ df\_wide }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ID)}
+\NormalTok{df\_wide\_values }\OtherTok{\textless{}{-}}\NormalTok{ df\_wide }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ID)}
 \NormalTok{psych}\SpecialCharTok{::}\FunctionTok{ICC}\NormalTok{(df\_wide\_values) }\CommentTok{\# ICC1 = 0.83}
 \end{Highlighting}
 \end{Shaded}
@@ -7600,7 +7600,7 @@ elicit the ICC.
 \subsection{\texorpdfstring{Explanation of ICCs in the \texttt{psych} output}{Explanation of ICCs in the psych output}}\label{explanation-of-iccs-in-the-psych-output}
 
 If you want to know all the details, refer to \href{https://d1wqtxts1xzle7.cloudfront.net/50483847/syarat_reliabilitas_icc-libre.pdf?1479841049=&response-content-disposition=inline\%3B+filename\%3DIntraclass_Correlations_Uses_in_Assessin.pdf&Expires=1740684631&Signature=hHiFbcQD3PDVIyWDJ-bUhcm3WtsK19YhHm6FKtnafNdqsm9NhR6cr9lbCf~gVV5SYG1XlTwLlcfJkQ9Z-ahjmmNV893aWi5plo~yL4oZBEjrmFa9WCd7k6vzFTkri1Xbgfh~GyPARWXBtqABytovtL-RD1420Kw9qk150nw3-kUWcuvRiIc~r0y65XQaXf-V9mm~uXRFdUqec4Vs-Bwh~IrJfHWQASGgp8wZjzh2130MCP3-iaorxNn~79c~nm2f1aIl5WRqRXB6EIy8HlrNFpxNSt1pgTPZoZadEECM4qH395KLY5ijUnhoCDT9AmcOplPnFiC5t8dKW-n25ziofQ__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA}{Shrout and Fleiss (1979)}.
-The help-function \texttt{?psych::ICC} containts a relatively good and much shorter explanation.
+The help-function \texttt{?psych::ICC} contains a relatively good and much shorter explanation.
 The variance formulae given in the help-file are probably somewhat confusing.
 We try to stick to the notation of the book.
 
@@ -7609,27 +7609,30 @@ Let's talk about the first three \textbf{ICCs in the \texttt{psych} output}:.
 \begin{itemize}
 \item
   \textbf{Single\_raters\_absolute ICC1:}
-  According to the help file: ``Each target is rated by a different
-  judge and the judges are selected at random.'' So, variability due to raters
+  According to the help file: ``Each target {[}i.e.~patient{]} is rated by a different
+  judge {[}i.e.~rater{]} and the judges are selected at random.'' So, variability due to raters
   is implied and cannot be disentangled.
   This is formally not our situation, since we have only two raters and
   50 patients. But for this case, we do not care who measures, since we do not
   model it, hence, we cannot know if there are systematic differences between
   the raters. There might as well be 50 raters doing their thing, or just 2 as in our case.
-  This is the ICC we calculated above; called \(ICC_{consistency}\)
+  This is the ICC we calculated above; the overall ICC.
   in the book and based on the following model:
 
-  \[ Y_{ij} = \eta_i + \varepsilon_i \]
+  \[Y_{ij} = \eta_i + \varepsilon_i\]
   where \(i \in {1,...,50}\) is the patient and \(j \in {1,2}\) is the \emph{measurement}
   (\(=50*2=100\) rows in long format).
   Note that we do not mention a rater here, since we do not care who took the
   measurement. It is not part of the model. The ICC is then calculated as:
-  \[ ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
+
+  \[ICC = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
+
   whereas we could get the variance components from either the posterior in the Bayesian
   setting or from the \texttt{lmer} output in the Frequentist setting.
 \item
   \textbf{Single\_random\_raters ICC2:}
-  ICC2 and ICC3 are based on the \textbf{same} statistical model. The only difference is
+  ICC2 (\(=ICC_{agreement}\) in the book) and ICC3 (\(=ICC_{consistency}\) in the book)
+  are based on the \textbf{same} statistical model. The only difference is
   that ICC2 assumes that the (in our case) 2 raters are randomly selected from a larger pool of raters,
   hence, the rater variability must be explicitely considered and yields a potentially smaller
   value for the ICC. Compared to ICC1, we have repeated measurements from the same raters
@@ -7637,31 +7640,32 @@ Let's talk about the first three \textbf{ICCs in the \texttt{psych} output}:.
   The help file says: ``A random sample of k judges rate each target.
   The measure is one of absolute agreement in the ratings.''
   A random sample of k (2 in our case) judges means that we cannot rule out the variability
-  due to raters (you get a variety of them and they biases are different).
+  due to raters (you get a variety of them and their biases are different).
 
-  \[ Y_{ij} = \eta_i + \beta_j + \varepsilon_i \]
+  \[Y_{ij} = \eta_i + \beta_j + \varepsilon_i\]
   where \(i \in {1,...,50}\) is the patient, \(j \in {1,2}\) is the \textbf{rater}
   (doing one measurement in each patient). The ICC is then calculated as:
 
-  \[ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + 
-  \sigma_{\varepsilon}^2}\]
+  \[ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 +\mathbf{\sigma_{rater}^2} + \sigma_{\varepsilon}^2}\]
 \item
   \textbf{Single\_fixed\_raters ICC3:}
-  ICC3 is based on the \textbf{same model as ICC2}, but assumes that the raters are fixed.
+  ICC3 (\(=ICC_{consistency}\) in the book) is based on the \textbf{same model as ICC2},
+  but assumes that the raters are fixed.
   This means that \textbf{the raters are the same for all patients} in the future study.
   So, we have considered the rater variability in the model
   (which was possible due to the repeated measurements from the same raters in 50 patients),
   but do not care since Mary and Peter will be the people doing the future
-  measurements, not other therapists. If you fix a stochastic variable
+  measurements, not other therapists. If you fix a random variable
   (raters in this case), variance is zero. The help file says:
   ``A fixed set of k judges rate each target.
   There is no generalization to a larger population of judges.''
   The ICC is then calculated as:
 
-  \[ ICC_{agreement} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
+  \[ICC_{consistency} = \frac{\sigma_{\eta}^2}{\sigma_{\eta}^2 + \sigma_{\varepsilon}^2}\]
 
   ICC1 and ICC3 are \textbf{not} identical, since ICC1 does not consider the rater variability
-  in the model.
+  in the model. They are based on \emph{different} statistiacal models.
+  ICC2 and ICC3 are based on the \emph{same} model.
 \end{itemize}
 
 If there is no systematic difference between raters, all 3 ICCs and the Pearson
@@ -7669,14 +7673,16 @@ correlation (r) are the same (see Figure 5.3 in the book).
 
 \(ICC_{consistency}\) vs.~\(ICC_{agreement}\):
 The latter is used, when we need Peter and Mary to concur in their measurements.
-Patients coming to Peters practice will get the same ``diagnosis'' (ROM-value)
+Patients coming to Peters practice will get the same (or very similar) ``diagnosis'' (ROM-value)
 from Mary. When there is systematic difference (line is shifted downwards in Figure 5.3),
 this cannot be guaranteed.
+If we only need Peter and Mary to \emph{rank} the patients in the same order,
+we can use \(ICC_{consistency}\).
 
 \subsection{Summary Peter and Mary, with and without bias}\label{summary-peter-and-mary-with-and-without-bias}
 
 Below, we summarize the results for the ICCs (calculated with \texttt{psych})
-for the unbiased and biased case.
+for the unbiased and biased case (Mary measures on average 5 degrees more than peter).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7684,21 +7690,12 @@ for the unbiased and biased case.
 \FunctionTok{p\_load}\NormalTok{(conflicted, tidyverse, flextable)}
 
 \CommentTok{\# Ensure select() from dplyr is used}
-\FunctionTok{conflicts\_prefer}\NormalTok{(dplyr}\SpecialCharTok{::}\NormalTok{select)}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{\#conflicted::conflicts\_prefer("select", "dplyr")}
 
-\begin{verbatim}
-## [conflicted] Removing existing preference.
-## [conflicted] Will prefer dplyr::select over any other package.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{\# Unbiased ICC Calculation}
 \NormalTok{df\_wide\_unbiased }\OtherTok{\textless{}{-}}\NormalTok{ df\_long }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =}\NormalTok{ Rater, }\AttributeTok{values\_from =}\NormalTok{ ROM)}
-\NormalTok{df\_wide\_values\_unbiased }\OtherTok{\textless{}{-}}\NormalTok{ df\_wide\_unbiased }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ID)}
+\NormalTok{df\_wide\_values\_unbiased }\OtherTok{\textless{}{-}}\NormalTok{ df\_wide\_unbiased }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ID)}
 \NormalTok{icc\_results\_unbiased }\OtherTok{\textless{}{-}}\NormalTok{ psych}\SpecialCharTok{::}\FunctionTok{ICC}\NormalTok{(df\_wide\_values\_unbiased)}
 \end{Highlighting}
 \end{Shaded}
@@ -7717,13 +7714,13 @@ for the unbiased and biased case.
 \CommentTok{\# Biased ICC Calculation}
 \NormalTok{df\_wide\_biased }\OtherTok{\textless{}{-}}\NormalTok{ df\_long\_bias }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{pivot\_wider}\NormalTok{(}\AttributeTok{names\_from =}\NormalTok{ Rater, }\AttributeTok{values\_from =}\NormalTok{ ROM)}
-\NormalTok{df\_wide\_values\_biased }\OtherTok{\textless{}{-}}\NormalTok{ df\_wide\_biased }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ID)}
+\NormalTok{df\_wide\_values\_biased }\OtherTok{\textless{}{-}}\NormalTok{ df\_wide\_biased }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{ID)}
 \NormalTok{icc\_results\_biased }\OtherTok{\textless{}{-}}\NormalTok{ psych}\SpecialCharTok{::}\FunctionTok{ICC}\NormalTok{(df\_wide\_values\_biased)}
 
 \CommentTok{\# Extract relevant ICC values}
 \NormalTok{icc\_biased\_df }\OtherTok{\textless{}{-}}\NormalTok{ icc\_results\_biased}\SpecialCharTok{$}\NormalTok{results }\SpecialCharTok{\%\textgreater{}\%}
 \NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(type, ICC) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{rename}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Biased ICC}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ ICC)}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{rename}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{Biased ICC}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ ICC)}
 
 \NormalTok{icc\_merged\_df }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(icc\_unbiased\_df, }
 \NormalTok{                           icc\_biased\_df, }
@@ -7798,31 +7795,680 @@ for the unbiased and biased case.
 
 \renewcommand*{\arraystretch}{1}
 
+The \textbf{left column} shows that the ICCs are identical for the \textbf{unbiased case}.
+Specifically, ICC2 (=\(ICC_{agreement}\) in the book) and
+ICC3 (\(ICC_{consistency}\) in the book) are based on the same model which explicitely
+considers a potential bias between the raters. Since there is none,
+the ICCs are the same.
+
+In the \textbf{biased case}, there \emph{is} as systematic difference between Mary and Peter.
+
+\textbf{ICC1} does not care about it and shows a somewhat lower value compared to
+before (\(0.833\)). The reason is because the agreement line is in a plot with
+Mary on Y and Peter on X shifted upwards by 5 degrees.
+If you would introduce a bias of 15 degrees, the ICC would
+be even lower (\(ICC1 = 0.61\), \(ICC2 = 0.65\) -\textgreater{} verify as exercise).
+The unbiased column would of course stay the same.
+
+\textbf{ICC2} now considers the bias of 5 degrees. The model knows about the shift.
+If we compare the variance components of ICC1 and ICC2, we see:
+
+\begin{verbatim}
+## [1] "Model for ICC1: ROM ~ (1 | ID)"
+\end{verbatim}
+
+\begin{verbatim}
+##  Groups   Name        Variance
+##  ID       (Intercept) 267.79  
+##  Residual              53.75
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Model for ICC2 (and 3): ROM ~ (1 | ID) + (1 | Rater)"
+\end{verbatim}
+
+\begin{verbatim}
+##  Groups   Name        Variance
+##  ID       (Intercept) 270.882 
+##  Rater    (Intercept)   6.193 
+##  Residual              47.557
+\end{verbatim}
+
+The residual variance is smaller in the model with the rater effect.
+The model explains the data better, since it knows about the bias.
+
+Look at the \(\sigma_{\varepsilon}\) of the two models, they add up:
+
+\[\sigma_{\varepsilon, ICC1}^2 = \sigma_{\varepsilon, ICC23}^2 + \sigma_{Rater}^2\]
+\[53.75 = 47.557 + 6.193\]
+
+Hence, we just split up the error differently by considering the bias.
+The patient variability (\texttt{ID\ Variance} in the output) is slightly higher:
+\(270.882\) compared to \(267.79\) before.
+In the first model, patient variability was conflated with rater variation because rater effects
+were not explicitly modeled. For this reason, \texttt{ID\ Variance} increases slightly.
+It is a rather small increase, so ICC1 and ICC2 are not that different.
+
+For a bias of 15 degrees, the additivity of the variances remains.
+The patient variability increases from \(223.89\) (ICC1) to \(270.882\) (ICC2),
+hence the difference in ICCs is larger (\(ICC1=0.613\) vs.~\(ICC2=0.657\)).
+
+\textbf{ICC3} considers the bias in the model but does not include it in the measurement
+error since the raters are fixed.
+
 \subsection{Difference between correlation and ICC}\label{difference-between-correlation-and-icc}
 
 If we do not introduce a bias in the data, the correlation coefficient
 is the same as the ICC (as seen above). On page 110, Figure 5.3, the authors show nicely
-what the difference is between the correlation coefficient and the ICC. We note:
+what the difference is between the correlation coefficient and the ICC.
+It is also shown how \(ICC_{agreement}\) and \(ICC_{consistency}\) change with the bias.
+
+\(ICC_{consistency}\) stays \(1\) if bias is introduced (assuming a hypothetical
+perfect agreement before). Peter and Mary still rank the patients
+in the same order.
+
+Correlation \(r\) is always 1, no matter at what slope (\(\ne 0\)) the line is.
+It measures the strength and direction of the \emph{linear} relationship between two variables.
+
+\(ICC_{agreement}\) changes as soon as you depart from the 45 degree line
+with respect to slope or
+shift the line up or down (i.e., introduce a bias).
+
+This is a good point in time to think for a moment about the type of measurement
+for agreement with respect to \textbf{costs}. The ICC below weights each measurement
+equally, although one larger outlier (large discrepancy between Peter and Mary)
+may influence the ICC notably (exercise later). One could easily think of a situation where
+overall agreement measure like the ICC is not adequate since,
+for instance, exceeding a certain
+difference threshold could decide between life and death.
+
+\subsection{Bad news about the ICC?}\label{bad-news-about-the-icc}
+
+Let's try to expand our intuitive understanding of what an ICC of 0.8 or so means.
+For simplicity, we take the overall ICC, which is equal to the correlation coefficient,
+if there is no bias present.
+
+The following example demonstrates the meaning of the Test-Retest reliability of
+the Hospital Anxiety and Depression Scale - Anxiety subscale (HADS-A). We could take
+all kinds of other scores where ICC values and a
+\href{https://en.wikipedia.org/wiki/Minimal_important_difference}{minimally clinically important difference (MCID)}
+is given. Briefly, the MCID is the smallest change in a score that is considered
+important to the patient. For example, a 5\% change in BMI is (in some populations)
+considered meaningful.
+
+Specifically, we:
 
 \begin{itemize}
 \tightlist
 \item
-  The \(ICC_{agreement}\) measures how tightly the two measurements are
-  clustered around the line of equality (\(y=x\))\ldots\ldots..
-  \ldots\ldots..
+  Simulate two correlated measurement at two time points (TP1 and TP2)
+  to get predetermined ICC (\(=\rho\)).
+\item
+  Calculate the Intraclass Correlation Coefficient (ICC).
+\item
+  Compare the Minimal Clinically Important Difference (MCID) to prediction intervals.
+\item
+  Visualize how often a clinically meaningful change of 1.68 points is
+  detected, even if no real change has occurred.
 \end{itemize}
 
-\subsection{Bad news about the ICC?}\label{bad-news-about-the-icc}
+The code can be found \href{https://github.com/jdegenfellner/ICC_MCID/blob/main/ICC_MCID.R}{here}
+and in the github repo of the script. In the code, the sources for the ICC and MCID are
+cited.
 
-\ldots{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ICC and Test{-}Retest{-}Reliability}
+
+\FunctionTok{library}\NormalTok{(pacman)}
+\FunctionTok{p\_load}\NormalTok{(tidyverse, lme4, conflicted, psych, MASS)}
+
+\CommentTok{\# MCID Minimal Clinically Important Difference{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\# HADS score{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# The Hospital Anxiety and Depression Scale }
+
+\CommentTok{\# Test{-}Retest{-}Reliability:}
+\CommentTok{\# https://doi.org/10.1016/S1361{-}9004(02)00029{-}8}
+
+\CommentTok{\# Use the numbers from here (Table 1):}
+\CommentTok{\# https://www.sciencedirect.com/science/article/abs/pii/S1361900402000298}
+\CommentTok{\# for demonstration purposes.}
+
+\CommentTok{\# Minimal Clinically Important Difference (MCID) for HADS{-}A:}
+\CommentTok{\# https://pmc.ncbi.nlm.nih.gov/articles/PMC2459149/}
+\CommentTok{\# Not exactly the same population as shift workers, but suffices for demonstration purposes.}
+\CommentTok{\# MCID HADS anxiety score and 1.68 (1.48–1.87)}
+
+\CommentTok{\# Simplification: Score is deemed to be continuous.}
+
+\CommentTok{\# Create 2 correlated measurements:}
+\CommentTok{\# Use HADS{-}A Anxiety subscale}
+\CommentTok{\# Use n=100, instead of n=24 for more stability}
+
+\NormalTok{sigma1 }\OtherTok{\textless{}{-}} \FloatTok{3.93}  \CommentTok{\# Standard deviation of variable 1}
+\NormalTok{sigma2 }\OtherTok{\textless{}{-}} \FloatTok{3.52}  \CommentTok{\# Standard deviation of variable 2}
+\NormalTok{rho }\OtherTok{\textless{}{-}} \FloatTok{0.82}    \CommentTok{\# Correlation}
+\NormalTok{cov\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(sigma1}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, rho }\SpecialCharTok{*}\NormalTok{ sigma1 }\SpecialCharTok{*}\NormalTok{ sigma2,}
+\NormalTok{                       rho }\SpecialCharTok{*}\NormalTok{ sigma1 }\SpecialCharTok{*}\NormalTok{ sigma2, sigma2}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{100}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{188}\NormalTok{)  }\CommentTok{\# For reproducibility}
+\NormalTok{samples }\OtherTok{\textless{}{-}} \FunctionTok{mvrnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n, }\AttributeTok{mu =} \FunctionTok{c}\NormalTok{(}\FloatTok{7.92}\NormalTok{, }\FloatTok{7.83}\NormalTok{), }\AttributeTok{Sigma =}\NormalTok{ cov\_matrix)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(samples)}
+\FunctionTok{colnames}\NormalTok{(df) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"TP1"}\NormalTok{, }\StringTok{"TP2"}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{(df, }\AttributeTok{main =} \StringTok{"Scatterplot of Multivariate Normal Samples"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"TP1"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"TP2"}\NormalTok{, }\AttributeTok{pch =} \DecValTok{19}\NormalTok{, }\AttributeTok{col =} \FunctionTok{rgb}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-106-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# https://en.wikipedia.org/wiki/Intraclass\_correlation\#Modern\_ICC\_definitions:\_simpler\_formula\_but\_positive\_bias}
+\CommentTok{\# ICC should be the correlation within the group (i.e. patient)}
+
+\FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{TP1, df}\SpecialCharTok{$}\NormalTok{TP2, }\AttributeTok{method =} \StringTok{"pearson"}\NormalTok{) }\CommentTok{\# \textasciitilde{}0.8{-}0.9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8184881
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ICC}\NormalTok{(df) }\CommentTok{\# 0.82}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## boundary (singular) fit: see help('isSingular')
+\end{verbatim}
+
+\begin{verbatim}
+## Call: ICC(x = df)
+## 
+## Intraclass correlation coefficients 
+##                          type  ICC  F df1 df2       p lower bound upper bound
+## Single_raters_absolute   ICC1 0.82 10  99 100 5.6e-26        0.74        0.87
+## Single_random_raters     ICC2 0.82 10  99  99 8.7e-26        0.74        0.87
+## Single_fixed_raters      ICC3 0.82 10  99  99 8.7e-26        0.74        0.87
+## Average_raters_absolute ICC1k 0.90 10  99 100 5.6e-26        0.85        0.93
+## Average_random_raters   ICC2k 0.90 10  99  99 8.7e-26        0.85        0.93
+## Average_fixed_raters    ICC3k 0.90 10  99  99 8.7e-26        0.85        0.93
+## 
+##  Number of subjects = 100     Number of Judges =  2
+## See the help file for a discussion of the other 4 McGraw and Wong estimates,
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# check manually}
+\NormalTok{df\_mod }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{id =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n, df}\SpecialCharTok{$}\NormalTok{TP1, df}\SpecialCharTok{$}\NormalTok{TP2)}
+\FunctionTok{names}\NormalTok{(df\_mod) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"TP1"}\NormalTok{, }\StringTok{"TP2"}\NormalTok{)}
+\NormalTok{df\_mod\_long }\OtherTok{\textless{}{-}}\NormalTok{ df\_mod }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(TP1, TP2), }\AttributeTok{names\_to =} \StringTok{"time\_point"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"score"}\NormalTok{)}
+\NormalTok{mod }\OtherTok{\textless{}{-}}\NormalTok{ lme4}\SpecialCharTok{::}\FunctionTok{lmer}\NormalTok{(score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ time\_point }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{|}\NormalTok{id), }\AttributeTok{data =}\NormalTok{ df\_mod\_long)}
+\NormalTok{variance\_df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{summary}\NormalTok{(mod)}\SpecialCharTok{$}\NormalTok{varcor)}
+\CommentTok{\# ICC=}
+\NormalTok{variance\_df}\SpecialCharTok{$}\NormalTok{sdcor[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{/}\NormalTok{ (variance\_df}\SpecialCharTok{$}\NormalTok{sdcor[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ variance\_df}\SpecialCharTok{$}\NormalTok{sdcor[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\CommentTok{\# \textasciitilde{}0.9}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8170566
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# cor and ICC are very very similar, should actually be identical.}
+
+\CommentTok{\# check}
+\FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{TP1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.964553
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{TP2) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.782436
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#data.frame(TP1 = df$TP1, TP2 = df$TP2) \%\textgreater{}\% }
+\CommentTok{\#  ggplot(aes(x = TP1, y = TP2)) +}
+\CommentTok{\#  geom\_point() +}
+\CommentTok{\#  xlab("Measurement of patients at time point 1") +}
+\CommentTok{\#  ylab("Measurement of the same patients at time point 2")}
+
+\CommentTok{\# Range for HADS{-}A should be 0{-}21 }
+\CommentTok{\# (according to "The Hospital Anxiety and Depression Scale, Zigmond \& Snaith, 1983")}
+
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TP1 =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{TP1, }\AttributeTok{TP2 =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{TP2) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(TP1 }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(TP2 }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# negative not possible}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(TP1 }\SpecialCharTok{\textless{}=} \DecValTok{21}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{filter}\NormalTok{(TP2 }\SpecialCharTok{\textless{}=} \DecValTok{21}\NormalTok{) }\CommentTok{\# max. score is 21}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          TP1       TP2
+## 1  13.003089 14.539674
+## 2   6.980669  9.312346
+## 3  17.751972 12.957041
+## 4  10.344489  6.995323
+## 5   7.861347  7.568915
+## 6  12.892886 11.703021
+## 7   5.478497  7.952075
+## 8   9.583384  7.515242
+## 9   7.519451  4.043160
+## 10 11.499240 11.652541
+## 11  6.468033  6.660218
+## 12  6.048513  3.471018
+## 13  7.697834  9.065112
+## 14 12.254369  8.811619
+## 15  1.614857  4.614998
+## 16 10.619077 10.125575
+## 17  9.419930  8.518226
+## 18  2.937867  4.456727
+## 19  8.236834 11.196117
+## 20  8.954668 12.675367
+## 21 12.320423 12.768905
+## 22 12.314754 10.081370
+## 23  2.160930  6.959311
+## 24  6.832022  6.613443
+## 25  1.093221  4.571882
+## 26  9.725573  9.440133
+## 27  1.355585  4.171266
+## 28  7.752631  9.028429
+## 29  8.764755  5.020493
+## 30  6.347606  3.694110
+## 31  5.375775  4.932552
+## 32 11.278457 10.079779
+## 33  6.740993  6.092677
+## 34  5.812009  4.668937
+## 35  4.349329  6.225931
+## 36  9.895140 12.126645
+## 37 11.148574  9.213335
+## 38  2.047422  2.430490
+## 39  6.486131  6.032311
+## 40  5.645763  7.611138
+## 41  6.726079 10.071178
+## 42  5.755609  7.947849
+## 43 10.642786  9.117806
+## 44  5.141220  5.304112
+## 45  2.642085  1.933020
+## 46  7.684671  6.640758
+## 47  9.262502  8.538370
+## 48 16.254728 15.559716
+## 49  7.156983  6.978574
+## 50 12.081541 10.935277
+## 51 11.764108  9.705782
+## 52 11.558231 10.001998
+## 53  7.207230  8.702822
+## 54 13.271195 12.305426
+## 55  8.662632  9.794167
+## 56  7.202986  3.372489
+## 57  5.857393 10.673803
+## 58 12.606715  8.961083
+## 59 11.081861 13.549278
+## 60  4.900769  5.337160
+## 61 15.309336 11.034889
+## 62 14.589373 13.720623
+## 63 13.671753 10.925029
+## 64 12.180305 12.781404
+## 65  1.762711  5.561035
+## 66  3.140391  6.372191
+## 67  5.492213  5.996299
+## 68  4.466991  8.914347
+## 69  2.502974  2.742313
+## 70 12.667048  9.000329
+## 71  4.580641  6.028937
+## 72 11.858807 10.368234
+## 73  4.537198  2.709857
+## 74  7.419888 10.998858
+## 75  4.879237  4.827545
+## 76 13.618764  9.062266
+## 77 14.472807 14.418930
+## 78  7.952580  7.896180
+## 79  1.912410  3.428163
+## 80  7.801004  2.616797
+## 81 10.336987 11.858491
+## 82  8.417477 10.399787
+## 83  5.491992  7.532053
+## 84  7.596043  3.712851
+## 85  6.912368  8.655686
+## 86  6.201155  2.107871
+## 87 11.707088 13.145075
+## 88  3.443512  1.810893
+## 89 12.406231 12.175912
+## 90  7.231295  8.403967
+## 91 11.070856 10.877902
+## 92 14.508512 13.754604
+## 93  9.936188 10.610818
+## 94  6.590862  3.507825
+## 95 11.660322 10.722280
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(TP2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ TP1, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(mod, df, }\AttributeTok{interval =} \StringTok{"prediction"}\NormalTok{)}
+
+\CommentTok{\# How wide are the prediction intervals for a patient?}
+\FunctionTok{as.data.frame}\NormalTok{(pred) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{width\_prediction\_interval =}\NormalTok{ upr }\SpecialCharTok{{-}}\NormalTok{ lwr) }\CommentTok{\# width of the prediction interval 8{-}10 points!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          fit         lwr       upr width_prediction_interval
+## 1  11.517789  7.32000445 15.715573                  8.395568
+## 2   7.260698  3.09356695 11.427829                  8.334262
+## 3  14.874649 10.57640522 19.172893                  8.596488
+## 4   9.638494  5.46784345 13.809144                  8.341301
+## 5   7.883226  3.71851506 12.047937                  8.329422
+## 6  11.439889  7.24365214 15.636126                  8.392473
+## 7   6.198852  2.02213714 10.375568                  8.353431
+## 8   9.100489  4.93366030 13.267318                  8.333658
+## 9   7.641549  3.47617950 11.806918                  8.330738
+## 10 10.454757  6.27494432 14.634571                  8.359626
+## 11  6.898329  2.72869927 11.067959                  8.339260
+## 12  6.601781  2.42951087 10.774051                  8.344541
+## 13  7.767643  3.60266181 11.932624                  8.329962
+## 14 10.988538  6.80055090 15.176525                  8.375974
+## 15  3.467747 -0.76481930  7.700313                  8.465132
+## 16  9.832593  5.66013066 14.005055                  8.344925
+## 17  8.984947  4.81870889 13.151186                  8.332477
+## 18  4.402947  0.19450442  8.611390                  8.416885
+## 19  8.148648  3.98424793 12.313048                  8.328800
+## 20  8.656066  4.49106133 12.821072                  8.330010
+## 21 11.035230  6.84644646 15.224014                  8.377568
+## 22 11.031223  6.84250820 15.219938                  8.377430
+## 23  3.853751 -0.36823502  8.075737                  8.443972
+## 24  7.155623  2.98785021 11.323396                  8.335546
+## 25  3.099016 -1.14446756  7.342499                  8.486967
+## 26  9.200999  5.03359021 13.368407                  8.334817
+## 27  3.284474 -0.95341998  7.522367                  8.475787
+## 28  7.806378  3.64149615 11.971259                  8.329763
+## 29  8.521822  4.35713015 12.686514                  8.329383
+## 30  6.813202  2.64286933 10.983535                  8.340666
+## 31  6.126241  1.94861984 10.303862                  8.355242
+## 32 10.298692  6.12094325 14.476441                  8.355497
+## 33  7.091277  2.92307764 11.259477                  8.336399
+## 34  6.434603  2.26060789 10.608598                  8.347990
+## 35  5.400673  1.21224884  9.589097                  8.376848
+## 36  9.320861  5.15268035 13.489042                  8.336361
+## 37 10.206881  6.03027765 14.383484                  8.353206
+## 38  3.773515 -0.45059795  7.997629                  8.448227
+## 39  6.911122  2.74159427 11.080650                  8.339056
+## 40  6.317088  2.14177936 10.492397                  8.350617
+## 41  7.080735  2.91246298 11.249007                  8.336544
+## 42  6.394735  2.22030395 10.569166                  8.348862
+## 43  9.849352  5.67672294 14.021982                  8.345259
+## 44  5.960440  1.78063088 10.140249                  8.359619
+## 45  4.193867 -0.01952182  8.407256                  8.426777
+## 46  7.758338  3.59333195 11.923345                  8.330013
+## 47  8.873666  4.70791894 13.039413                  8.331494
+## 48 13.816287  9.55673194 18.075843                  8.519111
+## 49  7.385330  3.21887319 11.551787                  8.332914
+## 50 10.866371  6.68040625 15.052336                  8.371929
+## 51 10.641986  6.45950156 14.824470                  8.364969
+## 52 10.496456  6.31606656 14.676846                  8.360780
+## 53  7.420848  3.25456616 11.587130                  8.332564
+## 54 11.707306  7.50560608 15.909006                  8.403400
+## 55  8.449634  4.28506471 12.614202                  8.329138
+## 56  7.417848  3.25155183 11.584145                  8.332593
+## 57  6.466683  2.29303270 10.640334                  8.347301
+## 58 11.237603  7.04521442 15.429991                  8.384777
+## 59 10.159723  5.98368848 14.335757                  8.352069
+## 60  5.790471  1.60824613  9.972696                  8.364450
+## 61 13.148015  8.90959977 17.386429                  8.476830
+## 62 12.639092  8.41504000 16.863143                  8.448103
+## 63 11.990450  7.78250179 16.198399                  8.415897
+## 64 10.936184  6.74907482 15.123294                  8.374219
+## 65  3.572261 -0.65735481  7.801876                  8.459231
+## 66  4.546106  0.34090074  8.751312                  8.410411
+## 67  6.208548  2.03195085 10.385144                  8.353194
+## 68  5.483845  1.29682048  9.670870                  8.374049
+## 69  4.095533 -0.12027142  8.311337                  8.431609
+## 70 11.280250  7.08707078 15.473429                  8.386359
+## 71  5.564181  1.37846891  9.749893                  8.371425
+## 72 10.708926  6.52543503 14.892417                  8.366982
+## 73  5.533472  1.34726300  9.719682                  8.372419
+## 74  7.571170  3.40554231 11.736798                  8.331256
+## 75  5.775251  1.59280130  9.957701                  8.364900
+## 76 11.952994  7.74589920 16.160088                  8.414189
+## 77 12.556694  8.33482530 16.778563                  8.443737
+## 78  7.947716  3.78312039 12.112312                  8.329192
+## 79  3.678079 -0.54861400  7.904772                  8.453386
+## 80  7.840572  3.67577039 12.005373                  8.329602
+## 81  9.633192  5.46258745 13.803796                  8.341208
+## 82  8.276340  4.11193632 12.440744                  8.328808
+## 83  6.208392  2.03179294 10.384990                  8.353197
+## 84  7.695690  3.53049953 11.860881                  8.330381
+## 85  7.212418  3.04500055 11.379836                  8.334835
+## 86  6.709680  2.53843261 10.880928                  8.342495
+## 87 10.601680  6.41978859 14.783572                  8.363783
+## 88  4.760375  0.55978683  8.960963                  8.401176
+## 89 11.095886  6.90604714 15.285724                  8.379677
+## 90  7.437859  3.27165782 11.604060                  8.332402
+## 91 10.151944  5.97600166 14.327886                  8.351884
+## 92 12.581933  8.35939957 16.804466                  8.445066
+## 93  9.349877  5.18149616 13.518258                  8.336761
+## 94  6.985154  2.81619604 11.154112                  8.337916
+## 95 10.568622  6.38720944 14.750034                  8.362825
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Example:}
+\FunctionTok{predict}\NormalTok{(mod, }\AttributeTok{newdata =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{TP1 =} \DecValTok{10}\NormalTok{), }\AttributeTok{interval =} \StringTok{"prediction"}\NormalTok{) }\CommentTok{\# 95\% prediction interval for a patient with a score of 10 at time point 1.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        fit      lwr      upr
+## 1 9.394984 5.226282 13.56369
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FloatTok{13.56369} \SpecialCharTok{{-}} \FloatTok{5.226282}\NormalTok{)}\SpecialCharTok{/}\FloatTok{1.68}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4.962743
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Prediction interval width is \textasciitilde{}5 times our minimally clinically important }
+\CommentTok{\# change of 1.68 for HADS{-}A.}
+
+\NormalTok{df }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ TP1, }\AttributeTok{y =}\NormalTok{ TP2)) }\SpecialCharTok{+}
+  \CommentTok{\# Color points conditionally}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{color =} \FunctionTok{ifelse}\NormalTok{(TP2 }\SpecialCharTok{\textgreater{}}\NormalTok{ TP1 }\SpecialCharTok{+} \FloatTok{1.68} \SpecialCharTok{|}\NormalTok{ TP2 }\SpecialCharTok{\textless{}}\NormalTok{ TP1 }\SpecialCharTok{{-}} \FloatTok{1.68}\NormalTok{, }\StringTok{"red"}\NormalTok{, }\StringTok{"black"}\NormalTok{))) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"red"} \OtherTok{=} \StringTok{"red"}\NormalTok{, }\StringTok{"black"} \OtherTok{=} \StringTok{"black"}\NormalTok{), }\AttributeTok{guide =} \StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =}\NormalTok{ mod}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{], }\AttributeTok{slope =}\NormalTok{ mod}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ pred[,}\DecValTok{2}\NormalTok{], }\AttributeTok{ymax =}\NormalTok{ pred[,}\DecValTok{3}\NormalTok{]), }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"HADS{-}A and 95\% Prediction Interval for TP2"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"green"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \FloatTok{1.68}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}\AttributeTok{intercept =} \SpecialCharTok{{-}}\FloatTok{1.68}\NormalTok{, }\AttributeTok{slope =} \DecValTok{1}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-106-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# How often is TP2 within the MCIC of 1.68 points?{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{abs\_diff }\OtherTok{\textless{}{-}} \FunctionTok{abs}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{TP1 }\SpecialCharTok{{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{TP2)}
+\FunctionTok{hist}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{abs\_diff)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FloatTok{1.68}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-106-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{abs\_diff }\SpecialCharTok{\textgreater{}} \FloatTok{1.68}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(}\FunctionTok{table}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{abs\_diff }\SpecialCharTok{\textgreater{}} \FloatTok{1.68}\NormalTok{)) }\CommentTok{\# }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##     FALSE      TRUE 
+## 0.5368421 0.4631579
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}\textgreater{} in \textasciitilde{}46\% of cases we detect a minimally clinically important change of 1.68 points.}
+\CommentTok{\# even though the underlying truth did not change.}
+
+\CommentTok{\# This result is near random guessing}
+\end{Highlighting}
+\end{Shaded}
+
+The example shows that for the given value of ICC (\(>0.8\)) and MCID, the test retest reliability
+is near random guessing with respect to detecting a change, since the second prediction is
+very often outside the MCID (red dashed lines). Or in short: Even if Mary measures twice
+with this ICC value, she will detect a clinically meaningful change in almost half of the cases,
+although the underlying
+truth did not change.
+
+One could play around a little bit with the parameters here
+(and maybe make the argument more rigorous),
+but my guess would be that the main message remains stable.
+
+What do you think? Can you find literature or logical arguments against this
+simulation? I would be pleased to hear your thoughts.
 
 \subsection{Standard Error of Measurement (SEM)}\label{standard-error-of-measurement-sem}
 
-\ldots{}
+Above, we defined the overall ICC as:
+
+\[ICC = \frac{\sigma_{\alpha}^2}{\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2}\]
+
+The SEM is defined as: \(\sqrt{\sigma_{\varepsilon}^2}\).
+
+This is a measure for the precision of the model. If this number is small,
+we know the true but unknown score (\(\eta\)) very precisely. As we have seen, for the
+\(ICC_{agreement}\) the error term includes the rater variability \(\sigma_{rater}\).
+
+For ICC2 and 3 the model is the same and:
+
+\[Y_{ij} = \eta_i + \beta_j + \varepsilon_i\]
+
+For \(ICC_{agreement}\), the SEM is then:
+\[\sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\text{rater}}^2 + \sigma_{\varepsilon}^2}_{SEM_{agreement}^2}\]
+
+For \(ICC_{consistency}\), the SEM is then:
+\[\sigma_{Y_i}^2 = \sigma_{\eta}^2 + \underbrace{\sigma_{\varepsilon}^2}_{SEM_{consistency}^2}\]
+
+And since ICC 2 and 3 are based on the same model:
+\[SEM_{consistency} \le SEM_{agreement}\]
+(equality if there is no bias)
+
+This yields the \textbf{first method} of getting the SEM: Estimate the
+model (as we did above) and take the square root of the respective error term
+(with or without the rater variability).
+
+One can also show (excercise\ldots) that we can find the \(SEM_{consistency}\) by using
+the standard deviation of the differences between the two measurements
+of Peter and Mary:
+
+We verify this immediately:
+
+\[SEM_{consistency} = \frac{SD_{difference}}{\sqrt{2}}\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{lmer}\NormalTok{(ROM }\SpecialCharTok{\textasciitilde{}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ ID) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{|}\NormalTok{ Rater), }\AttributeTok{data =}\NormalTok{ df\_long\_bias)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{VarCorr}\NormalTok{(mod))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Groups   Name        Std.Dev.
+##  ID       (Intercept) 16.4585 
+##  Rater    (Intercept)  2.4886 
+##  Residual              6.8961
+\end{verbatim}
+
+\[SEM_{consistency} = \sigma_{residual} = 6.8961\]
+
+Let's calculate the SEM from the differences between the two measurements:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# SEM from differences}
+\FunctionTok{sd}\NormalTok{(df\_long\_bias}\SpecialCharTok{$}\NormalTok{ROM[df\_long\_bias}\SpecialCharTok{$}\NormalTok{Rater }\SpecialCharTok{==} \StringTok{"ROMas.Mary"}\NormalTok{] }\SpecialCharTok{{-}}
+\NormalTok{   df\_long\_bias}\SpecialCharTok{$}\NormalTok{ROM[df\_long\_bias}\SpecialCharTok{$}\NormalTok{Rater }\SpecialCharTok{==} \StringTok{"ROMas.Peter"}\NormalTok{]) }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.896154
+\end{verbatim}
+
+This is a perfect match!
 
 \subsection{Bland-Altman Plot}\label{bland-altman-plot}
 
-\ldots{}
+The Bland-Altman plot is a graphical method to compare two measurements
+techniques or raters. The goal is to spot systematic differences between the two
+methods/raters. On the x axis, we plot the average of the two measurements
+and on the y axis the difference between the two measurements. So, we could
+for instance see larger variability in points with higher average values,
+indicating that Peter and Mary disagree more for higher values.
+
+Let's quickly draw one and explain it:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(BlandAltmanLeh)}
+\FunctionTok{library}\NormalTok{(data.table)}
+\NormalTok{df\_long\_bias }\OtherTok{\textless{}{-}} \FunctionTok{as.data.table}\NormalTok{(df\_long\_bias)}
+\CommentTok{\# https://cran.r{-}project.org/web/packages/BlandAltmanLeh/BlandAltmanLeh.pdf}
+\FunctionTok{bland.altman.plot}\NormalTok{(df\_long\_bias[Rater }\SpecialCharTok{==} \StringTok{"ROMas.Mary"}\NormalTok{, ]}\SpecialCharTok{$}\NormalTok{ROM,}
+\NormalTok{                  df\_long\_bias[Rater }\SpecialCharTok{==} \StringTok{"ROMas.Peter"}\NormalTok{, ]}\SpecialCharTok{$}\NormalTok{ROM,}
+                  \AttributeTok{two =} \FloatTok{1.96}\NormalTok{,}
+                  \AttributeTok{mode =} \DecValTok{1}\NormalTok{,}
+                  \AttributeTok{conf.int =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-109-1.pdf}}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\ldots{} describe.. LOA \ldots{} and so on.
 
 \section{Validity}\label{validity}
 
@@ -7832,6 +8478,8 @@ what the difference is between the correlation coefficient and the ICC. We note:
 
 \begin{itemize}
 \tightlist
+\item
+  \href{https://onlinelibrary.wiley.com/doi/full/10.1111/cdoe.12617?casa_token=3IzTqt8cjzQAAAAA\%3AhKH7i2yhPi9tIVbOz89JVMT2yuSuyhejGLcJqXVINfgo7kjxlkzzBhqu3iH0zW7ClZef0ivw790enq1I}{table 2 fallacy}
 \item
   mention missing values, missingness mechanisms -\textgreater{} Methodenvertiefung
 \item
