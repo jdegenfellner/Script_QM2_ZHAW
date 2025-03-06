@@ -21,10 +21,11 @@ data <- data.frame(
   group = rep(c(paste0("x_low = ", round(x_low_high[1], 2)),
                 paste0("x_high = ", round(x_low_high[2], 2))), each = length(x_seq))
 )
+dim(data)
 
 # Scenario 2: Increased Slope to 3
 set.seed(123)
-true_slope <- 3  # Increasing the slope for better separation
+true_slope <- 0.5  # Increasing the slope for better separation
 data_more_slope <- data.frame(
   weight = rnorm(352, mean = 45, sd = 6.45)
 )

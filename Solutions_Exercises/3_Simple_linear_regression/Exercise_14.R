@@ -1,21 +1,22 @@
 set.seed(42)  # For reproducibility
 
 # Define true parameters
-true_intercept <- 5
-true_slope <- 2
-sigma <- 1  # Standard deviation of errors
+true_intercept <- 5 # beta_0
+true_slope <- 2.5 # beta_1
+sigma <- 2  # Standard deviation of errors
 
 # Number of simulations
 n_sim <- 1000
 n <- 200  # Sample size per simulation
 
 # Store results
-covered_intercept <- numeric(n_sim)
+covered_intercept <- numeric(n_sim) # create an empty vector to store the estimates
 covered_slope <- numeric(n_sim)
 
 for (i in 1:n_sim) {
   # Simulate data from the true model
-  x <- runif(n, 0, 10)  # Predictor X from a uniform distribution
+  #x <- runif(n, 0, 10)  # Predictor X from a uniform distribution
+  x <- rnorm(n, 0, 3.5)  # Predictor X from a normal distribution
   y <- true_intercept + true_slope * x + rnorm(n, mean = 0, sd = sigma)  # Response
   
   # Fit linear model
@@ -30,7 +31,8 @@ for (i in 1:n_sim) {
 }
 
 # Compute coverage probabilities
-coverage_intercept <- mean(covered_intercept)
+coverage_intercept <- mean(covered_intercept) 
+sum(covered_intercept)/1000 # alternatively
 coverage_slope <- mean(covered_slope)
 
 cat("Coverage probability for intercept:", coverage_intercept, "\n")
