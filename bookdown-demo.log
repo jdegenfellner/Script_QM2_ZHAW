@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.28)  5 MAR 2025 20:16
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.28)  6 MAR 2025 10:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -939,7 +939,7 @@ LaTeX Warning: Hyper reference `exercise6_Intro' on page 18 undefined on input l
 File: bookdown-demo_files/figure-latex/posterior-3d-correct-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/posterior-3d-correct-1.pdf>
 
-Underfull \vbox (badness 2443) has occurred while \output is active []
+Underfull \vbox (badness 1728) has occurred while \output is active []
 
 
 
@@ -973,16 +973,17 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type
 
 
 [24]
-
-[25]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-17-1.pdf>
 
 
+[25]
+
+LaTeX Warning: Hyper reference `classical_simple_mean_model' on page 26 undefined on input line 1076.
+
+
+
 [26]
-
-LaTeX Warning: Hyper reference `classical_simple_mean_model' on page 27 undefined on input line 1076.
-
 
 LaTeX Warning: Hyper reference `addendum' on page 27 undefined on input line 1097.
 
@@ -1001,30 +1002,26 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type
 [29]
 
 [30]
-
-[31]
-
-[32
-
-]
 Chapter 3.
 
 
-[33]
+[31
+
+]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-21-1.pdf>
 
 
-[34]
+[32]
 Overfull \hbox (390.0pt too wide) in paragraph at lines 1367--1367
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a77254ffca/widget83a72a65616a.html screenshot completed[] 
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b4150f6ac/widgetc67b2a72b7b4.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf>
 
 
-[35]
+[33]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-23-1.pdf>
 
@@ -1032,25 +1029,25 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[36]
+[34]
 
-[37]
+[35]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-24-1.pdf>
 
 
-[38]
+[36]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-26-1.pdf>
 
-LaTeX Warning: Hyper reference `exercise12_simpl_lin_reg' on page 39 undefined on input line 1541.
+LaTeX Warning: Hyper reference `exercise12_simpl_lin_reg' on page 37 undefined on input line 1541.
 
 
-LaTeX Warning: Hyper reference `exercise2_simpl_lin_reg' on page 39 undefined on input line 1546.
+LaTeX Warning: Hyper reference `exercise2_simpl_lin_reg' on page 37 undefined on input line 1546.
 
 
 
-[39]
+[37]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-28-1.pdf>
 
@@ -1058,17 +1055,17 @@ Underfull \vbox (badness 6708) has occurred while \output is active []
 
 
 
-[40]
+[38]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-28-2.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-28-2.pdf>
 
 
-[41]
+[39]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-28-3.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-28-3.pdf>
 
 
-[42]
+[40]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-29-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-29-1.pdf>
 File: bookdown-demo_files/figure-latex/unnamed-chunk-30-1.pdf Graphic file (type pdf)
@@ -1078,9 +1075,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[43]
+[41]
 
-[44]
+[42]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-31-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-31-1.pdf>
 File: bookdown-demo_files/figure-latex/unnamed-chunk-32-1.pdf Graphic file (type pdf)
@@ -1090,7 +1087,27 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
+[43]
+
+[44]
+
+
+Overfull \hbox (20.43344pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 3.2.  SIMPLE LINEAR REGRESSION IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 45
+ []
+
 [45]
+Missing character: There is no 𝛽 (U+1D6FD) in font [lmroman10-bold]:mapping=tex-text;!
+Missing character: There is no 𝛽 (U+1D6FD) in font [lmroman10-bold]:mapping=tex-text;!
+
+LaTeX Warning: Hyper reference `exercise6_simpl_lin_reg' on page 46 undefined on input line 1878.
+
+File: bookdown-demo_files/figure-latex/unnamed-chunk-34-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-34-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [46]
 
@@ -1100,19 +1117,17 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [47]
-Missing character: There is no 𝛽 (U+1D6FD) in font [lmroman10-bold]:mapping=tex-text;!
-Missing character: There is no 𝛽 (U+1D6FD) in font [lmroman10-bold]:mapping=tex-text;!
 
-LaTeX Warning: Hyper reference `exercise6_simpl_lin_reg' on page 48 undefined on input line 1878.
-
-File: bookdown-demo_files/figure-latex/unnamed-chunk-34-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-34-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: Hyper reference `exercise3_simpl_lin_reg' on page 48 undefined on input line 1956.
 
 
 
 [48]
+Overfull \hbox (384.75pt too wide) in paragraph at lines 2053--2053
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b690fce72/widgetc67bcbad441.html screenshot completed[] 
+ []
+
+
 
 
 Overfull \hbox (20.43344pt too wide) has occurred while \output is active
@@ -1120,17 +1135,11 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [49]
-
-LaTeX Warning: Hyper reference `exercise3_simpl_lin_reg' on page 50 undefined on input line 1956.
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf>
 
 
 [50]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 2053--2053
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a770fd33dc/widget83a77f57ea77.html screenshot completed[] 
- []
-
-
 
 
 Overfull \hbox (20.43344pt too wide) has occurred while \output is active
@@ -1138,18 +1147,6 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [51]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf>
-
-
-[52]
-
-
-Overfull \hbox (20.43344pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 3.2.  SIMPLE LINEAR REGRESSION IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 53
- []
-
-[53]
 Overfull \hbox (23.59602pt too wide) detected at line 2164
 [] [] [] [] []
  []
@@ -1157,19 +1154,38 @@ Overfull \hbox (23.59602pt too wide) detected at line 2164
 File: bookdown-demo_files/figure-latex/unnamed-chunk-41-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-41-1.pdf>
 
-Underfull \vbox (badness 6575) has occurred while \output is active []
+
+[52]
+
+LaTeX Warning: Hyper reference `exercise13_simpl_lin_reg' on page 53 undefined on input line 2190.
+
+
+LaTeX Warning: Hyper reference `analysis_of_variance' on page 53 undefined on input line 2199.
+
+
+LaTeX Warning: Hyper reference `exercise4_simpl_lin_reg' on page 53 undefined on input line 2213.
+
+
+
+
+Overfull \hbox (20.43344pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 3.2.  SIMPLE LINEAR REGRESSION IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 53
+ []
+
+[53]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf>
+
+LaTeX Warning: Hyper reference `exercise5_simpl_lin_reg' on page 54 undefined on input line 2258.
 
 
 
 [54]
 
-LaTeX Warning: Hyper reference `exercise13_simpl_lin_reg' on page 55 undefined on input line 2190.
+LaTeX Warning: Hyper reference `exercise11_simpl_lin_reg' on page 55 undefined on input line 2325.
 
 
-LaTeX Warning: Hyper reference `analysis_of_variance' on page 55 undefined on input line 2199.
-
-
-LaTeX Warning: Hyper reference `exercise4_simpl_lin_reg' on page 55 undefined on input line 2213.
+LaTeX Warning: Hyper reference `_model_assumptions' on page 55 undefined on input line 2329.
 
 
 
@@ -1179,17 +1195,16 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [55]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-42-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1831) has occurred while \output is active []
 
 
 
 [56]
-
-LaTeX Warning: Hyper reference `exercise5_simpl_lin_reg' on page 57 undefined on input line 2258.
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-45-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-45-1.pdf>
 
 
 
@@ -1198,17 +1213,19 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [57]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-46-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-46-1.pdf>
 
-LaTeX Warning: Hyper reference `exercise11_simpl_lin_reg' on page 58 undefined on input line 2325.
-
-
-LaTeX Warning: Hyper reference `_model_assumptions' on page 58 undefined on input line 2329.
+LaTeX Warning: Hyper reference `exercise7_simpl_lin_reg' on page 58 undefined on input line 2421.
 
 
 
 [58]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-47-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-47-1.pdf>
+
+LaTeX Warning: Hyper reference `exercise6_simpl_lin_reg' on page 59 undefined on input line 2449.
+
 
 
 
@@ -1217,21 +1234,18 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [59]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-45-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-45-1.pdf>
-File: bookdown-demo_files/figure-latex/unnamed-chunk-46-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-46-1.pdf>
-
-Underfull \vbox (badness 2486) has occurred while \output is active []
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf>
 
 
 [60]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-49-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-49-1.pdf>
 
-LaTeX Warning: Hyper reference `exercise7_simpl_lin_reg' on page 61 undefined on input line 2421.
+LaTeX Warning: Hyper reference `exercise9_simpl_lin_reg' on page 61 undefined on input line 2523.
 
-File: bookdown-demo_files/figure-latex/unnamed-chunk-47-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-47-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-50-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-50-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1244,13 +1258,12 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
 
 [61]
 
-LaTeX Warning: Hyper reference `exercise6_simpl_lin_reg' on page 62 undefined on input line 2449.
-
-File: bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-48-1.pdf>
-
-
 [62]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-51-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-51-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-52-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-52-1.pdf>
+
 
 
 Overfull \hbox (20.43344pt too wide) has occurred while \output is active
@@ -1258,19 +1271,23 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [63]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-49-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-49-1.pdf>
 
-LaTeX Warning: Hyper reference `exercise9_simpl_lin_reg' on page 64 undefined on input line 2523.
+LaTeX Warning: Hyper reference `linearity' on page 64 undefined on input line 2575.
 
-File: bookdown-demo_files/figure-latex/unnamed-chunk-50-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-50-1.pdf>
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: Hyper reference `constant_variance' on page 64 undefined on input line 2579.
 
+File: bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf>
 
 
 [64]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-53-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-53-2.pdf>
+
+LaTeX Warning: Hyper reference `normality_assumption' on page 65 undefined on input line 2641.
+
+
 
 
 Overfull \hbox (20.43344pt too wide) has occurred while \output is active
@@ -1278,47 +1295,11 @@ Overfull \hbox (20.43344pt too wide) has occurred while \output is active
  []
 
 [65]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-51-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-51-1.pdf>
-File: bookdown-demo_files/figure-latex/unnamed-chunk-52-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-52-1.pdf>
-
-
-[66]
-
-LaTeX Warning: Hyper reference `linearity' on page 67 undefined on input line 2575.
-
-
-LaTeX Warning: Hyper reference `constant_variance' on page 67 undefined on input line 2579.
-
-File: bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-53-1.pdf>
-
-
-
-Overfull \hbox (20.43344pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 3.2.  SIMPLE LINEAR REGRESSION IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 67
- []
-
-[67]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-53-2.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-53-2.pdf>
-
-LaTeX Warning: Hyper reference `normality_assumption' on page 68 undefined on input line 2641.
-
-
-
-[68]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-55-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-55-1.pdf>
 
 
-
-Overfull \hbox (20.43344pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 3.2.  SIMPLE LINEAR REGRESSION IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 69
- []
-
-[69]
+[66]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-56-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-56-1.pdf>
 File: bookdown-demo_files/figure-latex/unnamed-chunk-57-1.pdf Graphic file (type pdf)
@@ -1328,58 +1309,56 @@ Underfull \vbox (badness 1448) has occurred while \output is active []
 
 
 
-[70]
-
-LaTeX Warning: Hyper reference `exercise8_simpl_lin_reg' on page 71 undefined on input line 2709.
-
-
-
 
 Overfull \hbox (20.43344pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 3.2.  SIMPLE LINEAR REGRESSION IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 71
+\TU/lmr/m/sl/10 3.2.  SIMPLE LINEAR REGRESSION IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 67
  []
+
+[67]
+
+LaTeX Warning: Hyper reference `exercise8_simpl_lin_reg' on page 68 undefined on input line 2709.
+
+
+
+[68]
+
+LaTeX Warning: Hyper reference `exercise14_simpl_lin_reg' on page 69 undefined on input line 2727.
+
+
+LaTeX Warning: Hyper reference `fit_model_simple_lin_reg_classic' on page 69 undefined on input line 2770.
+
+
+
+[69]
+
+LaTeX Warning: Hyper reference `_model_assumptions' on page 70 undefined on input line 2803.
+
+
+LaTeX Warning: Hyper reference `normality_assumption' on page 70 undefined on input line 2839.
+
+
+
+[70]
+
+LaTeX Warning: Hyper reference `seperating_property' on page 71 undefined on input line 2872.
+
+
+LaTeX Warning: Hyper reference `simple_lin_reg_bayes' on page 71 undefined on input line 2886.
+
+
+LaTeX Warning: Hyper reference `analysis_of_variance' on page 71 undefined on input line 2902.
+
+
 
 [71]
 
-LaTeX Warning: Hyper reference `exercise14_simpl_lin_reg' on page 72 undefined on input line 2727.
-
-
-LaTeX Warning: Hyper reference `fit_model_simple_lin_reg_classic' on page 72 undefined on input line 2770.
-
-
-
 [72]
-
-LaTeX Warning: Hyper reference `_model_assumptions' on page 73 undefined on input line 2803.
-
-
-LaTeX Warning: Hyper reference `normality_assumption' on page 73 undefined on input line 2839.
-
-
-
-[73]
-
-LaTeX Warning: Hyper reference `seperating_property' on page 74 undefined on input line 2872.
-
-
-LaTeX Warning: Hyper reference `simple_lin_reg_bayes' on page 74 undefined on input line 2886.
-
-
-LaTeX Warning: Hyper reference `analysis_of_variance' on page 74 undefined on input line 2902.
-
-
-
-[74]
-
-[75]
-
-[76
-
-]
 Chapter 4.
 
 
-[77]
+[73
+
+]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-58-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-58-1.pdf>
 
@@ -1387,9 +1366,48 @@ Underfull \vbox (badness 1742) has occurred while \output is active []
 
 
 
-[78]
+[74]
 
-LaTeX Warning: Hyper reference `exercise2_multiple_regression' on page 79 undefined on input line 3046.
+LaTeX Warning: Hyper reference `exercise2_multiple_regression' on page 75 undefined on input line 3047.
+
+
+
+
+Overfull \hbox (65.97234pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.1.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE BAYESIAN FRAMEWORK \TU/lmr/m/n/10 75
+ []
+
+[75]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-59-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-59-1.pdf>
+
+Underfull \vbox (badness 5475) has occurred while \output is active []
+
+
+
+[76]
+
+
+Overfull \hbox (65.97234pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.1.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE BAYESIAN FRAMEWORK \TU/lmr/m/n/10 77
+ []
+
+[77]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf>
+
+
+[78]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf>
+
+LaTeX Warning: Hyper reference `exercise1_multiple_regression' on page 79 undefined on input line 3194.
+
+
+LaTeX Warning: Hyper reference `adding_predictor_freq' on page 79 undefined on input line 3209.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -1399,14 +1417,17 @@ Overfull \hbox (65.97234pt too wide) has occurred while \output is active
  []
 
 [79]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-59-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-59-1.pdf>
-
-Underfull \vbox (badness 5475) has occurred while \output is active []
-
-
 
 [80]
+
+LaTeX Warning: Hyper reference `exercise6_multiple_regression' on page 81 undefined on input line 3269.
+
+File: bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 
 Overfull \hbox (65.97234pt too wide) has occurred while \output is active
@@ -1414,19 +1435,10 @@ Overfull \hbox (65.97234pt too wide) has occurred while \output is active
  []
 
 [81]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-60-1.pdf>
-
 
 [82]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-60-2.pdf>
-
-LaTeX Warning: Hyper reference `exercise1_multiple_regression' on page 83 undefined on input line 3193.
-
-
-LaTeX Warning: Hyper reference `adding_predictor_freq' on page 83 undefined on input line 3208.
-
+File: bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1441,74 +1453,41 @@ Overfull \hbox (65.97234pt too wide) has occurred while \output is active
 
 [84]
 
-LaTeX Warning: Hyper reference `exercise6_multiple_regression' on page 85 undefined on input line 3268.
-
-File: bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-62-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: Hyper reference `adding_transformed_predictor_bayes' on page 85 undefined on input line 3397.
 
 
-
-
-Overfull \hbox (65.97234pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.1.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE BAYESIAN FRAMEWORK \TU/lmr/m/n/10 85
- []
-
-[85]
-
-[86]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-63-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-
-Overfull \hbox (65.97234pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.1.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE BAYESIAN FRAMEWORK \TU/lmr/m/n/10 87
- []
-
-[87]
-
-[88]
-
-LaTeX Warning: Hyper reference `adding_transformed_predictor_bayes' on page 89 undefined on input line 3396.
-
-
-LaTeX Warning: Hyper reference `exercise9_multiple_regression' on page 89 undefined on input line 3429.
+LaTeX Warning: Hyper reference `exercise9_multiple_regression' on page 85 undefined on input line 3430.
 
 
 
 
 Overfull \hbox (87.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 89
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 85
  []
 
-[89]
+[85]
 
-LaTeX Warning: Hyper reference `exercise12_multiple_regression' on page 90 undefined on input line 3498.
+LaTeX Warning: Hyper reference `exercise12_multiple_regression' on page 86 undefined on input line 3499.
 
 
 
-[90]
-Overfull \hbox (1.5pt too wide) in paragraph at lines 3545--3545
+[86]
+Overfull \hbox (1.5pt too wide) in paragraph at lines 3546--3546
 []\TU/lmtt/m/n/10 ## Some of the variables were in matrix-format - probably you used[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 3545--3545
+Overfull \hbox (48.75pt too wide) in paragraph at lines 3546--3546
 []\TU/lmtt/m/n/10 ##   If so, and you get an error, please try `datawizard::standardize()` to[] 
  []
 
 
-Overfull \hbox (1.5pt too wide) in paragraph at lines 3545--3545
+Overfull \hbox (1.5pt too wide) in paragraph at lines 3546--3546
 []\TU/lmtt/m/n/10 ## Some of the variables were in matrix-format - probably you used[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 3545--3545
+Overfull \hbox (48.75pt too wide) in paragraph at lines 3546--3546
 []\TU/lmtt/m/n/10 ##   If so, and you get an error, please try `datawizard::standardize()` to[] 
  []
 
@@ -1521,24 +1500,24 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (87.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 91
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 87
  []
 
-[91]
+[87]
 
-LaTeX Warning: Hyper reference `adding_predictor_bayes' on page 92 undefined on input line 3571.
+LaTeX Warning: Hyper reference `adding_predictor_bayes' on page 88 undefined on input line 3572.
 
 
 
-[92]
+[88]
 
 
 Overfull \hbox (87.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 93
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 89
  []
 
-[93]
-Underfull \vbox (badness 1742) detected at line 3682
+[89]
+Underfull \vbox (badness 1742) detected at line 3683
  []
 
 
@@ -1546,9 +1525,9 @@ Underfull \vbox (badness 1248) has occurred while \output is active []
 
 
 
-[94]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 3686--3686
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a75a92bef2/widget83a758363052.html screenshot completed[] 
+[90]
+Overfull \hbox (390.0pt too wide) in paragraph at lines 3687--3687
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b1ca7ecc0/widgetc67b54a83ff2.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type pdf)
@@ -1557,32 +1536,32 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf Graphic file (type
 
 
 Overfull \hbox (87.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 95
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 91
  []
 
-[95]
+[91]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-67-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-67-1.pdf>
 
 
-[96]
+[92]
 Missing character: There is no 𝛽 (U+1D6FD) in font [lmroman10-bold]:mapping=tex-text;!
 
 
 
 Overfull \hbox (87.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 97
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 93
  []
 
-[97]
+[93]
 
-LaTeX Warning: Hyper reference `exercise3_multiple_regression' on page 98 undefined on input line 3807.
+LaTeX Warning: Hyper reference `exercise3_multiple_regression' on page 94 undefined on input line 3808.
 
 
 
-[98]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 3887--3887
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a76eb313a8/widget83a72ecfb35f.html screenshot completed[] 
+[94]
+Overfull \hbox (390.0pt too wide) in paragraph at lines 3888--3888
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b22217ab1/widgetc67b43fe0bf8.html screenshot completed[] 
  []
 
 File: bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf Graphic file (type pdf)
@@ -1594,55 +1573,55 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (87.64235pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 95
+ []
+
+[95]
+
+[96]
+
+
+Overfull \hbox (87.64235pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 97
+ []
+
+[97]
+
+LaTeX Warning: Hyper reference `exercise3_multiple_regression' on page 98 undefined on input line 3990.
+
+File: bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf>
+
+
+[98]
+
+LaTeX Warning: Hyper reference `exercise5_multiple_regression' on page 99 undefined on input line 4031.
+
+
+
+
+Overfull \hbox (87.64235pt too wide) has occurred while \output is active
 \TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 99
  []
 
 [99]
-
-[100]
-
-
-Overfull \hbox (92.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 101
- []
-
-[101]
-
-LaTeX Warning: Hyper reference `exercise3_multiple_regression' on page 102 undefined on input line 3989.
-
-
-
-[102]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-71-1.pdf>
-
-LaTeX Warning: Hyper reference `exercise5_multiple_regression' on page 103 undefined on input line 4030.
-
-
-
-
-Overfull \hbox (92.64235pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.2.  LINEAR REGRESSION WITH 2 PREDICTORS IN THE FREQUENTIST FRAMEWORK \TU/lmr/m/n/10 103
- []
-
-[103]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-72-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-72-1.pdf>
 
 
-[104]
+[100]
 
 
 Overfull \hbox (119.73013pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 105
+\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 101
  []
 
-[105]
+[101]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-73-1.pdf>
 
 
-[106]
+[102]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-74-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-74-1.pdf>
 File: bookdown-demo_files/figure-latex/unnamed-chunk-74-2.pdf Graphic file (type pdf)
@@ -1654,32 +1633,32 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Overfull \hbox (119.73013pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 103
+ []
+
+[103]
+
+[104]
+
+LaTeX Warning: Hyper reference `exercise7_multiple_regression' on page 105 undefined on input line 4317.
+
+
+
+
+Overfull \hbox (119.73013pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 105
+ []
+
+[105]
+
+[106]
+
+
+Overfull \hbox (119.73013pt too wide) has occurred while \output is active
 \TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 107
  []
 
 [107]
-
-[108]
-
-LaTeX Warning: Hyper reference `exercise7_multiple_regression' on page 109 undefined on input line 4316.
-
-
-
-
-Overfull \hbox (119.73013pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 109
- []
-
-[109]
-
-[110]
-
-
-Overfull \hbox (119.73013pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 111
- []
-
-[111]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-77-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-77-1.pdf>
 File: bookdown-demo_files/figure-latex/unnamed-chunk-77-2.pdf Graphic file (type pdf)
@@ -1689,11 +1668,43 @@ Underfull \vbox (badness 1490) has occurred while \output is active []
 
 
 
+[108]
+
+LaTeX Warning: Hyper reference `exercise13_multiple_regression' on page 109 undefined on input line 4503.
+
+
+
+
+Overfull \hbox (119.73013pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 109
+ []
+
+[109]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf>
+
+
+[110]
+File: bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf>
+
+
+
+Overfull \hbox (119.73013pt too wide) has occurred while \output is active
+\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 111
+ []
+
+[111]
+Overfull \hbox (1.5pt too wide) in paragraph at lines 4596--4596
+[]\TU/lmtt/m/n/10 ## Multiple R-squared:  0.001898,   Adjusted R-squared:  0.0008978[] 
+ []
+
+
+LaTeX Warning: Hyper reference `exercise10_multiple_regression' on page 112 undefined on input line 4634.
+
+
+
 [112]
-
-LaTeX Warning: Hyper reference `exercise13_multiple_regression' on page 113 undefined on input line 4502.
-
-
 
 
 Overfull \hbox (119.73013pt too wide) has occurred while \output is active
@@ -1701,13 +1712,19 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [113]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-78-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf>
+File: bookdown-demo_files/figure-latex/unnamed-chunk-80-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-80-1.pdf>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 [114]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-78-2.pdf>
+
+LaTeX Warning: Hyper reference `exercise11_multiple_regression' on page 115 undefined on input line 4722.
+
 
 
 
@@ -1716,12 +1733,14 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [115]
-Overfull \hbox (1.5pt too wide) in paragraph at lines 4595--4595
-[]\TU/lmtt/m/n/10 ## Multiple R-squared:  0.001898,   Adjusted R-squared:  0.0008978[] 
+Overfull \hbox (384.75pt too wide) in paragraph at lines 4787--4787
+[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b5ccae773/widgetc67bd215e9d.html screenshot completed[] 
  []
 
+File: bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type pdf)
+<use bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf>
 
-LaTeX Warning: Hyper reference `exercise10_multiple_regression' on page 116 undefined on input line 4633.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
@@ -1733,240 +1752,200 @@ Overfull \hbox (119.73013pt too wide) has occurred while \output is active
  []
 
 [117]
-File: bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-79-1.pdf>
-File: bookdown-demo_files/figure-latex/unnamed-chunk-80-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-80-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [118]
 
-LaTeX Warning: Hyper reference `exercise11_multiple_regression' on page 119 undefined on input line 4721.
-
-
-
-
-Overfull \hbox (119.73013pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 119
- []
-
 [119]
-Overfull \hbox (390.0pt too wide) in paragraph at lines 4786--4786
-[]\TU/lmtt/m/n/10 ## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a72ccee379/widget83a742b833ea.html screenshot completed[] 
- []
-
-File: bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf Graphic file (type pdf)
-<use bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf>
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[120]
-
-
-Overfull \hbox (119.73013pt too wide) has occurred while \output is active
-\TU/lmr/m/sl/10 4.3.  WHAT HAPPENS WHEN YOU JUST THROW VARIABLES INTO MULTIPLE REGRESSION? \TU/lmr/m/n/10 121
- []
-
-[121]
-
-[122]
-
-[123]
-Overfull \hbox (43.5pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (43.5pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ##      ID SurveyYr Gender   Age AgeDecade AgeMonths Race1 Race3 Education[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (22.5pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ##   <int> <fct>    <fct>  <int> <fct>         <int> <fct> <fct> <fct>[] 
  []
 
 
-Overfull \hbox (54.0pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (54.0pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## 1 51624 2009_10  male      34 " 30-39"        409 White <NA>  High School[] 
  []
 
 
-Overfull \hbox (54.0pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (54.0pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## 2 51624 2009_10  male      34 " 30-39"        409 White <NA>  High School[] 
  []
 
 
-Overfull \hbox (54.0pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (54.0pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## 3 51624 2009_10  male      34 " 30-39"        409 White <NA>  High School[] 
  []
 
 
-Overfull \hbox (17.25pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (17.25pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## 4 51625 2009_10  male       4 " 0-9"           49 Other <NA>  <NA>[] 
  []
 
 
-Overfull \hbox (59.25pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (59.25pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## 5 51630 2009_10  female    49 " 40-49"        596 White <NA>  Some College[] 
  []
 
 
-Overfull \hbox (17.25pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (17.25pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## 6 51638 2009_10  male       9 " 0-9"          115 White <NA>  <NA>[] 
  []
 
 
-Overfull \hbox (80.25pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (80.25pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## # i 67 more variables: MaritalStatus <fct>, HHIncome <fct>, HHIncomeMid <int>,[] 
  []
 
 
-Overfull \hbox (69.75pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (69.75pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## #   Poverty <dbl>, HomeRooms <int>, HomeOwn <fct>, Work <fct>, Weight <dbl>,[] 
  []
 
 
-Overfull \hbox (43.5pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (43.5pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## #   BMICatUnder20yrs <fct>, BMI_WHO <fct>, Pulse <int>, BPSysAve <int>,[] 
  []
 
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (64.5pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## #   BPDiaAve <int>, BPSys1 <int>, BPDia1 <int>, BPSys2 <int>, BPDia2 <int>,[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (33.0pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## #   BPSys3 <int>, BPDia3 <int>, Testosterone <dbl>, DirectChol <dbl>,[] 
  []
 
 
-Overfull \hbox (59.25pt too wide) in paragraph at lines 4979--4979
+Overfull \hbox (59.25pt too wide) in paragraph at lines 4980--4980
 []\TU/lmtt/m/n/10 ## #   TotChol <dbl>, UrineVol1 <int>, UrineFlow1 <dbl>, UrineVol2 <int>, ...[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ##  [1] "ID"               "SurveyYr"         "Gender"           "Age"[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (33.0pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ##  [5] "AgeDecade"        "AgeMonths"        "Race1"            "Race3"[] 
  []
 
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (64.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ##  [9] "Education"        "MaritalStatus"    "HHIncome"         "HHIncomeMid"[] 
  []
 
 
-Overfull \hbox (27.75pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (27.75pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [13] "Poverty"          "HomeRooms"        "HomeOwn"          "Work"[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [17] "Weight"           "Length"           "HeadCirc"         "Height"[] 
  []
 
 
-Overfull \hbox (33.0pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (33.0pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [21] "BMI"              "BMICatUnder20yrs" "BMI_WHO"          "Pulse"[] 
  []
 
 
-
-[124]
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [25] "BPSysAve"         "BPDiaAve"         "BPSys1"           "BPDia1"[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [29] "BPSys2"           "BPDia2"           "BPSys3"           "BPDia3"[] 
  []
 
 
-Overfull \hbox (54.0pt too wide) in paragraph at lines 5018--5018
+
+[120]
+Overfull \hbox (54.0pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [33] "Testosterone"     "DirectChol"       "TotChol"          "UrineVol1"[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (48.75pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [37] "UrineFlow1"       "UrineVol2"        "UrineFlow2"       "Diabetes"[] 
  []
 
 
-Overfull \hbox (85.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (85.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [41] "DiabetesAge"      "HealthGen"        "DaysPhysHlthBad"  "DaysMentHlthBad"[] 
  []
 
 
-Overfull \hbox (43.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (43.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [45] "LittleInterest"   "Depressed"        "nPregnancies"     "nBabies"[] 
  []
 
 
-Overfull \hbox (59.25pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (59.25pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [49] "Age1stBaby"       "SleepHrsNight"    "SleepTrouble"     "PhysActive"[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (75.0pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [53] "PhysActiveDays"   "TVHrsDay"         "CompHrsDay"       "TVHrsDayChild"[] 
  []
 
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (64.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [57] "CompHrsDayChild"  "Alcohol12PlusYr"  "AlcoholDay"       "AlcoholYear"[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (48.75pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [61] "SmokeNow"         "Smoke100"         "Smoke100n"        "SmokeAge"[] 
  []
 
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (64.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [65] "Marijuana"        "AgeFirstMarij"    "RegularMarij"     "AgeRegMarij"[] 
  []
 
 
-Overfull \hbox (85.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (85.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [69] "HardDrugs"        "SexEver"          "SexAge"           "SexNumPartnLife"[] 
  []
 
 
-Overfull \hbox (64.5pt too wide) in paragraph at lines 5018--5018
+Overfull \hbox (64.5pt too wide) in paragraph at lines 5019--5019
 []\TU/lmtt/m/n/10 ## [73] "SexNumPartYear"   "SameSex"          "SexOrientation"   "PregnantNow"[] 
  []
 
 
-LaTeX Warning: Hyper reference `exercise14_multiple_regression' on page 125 undefined on input line 5023.
+LaTeX Warning: Hyper reference `exercise14_multiple_regression' on page 121 undefined on input line 5024.
 
 
 
-[125]
+[121]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-85-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-85-1.pdf>
 
 
-[126]
-Overfull \hbox (90.75pt too wide) in paragraph at lines 5160--5160
+[122]
+Overfull \hbox (90.75pt too wide) in paragraph at lines 5161--5161
 []\TU/lmtt/m/n/10 ## lm(formula = Age ~ BMI + Gender + PhysActive, data = df %>% dplyr::filter(Age >=[] 
  []
 
 
 
-[127]
+[123]
 
-LaTeX Warning: Hyper reference `exercise14_multiple_regression' on page 128 undefined on input line 5179.
+LaTeX Warning: Hyper reference `exercise14_multiple_regression' on page 124 undefined on input line 5180.
 
 
 
-[128]
+[124]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-88-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-88-1.pdf>
 
@@ -1974,21 +1953,21 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[129]
-Underfull \hbox (badness 1117) in paragraph at lines 5243--5250
+[125]
+Underfull \hbox (badness 1117) in paragraph at lines 5244--5251
 []$[][][][][]$\TU/lmr/m/n/10 : The expected change in \TU/lmr/m/it/10 BPSysAve \TU/lmr/m/n/10 for a one-year increase
  []
 
 
 
-[130]
+[126]
 
-LaTeX Warning: Hyper reference `exercise15_multiple_regression' on page 131 undefined on input line 5287.
+LaTeX Warning: Hyper reference `exercise15_multiple_regression' on page 127 undefined on input line 5288.
 
 
 
-[131]
-Overfull \hbox (43.5pt too wide) in paragraph at lines 5342--5342
+[127]
+Overfull \hbox (43.5pt too wide) in paragraph at lines 5343--5343
 []\TU/lmtt/m/n/10 ## Warning: Removed 264 rows containing non-finite outside the scale range[] 
  []
 
@@ -1996,17 +1975,17 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-90-1.pdf Graphic file (type
 <use bookdown-demo_files/figure-latex/unnamed-chunk-90-1.pdf>
 
 
-[132]
-Overfull \hbox (27.75pt too wide) in paragraph at lines 5370--5370
+[128]
+Overfull \hbox (27.75pt too wide) in paragraph at lines 5371--5371
 []\TU/lmtt/m/n/10 ##     hour, isoweek, mday, minute, month, quarter, second, wday, week,[] 
  []
 
 
 
-[133]
+[129]
 
-[134]
-Overfull \hbox (27.75pt too wide) in paragraph at lines 5532--5532
+[130]
+Overfull \hbox (27.75pt too wide) in paragraph at lines 5533--5533
 []\TU/lmtt/m/n/10 ## lm(formula = BPSysAve ~ PhysActive + Age_center + Gender, data = df)[] 
  []
 
@@ -2014,13 +1993,13 @@ File: bookdown-demo_files/figure-latex/unnamed-chunk-92-1.pdf Graphic file (type
 <use bookdown-demo_files/figure-latex/unnamed-chunk-92-1.pdf>
 
 
-[135]
+[131]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-92-2.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-92-2.pdf>
 
 
-[136]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 5595--5595
+[132]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 5596--5596
 []\TU/lmtt/m/n/10 ## lm(formula = BPSysAve ~ PhysActive + Age + Gender + BMI, data = df)[] 
  []
 
@@ -2031,157 +2010,157 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[137]
+[133]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-93-2.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-93-2.pdf>
 
 
-[138]
+[134]
 
-LaTeX Warning: Hyper reference `exercise16_multiple_regression' on page 139 undefined on input line 5642.
+LaTeX Warning: Hyper reference `exercise16_multiple_regression' on page 135 undefined on input line 5643.
 
 
 
-[139]
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+[135]
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ##                          mean           sd          5.5%         94.5%[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_0           69.802740693 7.085286e+00  58.450093685  8.100613e+01[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_2            0.003333900 8.420378e-05   0.003198976  3.469766e-03[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_4          -14.557397328 7.340126e-01 -15.730856478 -1.339366e+01[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_5            2.597170489 1.534331e-01   2.353734581  2.842822e+00[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_1[1]       -33.013184105 6.159037e+00 -42.880222934 -2.329850e+01[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_1[2]       -33.016534396 6.159079e+00 -42.884893477 -2.330076e+01[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_3[1]       -32.022042725 6.166508e+00 -41.656953623 -2.200235e+01[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## beta_3[2]       -31.980336296 6.166495e+00 -41.611161302 -2.196006e+01[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## diff_PhysActive  -0.003350291 2.668752e-03  -0.007636024  9.712922e-04[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 5726--5726
+Overfull \hbox (38.25pt too wide) in paragraph at lines 5727--5727
 []\TU/lmtt/m/n/10 ## diff_G            0.041706430 2.640623e-03   0.037460961  4.588615e-02[] 
  []
 
 
 
-[140]
+[136]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-95-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-95-1.pdf>
 
-LaTeX Warning: Hyper reference `exercise17_multiple_regression' on page 141 undefined on input line 5762.
+LaTeX Warning: Hyper reference `exercise17_multiple_regression' on page 137 undefined on input line 5763.
+
+
+
+[137]
+
+LaTeX Warning: Hyper reference `exercise18_multiple_regression' on page 138 undefined on input line 5781.
+
+
+LaTeX Warning: Hyper reference `adding_transformed_predictor_bayes' on page 138 undefined on input line 5816.
+
+
+
+[138]
+
+LaTeX Warning: Hyper reference `interaction_term' on page 139 undefined on input line 5844.
+
+
+LaTeX Warning: Hyper reference `interaction_plot' on page 139 undefined on input line 5861.
+
+
+LaTeX Warning: Hyper reference `check_model_bayes' on page 139 undefined on input line 5866.
+
+
+LaTeX Warning: Hyper reference `simpsons_paradox' on page 139 undefined on input line 5878.
+
+
+
+[139]
+
+LaTeX Warning: Hyper reference `adding_transformed_predictor_freq' on page 140 undefined on input line 5900.
+
+
+LaTeX Warning: Hyper reference `collider' on page 140 undefined on input line 5922.
+
+
+LaTeX Warning: Hyper reference `multicollinearity' on page 140 undefined on input line 5942.
+
+
+LaTeX Warning: Hyper reference `mcElreath_6.1' on page 140 undefined on input line 5942.
+
+
+
+[140]
+
+LaTeX Warning: Hyper reference `interpretation_output_freq_quadratic' on page 141 undefined on input line 5953.
+
+
+LaTeX Warning: Hyper reference `fork' on page 141 undefined on input line 5963.
+
+
+LaTeX Warning: Hyper reference `example_nhanes' on page 141 undefined on input line 5984.
+
+
+LaTeX Warning: Hyper reference `prior_predictive_checks_NHANES' on page 141 undefined on input line 5989.
+
+
+LaTeX Warning: Hyper reference `improve_model_NHANES' on page 141 undefined on input line 5999.
 
 
 
 [141]
 
-LaTeX Warning: Hyper reference `exercise18_multiple_regression' on page 142 undefined on input line 5780.
+LaTeX Warning: Hyper reference `improve_model_NHANES' on page 142 undefined on input line 6009.
 
 
-LaTeX Warning: Hyper reference `adding_transformed_predictor_bayes' on page 142 undefined on input line 5815.
+LaTeX Warning: Hyper reference `example_nhanes' on page 142 undefined on input line 6023.
 
 
 
 [142]
-
-LaTeX Warning: Hyper reference `interaction_term' on page 143 undefined on input line 5843.
-
-
-LaTeX Warning: Hyper reference `interaction_plot' on page 143 undefined on input line 5860.
-
-
-LaTeX Warning: Hyper reference `check_model_bayes' on page 143 undefined on input line 5865.
-
-
-LaTeX Warning: Hyper reference `simpsons_paradox' on page 143 undefined on input line 5877.
-
-
-
-[143]
-
-LaTeX Warning: Hyper reference `adding_transformed_predictor_freq' on page 144 undefined on input line 5899.
-
-
-LaTeX Warning: Hyper reference `collider' on page 144 undefined on input line 5921.
-
-
-LaTeX Warning: Hyper reference `multicollinearity' on page 144 undefined on input line 5941.
-
-
-LaTeX Warning: Hyper reference `mcElreath_6.1' on page 144 undefined on input line 5941.
-
-
-
-[144]
-
-LaTeX Warning: Hyper reference `interpretation_output_freq_quadratic' on page 145 undefined on input line 5952.
-
-
-LaTeX Warning: Hyper reference `fork' on page 145 undefined on input line 5962.
-
-
-LaTeX Warning: Hyper reference `example_nhanes' on page 145 undefined on input line 5983.
-
-
-LaTeX Warning: Hyper reference `prior_predictive_checks_NHANES' on page 145 undefined on input line 5988.
-
-
-LaTeX Warning: Hyper reference `improve_model_NHANES' on page 145 undefined on input line 5998.
-
-
-
-[145]
-
-LaTeX Warning: Hyper reference `improve_model_NHANES' on page 146 undefined on input line 6008.
-
-
-LaTeX Warning: Hyper reference `example_nhanes' on page 146 undefined on input line 6022.
-
-
-
-[146]
 Chapter 5.
 
 
-[147
+[143
 
 ]
 
-[148]
+[144]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-96-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-96-1.pdf>
 
@@ -2189,9 +2168,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[149]
+[145]
 
-[150]
+[146]
 File: bookdown-demo_files/figure-latex/unnamed-chunk-97-1.pdf Graphic file (type pdf)
 <use bookdown-demo_files/figure-latex/unnamed-chunk-97-1.pdf>
 
@@ -2199,909 +2178,909 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[151]
+[147]
 
-[152]
+[148]
 
-[153]
-Overfull \hbox (34.19336pt too wide) in paragraph at lines 6417--6421
+[149]
+Overfull \hbox (34.19336pt too wide) in paragraph at lines 6418--6422
 []\TU/lmr/m/n/10 In a very \TU/lmr/bx/n/10 homogeneous population \TU/lmr/m/n/10 (patients have very similar scores/measurements),
  []
 
 
 
-[154]
+[150]
 
-[155]
+[151]
 
-[156]
-Overfull \hbox (90.75pt too wide) in paragraph at lines 6595--6595
+[152]
+Overfull \hbox (90.75pt too wide) in paragraph at lines 6596--6596
 []\TU/lmtt/m/n/10 ## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...[] 
  []
 
 
 
-[157]
-Overfull \hbox (290.25pt too wide) in paragraph at lines 6599--6599
+[153]
+Overfull \hbox (290.25pt too wide) in paragraph at lines 6600--6600
 []\TU/lmtt/m/n/10 ## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 6603--6603
-[]\TU/lmtt/m/n/10 ## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 6604--6604
+[]\TU/lmtt/m/n/10 ## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 6607--6607
+Overfull \hbox (416.25pt too wide) in paragraph at lines 6608--6608
 []\TU/lmtt/m/n/10 ## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 6611--6611
+Overfull \hbox (258.75pt too wide) in paragraph at lines 6612--6612
 []\TU/lmtt/m/n/10 ## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
-Overfull \hbox (290.25pt too wide) in paragraph at lines 6634--6634
+Overfull \hbox (290.25pt too wide) in paragraph at lines 6635--6635
 []\TU/lmtt/m/n/10 ## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 6638--6638
-[]\TU/lmtt/m/n/10 ## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 6639--6639
+[]\TU/lmtt/m/n/10 ## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 6642--6642
+Overfull \hbox (416.25pt too wide) in paragraph at lines 6643--6643
 []\TU/lmtt/m/n/10 ## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 6646--6646
+Overfull \hbox (258.75pt too wide) in paragraph at lines 6647--6647
 []\TU/lmtt/m/n/10 ## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
 
-[158]
-Overfull \hbox (290.25pt too wide) in paragraph at lines 6681--6681
+[154]
+Overfull \hbox (290.25pt too wide) in paragraph at lines 6682--6682
 []\TU/lmtt/m/n/10 ## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 6685--6685
-[]\TU/lmtt/m/n/10 ## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 6686--6686
+[]\TU/lmtt/m/n/10 ## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 6689--6689
+Overfull \hbox (416.25pt too wide) in paragraph at lines 6690--6690
 []\TU/lmtt/m/n/10 ## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 6693--6693
+Overfull \hbox (258.75pt too wide) in paragraph at lines 6694--6694
 []\TU/lmtt/m/n/10 ## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
 
-[159]
-Overfull \hbox (290.25pt too wide) in paragraph at lines 6720--6720
+[155]
+Overfull \hbox (290.25pt too wide) in paragraph at lines 6721--6721
 []\TU/lmtt/m/n/10 ## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 6724--6724
-[]\TU/lmtt/m/n/10 ## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 6725--6725
+[]\TU/lmtt/m/n/10 ## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 6728--6728
+Overfull \hbox (416.25pt too wide) in paragraph at lines 6729--6729
 []\TU/lmtt/m/n/10 ## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 6732--6732
+Overfull \hbox (258.75pt too wide) in paragraph at lines 6733--6733
 []\TU/lmtt/m/n/10 ## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
-Overfull \hbox (290.25pt too wide) in paragraph at lines 6755--6755
+Overfull \hbox (290.25pt too wide) in paragraph at lines 6756--6756
 []\TU/lmtt/m/n/10 ## Chain 6 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 6759--6759
-[]\TU/lmtt/m/n/10 ## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 6760--6760
+[]\TU/lmtt/m/n/10 ## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 6763--6763
+Overfull \hbox (416.25pt too wide) in paragraph at lines 6764--6764
 []\TU/lmtt/m/n/10 ## Chain 6 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 6767--6767
+Overfull \hbox (258.75pt too wide) in paragraph at lines 6768--6768
 []\TU/lmtt/m/n/10 ## Chain 6 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
 
-[160]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+[156]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ##               mean        sd      5.5%     94.5%      rhat ess_bulk[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[1]     67.722244 4.9090800 59.884240 75.424230 1.0011883 6619.262[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[2]     64.111654 4.7840605 56.528447 71.776798 1.0034783 6191.276[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[3]     86.987105 4.8248501 79.310842 94.721499 1.0021836 6533.691[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[4]     76.488312 4.8772869 68.688592 84.377506 1.0004241 6088.506[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[5]     58.652587 4.9146668 50.800481 66.376233 1.0057245 6894.371[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[6]     69.286318 4.9001887 61.446915 77.135439 1.0023860 6440.228[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[7]     69.630175 4.7214488 62.093989 77.274188 1.0042853 6102.224[] 
  []
 
 
 
-[161]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+[157]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[8]     67.364715 4.8073624 59.760551 74.940179 1.0004233 6926.255[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[9]     70.982913 4.8029119 63.473921 78.838160 1.0021779 6096.437[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[10]    81.123297 4.6829024 73.463408 88.601603 1.0000833 5882.855[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[11]    70.525946 4.7789205 62.916758 78.015190 1.0027020 6057.395[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[12]    42.158971 4.9255574 34.330380 50.142874 1.0052952 5608.430[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[13]    86.981146 4.8049263 79.173926 94.829309 1.0006401 5697.280[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[14]    74.665706 4.6060512 67.261235 81.970150 1.0042568 6217.659[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[15]    76.383198 4.8629608 68.375808 84.099854 1.0019507 5393.146[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[16]    34.941636 4.9924846 27.056167 43.018477 1.0015714 6091.685[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[17]    84.803446 4.7374711 77.144124 92.406944 0.9993908 4742.513[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[18]    64.997487 4.9643186 56.943773 72.939016 1.0035173 6046.231[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[19]    63.285164 4.9025730 55.533948 71.178041 1.0013061 5093.825[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[20]    79.685208 5.0087033 71.658232 87.571054 1.0025818 5732.622[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[21]    30.284397 4.9534314 22.471539 38.175759 1.0029669 4993.642[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[22]    62.717165 4.8429270 55.056809 70.508550 1.0042888 5186.047[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[23]    67.369138 4.7935870 59.691637 75.021504 1.0015468 5712.044[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[24]    81.364895 4.6500222 73.951702 88.744605 1.0010820 5840.154[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[25]    54.960936 4.6723859 47.304353 62.472893 1.0031483 6486.986[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[26]    67.484558 4.8629666 59.694329 75.237344 1.0024718 5631.800[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[27]    75.662864 4.6822039 68.289372 83.149005 1.0015293 5142.724[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[28]    81.458669 4.7261292 73.931357 89.044628 1.0007963 6429.453[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[29]    46.319123 4.9454046 38.515295 54.285881 1.0011816 5884.281[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[30]    61.257367 4.7772157 53.562560 68.978274 1.0023302 5689.914[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[31]    23.509215 4.9033830 15.777376 31.510781 1.0033955 4020.937[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[32]    74.135907 4.9851734 66.120570 81.958539 1.0022234 6227.534[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[33]    70.503386 4.7654367 62.891725 78.072130 1.0023102 5314.875[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[34]    76.514259 4.7673813 69.060676 84.004384 1.0056486 6295.756[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[35]    75.552330 4.7650873 68.063417 83.238239 1.0059815 6458.817[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[36]    69.318470 4.8028313 61.733604 76.842796 1.0019923 5624.692[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[37]    49.567778 4.8517137 42.000534 57.348616 1.0001428 5345.948[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[38]    73.807516 4.8704217 66.012632 81.610347 1.0014698 5593.351[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[39]    72.757513 4.8058223 65.331446 80.543411 0.9996477 6046.893[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[40]    45.817525 4.8801249 38.090789 53.659197 1.0017618 5810.945[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[41]    73.683223 4.8798317 65.754844 81.586076 0.9997154 5788.226[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[42]    26.096569 5.0020037 18.151000 34.085055 1.0035820 5645.769[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[43]    32.929828 4.9839276 25.060965 40.934064 1.0009925 4969.622[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[44]    74.142579 4.8767249 66.482373 81.844996 1.0027673 5518.837[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[45]    76.914062 4.8315152 69.190795 84.479135 1.0021492 5799.564[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[46]    73.639372 4.7714194 66.006190 81.297628 1.0014867 5772.895[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[47]    55.859204 4.8616217 48.241338 63.875677 1.0018038 5633.257[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[48]    69.603460 4.7802544 61.990560 77.160122 1.0024286 5065.542[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[49]    72.402414 4.6825454 65.012180 79.784921 1.0015697 5911.021[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## a[50]    72.770000 4.8603442 65.014248 80.455220 1.0029222 7919.236[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## mu_a     65.555333 2.4626739 61.598423 69.494927 1.0017301 4186.431[] 
  []
 
 
 
-[162]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+[158]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## sigma_ID 16.613184 1.6346644 14.010696 19.244560 1.0024463 1915.575[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 6879--6879
+Overfull \hbox (22.5pt too wide) in paragraph at lines 6880--6880
 []\TU/lmtt/m/n/10 ## sigma     7.081393 0.7331837  6.011486  8.331337 1.0004015 2066.538[] 
  []
 
 
 
-[163]
+[159]
 
-[164]
+[160]
 Missing character: There is no 𝜎 (U+1D70E) in font [lmroman10-bold]:mapping=tex-text;!
 
 
-[165]
+[161]
 
-[166]
-Overfull \hbox (90.75pt too wide) in paragraph at lines 7157--7157
+[162]
+Overfull \hbox (90.75pt too wide) in paragraph at lines 7156--7156
 []\TU/lmtt/m/n/10 ## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...[] 
  []
 
 
-Overfull \hbox (290.25pt too wide) in paragraph at lines 7165--7165
+Overfull \hbox (290.25pt too wide) in paragraph at lines 7164--7164
 []\TU/lmtt/m/n/10 ## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 7165--7165
-[]\TU/lmtt/m/n/10 ## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 7164--7164
+[]\TU/lmtt/m/n/10 ## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 7165--7165
+Overfull \hbox (416.25pt too wide) in paragraph at lines 7164--7164
 []\TU/lmtt/m/n/10 ## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 7165--7165
+Overfull \hbox (258.75pt too wide) in paragraph at lines 7164--7164
 []\TU/lmtt/m/n/10 ## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
-Overfull \hbox (290.25pt too wide) in paragraph at lines 7181--7181
+Overfull \hbox (290.25pt too wide) in paragraph at lines 7178--7178
 []\TU/lmtt/m/n/10 ## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 7181--7181
-[]\TU/lmtt/m/n/10 ## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 7178--7178
+[]\TU/lmtt/m/n/10 ## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 7181--7181
+Overfull \hbox (416.25pt too wide) in paragraph at lines 7178--7178
 []\TU/lmtt/m/n/10 ## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 7181--7181
+Overfull \hbox (258.75pt too wide) in paragraph at lines 7178--7178
 []\TU/lmtt/m/n/10 ## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
-
-[167]
-Overfull \hbox (290.25pt too wide) in paragraph at lines 7200--7200
+Overfull \hbox (290.25pt too wide) in paragraph at lines 7195--7195
 []\TU/lmtt/m/n/10 ## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 7200--7200
-[]\TU/lmtt/m/n/10 ## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)[] 
+
+[163]
+Overfull \hbox (710.25pt too wide) in paragraph at lines 7195--7195
+[]\TU/lmtt/m/n/10 ## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 7200--7200
+Overfull \hbox (416.25pt too wide) in paragraph at lines 7195--7195
 []\TU/lmtt/m/n/10 ## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 7200--7200
+Overfull \hbox (258.75pt too wide) in paragraph at lines 7195--7195
 []\TU/lmtt/m/n/10 ## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
-Overfull \hbox (290.25pt too wide) in paragraph at lines 7238--7238
+
+[164]
+Overfull \hbox (290.25pt too wide) in paragraph at lines 7252--7252
 []\TU/lmtt/m/n/10 ## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 7238--7238
-[]\TU/lmtt/m/n/10 ## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 7252--7252
+[]\TU/lmtt/m/n/10 ## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 7238--7238
+Overfull \hbox (416.25pt too wide) in paragraph at lines 7252--7252
 []\TU/lmtt/m/n/10 ## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 7238--7238
+Overfull \hbox (258.75pt too wide) in paragraph at lines 7252--7252
 []\TU/lmtt/m/n/10 ## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
-
-[168]
-Overfull \hbox (290.25pt too wide) in paragraph at lines 7282--7282
+Overfull \hbox (290.25pt too wide) in paragraph at lines 7280--7280
 []\TU/lmtt/m/n/10 ## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:[] 
  []
 
 
-Overfull \hbox (710.25pt too wide) in paragraph at lines 7282--7282
-[]\TU/lmtt/m/n/10 ## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)[] 
+Overfull \hbox (710.25pt too wide) in paragraph at lines 7280--7280
+[]\TU/lmtt/m/n/10 ## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)[] 
  []
 
 
-Overfull \hbox (416.25pt too wide) in paragraph at lines 7282--7282
+Overfull \hbox (416.25pt too wide) in paragraph at lines 7280--7280
 []\TU/lmtt/m/n/10 ## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,[] 
  []
 
 
-Overfull \hbox (258.75pt too wide) in paragraph at lines 7282--7282
+Overfull \hbox (258.75pt too wide) in paragraph at lines 7280--7280
 []\TU/lmtt/m/n/10 ## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.[] 
  []
 
 
 
-[169]
-Overfull \hbox (1.5pt too wide) in paragraph at lines 7314--7314
+[165]
+Overfull \hbox (1.5pt too wide) in paragraph at lines 7315--7315
 []\TU/lmtt/m/n/10 ## Warning: 27 of 4000 (1.0%) transitions ended with a divergence.[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ##                  mean        sd       5.5%      94.5%     rhat  ess_bulk[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[1]    70.221230 4.6957078 62.9122250 77.6751330 1.003921 3956.8010[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[2]    66.637192 4.7935979 59.2921655 74.3219425 1.000703 4048.1323[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[3]    89.391211 4.8460529 81.8305935 96.9301420 1.001484 3581.3337[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[4]    79.068129 4.7090695 71.7267400 86.7491720 1.002625 4088.4617[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[5]    61.248545 4.6824417 53.8962900 68.7503010 1.002206 3886.9310[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[6]    71.711300 4.5314894 64.4525160 79.0005630 1.001403 3806.2065[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[7]    72.121798 4.7349544 64.6055805 79.6941110 1.001856 3482.5502[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[8]    69.834714 4.7037178 62.3043635 77.3545565 1.000583 4054.8858[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[9]    73.526363 4.7369985 66.0854635 81.0876520 1.001352 3708.7551[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[10]   83.497318 4.7172575 76.0272720 91.0849000 1.001394 3871.4522[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[11]   73.114282 4.6041905 65.8139360 80.4195110 1.002261 3330.7789[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[12]   44.827995 4.8132889 37.2627160 52.4649335 1.003939 3774.3717[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[13]   89.401919 4.7509654 81.8033940 96.8927025 1.001166 3733.9925[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[14]   77.155674 4.7663782 69.3451470 84.8327385 1.002594 3611.6344[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[15]   78.928227 4.8283770 71.2416295 86.6386025 1.005149 3462.8282[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[16]   37.537016 4.8929538 29.6438890 45.4816100 1.000967 3802.3178[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[17]   87.205983 4.6947001 79.8024680 94.7725850 1.004141 3205.6678[] 
  []
 
 
 
-[170]
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+[166]
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[18]   67.618180 4.6490608 60.4495525 74.8906485 1.000691 3565.7257[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[19]   65.734938 4.7038246 58.2243970 73.1307710 1.003272 3021.3632[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[20]   82.148125 4.6634709 74.8132215 89.4844660 1.001809 3525.2622[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[21]   32.959556 4.7365812 25.6872720 40.6902550 1.000230 3896.3144[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[22]   65.312545 4.7691775 57.6339360 72.9769385 1.001701 3888.3018[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[23]   69.922455 4.6557324 62.4829305 77.3353785 1.004454 3949.3830[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[24]   84.028041 4.8666565 76.4453060 91.8557125 1.002520 4582.8271[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[25]   57.576782 4.6027933 50.1384940 65.0507070 1.003696 3883.0937[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[26]   69.844403 4.5423390 62.4724325 77.0730070 1.002214 3588.0981[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[27]   78.181829 4.6438020 70.9217780 85.6579100 1.000977 3573.7990[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[28]   83.976099 4.7519956 76.3497625 91.4832750 1.000891 3836.6036[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[29]   48.888864 4.6981990 41.3078680 56.4819905 1.001334 4153.8714[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[30]   63.812328 4.7111640 56.4071725 71.2587825 1.003047 3935.6824[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[31]   26.098770 4.8818137 18.3637725 33.9304330 1.003445 4068.8549[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[32]   76.676408 4.7365322 69.0211035 83.9915570 1.002364 3823.5694[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[33]   73.055353 4.6273537 65.9705020 80.5753430 1.002063 4039.5757[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[34]   78.963166 4.7676436 71.3900570 86.3736705 1.001748 3403.3517[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[35]   78.075230 4.7744829 70.5443095 85.7926805 1.001281 4222.4407[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[36]   71.652651 4.7601329 64.0808175 79.2662110 1.000708 4471.9540[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[37]   52.084764 4.7084537 44.8942315 59.7080135 1.002348 3439.9837[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[38]   76.121385 4.8822293 68.3599335 83.7502705 1.002290 4006.6888[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[39]   75.451394 4.7905587 67.7880930 82.8390550 1.000887 3454.6782[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[40]   48.408307 4.7026185 40.9218930 56.1687365 1.003060 3999.9664[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[41]   76.176540 4.6262898 68.7745580 83.5991630 1.004537 3963.8804[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[42]   28.812970 4.7775508 21.1928615 36.4243750 1.003746 3855.7962[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[43]   35.646945 4.6876761 28.1427865 43.0427785 1.000564 4114.5370[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[44]   76.736915 4.6819911 69.0549725 83.9337520 1.003016 3594.7244[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[45]   79.377066 4.6099939 71.8918425 86.7122600 1.001080 4016.1217[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[46]   76.266121 4.6936374 68.9066090 83.8324250 1.000442 4007.8677[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[47]   58.467633 4.5906174 51.1480830 65.6998370 1.002588 3396.4658[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[48]   72.114214 4.7995591 64.4240875 79.7356615 1.005283 3715.8719[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[49]   74.771082 4.6137731 67.3251525 82.0455495 1.001963 3457.0385[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## alpha[50]   75.414102 4.7692631 67.7589025 83.1030340 1.001202 4211.2151[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## beta[1]      1.196482 1.4699703 -0.7591575  3.6725132 1.005792  932.0193[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## beta[2]     -1.260339 1.5058841 -3.8538230  0.6600649 1.007244  857.8581[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## mu_alpha    67.979401 2.5706977 63.9069175 72.0885400 1.003032 1842.7425[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## sigma_alpha 15.457249 1.6142987 13.1380645 18.2104485 1.000383 4277.2078[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## sigma_beta   1.685571 1.0527940  0.3547305  3.5587972 1.001191 1581.1771[] 
  []
 
 
-Overfull \hbox (48.75pt too wide) in paragraph at lines 7380--7380
+Overfull \hbox (48.75pt too wide) in paragraph at lines 7381--7381
 []\TU/lmtt/m/n/10 ## sigma_eps    6.713486 0.6434269  5.7619659  7.7933864 1.004713 2175.7641[] 
  []
 
 
-Overfull \hbox (6.75pt too wide) in paragraph at lines 7390--7390
+Overfull \hbox (6.75pt too wide) in paragraph at lines 7391--7391
 []\TU/lmtt/m/n/10 ## 52 vector or matrix parameters hidden. Use depth=2 to show them.[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 7398--7398
+Overfull \hbox (38.25pt too wide) in paragraph at lines 7399--7399
 []\TU/lmtt/m/n/10 ##                  mean        sd       5.5%     94.5%     rhat ess_bulk[] 
  []
 
 
 
-[171]
-Overfull \hbox (38.25pt too wide) in paragraph at lines 7398--7398
+[167]
+Overfull \hbox (38.25pt too wide) in paragraph at lines 7399--7399
 []\TU/lmtt/m/n/10 ## mu_alpha    67.979401 2.5706977 63.9069175 72.088540 1.003032 1842.742[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 7398--7398
+Overfull \hbox (38.25pt too wide) in paragraph at lines 7399--7399
 []\TU/lmtt/m/n/10 ## sigma_alpha 15.457249 1.6142987 13.1380645 18.210449 1.000383 4277.208[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 7398--7398
+Overfull \hbox (38.25pt too wide) in paragraph at lines 7399--7399
 []\TU/lmtt/m/n/10 ## sigma_beta   1.685571 1.0527940  0.3547305  3.558797 1.001191 1581.177[] 
  []
 
 
-Overfull \hbox (38.25pt too wide) in paragraph at lines 7398--7398
+Overfull \hbox (38.25pt too wide) in paragraph at lines 7399--7399
 []\TU/lmtt/m/n/10 ## sigma_eps    6.713486 0.6434269  5.7619659  7.793386 1.004713 2175.764[] 
  []
 
 
 
-[172]
-Overfull \hbox (75.0pt too wide) in paragraph at lines 7516--7516
+[168]
+Overfull \hbox (75.0pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ##                          type  ICC  F df1 df2       p lower bound upper bound[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 7516--7516
+Overfull \hbox (75.0pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ## Single_raters_absolute   ICC1 0.83 11  49  50 1.1e-14        0.72        0.90[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 7516--7516
+Overfull \hbox (75.0pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ## Single_random_raters     ICC2 0.83 12  49  49 1.4e-15        0.71        0.91[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 7516--7516
+Overfull \hbox (75.0pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ## Single_fixed_raters      ICC3 0.85 12  49  49 1.4e-15        0.75        0.91[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 7516--7516
+Overfull \hbox (75.0pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ## Average_raters_absolute ICC1k 0.91 11  49  50 1.1e-14        0.84        0.95[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 7516--7516
+Overfull \hbox (75.0pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ## Average_random_raters   ICC2k 0.91 12  49  49 1.4e-15        0.83        0.95[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 7516--7516
+Overfull \hbox (75.0pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ## Average_fixed_raters    ICC3k 0.92 12  49  49 1.4e-15        0.86        0.95[] 
  []
 
 
-Overfull \hbox (69.75pt too wide) in paragraph at lines 7516--7516
+Overfull \hbox (69.75pt too wide) in paragraph at lines 7517--7517
 []\TU/lmtt/m/n/10 ## See the help file for a discussion of the other 4 McGraw and Wong estimates,[] 
  []
 
 
 
-[173]
+[169]
 
-[174]
+[170]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 7600.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 7601.
 
 
-[175]
+[171]
 Missing character: There is no 𝜎 (U+1D70E) in font [lmroman10-bold]:mapping=tex-text;!
 
 
-[176]
+[172]
 
 Package fontspec Info: 
 (fontspec)             Helvetica scale = 0.8272588095903724.
@@ -3161,7 +3140,7 @@ Package fontspec Info:
 (fontspec)             <->s*[1]"Helvetica/BI/AAT:mapping=tex-text;"
 
 LaTeX Font Info:    Font shape `TU/Helvetica(0)/m/n' will be
-(Font)              scaled to size 11.0pt on input line 7756.
+(Font)              scaled to size 11.0pt on input line 7757.
 
 Package fontspec Info: 
 (fontspec)             Helvetica scale = 0.9999973374868539.
@@ -3200,22 +3179,22 @@ Package fontspec Info:
 (fontspec)             <->s*[0.9692290223685705]"Helvetica/BI/AAT"
 
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/Helvetica(1)/m/n on input line 7756.
+(Font)                  TU/lmr/m/n --> TU/Helvetica(1)/m/n on input line 7757.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  non@alpherr\relax \GenericError {               }{LaTeX Error: \mathit allowed only in math mode}{See the LaTeX manual or LaTeX Companion for explanation.}{You're in trouble here.  Try typing  <return>  to proceed.
-(Font)              If that doesn't work, type  X <return>  to quit.}\math@bgroup \__um_switch_to:n {literal}\__um_mathgroup_set:n {7}\egroup \math@bgroup \__um_switch_to:n {literal}\__um_mathgroup_set:n {7}-\egroup -> TU/Helvetica(1)/m/it on input line 7756.
+(Font)              If that doesn't work, type  X <return>  to quit.}\math@bgroup \__um_switch_to:n {literal}\__um_mathgroup_set:n {7}\egroup \math@bgroup \__um_switch_to:n {literal}\__um_mathgroup_set:n {7}-\egroup -> TU/Helvetica(1)/m/it on input line 7757.
 ! Extra \else.
 \SetMathAlphabet ...g #1\space \endcsname #1\else 
                                                   \@latex@error {Encoding sc...
-l.7756 ...bal\setmainfont{Helvetica}{ICC\ Type}}}}
+l.7757 ...bal\setmainfont{Helvetica}{ICC\ Type}}}}
                                                    & \multicolumn{1}{>{}r}{\... 
 Here is how much of TeX's memory you used:
  18768 strings out of 475846
  368437 string characters out of 5774061
- 881673 words of memory out of 5000000
+ 880673 words of memory out of 5000000
  41343 multiletter control sequences out of 15000+600000
  565496 words of font info for 115 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  90i,9n,122p,715b,483s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on bookdown-demo.pdf (176 pages).
+Output written on bookdown-demo.pdf (172 pages).

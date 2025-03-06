@@ -2845,7 +2845,8 @@ quadratic (which is a polynomial of degree 2), we call this a
 This [video](https://www.youtube.com/watch?v=QptI-vDle8Y&ab_channel=MikeXCohen) could be instructive. 
 One has to be careful with fitting polynomials to data points since the regression coefficients
 can become quite large. Using a polynomial of high degree implies to have a lot of parameters 
-to estimate. Increasing the degree of the polynomial increases $R^2$ but also the risk of overfitting.
+to estimate. Increasing the degree of the polynomial increases $R^2$ but also the risk of 
+[overfitting](https://www.mathworks.com/discovery/overfitting.html).
 (see Statistical Rethinking p. 200). So this is - of course - not the final solution to regression problems.
 
 This time, lets look at the whole age range of data from the !Kung San people

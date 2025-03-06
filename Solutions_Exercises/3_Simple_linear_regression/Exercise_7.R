@@ -6,6 +6,7 @@ d <- Howell1
 d2 <- d[ d$age >= 18 , ]
 
 # simulate data from model-----------
+# We assume THIS is the data generating mechanism!
 weight <- numeric(352)
 height <- numeric(352)
 for (i in 1:352) {

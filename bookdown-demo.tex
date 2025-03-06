@@ -137,7 +137,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-03-05}
+\date{2025-03-06}
 
 \begin{document}
 \maketitle
@@ -659,9 +659,9 @@ The \texttt{precis}function displays concise parameter estimate information
 \end{Shaded}
 
 \begin{verbatim}
-##             mean        sd       5.5%      94.5%
-## mu    154.605541 0.4118146 153.947381 155.263700
-## sigma   7.727955 0.2910679   7.262772   8.193138
+##            mean        sd       5.5%      94.5%
+## mu    154.60410 0.4119941 153.945649 155.262542
+## sigma   7.73133 0.2913857   7.265639   8.197021
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -681,12 +681,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.7729 8.054008
-## 2 154.3682 8.090800
-## 3 154.3361 7.705029
-## 4 155.1842 7.312815
-## 5 154.5261 7.768222
-## 6 155.0282 7.447327
+## 1 154.2579 7.381593
+## 2 154.0421 7.989726
+## 3 154.5825 7.778683
+## 4 154.2573 7.218041
+## 5 154.6450 7.620418
+## 6 154.9074 7.259602
 \end{verbatim}
 
 \begin{Shaded}
@@ -725,9 +725,9 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 \end{Shaded}
 
 \begin{verbatim}
-##                 mu        sigma
-## mu    0.1695912456 0.0001851471
-## sigma 0.0001851471 0.0847205021
+##                mu       sigma
+## mu    0.169739162 0.000153736
+## sigma 0.000153736 0.084905616
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -740,8 +740,8 @@ distribution. In the diagonal you see the variance of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-##        mu     sigma 
-## 0.1695912 0.0847205
+##         mu      sigma 
+## 0.16973916 0.08490562
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -754,8 +754,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001544617
-## sigma 0.001544617 1.000000000
+## mu    1.000000000 0.001280608
+## sigma 0.001280608 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1363,7 +1363,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a77254ffca/widget83a72a65616a.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b4150f6ac/widgetc67b2a72b7b4.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2049,7 +2049,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a770fd33dc/widget83a77f57ea77.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b690fce72/widgetc67bcbad441.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -3005,7 +3005,8 @@ quadratic (which is a polynomial of degree 2), we call this a
 This \href{https://www.youtube.com/watch?v=QptI-vDle8Y&ab_channel=MikeXCohen}{video} could be instructive.
 One has to be careful with fitting polynomials to data points since the regression coefficients
 can become quite large. Using a polynomial of high degree implies to have a lot of parameters
-to estimate. Increasing the degree of the polynomial increases \(R^2\) but also the risk of overfitting.
+to estimate. Increasing the degree of the polynomial increases \(R^2\) but also the risk of
+\href{https://www.mathworks.com/discovery/overfitting.html}{overfitting}.
 (see Statistical Rethinking p.~200). So this is - of course - not the final solution to regression problems.
 
 This time, lets look at the whole age range of data from the !Kung San people
@@ -3682,7 +3683,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a75a92bef2/widget83a758363052.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b1ca7ecc0/widgetc67b54a83ff2.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3883,7 +3884,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a76eb313a8/widget83a72ecfb35f.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b22217ab1/widgetc67b43fe0bf8.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4782,7 +4783,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/file83a72ccee379/widget83a742b833ea.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b5ccae773/widgetc67bd215e9d.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -6599,7 +6600,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6634,7 +6635,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6681,7 +6682,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6720,7 +6721,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6755,7 +6756,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a74137f1ee.stan', line 17, column 4 to column 34)
+## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6802,7 +6803,7 @@ distribution of the parameters.
 ## 
 ## All 8 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.6 seconds.
+## Total execution time: 0.7 seconds.
 \end{verbatim}
 
 \begin{Shaded}
@@ -6812,7 +6813,7 @@ distribution of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-## 6.92 sec elapsed
+## 8.093 sec elapsed
 \end{verbatim}
 
 \begin{Shaded}
@@ -7151,14 +7152,12 @@ Draw model structure \ldots{} exercise..
 ## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling)
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
 ## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 1
@@ -7167,14 +7166,12 @@ Draw model structure \ldots{} exercise..
 \begin{verbatim}
 ## Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup)
+## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
 ## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 2
@@ -7184,24 +7181,25 @@ Draw model structure \ldots{} exercise..
 ## Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)
+## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
 ## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 4
 \end{verbatim}
 
 \begin{verbatim}
+## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 1 finished in 0.2 seconds.
+## Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
+## Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
@@ -7209,6 +7207,7 @@ Draw model structure \ldots{} exercise..
 ## Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -7217,6 +7216,7 @@ Draw model structure \ldots{} exercise..
 ## Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -7225,22 +7225,12 @@ Draw model structure \ldots{} exercise..
 ## Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
-## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup)
-\end{verbatim}
-
-\begin{verbatim}
-## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
-## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
-## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
-## Chain 5
-\end{verbatim}
-
-\begin{verbatim}
+## Chain 1 finished in 0.2 seconds.
 ## Chain 2 finished in 0.3 seconds.
 ## Chain 3 finished in 0.2 seconds.
 ## Chain 4 finished in 0.2 seconds.
+## Chain 5 Iteration:   1 / 1000 [  0%]  (Warmup) 
+## Chain 5 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 5 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 5 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 5 Iteration: 400 / 1000 [ 40%]  (Warmup) 
@@ -7250,7 +7240,18 @@ Draw model structure \ldots{} exercise..
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)
+\end{verbatim}
+
+\begin{verbatim}
+## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
+## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
+## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
+## Chain 5
+\end{verbatim}
+
+\begin{verbatim}
 ## Chain 6 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 6 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 6 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -7261,21 +7262,18 @@ Draw model structure \ldots{} exercise..
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 7 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 7 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling)
+## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmptnNLgh/model-83a7365cb7f1.stan', line 21, column 4 to column 45)
+## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
 ## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 7
@@ -7285,7 +7283,10 @@ Draw model structure \ldots{} exercise..
 ## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 5 finished in 0.2 seconds.
+## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 6 finished in 0.2 seconds.
+## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 7 Iteration: 900 / 1000 [ 90%]  (Sampling) 
@@ -7305,7 +7306,7 @@ Draw model structure \ldots{} exercise..
 ## 
 ## All 8 chains finished successfully.
 ## Mean chain execution time: 0.2 seconds.
-## Total execution time: 0.9 seconds.
+## Total execution time: 0.8 seconds.
 \end{verbatim}
 
 \begin{verbatim}
