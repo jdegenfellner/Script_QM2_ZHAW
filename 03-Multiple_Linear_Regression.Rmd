@@ -1371,7 +1371,7 @@ We should probably check them to see how this is done:
 
 First, we need to test, if age and BMI are independent, 
 *if* we condition on gender and physical activity;
-i.e., just add the to the regression model.
+i.e., just add them to the regression model.
 This is the case:
 
 ```{r}
@@ -1454,7 +1454,7 @@ We center age again, which makes the interpretation of the intercept easier.
   $\beta_1 \sim \text{Normal}(0, 50)$. With 95% probability, the effect of
   physical activity on *BPSysAve* is between -100 and 100.
 
-- $beta_2$: The expected change in *BPSysAve* for a one-year increase in age 
+- $\beta_2$: The expected change in *BPSysAve* for a one-year increase in age 
   (above the mean age), holding all other predictors constant. 
   $\beta_2 \sim \text{Normal}(0, 10)$. This effect should be comparatively small,
   since we are dealing with a one-year increase in age. We could further 
@@ -1464,6 +1464,9 @@ We center age again, which makes the interpretation of the intercept easier.
 - $\sigma$: The standard deviation of the residuals. 
   $\sigma \sim \text{Uniform}(0, 50)$. We use a vague prior.
   95% of the residuals are between -100 and 100. This seems plausible enough.
+  We use a constant standard deviation along the expectation. 
+  This could be false (systolic blood pressure could scatter much more around 
+  the mean for higher age for instance), but one can start with that. 
 
 \begin{eqnarray*}
 BPSysAve_i &\sim& \text{Normal}(\mu_i, \sigma)\\
@@ -1537,7 +1540,7 @@ ggplot(df_long, aes(x = BPSysAve, fill = Type)) +
 ```
 
 Looks decent. Not quite there yet. 
-The blood pressure values have a smaller variances and are skewed.
+The blood pressure values have smaller variances and are skewed.
 Let's nevertheless fit the model.
 
 #### Fit and check model
@@ -1707,7 +1710,7 @@ post_lnorm_summary[, -which(names(post_lnorm_summary) == "histogram")]  # Remove
 containing $0$ as a credible effect. The model is pretty sure, that the effect
 is practically zero.
 
-Let's vizualize the posterior predictive distributions of 100 samples:
+Let's visualize the posterior predictive distributions of 100 samples:
 
 ```{r}
 # posterior predictive checks
@@ -1912,3 +1915,27 @@ Go back to the NHANES example [above](#example_nhanes).
 - Draw 50-100 rows randomly from the adult NHANES data set we have used for the full
   analysis.
 - What do you observe?
+
+## eLearning 2
+
+### Part 1
+
+- Repeat the entire content we have covered in this lecture so far. 
+  Try to grasp the big-picture view of what we want to achieve.
+  We have started out with the simplest statistical model possible (mean model),
+  then added one predictor (simple linear regression), and we are now in the process
+  of adding more predictors (multiple regression).
+- Read chapters in the books from Westfall and McElreath to deepen your understanding.
+- Try to understand chapter 4 (above) as well. We will go through all the details
+  on our last lecture day of course.
+- Read [this paper](https://www.sciencedirect.com/science/article/pii/S1836955314000083) 
+  from the Journal of Physiotherapy.
+  - Did they apply $p$-value correction for multiple testing?
+  - Did they work with a strict $p$-value cutoff?
+  - In the methods section they state "Variables with non-normally distributed residuals were logarithmically
+    transformed prior to performing linear regression analyses,...". Is it irrelevant if the residuals/variables
+    are left- or right-skewed? Simulate data from a strongly left- and right-skewed distribution,
+    draw the histogram and also draw the histogram of the log-transformed data. What do you see?
+  - They use linear regression analysis (see "Data analysis"). Write down the model they use in Frequentist terms 
+  (since they worked with that).
+  - Would you expect the main statement of the paper to change if they had used a larger sample size?
