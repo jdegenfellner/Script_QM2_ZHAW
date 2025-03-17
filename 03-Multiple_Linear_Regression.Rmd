@@ -1939,3 +1939,19 @@ Go back to the NHANES example [above](#example_nhanes).
   - They use linear regression analysis (see "Data analysis"). Write down the model they use in Frequentist terms 
   (since they worked with that).
   - Would you expect the main statement of the paper to change if they had used a larger sample size?
+
+### Part 2
+
+- Read [this paper](https://www.sciencedirect.com/science/article/abs/pii/S0037196308000620) 
+  about misconceptions about $p$-values.
+
+- Consider [the article about respiratory strength in ALS](https://www.neurology.org/doi/pdfdirect/10.1212/WNL.0000000000206830?casa_token=3gmqaV-EM0sAAAAA:u8Aju7H7UUNxxFpDD_8WKXAo3uGxc3ZYVI-mFh1ILiEpN2YEVAn14V8xJVbIlX8-mResXuNZFOfAIdE) 
+  which was sent during eLearning 1:
+  - Which (if any) mistakes according to the paper about misconceptions about $p$-values 
+    did the authors make?
+  - Which statements about finding a "(non-)significant" effect would (probably) change if we doubled 
+    the sample size?
+  - Is the data of the trial available?
+  - Is the code for the analysis available?
+
+- Read and study sections 9.2 to 9.3 (pages 205 to 213) in Westfalls book.
