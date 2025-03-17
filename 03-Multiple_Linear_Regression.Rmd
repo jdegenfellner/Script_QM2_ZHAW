@@ -1953,5 +1953,10 @@ Go back to the NHANES example [above](#example_nhanes).
     the sample size?
   - Is the data of the trial available?
   - Is the code for the analysis available?
+  - Write down the linear regression model(s) mentioned in the text: "Linear
+    regression models were used to assess group diﬀerences in
+    pre-to-post change for the primary outcomes of interest
+    (MEP, MIP). These models included post-test scores as the
+    outcome with group status and pre-test scores as predictors." 
 
 - Read and study sections 9.2 to 9.3 (pages 205 to 213) in Westfalls book.

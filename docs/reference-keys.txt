@@ -122,6 +122,7 @@ exercise17_multiple_regression
 exercise18_multiple_regression
 elearning-2
 part-1
+part-2
 reliability-and-validity
 reliability
 peter-and-marys-rom-measurements
