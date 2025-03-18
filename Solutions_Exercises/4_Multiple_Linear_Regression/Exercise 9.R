@@ -49,3 +49,48 @@ plot(d$weight, d$height, col = "gray", pch = 16, xlab = "Weight", ylab = "Height
 
 # Add corrected fitted curve
 lines(sort(d$weight), sort(d$predicted_height), col = "red", lwd = 2)
+
+
+
+
+
+
+# What happens if you do not constrain the parameters β1 and β2 to be negative?------
+# Let's try no restrictions on the parameters at all.
+optim_results <- optim(
+  par = initial_params,
+  fn = sse_function,
+  data = d,
+  method = "L-BFGS-B",
+  lower = c(-Inf, -200, -5),   
+  upper = c(Inf, 5, 4)  
+)
+
+# Extract optimized parameters
+best_params <- optim_results$par
+print(best_params)
+
+# Generate predictions using optimized parameters
+d$predicted_height <- best_params[1] + best_params[2] * exp(best_params[3] * d$weight)
+
+# Plot actual vs. predicted
+plot(d$weight, d$height, col = "gray", pch = 16, xlab = "Weight", ylab = "Height",
+     main = "Constrained Exponential Model Fit")
+
+# Add corrected fitted curve
+lines(sort(d$weight), sort(d$predicted_height), col = "red", lwd = 2)
+
+# -> Nothing happens, still finds the optimal solution.
+
+# Calculate the R^2-----------
+
+# Calculate the total sum of squares
+TSS <- sum((d$height - mean(d$height))^2)
+
+# Calculate the residual sum of squares
+RSS <- sum((d$height - d$predicted_height)^2)
+
+# Calculate the R^2
+R2 <- 1 - RSS / TSS
+R2
+# 0.9675362
