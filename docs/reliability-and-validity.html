@@ -23,7 +23,7 @@
 <meta name="author" content="Jürgen Degenfellner" />
 
 
-<meta name="date" content="2025-03-17" />
+<meta name="date" content="2025-04-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,16 +373,16 @@ if we would measure repeatedly an infinite number of times.</p>
 We randomly select 50 measurements from Peter and Mary in 50 different patients,
 plot their measurements and annotate the absolutely largest one(s). At first the
 <em>not affected shoulder</em> (nas) and then the <em>affected shoulder</em> (as).</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="reliability-and-validity.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
-<span id="cb253-2"><a href="reliability-and-validity.html#cb253-2" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, readxl)</span>
-<span id="cb253-3"><a href="reliability-and-validity.html#cb253-3" tabindex="-1"></a></span>
-<span id="cb253-4"><a href="reliability-and-validity.html#cb253-4" tabindex="-1"></a><span class="co"># Read file</span></span>
-<span id="cb253-5"><a href="reliability-and-validity.html#cb253-5" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls&quot;</span></span>
-<span id="cb253-6"><a href="reliability-and-validity.html#cb253-6" tabindex="-1"></a>temp_file <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)</span>
-<span id="cb253-7"><a href="reliability-and-validity.html#cb253-7" tabindex="-1"></a><span class="fu">download.file</span>(url, temp_file, <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span>)  <span class="co"># mode=&quot;wb&quot; is important for binary files</span></span>
-<span id="cb253-8"><a href="reliability-and-validity.html#cb253-8" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(temp_file)</span>
-<span id="cb253-9"><a href="reliability-and-validity.html#cb253-9" tabindex="-1"></a></span>
-<span id="cb253-10"><a href="reliability-and-validity.html#cb253-10" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="reliability-and-validity.html#cb252-1" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb252-2"><a href="reliability-and-validity.html#cb252-2" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, readxl)</span>
+<span id="cb252-3"><a href="reliability-and-validity.html#cb252-3" tabindex="-1"></a></span>
+<span id="cb252-4"><a href="reliability-and-validity.html#cb252-4" tabindex="-1"></a><span class="co"># Read file</span></span>
+<span id="cb252-5"><a href="reliability-and-validity.html#cb252-5" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/jdegenfellner/Script_QM2_ZHAW/main/data/chapter%205_assignment%201_2_wide.xls&quot;</span></span>
+<span id="cb252-6"><a href="reliability-and-validity.html#cb252-6" tabindex="-1"></a>temp_file <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.xls&quot;</span>)</span>
+<span id="cb252-7"><a href="reliability-and-validity.html#cb252-7" tabindex="-1"></a><span class="fu">download.file</span>(url, temp_file, <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span>)  <span class="co"># mode=&quot;wb&quot; is important for binary files</span></span>
+<span id="cb252-8"><a href="reliability-and-validity.html#cb252-8" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(temp_file)</span>
+<span id="cb252-9"><a href="reliability-and-validity.html#cb252-9" tabindex="-1"></a></span>
+<span id="cb252-10"><a href="reliability-and-validity.html#cb252-10" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   patcode ROMnas.Mary ROMnas.Peter ROMas.Mary ROMas.Peter
 ##     &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
@@ -392,40 +392,40 @@ plot their measurements and annotate the absolutely largest one(s). At first the
 ## 4       4          89           89         82          81
 ## 5       5          80           82         48          40
 ## 6       6          90           96         99          85</code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="reliability-and-validity.html#cb255-1" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="reliability-and-validity.html#cb254-1" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
 <pre><code>## [1] 155   5</code></pre>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="reliability-and-validity.html#cb257-1" tabindex="-1"></a><span class="co"># As in the book, let&#39;s randomly select 50 patients.</span></span>
-<span id="cb257-2"><a href="reliability-and-validity.html#cb257-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb257-3"><a href="reliability-and-validity.html#cb257-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">50</span>)</span>
-<span id="cb257-4"><a href="reliability-and-validity.html#cb257-4" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="reliability-and-validity.html#cb256-1" tabindex="-1"></a><span class="co"># As in the book, let&#39;s randomly select 50 patients.</span></span>
+<span id="cb256-2"><a href="reliability-and-validity.html#cb256-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb256-3"><a href="reliability-and-validity.html#cb256-3" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">50</span>)</span>
+<span id="cb256-4"><a href="reliability-and-validity.html#cb256-4" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
 <pre><code>## [1] 50  5</code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="reliability-and-validity.html#cb259-1" tabindex="-1"></a><span class="co"># &quot;as&quot; = affected shoulder</span></span>
-<span id="cb259-2"><a href="reliability-and-validity.html#cb259-2" tabindex="-1"></a><span class="co"># &quot;nas&quot; = not affected shoulder</span></span>
-<span id="cb259-3"><a href="reliability-and-validity.html#cb259-3" tabindex="-1"></a></span>
-<span id="cb259-4"><a href="reliability-and-validity.html#cb259-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb259-5"><a href="reliability-and-validity.html#cb259-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">abs</span>(ROMnas.Peter <span class="sc">-</span> ROMnas.Mary))  <span class="co"># Compute absolute difference</span></span>
-<span id="cb259-6"><a href="reliability-and-validity.html#cb259-6" tabindex="-1"></a></span>
-<span id="cb259-7"><a href="reliability-and-validity.html#cb259-7" tabindex="-1"></a>max_diff_point <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb259-8"><a href="reliability-and-validity.html#cb259-8" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(diff <span class="sc">==</span> <span class="fu">max</span>(diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  <span class="co"># Find the row with the max difference</span></span>
-<span id="cb259-9"><a href="reliability-and-validity.html#cb259-9" tabindex="-1"></a></span>
-<span id="cb259-10"><a href="reliability-and-validity.html#cb259-10" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb259-11"><a href="reliability-and-validity.html#cb259-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ROMnas.Peter, <span class="at">y =</span> ROMnas.Mary)) <span class="sc">+</span></span>
-<span id="cb259-12"><a href="reliability-and-validity.html#cb259-12" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb259-13"><a href="reliability-and-validity.html#cb259-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> max_diff_point, <span class="fu">aes</span>(<span class="at">x =</span> ROMnas.Peter, <span class="at">y =</span> ROMnas.Mary), </span>
-<span id="cb259-14"><a href="reliability-and-validity.html#cb259-14" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Highlight max difference point</span></span>
-<span id="cb259-15"><a href="reliability-and-validity.html#cb259-15" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb259-16"><a href="reliability-and-validity.html#cb259-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb259-17"><a href="reliability-and-validity.html#cb259-17" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;ROMnas.Peter vs. ROMnas.Mary&quot;</span>) <span class="sc">+</span></span>
-<span id="cb259-18"><a href="reliability-and-validity.html#cb259-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb259-19"><a href="reliability-and-validity.html#cb259-19" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> max_diff_point<span class="sc">$</span>ROMnas.Peter, </span>
-<span id="cb259-20"><a href="reliability-and-validity.html#cb259-20" tabindex="-1"></a>           <span class="at">y =</span> max_diff_point<span class="sc">$</span>ROMnas.Mary, </span>
-<span id="cb259-21"><a href="reliability-and-validity.html#cb259-21" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Max Diff: &quot;</span>, <span class="fu">round</span>(max_diff_point<span class="sc">$</span>diff, <span class="dv">2</span>)), </span>
-<span id="cb259-22"><a href="reliability-and-validity.html#cb259-22" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="reliability-and-validity.html#cb258-1" tabindex="-1"></a><span class="co"># &quot;as&quot; = affected shoulder</span></span>
+<span id="cb258-2"><a href="reliability-and-validity.html#cb258-2" tabindex="-1"></a><span class="co"># &quot;nas&quot; = not affected shoulder</span></span>
+<span id="cb258-3"><a href="reliability-and-validity.html#cb258-3" tabindex="-1"></a></span>
+<span id="cb258-4"><a href="reliability-and-validity.html#cb258-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb258-5"><a href="reliability-and-validity.html#cb258-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">abs</span>(ROMnas.Peter <span class="sc">-</span> ROMnas.Mary))  <span class="co"># Compute absolute difference</span></span>
+<span id="cb258-6"><a href="reliability-and-validity.html#cb258-6" tabindex="-1"></a></span>
+<span id="cb258-7"><a href="reliability-and-validity.html#cb258-7" tabindex="-1"></a>max_diff_point <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb258-8"><a href="reliability-and-validity.html#cb258-8" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(diff <span class="sc">==</span> <span class="fu">max</span>(diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  <span class="co"># Find the row with the max difference</span></span>
+<span id="cb258-9"><a href="reliability-and-validity.html#cb258-9" tabindex="-1"></a></span>
+<span id="cb258-10"><a href="reliability-and-validity.html#cb258-10" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb258-11"><a href="reliability-and-validity.html#cb258-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ROMnas.Peter, <span class="at">y =</span> ROMnas.Mary)) <span class="sc">+</span></span>
+<span id="cb258-12"><a href="reliability-and-validity.html#cb258-12" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb258-13"><a href="reliability-and-validity.html#cb258-13" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> max_diff_point, <span class="fu">aes</span>(<span class="at">x =</span> ROMnas.Peter, <span class="at">y =</span> ROMnas.Mary), </span>
+<span id="cb258-14"><a href="reliability-and-validity.html#cb258-14" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Highlight max difference point</span></span>
+<span id="cb258-15"><a href="reliability-and-validity.html#cb258-15" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb258-16"><a href="reliability-and-validity.html#cb258-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb258-17"><a href="reliability-and-validity.html#cb258-17" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;ROMnas.Peter vs. ROMnas.Mary&quot;</span>) <span class="sc">+</span></span>
+<span id="cb258-18"><a href="reliability-and-validity.html#cb258-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb258-19"><a href="reliability-and-validity.html#cb258-19" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> max_diff_point<span class="sc">$</span>ROMnas.Peter, </span>
+<span id="cb258-20"><a href="reliability-and-validity.html#cb258-20" tabindex="-1"></a>           <span class="at">y =</span> max_diff_point<span class="sc">$</span>ROMnas.Mary, </span>
+<span id="cb258-21"><a href="reliability-and-validity.html#cb258-21" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Max Diff: &quot;</span>, <span class="fu">round</span>(max_diff_point<span class="sc">$</span>diff, <span class="dv">2</span>)), </span>
+<span id="cb258-22"><a href="reliability-and-validity.html#cb258-22" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="reliability-and-validity.html#cb260-1" tabindex="-1"></a><span class="co"># average abs. difference:</span></span>
-<span id="cb260-2"><a href="reliability-and-validity.html#cb260-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 7.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="reliability-and-validity.html#cb259-1" tabindex="-1"></a><span class="co"># average abs. difference:</span></span>
+<span id="cb259-2"><a href="reliability-and-validity.html#cb259-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 7.2</span></span></code></pre></div>
 <pre><code>## [1] 7.2</code></pre>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="reliability-and-validity.html#cb262-1" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>ROMnas.Peter, df<span class="sc">$</span>ROMnas.Mary, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="reliability-and-validity.html#cb261-1" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>ROMnas.Peter, df<span class="sc">$</span>ROMnas.Mary, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
 <pre><code>## [1] 0.2403213</code></pre>
 <p>The red line represents the line of equality (<span class="math inline">\(y=x\)</span>). If the measurements are
 exactly the same,
@@ -445,36 +445,36 @@ But: Knowing Peter’s measurement does not help us to <a href="https://en.wikip
 Mary’s measurement at such a low correlation (-&gt; exercise later).
 So, on the <em>not affected shoulder</em> (nas), agreement is really bad.</p>
 <p>What about the affected shoulder (as)?</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="reliability-and-validity.html#cb264-1" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
-<span id="cb264-2"><a href="reliability-and-validity.html#cb264-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb264-3"><a href="reliability-and-validity.html#cb264-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">abs</span>(ROMas.Peter <span class="sc">-</span> ROMas.Mary))  <span class="co"># Compute absolute difference</span></span>
-<span id="cb264-4"><a href="reliability-and-validity.html#cb264-4" tabindex="-1"></a></span>
-<span id="cb264-5"><a href="reliability-and-validity.html#cb264-5" tabindex="-1"></a>max_diff_point <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb264-6"><a href="reliability-and-validity.html#cb264-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(diff <span class="sc">==</span> <span class="fu">max</span>(diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  <span class="co"># Find the row with the max difference</span></span>
-<span id="cb264-7"><a href="reliability-and-validity.html#cb264-7" tabindex="-1"></a></span>
-<span id="cb264-8"><a href="reliability-and-validity.html#cb264-8" tabindex="-1"></a>p <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb264-9"><a href="reliability-and-validity.html#cb264-9" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ROMas.Peter, <span class="at">y =</span> ROMas.Mary)) <span class="sc">+</span></span>
-<span id="cb264-10"><a href="reliability-and-validity.html#cb264-10" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb264-11"><a href="reliability-and-validity.html#cb264-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> max_diff_point, <span class="fu">aes</span>(<span class="at">x =</span> ROMas.Peter, <span class="at">y =</span> ROMas.Mary), </span>
-<span id="cb264-12"><a href="reliability-and-validity.html#cb264-12" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Highlight max difference point</span></span>
-<span id="cb264-13"><a href="reliability-and-validity.html#cb264-13" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb264-14"><a href="reliability-and-validity.html#cb264-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb264-15"><a href="reliability-and-validity.html#cb264-15" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;ROMas.Peter vs. ROMas.Mary&quot;</span>) <span class="sc">+</span></span>
-<span id="cb264-16"><a href="reliability-and-validity.html#cb264-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb264-17"><a href="reliability-and-validity.html#cb264-17" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> max_diff_point<span class="sc">$</span>ROMas.Peter, </span>
-<span id="cb264-18"><a href="reliability-and-validity.html#cb264-18" tabindex="-1"></a>           <span class="at">y =</span> max_diff_point<span class="sc">$</span>ROMas.Mary, </span>
-<span id="cb264-19"><a href="reliability-and-validity.html#cb264-19" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Max Diff: &quot;</span>, <span class="fu">round</span>(max_diff_point<span class="sc">$</span>diff, <span class="dv">2</span>)), </span>
-<span id="cb264-20"><a href="reliability-and-validity.html#cb264-20" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span>
-<span id="cb264-21"><a href="reliability-and-validity.html#cb264-21" tabindex="-1"></a><span class="co"># Add marginal histograms</span></span>
-<span id="cb264-22"><a href="reliability-and-validity.html#cb264-22" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">&quot;density&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="reliability-and-validity.html#cb263-1" tabindex="-1"></a><span class="fu">library</span>(ggExtra)</span>
+<span id="cb263-2"><a href="reliability-and-validity.html#cb263-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb263-3"><a href="reliability-and-validity.html#cb263-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">abs</span>(ROMas.Peter <span class="sc">-</span> ROMas.Mary))  <span class="co"># Compute absolute difference</span></span>
+<span id="cb263-4"><a href="reliability-and-validity.html#cb263-4" tabindex="-1"></a></span>
+<span id="cb263-5"><a href="reliability-and-validity.html#cb263-5" tabindex="-1"></a>max_diff_point <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb263-6"><a href="reliability-and-validity.html#cb263-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(diff <span class="sc">==</span> <span class="fu">max</span>(diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))  <span class="co"># Find the row with the max difference</span></span>
+<span id="cb263-7"><a href="reliability-and-validity.html#cb263-7" tabindex="-1"></a></span>
+<span id="cb263-8"><a href="reliability-and-validity.html#cb263-8" tabindex="-1"></a>p <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb263-9"><a href="reliability-and-validity.html#cb263-9" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ROMas.Peter, <span class="at">y =</span> ROMas.Mary)) <span class="sc">+</span></span>
+<span id="cb263-10"><a href="reliability-and-validity.html#cb263-10" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb263-11"><a href="reliability-and-validity.html#cb263-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> max_diff_point, <span class="fu">aes</span>(<span class="at">x =</span> ROMas.Peter, <span class="at">y =</span> ROMas.Mary), </span>
+<span id="cb263-12"><a href="reliability-and-validity.html#cb263-12" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Highlight max difference point</span></span>
+<span id="cb263-13"><a href="reliability-and-validity.html#cb263-13" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb263-14"><a href="reliability-and-validity.html#cb263-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb263-15"><a href="reliability-and-validity.html#cb263-15" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;ROMas.Peter vs. ROMas.Mary&quot;</span>) <span class="sc">+</span></span>
+<span id="cb263-16"><a href="reliability-and-validity.html#cb263-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb263-17"><a href="reliability-and-validity.html#cb263-17" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> max_diff_point<span class="sc">$</span>ROMas.Peter, </span>
+<span id="cb263-18"><a href="reliability-and-validity.html#cb263-18" tabindex="-1"></a>           <span class="at">y =</span> max_diff_point<span class="sc">$</span>ROMas.Mary, </span>
+<span id="cb263-19"><a href="reliability-and-validity.html#cb263-19" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Max Diff: &quot;</span>, <span class="fu">round</span>(max_diff_point<span class="sc">$</span>diff, <span class="dv">2</span>)), </span>
+<span id="cb263-20"><a href="reliability-and-validity.html#cb263-20" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>)</span>
+<span id="cb263-21"><a href="reliability-and-validity.html#cb263-21" tabindex="-1"></a><span class="co"># Add marginal histograms</span></span>
+<span id="cb263-22"><a href="reliability-and-validity.html#cb263-22" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">&quot;density&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="reliability-and-validity.html#cb265-1" tabindex="-1"></a><span class="co"># average abs. difference:</span></span>
-<span id="cb265-2"><a href="reliability-and-validity.html#cb265-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 7.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="reliability-and-validity.html#cb264-1" tabindex="-1"></a><span class="co"># average abs. difference:</span></span>
+<span id="cb264-2"><a href="reliability-and-validity.html#cb264-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>diff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co"># 7.2</span></span></code></pre></div>
 <pre><code>## [1] 7.78</code></pre>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="reliability-and-validity.html#cb267-1" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>ROMas.Peter, df<span class="sc">$</span>ROMas.Mary, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="reliability-and-validity.html#cb266-1" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>ROMas.Peter, df<span class="sc">$</span>ROMas.Mary, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>) </span></code></pre></div>
 <pre><code>## [1] 0.8516653</code></pre>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="reliability-and-validity.html#cb269-1" tabindex="-1"></a><span class="co"># mean difference</span></span>
-<span id="cb269-2"><a href="reliability-and-validity.html#cb269-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>ROMas.Peter <span class="sc">-</span> df<span class="sc">$</span>ROMas.Mary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="reliability-and-validity.html#cb268-1" tabindex="-1"></a><span class="co"># mean difference</span></span>
+<span id="cb268-2"><a href="reliability-and-validity.html#cb268-2" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>ROMas.Peter <span class="sc">-</span> df<span class="sc">$</span>ROMas.Mary, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <pre><code>## [1] 1.22</code></pre>
 <p>In the affected side, the average absolute difference is even larger (<span class="math inline">\(7.78\)</span>)
 with a maximum absolute difference of 37 degrees,
@@ -566,10 +566,10 @@ have some measurement error <span class="math inline">\(\sigma_{\varepsilon}^2\)
 <p><strong>What matters is the ratio of the two</strong>, as can be seen from the formula above.</p>
 <p>Let’s try to calculate the ICC for our data using a statistical model. There are a couple of different
 R packages to do this. We will use the <code>irr</code> package.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="reliability-and-validity.html#cb271-1" tabindex="-1"></a><span class="fu">library</span>(irr)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="reliability-and-validity.html#cb270-1" tabindex="-1"></a><span class="fu">library</span>(irr)</span></code></pre></div>
 <pre><code>## Loading required package: lpSolve</code></pre>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="reliability-and-validity.html#cb273-1" tabindex="-1"></a>irr<span class="sc">::</span><span class="fu">icc</span>(<span class="fu">as.matrix</span>(df[, <span class="fu">c</span>(<span class="st">&quot;ROMas.Peter&quot;</span>, <span class="st">&quot;ROMas.Mary&quot;</span>)]), </span>
-<span id="cb273-2"><a href="reliability-and-validity.html#cb273-2" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">&quot;oneway&quot;</span>, <span class="at">type =</span> <span class="st">&quot;consistency&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="reliability-and-validity.html#cb272-1" tabindex="-1"></a>irr<span class="sc">::</span><span class="fu">icc</span>(<span class="fu">as.matrix</span>(df[, <span class="fu">c</span>(<span class="st">&quot;ROMas.Peter&quot;</span>, <span class="st">&quot;ROMas.Mary&quot;</span>)]), </span>
+<span id="cb272-2"><a href="reliability-and-validity.html#cb272-2" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">&quot;oneway&quot;</span>, <span class="at">type =</span> <span class="st">&quot;consistency&quot;</span>)</span></code></pre></div>
 <pre><code>##  Single Score Intraclass Correlation
 ## 
 ##    Model: oneway 
@@ -643,34 +643,34 @@ is an excellent visualization.</p></li>
 For larger jobs, one can try to parallelize
 the chains, which saves some time.</p></li>
 </ul>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="reliability-and-validity.html#cb275-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb275-2"><a href="reliability-and-validity.html#cb275-2" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span>
-<span id="cb275-3"><a href="reliability-and-validity.html#cb275-3" tabindex="-1"></a></span>
-<span id="cb275-4"><a href="reliability-and-validity.html#cb275-4" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb275-5"><a href="reliability-and-validity.html#cb275-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb275-6"><a href="reliability-and-validity.html#cb275-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ID,ROMas.Peter, ROMas.Mary) <span class="sc">%&gt;%</span> </span>
-<span id="cb275-7"><a href="reliability-and-validity.html#cb275-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(ROMas.Peter, ROMas.Mary), </span>
-<span id="cb275-8"><a href="reliability-and-validity.html#cb275-8" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Rater&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;ROM&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb275-9"><a href="reliability-and-validity.html#cb275-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rater =</span> <span class="fu">factor</span>(Rater))</span>
-<span id="cb275-10"><a href="reliability-and-validity.html#cb275-10" tabindex="-1"></a></span>
-<span id="cb275-11"><a href="reliability-and-validity.html#cb275-11" tabindex="-1"></a><span class="fu">tic</span>()</span>
-<span id="cb275-12"><a href="reliability-and-validity.html#cb275-12" tabindex="-1"></a>m5<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb275-13"><a href="reliability-and-validity.html#cb275-13" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb275-14"><a href="reliability-and-validity.html#cb275-14" tabindex="-1"></a>    <span class="co"># Likelihood</span></span>
-<span id="cb275-15"><a href="reliability-and-validity.html#cb275-15" tabindex="-1"></a>    ROM <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb275-16"><a href="reliability-and-validity.html#cb275-16" tabindex="-1"></a>    </span>
-<span id="cb275-17"><a href="reliability-and-validity.html#cb275-17" tabindex="-1"></a>    <span class="co"># Patient-specific intercepts (random effects)</span></span>
-<span id="cb275-18"><a href="reliability-and-validity.html#cb275-18" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[ID],  </span>
-<span id="cb275-19"><a href="reliability-and-validity.html#cb275-19" tabindex="-1"></a>    a[ID] <span class="sc">~</span> <span class="fu">dnorm</span>(mu_a, sigma_ID),  <span class="co"># Hierarchical structure for patients</span></span>
-<span id="cb275-20"><a href="reliability-and-validity.html#cb275-20" tabindex="-1"></a>    </span>
-<span id="cb275-21"><a href="reliability-and-validity.html#cb275-21" tabindex="-1"></a>    <span class="co"># Priors for hyperparameters</span></span>
-<span id="cb275-22"><a href="reliability-and-validity.html#cb275-22" tabindex="-1"></a>    mu_a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">66</span>, <span class="dv">20</span>),  <span class="co"># Population-level mean</span></span>
-<span id="cb275-23"><a href="reliability-and-validity.html#cb275-23" tabindex="-1"></a>    sigma_ID <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">20</span>),  <span class="co"># Between-patient standard deviation</span></span>
-<span id="cb275-24"><a href="reliability-and-validity.html#cb275-24" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">20</span>)  <span class="co"># Residual standard deviation</span></span>
-<span id="cb275-25"><a href="reliability-and-validity.html#cb275-25" tabindex="-1"></a>  ), </span>
-<span id="cb275-26"><a href="reliability-and-validity.html#cb275-26" tabindex="-1"></a>  <span class="at">data =</span> df_long, </span>
-<span id="cb275-27"><a href="reliability-and-validity.html#cb275-27" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">8</span>, <span class="at">cores =</span> <span class="dv">4</span></span>
-<span id="cb275-28"><a href="reliability-and-validity.html#cb275-28" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="reliability-and-validity.html#cb274-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb274-2"><a href="reliability-and-validity.html#cb274-2" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span>
+<span id="cb274-3"><a href="reliability-and-validity.html#cb274-3" tabindex="-1"></a></span>
+<span id="cb274-4"><a href="reliability-and-validity.html#cb274-4" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb274-5"><a href="reliability-and-validity.html#cb274-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ID =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb274-6"><a href="reliability-and-validity.html#cb274-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ID,ROMas.Peter, ROMas.Mary) <span class="sc">%&gt;%</span> </span>
+<span id="cb274-7"><a href="reliability-and-validity.html#cb274-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(ROMas.Peter, ROMas.Mary), </span>
+<span id="cb274-8"><a href="reliability-and-validity.html#cb274-8" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;Rater&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;ROM&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb274-9"><a href="reliability-and-validity.html#cb274-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rater =</span> <span class="fu">factor</span>(Rater))</span>
+<span id="cb274-10"><a href="reliability-and-validity.html#cb274-10" tabindex="-1"></a></span>
+<span id="cb274-11"><a href="reliability-and-validity.html#cb274-11" tabindex="-1"></a><span class="fu">tic</span>()</span>
+<span id="cb274-12"><a href="reliability-and-validity.html#cb274-12" tabindex="-1"></a>m5<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb274-13"><a href="reliability-and-validity.html#cb274-13" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb274-14"><a href="reliability-and-validity.html#cb274-14" tabindex="-1"></a>    <span class="co"># Likelihood</span></span>
+<span id="cb274-15"><a href="reliability-and-validity.html#cb274-15" tabindex="-1"></a>    ROM <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb274-16"><a href="reliability-and-validity.html#cb274-16" tabindex="-1"></a>    </span>
+<span id="cb274-17"><a href="reliability-and-validity.html#cb274-17" tabindex="-1"></a>    <span class="co"># Patient-specific intercepts (random effects)</span></span>
+<span id="cb274-18"><a href="reliability-and-validity.html#cb274-18" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> a[ID],  </span>
+<span id="cb274-19"><a href="reliability-and-validity.html#cb274-19" tabindex="-1"></a>    a[ID] <span class="sc">~</span> <span class="fu">dnorm</span>(mu_a, sigma_ID),  <span class="co"># Hierarchical structure for patients</span></span>
+<span id="cb274-20"><a href="reliability-and-validity.html#cb274-20" tabindex="-1"></a>    </span>
+<span id="cb274-21"><a href="reliability-and-validity.html#cb274-21" tabindex="-1"></a>    <span class="co"># Priors for hyperparameters</span></span>
+<span id="cb274-22"><a href="reliability-and-validity.html#cb274-22" tabindex="-1"></a>    mu_a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">66</span>, <span class="dv">20</span>),  <span class="co"># Population-level mean</span></span>
+<span id="cb274-23"><a href="reliability-and-validity.html#cb274-23" tabindex="-1"></a>    sigma_ID <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">20</span>),  <span class="co"># Between-patient standard deviation</span></span>
+<span id="cb274-24"><a href="reliability-and-validity.html#cb274-24" tabindex="-1"></a>    sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>,<span class="dv">20</span>)  <span class="co"># Residual standard deviation</span></span>
+<span id="cb274-25"><a href="reliability-and-validity.html#cb274-25" tabindex="-1"></a>  ), </span>
+<span id="cb274-26"><a href="reliability-and-validity.html#cb274-26" tabindex="-1"></a>  <span class="at">data =</span> df_long, </span>
+<span id="cb274-27"><a href="reliability-and-validity.html#cb274-27" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">8</span>, <span class="at">cores =</span> <span class="dv">4</span></span>
+<span id="cb274-28"><a href="reliability-and-validity.html#cb274-28" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...
 ## 
 ## Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
@@ -686,7 +686,7 @@ the chains, which saves some time.</p></li>
 ## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c32ea3b3ac.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf5b347917.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
@@ -703,7 +703,7 @@ the chains, which saves some time.</p></li>
 ## Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c32ea3b3ac.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf5b347917.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
@@ -732,7 +732,7 @@ the chains, which saves some time.</p></li>
 ## Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c32ea3b3ac.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf5b347917.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 4</code></pre>
@@ -753,7 +753,7 @@ the chains, which saves some time.</p></li>
 ## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c32ea3b3ac.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf5b347917.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 5</code></pre>
@@ -770,7 +770,7 @@ the chains, which saves some time.</p></li>
 ## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 6 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c32ea3b3ac.stan&#39;, line 17, column 4 to column 34)</code></pre>
+<pre><code>## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf5b347917.stan&#39;, line 17, column 4 to column 34)</code></pre>
 <pre><code>## Chain 6 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 6 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 6</code></pre>
@@ -794,10 +794,10 @@ the chains, which saves some time.</p></li>
 ## Chain 8 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 8 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 8 Iteration: 600 / 1000 [ 60%]  (Sampling) 
+## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 5 finished in 0.1 seconds.
 ## Chain 6 finished in 0.1 seconds.
 ## Chain 7 finished in 0.1 seconds.
-## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
@@ -806,9 +806,9 @@ the chains, which saves some time.</p></li>
 ## All 8 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
 ## Total execution time: 0.6 seconds.</code></pre>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="reliability-and-validity.html#cb307-1" tabindex="-1"></a><span class="fu">toc</span>() <span class="co"># 7s</span></span></code></pre></div>
-<pre><code>## 8.123 sec elapsed</code></pre>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="reliability-and-validity.html#cb309-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="reliability-and-validity.html#cb306-1" tabindex="-1"></a><span class="fu">toc</span>() <span class="co"># 7s</span></span></code></pre></div>
+<pre><code>## 7.367 sec elapsed</code></pre>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="reliability-and-validity.html#cb308-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.1</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##               mean        sd      5.5%     94.5%      rhat ess_bulk
 ## a[1]     67.722244 4.9090800 59.884240 75.424230 1.0011883 6619.262
 ## a[2]     64.111654 4.7840605 56.528447 71.776798 1.0034783 6191.276
@@ -863,13 +863,13 @@ the chains, which saves some time.</p></li>
 ## mu_a     65.555333 2.4626739 61.598423 69.494927 1.0017301 4186.431
 ## sigma_ID 16.613184 1.6346644 14.010696 19.244560 1.0024463 1915.575
 ## sigma     7.081393 0.7331837  6.011486  8.331337 1.0004015 2066.538</code></pre>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="reliability-and-validity.html#cb311-1" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.1</span>)</span>
-<span id="cb311-2"><a href="reliability-and-validity.html#cb311-2" tabindex="-1"></a>var_patients <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_ID<span class="sc">^</span><span class="dv">2</span>)  <span class="co"># Between-patient variance</span></span>
-<span id="cb311-3"><a href="reliability-and-validity.html#cb311-3" tabindex="-1"></a>var_residual <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span>)     <span class="co"># Residual variance</span></span>
-<span id="cb311-4"><a href="reliability-and-validity.html#cb311-4" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_residual) <span class="co"># ICC</span></span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="reliability-and-validity.html#cb310-1" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.1</span>)</span>
+<span id="cb310-2"><a href="reliability-and-validity.html#cb310-2" tabindex="-1"></a>var_patients <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_ID<span class="sc">^</span><span class="dv">2</span>)  <span class="co"># Between-patient variance</span></span>
+<span id="cb310-3"><a href="reliability-and-validity.html#cb310-3" tabindex="-1"></a>var_residual <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma<span class="sc">^</span><span class="dv">2</span>)     <span class="co"># Residual variance</span></span>
+<span id="cb310-4"><a href="reliability-and-validity.html#cb310-4" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_residual) <span class="co"># ICC</span></span></code></pre></div>
 <pre><code>## [1] 0.8461117</code></pre>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="reliability-and-validity.html#cb313-1" tabindex="-1"></a><span class="co"># 0.846</span></span>
-<span id="cb313-2"><a href="reliability-and-validity.html#cb313-2" tabindex="-1"></a><span class="co"># not too bad; very close to the result from the irr package</span></span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="reliability-and-validity.html#cb312-1" tabindex="-1"></a><span class="co"># 0.846</span></span>
+<span id="cb312-2"><a href="reliability-and-validity.html#cb312-2" tabindex="-1"></a><span class="co"># not too bad; very close to the result from the irr package</span></span></code></pre></div>
 <p>In the output from <code>precis(m5.1, depth = 2)</code> above we see</p>
 <ul>
 <li>all 50 intercept estimates for each patient: <code>a[ID]</code></li>
@@ -883,15 +883,15 @@ the outcome. Depending on the predictors, we get different models and
 probably different ICCs.</p>
 <p>We can also estimate a <strong>random intercept model</strong> with the <code>lme4</code> package using
 the command <code>lmer</code>in the Frequentist framework. No priors.</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="reliability-and-validity.html#cb314-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="reliability-and-validity.html#cb313-1" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code></pre></div>
 <pre><code>## Loading required package: Matrix</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;Matrix&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:tidyr&#39;:
 ## 
 ##     expand, pack, unpack</code></pre>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="reliability-and-validity.html#cb318-1" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>ID), <span class="at">data =</span> df_long)</span>
-<span id="cb318-2"><a href="reliability-and-validity.html#cb318-2" tabindex="-1"></a><span class="fu">summary</span>(m5<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="reliability-and-validity.html#cb317-1" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span><span class="sc">|</span>ID), <span class="at">data =</span> df_long)</span>
+<span id="cb317-2"><a href="reliability-and-validity.html#cb317-2" tabindex="-1"></a><span class="fu">summary</span>(m5<span class="fl">.2</span>)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: ROM ~ (1 | ID)
 ##    Data: df_long
@@ -911,15 +911,15 @@ the command <code>lmer</code>in the Frequentist framework. No priors.</p>
 ## Fixed effects:
 ##             Estimate Std. Error t value
 ## (Intercept)   65.590      2.428   27.02</code></pre>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="reliability-and-validity.html#cb320-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">VarCorr</span>(m5<span class="fl">.2</span>), <span class="at">comp =</span> <span class="st">&quot;Variance&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="reliability-and-validity.html#cb319-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">VarCorr</span>(m5<span class="fl">.2</span>), <span class="at">comp =</span> <span class="st">&quot;Variance&quot;</span>)</span></code></pre></div>
 <pre><code>##  Groups   Name        Variance
 ##  ID       (Intercept) 270.99  
 ##  Residual              47.35</code></pre>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="reliability-and-validity.html#cb322-1" tabindex="-1"></a><span class="co"># ICC = </span></span>
-<span id="cb322-2"><a href="reliability-and-validity.html#cb322-2" tabindex="-1"></a><span class="fl">270.99</span> <span class="sc">/</span> (<span class="fl">270.99</span> <span class="sc">+</span> <span class="fl">47.35</span>) <span class="co"># </span></span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="reliability-and-validity.html#cb321-1" tabindex="-1"></a><span class="co"># ICC = </span></span>
+<span id="cb321-2"><a href="reliability-and-validity.html#cb321-2" tabindex="-1"></a><span class="fl">270.99</span> <span class="sc">/</span> (<span class="fl">270.99</span> <span class="sc">+</span> <span class="fl">47.35</span>) <span class="co"># </span></span></code></pre></div>
 <pre><code>## [1] 0.8512597</code></pre>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="reliability-and-validity.html#cb324-1" tabindex="-1"></a><span class="co"># 0.8512597</span></span>
-<span id="cb324-2"><a href="reliability-and-validity.html#cb324-2" tabindex="-1"></a><span class="co"># -&gt; exactly the same result as the irr package</span></span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="reliability-and-validity.html#cb323-1" tabindex="-1"></a><span class="co"># 0.8512597</span></span>
+<span id="cb323-2"><a href="reliability-and-validity.html#cb323-2" tabindex="-1"></a><span class="co"># -&gt; exactly the same result as the irr package</span></span></code></pre></div>
 <p>The expression <code>Formula: ROM ~ (1 | ID)</code> specifies that we want to fit a model with
 a random intercept. This means that every patient (ID) gets its own intercept
 which is drawn from a normal distribution. We will probably talk about this in the
@@ -977,14 +977,14 @@ the systematic difference between Peter’s measurements would
 be zero. Of course, one could be creative and think of
 a learning effect or something.</p>
 <p>Draw model structure … exercise..</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="reliability-and-validity.html#cb325-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb325-2"><a href="reliability-and-validity.html#cb325-2" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
-<span id="cb325-3"><a href="reliability-and-validity.html#cb325-3" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(posterior<span class="sc">::</span>sd)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="reliability-and-validity.html#cb324-1" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb324-2"><a href="reliability-and-validity.html#cb324-2" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
+<span id="cb324-3"><a href="reliability-and-validity.html#cb324-3" tabindex="-1"></a><span class="fu">conflicts_prefer</span>(posterior<span class="sc">::</span>sd)</span></code></pre></div>
 <pre><code>## [conflicted] Removing existing preference.
 ## [conflicted] Will prefer posterior::sd over any other package.</code></pre>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="reliability-and-validity.html#cb327-1" tabindex="-1"></a>df_long_bias <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
-<span id="cb327-2"><a href="reliability-and-validity.html#cb327-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ROM =</span> ROM <span class="sc">+</span> <span class="fu">ifelse</span>(Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>, <span class="dv">5</span>, <span class="dv">0</span>))</span>
-<span id="cb327-3"><a href="reliability-and-validity.html#cb327-3" tabindex="-1"></a><span class="fu">head</span>(df_long_bias)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="reliability-and-validity.html#cb326-1" tabindex="-1"></a>df_long_bias <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
+<span id="cb326-2"><a href="reliability-and-validity.html#cb326-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ROM =</span> ROM <span class="sc">+</span> <span class="fu">ifelse</span>(Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>, <span class="dv">5</span>, <span class="dv">0</span>))</span>
+<span id="cb326-3"><a href="reliability-and-validity.html#cb326-3" tabindex="-1"></a><span class="fu">head</span>(df_long_bias)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##      ID Rater         ROM
 ##   &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt;
@@ -994,30 +994,30 @@ a learning effect or something.</p>
 ## 4     2 ROMas.Mary     68
 ## 5     3 ROMas.Peter    96
 ## 6     3 ROMas.Mary     87</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="reliability-and-validity.html#cb329-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb329-2"><a href="reliability-and-validity.html#cb329-2" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
-<span id="cb329-3"><a href="reliability-and-validity.html#cb329-3" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
-<span id="cb329-4"><a href="reliability-and-validity.html#cb329-4" tabindex="-1"></a>    <span class="co"># Likelihood</span></span>
-<span id="cb329-5"><a href="reliability-and-validity.html#cb329-5" tabindex="-1"></a>    ROM <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma_eps),</span>
-<span id="cb329-6"><a href="reliability-and-validity.html#cb329-6" tabindex="-1"></a>    </span>
-<span id="cb329-7"><a href="reliability-and-validity.html#cb329-7" tabindex="-1"></a>    <span class="co"># Model for mean ROM with patient and rater effects</span></span>
-<span id="cb329-8"><a href="reliability-and-validity.html#cb329-8" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> alpha[ID] <span class="sc">+</span> beta[Rater],</span>
-<span id="cb329-9"><a href="reliability-and-validity.html#cb329-9" tabindex="-1"></a>    </span>
-<span id="cb329-10"><a href="reliability-and-validity.html#cb329-10" tabindex="-1"></a>    <span class="co"># Patient-specific random effects</span></span>
-<span id="cb329-11"><a href="reliability-and-validity.html#cb329-11" tabindex="-1"></a>    alpha[ID] <span class="sc">~</span> <span class="fu">dnorm</span>(mu_alpha, sigma_alpha),</span>
-<span id="cb329-12"><a href="reliability-and-validity.html#cb329-12" tabindex="-1"></a>    </span>
-<span id="cb329-13"><a href="reliability-and-validity.html#cb329-13" tabindex="-1"></a>    <span class="co"># Rater effect (Peter/Mary)</span></span>
-<span id="cb329-14"><a href="reliability-and-validity.html#cb329-14" tabindex="-1"></a>    beta[Rater] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, sigma_beta),</span>
-<span id="cb329-15"><a href="reliability-and-validity.html#cb329-15" tabindex="-1"></a>    </span>
-<span id="cb329-16"><a href="reliability-and-validity.html#cb329-16" tabindex="-1"></a>    <span class="co"># Priors for hyperparameters</span></span>
-<span id="cb329-17"><a href="reliability-and-validity.html#cb329-17" tabindex="-1"></a>    mu_alpha <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">66</span>, <span class="dv">10</span>),  <span class="co"># Population mean ROM</span></span>
-<span id="cb329-18"><a href="reliability-and-validity.html#cb329-18" tabindex="-1"></a>    sigma_alpha <span class="sc">~</span> <span class="fu">dexp</span>(<span class="fl">0.5</span>),  <span class="co"># Between-patient SD (less aggressive shrinkage)</span></span>
-<span id="cb329-19"><a href="reliability-and-validity.html#cb329-19" tabindex="-1"></a>    sigma_beta <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),   <span class="co"># Rater SD (better regularization)</span></span>
-<span id="cb329-20"><a href="reliability-and-validity.html#cb329-20" tabindex="-1"></a>    sigma_eps <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)     <span class="co"># Residual SD (prevents over-shrinkage)</span></span>
-<span id="cb329-21"><a href="reliability-and-validity.html#cb329-21" tabindex="-1"></a>  ), </span>
-<span id="cb329-22"><a href="reliability-and-validity.html#cb329-22" tabindex="-1"></a>  <span class="at">data =</span> df_long_bias, </span>
-<span id="cb329-23"><a href="reliability-and-validity.html#cb329-23" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">8</span>, <span class="at">cores =</span> <span class="dv">4</span></span>
-<span id="cb329-24"><a href="reliability-and-validity.html#cb329-24" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="reliability-and-validity.html#cb328-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb328-2"><a href="reliability-and-validity.html#cb328-2" tabindex="-1"></a>m5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
+<span id="cb328-3"><a href="reliability-and-validity.html#cb328-3" tabindex="-1"></a>  <span class="fu">alist</span>(</span>
+<span id="cb328-4"><a href="reliability-and-validity.html#cb328-4" tabindex="-1"></a>    <span class="co"># Likelihood</span></span>
+<span id="cb328-5"><a href="reliability-and-validity.html#cb328-5" tabindex="-1"></a>    ROM <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma_eps),</span>
+<span id="cb328-6"><a href="reliability-and-validity.html#cb328-6" tabindex="-1"></a>    </span>
+<span id="cb328-7"><a href="reliability-and-validity.html#cb328-7" tabindex="-1"></a>    <span class="co"># Model for mean ROM with patient and rater effects</span></span>
+<span id="cb328-8"><a href="reliability-and-validity.html#cb328-8" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> alpha[ID] <span class="sc">+</span> beta[Rater],</span>
+<span id="cb328-9"><a href="reliability-and-validity.html#cb328-9" tabindex="-1"></a>    </span>
+<span id="cb328-10"><a href="reliability-and-validity.html#cb328-10" tabindex="-1"></a>    <span class="co"># Patient-specific random effects</span></span>
+<span id="cb328-11"><a href="reliability-and-validity.html#cb328-11" tabindex="-1"></a>    alpha[ID] <span class="sc">~</span> <span class="fu">dnorm</span>(mu_alpha, sigma_alpha),</span>
+<span id="cb328-12"><a href="reliability-and-validity.html#cb328-12" tabindex="-1"></a>    </span>
+<span id="cb328-13"><a href="reliability-and-validity.html#cb328-13" tabindex="-1"></a>    <span class="co"># Rater effect (Peter/Mary)</span></span>
+<span id="cb328-14"><a href="reliability-and-validity.html#cb328-14" tabindex="-1"></a>    beta[Rater] <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, sigma_beta),</span>
+<span id="cb328-15"><a href="reliability-and-validity.html#cb328-15" tabindex="-1"></a>    </span>
+<span id="cb328-16"><a href="reliability-and-validity.html#cb328-16" tabindex="-1"></a>    <span class="co"># Priors for hyperparameters</span></span>
+<span id="cb328-17"><a href="reliability-and-validity.html#cb328-17" tabindex="-1"></a>    mu_alpha <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">66</span>, <span class="dv">10</span>),  <span class="co"># Population mean ROM</span></span>
+<span id="cb328-18"><a href="reliability-and-validity.html#cb328-18" tabindex="-1"></a>    sigma_alpha <span class="sc">~</span> <span class="fu">dexp</span>(<span class="fl">0.5</span>),  <span class="co"># Between-patient SD (less aggressive shrinkage)</span></span>
+<span id="cb328-19"><a href="reliability-and-validity.html#cb328-19" tabindex="-1"></a>    sigma_beta <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>),   <span class="co"># Rater SD (better regularization)</span></span>
+<span id="cb328-20"><a href="reliability-and-validity.html#cb328-20" tabindex="-1"></a>    sigma_eps <span class="sc">~</span> <span class="fu">dexp</span>(<span class="dv">1</span>)     <span class="co"># Residual SD (prevents over-shrinkage)</span></span>
+<span id="cb328-21"><a href="reliability-and-validity.html#cb328-21" tabindex="-1"></a>  ), </span>
+<span id="cb328-22"><a href="reliability-and-validity.html#cb328-22" tabindex="-1"></a>  <span class="at">data =</span> df_long_bias, </span>
+<span id="cb328-23"><a href="reliability-and-validity.html#cb328-23" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">8</span>, <span class="at">cores =</span> <span class="dv">4</span></span>
+<span id="cb328-24"><a href="reliability-and-validity.html#cb328-24" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## Running MCMC with 8 chains, at most 4 in parallel, with 1 thread(s) per chain...
 ## 
 ## Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
@@ -1029,7 +1029,7 @@ a learning effect or something.</p>
 ## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c37986b768.stan&#39;, line 21, column 4 to column 45)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf610b774d.stan&#39;, line 21, column 4 to column 45)
 ## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 1</code></pre>
@@ -1037,7 +1037,7 @@ a learning effect or something.</p>
 ## Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c37986b768.stan&#39;, line 21, column 4 to column 45)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf610b774d.stan&#39;, line 21, column 4 to column 45)
 ## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 2</code></pre>
@@ -1049,7 +1049,7 @@ a learning effect or something.</p>
 ## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)</code></pre>
 <pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c37986b768.stan&#39;, line 21, column 4 to column 45)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf610b774d.stan&#39;, line 21, column 4 to column 45)
 ## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 4</code></pre>
@@ -1096,9 +1096,10 @@ a learning effect or something.</p>
 ## Chain 5 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling)</code></pre>
+## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling)</code></pre>
 <pre><code>## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c37986b768.stan&#39;, line 21, column 4 to column 45)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf610b774d.stan&#39;, line 21, column 4 to column 45)
 ## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 5</code></pre>
@@ -1119,13 +1120,12 @@ a learning effect or something.</p>
 ## Chain 7 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 7 Iteration: 501 / 1000 [ 50%]  (Sampling)</code></pre>
 <pre><code>## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/RtmpFQBdNL/model-150c37986b768.stan&#39;, line 21, column 4 to column 45)
+## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmpw27n4t/model-cf610b774d.stan&#39;, line 21, column 4 to column 45)
 ## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 7</code></pre>
 <pre><code>## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 5 finished in 0.2 seconds.
 ## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
@@ -1155,7 +1155,7 @@ a learning effect or something.</p>
 ## Total execution time: 0.8 seconds.</code></pre>
 <pre><code>## Warning: 27 of 4000 (1.0%) transitions ended with a divergence.
 ## See https://mc-stan.org/misc/warnings for details.</code></pre>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="reliability-and-validity.html#cb342-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.2</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="reliability-and-validity.html#cb341-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.2</span>, <span class="at">depth =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##                  mean        sd       5.5%      94.5%     rhat  ess_bulk
 ## alpha[1]    70.221230 4.6957078 62.9122250 77.6751330 1.003921 3956.8010
 ## alpha[2]    66.637192 4.7935979 59.2921655 74.3219425 1.000703 4048.1323
@@ -1213,35 +1213,35 @@ a learning effect or something.</p>
 ## sigma_alpha 15.457249 1.6142987 13.1380645 18.2104485 1.000383 4277.2078
 ## sigma_beta   1.685571 1.0527940  0.3547305  3.5587972 1.001191 1581.1771
 ## sigma_eps    6.713486 0.6434269  5.7619659  7.7933864 1.004713 2175.7641</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="reliability-and-validity.html#cb344-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="reliability-and-validity.html#cb343-1" tabindex="-1"></a><span class="fu">precis</span>(m5<span class="fl">.2</span>)</span></code></pre></div>
 <pre><code>## 52 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
 <pre><code>##                  mean        sd       5.5%     94.5%     rhat ess_bulk
 ## mu_alpha    67.979401 2.5706977 63.9069175 72.088540 1.003032 1842.742
 ## sigma_alpha 15.457249 1.6142987 13.1380645 18.210449 1.000383 4277.208
 ## sigma_beta   1.685571 1.0527940  0.3547305  3.558797 1.001191 1581.177
 ## sigma_eps    6.713486 0.6434269  5.7619659  7.793386 1.004713 2175.764</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="reliability-and-validity.html#cb347-1" tabindex="-1"></a><span class="co"># check systematic difference for rater in posterior</span></span>
-<span id="cb347-2"><a href="reliability-and-validity.html#cb347-2" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.2</span>)</span>
-<span id="cb347-3"><a href="reliability-and-validity.html#cb347-3" tabindex="-1"></a><span class="fu">mean</span>(post<span class="sc">$</span>beta[,<span class="dv">1</span>] <span class="sc">-</span> post<span class="sc">$</span>beta[,<span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="reliability-and-validity.html#cb346-1" tabindex="-1"></a><span class="co"># check systematic difference for rater in posterior</span></span>
+<span id="cb346-2"><a href="reliability-and-validity.html#cb346-2" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.2</span>)</span>
+<span id="cb346-3"><a href="reliability-and-validity.html#cb346-3" tabindex="-1"></a><span class="fu">mean</span>(post<span class="sc">$</span>beta[,<span class="dv">1</span>] <span class="sc">-</span> post<span class="sc">$</span>beta[,<span class="dv">2</span>])</span></code></pre></div>
 <pre><code>## [1] 2.456821</code></pre>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="reliability-and-validity.html#cb349-1" tabindex="-1"></a><span class="co"># ICC agreement:</span></span>
-<span id="cb349-2"><a href="reliability-and-validity.html#cb349-2" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.2</span>)</span>
-<span id="cb349-3"><a href="reliability-and-validity.html#cb349-3" tabindex="-1"></a>(var_patients <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_alpha<span class="sc">^</span><span class="dv">2</span>))  <span class="co"># Between-patient variance</span></span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="reliability-and-validity.html#cb348-1" tabindex="-1"></a><span class="co"># ICC agreement:</span></span>
+<span id="cb348-2"><a href="reliability-and-validity.html#cb348-2" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m5<span class="fl">.2</span>)</span>
+<span id="cb348-3"><a href="reliability-and-validity.html#cb348-3" tabindex="-1"></a>(var_patients <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_alpha<span class="sc">^</span><span class="dv">2</span>))  <span class="co"># Between-patient variance</span></span></code></pre></div>
 <pre><code>## [1] 241.5319</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="reliability-and-validity.html#cb351-1" tabindex="-1"></a>(var_raters <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_beta<span class="sc">^</span><span class="dv">2</span>))     <span class="co"># Rater variance</span></span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="reliability-and-validity.html#cb350-1" tabindex="-1"></a>(var_raters <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_beta<span class="sc">^</span><span class="dv">2</span>))     <span class="co"># Rater variance</span></span></code></pre></div>
 <pre><code>## [1] 3.949248</code></pre>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="reliability-and-validity.html#cb353-1" tabindex="-1"></a>(var_residual <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_eps<span class="sc">^</span><span class="dv">2</span>))    <span class="co"># Residual variance</span></span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="reliability-and-validity.html#cb352-1" tabindex="-1"></a>(var_residual <span class="ot">&lt;-</span> <span class="fu">mean</span>(post<span class="sc">$</span>sigma_eps<span class="sc">^</span><span class="dv">2</span>))    <span class="co"># Residual variance</span></span></code></pre></div>
 <pre><code>## [1] 45.48479</code></pre>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="reliability-and-validity.html#cb355-1" tabindex="-1"></a><span class="co"># ICC_agreement = </span></span>
-<span id="cb355-2"><a href="reliability-and-validity.html#cb355-2" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_raters <span class="sc">+</span> var_residual)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="reliability-and-validity.html#cb354-1" tabindex="-1"></a><span class="co"># ICC_agreement = </span></span>
+<span id="cb354-2"><a href="reliability-and-validity.html#cb354-2" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_raters <span class="sc">+</span> var_residual)</span></code></pre></div>
 <pre><code>## [1] 0.8301037</code></pre>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="reliability-and-validity.html#cb357-1" tabindex="-1"></a><span class="co"># 0.8033613 (sigma_alpha ~ dexp(1))</span></span>
-<span id="cb357-2"><a href="reliability-and-validity.html#cb357-2" tabindex="-1"></a><span class="co"># 0.83 (sigma_alpha ~ dexp(0.5))</span></span>
-<span id="cb357-3"><a href="reliability-and-validity.html#cb357-3" tabindex="-1"></a></span>
-<span id="cb357-4"><a href="reliability-and-validity.html#cb357-4" tabindex="-1"></a><span class="co"># ICC (Single_fixed_raters) = ICC3 in psych output = </span></span>
-<span id="cb357-5"><a href="reliability-and-validity.html#cb357-5" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_residual)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="reliability-and-validity.html#cb356-1" tabindex="-1"></a><span class="co"># 0.8033613 (sigma_alpha ~ dexp(1))</span></span>
+<span id="cb356-2"><a href="reliability-and-validity.html#cb356-2" tabindex="-1"></a><span class="co"># 0.83 (sigma_alpha ~ dexp(0.5))</span></span>
+<span id="cb356-3"><a href="reliability-and-validity.html#cb356-3" tabindex="-1"></a></span>
+<span id="cb356-4"><a href="reliability-and-validity.html#cb356-4" tabindex="-1"></a><span class="co"># ICC (Single_fixed_raters) = ICC3 in psych output = </span></span>
+<span id="cb356-5"><a href="reliability-and-validity.html#cb356-5" tabindex="-1"></a>var_patients <span class="sc">/</span> (var_patients <span class="sc">+</span> var_residual)</span></code></pre></div>
 <pre><code>## [1] 0.8415256</code></pre>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="reliability-and-validity.html#cb359-1" tabindex="-1"></a><span class="co"># 0.8415256</span></span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="reliability-and-validity.html#cb358-1" tabindex="-1"></a><span class="co"># 0.8415256</span></span></code></pre></div>
 <p>It should be noted that this ICC is very sensitive to the choice of the prior.
 If you choose too agressive priors for the standard deviations <span class="math inline">\(\sigma_{\alpha},
 \sigma_{\beta}, \sigma_{\varepsilon}\)</span>, you will get a too low ICC.</p>
@@ -1253,14 +1253,14 @@ package. Both use a Frequentist random intercept model in the background.
 Using a package like <code>psych</code> just gives a more convenient interface to
 elicit the ICC.</p>
 <p><strong><code>psych</code> package</strong>:</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="reliability-and-validity.html#cb360-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb360-2"><a href="reliability-and-validity.html#cb360-2" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
-<span id="cb360-3"><a href="reliability-and-validity.html#cb360-3" tabindex="-1"></a><span class="co"># needs wide format</span></span>
-<span id="cb360-4"><a href="reliability-and-validity.html#cb360-4" tabindex="-1"></a><span class="co">#conflicts_prefer(dplyr::select)</span></span>
-<span id="cb360-5"><a href="reliability-and-validity.html#cb360-5" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> df_long_bias <span class="sc">%&gt;%</span></span>
-<span id="cb360-6"><a href="reliability-and-validity.html#cb360-6" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
-<span id="cb360-7"><a href="reliability-and-validity.html#cb360-7" tabindex="-1"></a>df_wide_values <span class="ot">&lt;-</span> df_wide <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
-<span id="cb360-8"><a href="reliability-and-validity.html#cb360-8" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values) <span class="co"># ICC1 = 0.83</span></span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="reliability-and-validity.html#cb359-1" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb359-2"><a href="reliability-and-validity.html#cb359-2" tabindex="-1"></a><span class="fu">library</span>(conflicted)</span>
+<span id="cb359-3"><a href="reliability-and-validity.html#cb359-3" tabindex="-1"></a><span class="co"># needs wide format</span></span>
+<span id="cb359-4"><a href="reliability-and-validity.html#cb359-4" tabindex="-1"></a><span class="co">#conflicts_prefer(dplyr::select)</span></span>
+<span id="cb359-5"><a href="reliability-and-validity.html#cb359-5" tabindex="-1"></a>df_wide <span class="ot">&lt;-</span> df_long_bias <span class="sc">%&gt;%</span></span>
+<span id="cb359-6"><a href="reliability-and-validity.html#cb359-6" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
+<span id="cb359-7"><a href="reliability-and-validity.html#cb359-7" tabindex="-1"></a>df_wide_values <span class="ot">&lt;-</span> df_wide <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
+<span id="cb359-8"><a href="reliability-and-validity.html#cb359-8" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values) <span class="co"># ICC1 = 0.83</span></span></code></pre></div>
 <pre><code>## Call: psych::ICC(x = df_wide_values)
 ## 
 ## Intraclass correlation coefficients 
@@ -1275,9 +1275,9 @@ elicit the ICC.</p>
 ##  Number of subjects = 50     Number of Judges =  2
 ## See the help file for a discussion of the other 4 McGraw and Wong estimates,</code></pre>
 <p><strong><code>lmer</code> package</strong>:</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="reliability-and-validity.html#cb362-1" tabindex="-1"></a><span class="co"># _lmer------</span></span>
-<span id="cb362-2"><a href="reliability-and-validity.html#cb362-2" tabindex="-1"></a>m5<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span> <span class="sc">|</span> ID) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Rater), <span class="at">data =</span> df_long_bias)</span>
-<span id="cb362-3"><a href="reliability-and-validity.html#cb362-3" tabindex="-1"></a><span class="fu">summary</span>(m5<span class="fl">.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="reliability-and-validity.html#cb361-1" tabindex="-1"></a><span class="co"># _lmer------</span></span>
+<span id="cb361-2"><a href="reliability-and-validity.html#cb361-2" tabindex="-1"></a>m5<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span> <span class="sc">|</span> ID) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Rater), <span class="at">data =</span> df_long_bias)</span>
+<span id="cb361-3"><a href="reliability-and-validity.html#cb361-3" tabindex="-1"></a><span class="fu">summary</span>(m5<span class="fl">.3</span>)</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: ROM ~ (1 | ID) + (1 | Rater)
 ##    Data: df_long_bias
@@ -1298,26 +1298,26 @@ elicit the ICC.</p>
 ## Fixed effects:
 ##             Estimate Std. Error t value
 ## (Intercept)   68.090      2.998   22.71</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="reliability-and-validity.html#cb364-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">VarCorr</span>(m5<span class="fl">.3</span>), <span class="at">comp =</span> <span class="st">&quot;Variance&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="reliability-and-validity.html#cb363-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">VarCorr</span>(m5<span class="fl">.3</span>), <span class="at">comp =</span> <span class="st">&quot;Variance&quot;</span>)</span></code></pre></div>
 <pre><code>##  Groups   Name        Variance
 ##  ID       (Intercept) 270.882 
 ##  Rater    (Intercept)   6.193 
 ##  Residual              47.557</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="reliability-and-validity.html#cb366-1" tabindex="-1"></a><span class="co"># Groups   Name        Variance</span></span>
-<span id="cb366-2"><a href="reliability-and-validity.html#cb366-2" tabindex="-1"></a><span class="co"># ID       (Intercept) 270.882 </span></span>
-<span id="cb366-3"><a href="reliability-and-validity.html#cb366-3" tabindex="-1"></a><span class="co"># Rater    (Intercept)   6.193 </span></span>
-<span id="cb366-4"><a href="reliability-and-validity.html#cb366-4" tabindex="-1"></a><span class="co"># Residual              47.557 </span></span>
-<span id="cb366-5"><a href="reliability-and-validity.html#cb366-5" tabindex="-1"></a></span>
-<span id="cb366-6"><a href="reliability-and-validity.html#cb366-6" tabindex="-1"></a></span>
-<span id="cb366-7"><a href="reliability-and-validity.html#cb366-7" tabindex="-1"></a><span class="co"># ICC (Single_random_raters) = ICC2 in psych output</span></span>
-<span id="cb366-8"><a href="reliability-and-validity.html#cb366-8" tabindex="-1"></a><span class="fl">270.882</span> <span class="sc">/</span> (<span class="fl">270.882</span> <span class="sc">+</span> <span class="fl">6.193</span> <span class="sc">+</span> <span class="fl">47.557</span>) <span class="co"># </span></span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="reliability-and-validity.html#cb365-1" tabindex="-1"></a><span class="co"># Groups   Name        Variance</span></span>
+<span id="cb365-2"><a href="reliability-and-validity.html#cb365-2" tabindex="-1"></a><span class="co"># ID       (Intercept) 270.882 </span></span>
+<span id="cb365-3"><a href="reliability-and-validity.html#cb365-3" tabindex="-1"></a><span class="co"># Rater    (Intercept)   6.193 </span></span>
+<span id="cb365-4"><a href="reliability-and-validity.html#cb365-4" tabindex="-1"></a><span class="co"># Residual              47.557 </span></span>
+<span id="cb365-5"><a href="reliability-and-validity.html#cb365-5" tabindex="-1"></a></span>
+<span id="cb365-6"><a href="reliability-and-validity.html#cb365-6" tabindex="-1"></a></span>
+<span id="cb365-7"><a href="reliability-and-validity.html#cb365-7" tabindex="-1"></a><span class="co"># ICC (Single_random_raters) = ICC2 in psych output</span></span>
+<span id="cb365-8"><a href="reliability-and-validity.html#cb365-8" tabindex="-1"></a><span class="fl">270.882</span> <span class="sc">/</span> (<span class="fl">270.882</span> <span class="sc">+</span> <span class="fl">6.193</span> <span class="sc">+</span> <span class="fl">47.557</span>) <span class="co"># </span></span></code></pre></div>
 <pre><code>## [1] 0.8344279</code></pre>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="reliability-and-validity.html#cb368-1" tabindex="-1"></a><span class="co"># 0.8344279</span></span>
-<span id="cb368-2"><a href="reliability-and-validity.html#cb368-2" tabindex="-1"></a></span>
-<span id="cb368-3"><a href="reliability-and-validity.html#cb368-3" tabindex="-1"></a><span class="co"># ICC (Single_fixed_raters) = ICC3 in psych output</span></span>
-<span id="cb368-4"><a href="reliability-and-validity.html#cb368-4" tabindex="-1"></a><span class="fl">270.882</span> <span class="sc">/</span> (<span class="fl">270.882</span> <span class="sc">+</span> <span class="fl">47.557</span>) <span class="co">#</span></span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="reliability-and-validity.html#cb367-1" tabindex="-1"></a><span class="co"># 0.8344279</span></span>
+<span id="cb367-2"><a href="reliability-and-validity.html#cb367-2" tabindex="-1"></a></span>
+<span id="cb367-3"><a href="reliability-and-validity.html#cb367-3" tabindex="-1"></a><span class="co"># ICC (Single_fixed_raters) = ICC3 in psych output</span></span>
+<span id="cb367-4"><a href="reliability-and-validity.html#cb367-4" tabindex="-1"></a><span class="fl">270.882</span> <span class="sc">/</span> (<span class="fl">270.882</span> <span class="sc">+</span> <span class="fl">47.557</span>) <span class="co">#</span></span></code></pre></div>
 <pre><code>## [1] 0.8506559</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="reliability-and-validity.html#cb370-1" tabindex="-1"></a><span class="co"># 0.85</span></span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="reliability-and-validity.html#cb369-1" tabindex="-1"></a><span class="co"># 0.85</span></span></code></pre></div>
 </div>
 <div id="explanation-of-iccs-in-the-psych-output" class="section level3 hasAnchor" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> Explanation of ICCs in the <code>psych</code> output<a href="reliability-and-validity.html#explanation-of-iccs-in-the-psych-output" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1391,47 +1391,47 @@ we can use <span class="math inline">\(ICC_{consistency}\)</span>.</p>
 <h3><span class="header-section-number">5.1.4</span> Summary Peter and Mary, with and without bias<a href="reliability-and-validity.html#summary-peter-and-mary-with-and-without-bias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Below, we summarize the results for the ICCs (calculated with <code>psych</code>)
 for the unbiased and biased case (Mary measures on average 5 degrees more than peter).</p>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="reliability-and-validity.html#cb371-1" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
-<span id="cb371-2"><a href="reliability-and-validity.html#cb371-2" tabindex="-1"></a><span class="fu">p_load</span>(conflicted, tidyverse, flextable)</span>
-<span id="cb371-3"><a href="reliability-and-validity.html#cb371-3" tabindex="-1"></a></span>
-<span id="cb371-4"><a href="reliability-and-validity.html#cb371-4" tabindex="-1"></a><span class="co"># Ensure select() from dplyr is used</span></span>
-<span id="cb371-5"><a href="reliability-and-validity.html#cb371-5" tabindex="-1"></a><span class="co">#conflicted::conflicts_prefer(&quot;select&quot;, &quot;dplyr&quot;)</span></span>
-<span id="cb371-6"><a href="reliability-and-validity.html#cb371-6" tabindex="-1"></a></span>
-<span id="cb371-7"><a href="reliability-and-validity.html#cb371-7" tabindex="-1"></a><span class="co"># Unbiased ICC Calculation</span></span>
-<span id="cb371-8"><a href="reliability-and-validity.html#cb371-8" tabindex="-1"></a>df_wide_unbiased <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
-<span id="cb371-9"><a href="reliability-and-validity.html#cb371-9" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
-<span id="cb371-10"><a href="reliability-and-validity.html#cb371-10" tabindex="-1"></a>df_wide_values_unbiased <span class="ot">&lt;-</span> df_wide_unbiased <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
-<span id="cb371-11"><a href="reliability-and-validity.html#cb371-11" tabindex="-1"></a>icc_results_unbiased <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values_unbiased)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="reliability-and-validity.html#cb370-1" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb370-2"><a href="reliability-and-validity.html#cb370-2" tabindex="-1"></a><span class="fu">p_load</span>(conflicted, tidyverse, flextable)</span>
+<span id="cb370-3"><a href="reliability-and-validity.html#cb370-3" tabindex="-1"></a></span>
+<span id="cb370-4"><a href="reliability-and-validity.html#cb370-4" tabindex="-1"></a><span class="co"># Ensure select() from dplyr is used</span></span>
+<span id="cb370-5"><a href="reliability-and-validity.html#cb370-5" tabindex="-1"></a><span class="co">#conflicted::conflicts_prefer(&quot;select&quot;, &quot;dplyr&quot;)</span></span>
+<span id="cb370-6"><a href="reliability-and-validity.html#cb370-6" tabindex="-1"></a></span>
+<span id="cb370-7"><a href="reliability-and-validity.html#cb370-7" tabindex="-1"></a><span class="co"># Unbiased ICC Calculation</span></span>
+<span id="cb370-8"><a href="reliability-and-validity.html#cb370-8" tabindex="-1"></a>df_wide_unbiased <span class="ot">&lt;-</span> df_long <span class="sc">%&gt;%</span></span>
+<span id="cb370-9"><a href="reliability-and-validity.html#cb370-9" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
+<span id="cb370-10"><a href="reliability-and-validity.html#cb370-10" tabindex="-1"></a>df_wide_values_unbiased <span class="ot">&lt;-</span> df_wide_unbiased <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
+<span id="cb370-11"><a href="reliability-and-validity.html#cb370-11" tabindex="-1"></a>icc_results_unbiased <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values_unbiased)</span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="reliability-and-validity.html#cb373-1" tabindex="-1"></a><span class="co"># Extract relevant ICC values</span></span>
-<span id="cb373-2"><a href="reliability-and-validity.html#cb373-2" tabindex="-1"></a>icc_unbiased_df <span class="ot">&lt;-</span> icc_results_unbiased<span class="sc">$</span>results <span class="sc">%&gt;%</span></span>
-<span id="cb373-3"><a href="reliability-and-validity.html#cb373-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(type, ICC) <span class="sc">%&gt;%</span></span>
-<span id="cb373-4"><a href="reliability-and-validity.html#cb373-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Unbiased ICC</span><span class="st">`</span> <span class="ot">=</span> ICC)</span>
-<span id="cb373-5"><a href="reliability-and-validity.html#cb373-5" tabindex="-1"></a></span>
-<span id="cb373-6"><a href="reliability-and-validity.html#cb373-6" tabindex="-1"></a><span class="co"># Biased ICC Calculation</span></span>
-<span id="cb373-7"><a href="reliability-and-validity.html#cb373-7" tabindex="-1"></a>df_wide_biased <span class="ot">&lt;-</span> df_long_bias <span class="sc">%&gt;%</span></span>
-<span id="cb373-8"><a href="reliability-and-validity.html#cb373-8" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
-<span id="cb373-9"><a href="reliability-and-validity.html#cb373-9" tabindex="-1"></a>df_wide_values_biased <span class="ot">&lt;-</span> df_wide_biased <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
-<span id="cb373-10"><a href="reliability-and-validity.html#cb373-10" tabindex="-1"></a>icc_results_biased <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values_biased)</span>
-<span id="cb373-11"><a href="reliability-and-validity.html#cb373-11" tabindex="-1"></a></span>
-<span id="cb373-12"><a href="reliability-and-validity.html#cb373-12" tabindex="-1"></a><span class="co"># Extract relevant ICC values</span></span>
-<span id="cb373-13"><a href="reliability-and-validity.html#cb373-13" tabindex="-1"></a>icc_biased_df <span class="ot">&lt;-</span> icc_results_biased<span class="sc">$</span>results <span class="sc">%&gt;%</span></span>
-<span id="cb373-14"><a href="reliability-and-validity.html#cb373-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(type, ICC) <span class="sc">%&gt;%</span></span>
-<span id="cb373-15"><a href="reliability-and-validity.html#cb373-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">Biased ICC</span><span class="st">`</span> <span class="ot">=</span> ICC)</span>
-<span id="cb373-16"><a href="reliability-and-validity.html#cb373-16" tabindex="-1"></a></span>
-<span id="cb373-17"><a href="reliability-and-validity.html#cb373-17" tabindex="-1"></a>icc_merged_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(icc_unbiased_df, </span>
-<span id="cb373-18"><a href="reliability-and-validity.html#cb373-18" tabindex="-1"></a>                           icc_biased_df, </span>
-<span id="cb373-19"><a href="reliability-and-validity.html#cb373-19" tabindex="-1"></a>                           <span class="at">by =</span> <span class="st">&quot;type&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb373-20"><a href="reliability-and-validity.html#cb373-20" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
-<span id="cb373-21"><a href="reliability-and-validity.html#cb373-21" tabindex="-1"></a></span>
-<span id="cb373-22"><a href="reliability-and-validity.html#cb373-22" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(icc_merged_df) <span class="sc">%&gt;%</span></span>
-<span id="cb373-23"><a href="reliability-and-validity.html#cb373-23" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_header_labels</span>(<span class="at">type =</span> <span class="st">&quot;ICC Type&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb373-24"><a href="reliability-and-validity.html#cb373-24" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">&quot;Intraclass Correlation Coefficients - Unbiased vs. Biased&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb373-25"><a href="reliability-and-validity.html#cb373-25" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_table_properties</span>(<span class="at">width =</span> .<span class="dv">5</span>, <span class="at">layout =</span> <span class="st">&quot;autofit&quot;</span>)</span>
-<span id="cb373-26"><a href="reliability-and-validity.html#cb373-26" tabindex="-1"></a>ft</span></code></pre></div>
-<div class="tabwid"><style>.cl-2d2b7686{table-layout:auto;width:50%;}.cl-2d284830{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2d29ada6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2d29adba{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2d29bb16{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2d29bb17{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2d29bb18{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2d29bb19{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2d29bb34{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2d29bb35{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-2d2b7686'>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="reliability-and-validity.html#cb372-1" tabindex="-1"></a><span class="co"># Extract relevant ICC values</span></span>
+<span id="cb372-2"><a href="reliability-and-validity.html#cb372-2" tabindex="-1"></a>icc_unbiased_df <span class="ot">&lt;-</span> icc_results_unbiased<span class="sc">$</span>results <span class="sc">%&gt;%</span></span>
+<span id="cb372-3"><a href="reliability-and-validity.html#cb372-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(type, ICC) <span class="sc">%&gt;%</span></span>
+<span id="cb372-4"><a href="reliability-and-validity.html#cb372-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Unbiased ICC</span><span class="st">`</span> <span class="ot">=</span> ICC)</span>
+<span id="cb372-5"><a href="reliability-and-validity.html#cb372-5" tabindex="-1"></a></span>
+<span id="cb372-6"><a href="reliability-and-validity.html#cb372-6" tabindex="-1"></a><span class="co"># Biased ICC Calculation</span></span>
+<span id="cb372-7"><a href="reliability-and-validity.html#cb372-7" tabindex="-1"></a>df_wide_biased <span class="ot">&lt;-</span> df_long_bias <span class="sc">%&gt;%</span></span>
+<span id="cb372-8"><a href="reliability-and-validity.html#cb372-8" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Rater, <span class="at">values_from =</span> ROM)</span>
+<span id="cb372-9"><a href="reliability-and-validity.html#cb372-9" tabindex="-1"></a>df_wide_values_biased <span class="ot">&lt;-</span> df_wide_biased <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>ID)</span>
+<span id="cb372-10"><a href="reliability-and-validity.html#cb372-10" tabindex="-1"></a>icc_results_biased <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">ICC</span>(df_wide_values_biased)</span>
+<span id="cb372-11"><a href="reliability-and-validity.html#cb372-11" tabindex="-1"></a></span>
+<span id="cb372-12"><a href="reliability-and-validity.html#cb372-12" tabindex="-1"></a><span class="co"># Extract relevant ICC values</span></span>
+<span id="cb372-13"><a href="reliability-and-validity.html#cb372-13" tabindex="-1"></a>icc_biased_df <span class="ot">&lt;-</span> icc_results_biased<span class="sc">$</span>results <span class="sc">%&gt;%</span></span>
+<span id="cb372-14"><a href="reliability-and-validity.html#cb372-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(type, ICC) <span class="sc">%&gt;%</span></span>
+<span id="cb372-15"><a href="reliability-and-validity.html#cb372-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">Biased ICC</span><span class="st">`</span> <span class="ot">=</span> ICC)</span>
+<span id="cb372-16"><a href="reliability-and-validity.html#cb372-16" tabindex="-1"></a></span>
+<span id="cb372-17"><a href="reliability-and-validity.html#cb372-17" tabindex="-1"></a>icc_merged_df <span class="ot">&lt;-</span> <span class="fu">left_join</span>(icc_unbiased_df, </span>
+<span id="cb372-18"><a href="reliability-and-validity.html#cb372-18" tabindex="-1"></a>                           icc_biased_df, </span>
+<span id="cb372-19"><a href="reliability-and-validity.html#cb372-19" tabindex="-1"></a>                           <span class="at">by =</span> <span class="st">&quot;type&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb372-20"><a href="reliability-and-validity.html#cb372-20" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb372-21"><a href="reliability-and-validity.html#cb372-21" tabindex="-1"></a></span>
+<span id="cb372-22"><a href="reliability-and-validity.html#cb372-22" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(icc_merged_df) <span class="sc">%&gt;%</span></span>
+<span id="cb372-23"><a href="reliability-and-validity.html#cb372-23" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_header_labels</span>(<span class="at">type =</span> <span class="st">&quot;ICC Type&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb372-24"><a href="reliability-and-validity.html#cb372-24" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_caption</span>(<span class="st">&quot;Intraclass Correlation Coefficients - Unbiased vs. Biased&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb372-25"><a href="reliability-and-validity.html#cb372-25" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">set_table_properties</span>(<span class="at">width =</span> .<span class="dv">5</span>, <span class="at">layout =</span> <span class="st">&quot;autofit&quot;</span>)</span>
+<span id="cb372-26"><a href="reliability-and-validity.html#cb372-26" tabindex="-1"></a>ft</span></code></pre></div>
+<div class="tabwid"><style>.cl-b2824306{table-layout:auto;width:50%;}.cl-b27f507e{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b2808cd2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b2808cdc{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-b28099ca{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b28099cb{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b28099d4{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b28099d5{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b28099d6{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b28099de{background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-b2824306'>
 <caption style="display:table-caption;margin:0pt;text-align:center;border-bottom: 0.00pt solid transparent;border-top: 0.00pt solid transparent;border-left: 0.00pt solid transparent;border-right: 0.00pt solid transparent;padding-top:3pt;padding-bottom:3pt;padding-left:3pt;padding-right:3pt;line-height: 1;background-color:transparent;"><span id="tab:unnamed-chunk-104">Table 5.1: </span><span>Intraclass Correlation Coefficients - Unbiased vs. Biased</span></caption>
-<thead><tr style="overflow-wrap:break-word;"><th class="cl-2d29bb16"><p class="cl-2d29ada6"><span class="cl-2d284830">ICC Type</span></p></th><th class="cl-2d29bb17"><p class="cl-2d29adba"><span class="cl-2d284830">Unbiased ICC</span></p></th><th class="cl-2d29bb17"><p class="cl-2d29adba"><span class="cl-2d284830">Biased ICC</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-2d29bb18"><p class="cl-2d29ada6"><span class="cl-2d284830">ICC1</span></p></td><td class="cl-2d29bb19"><p class="cl-2d29adba"><span class="cl-2d284830">0.8512574</span></p></td><td class="cl-2d29bb19"><p class="cl-2d29adba"><span class="cl-2d284830">0.8328336</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2d29bb18"><p class="cl-2d29ada6"><span class="cl-2d284830">ICC2</span></p></td><td class="cl-2d29bb19"><p class="cl-2d29adba"><span class="cl-2d284830">0.8512574</span></p></td><td class="cl-2d29bb19"><p class="cl-2d29adba"><span class="cl-2d284830">0.8344281</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-2d29bb34"><p class="cl-2d29ada6"><span class="cl-2d284830">ICC3</span></p></td><td class="cl-2d29bb35"><p class="cl-2d29adba"><span class="cl-2d284830">0.8512574</span></p></td><td class="cl-2d29bb35"><p class="cl-2d29adba"><span class="cl-2d284830">0.8506562</span></p></td></tr></tbody></table></div>
+<thead><tr style="overflow-wrap:break-word;"><th class="cl-b28099ca"><p class="cl-b2808cd2"><span class="cl-b27f507e">ICC Type</span></p></th><th class="cl-b28099cb"><p class="cl-b2808cdc"><span class="cl-b27f507e">Unbiased ICC</span></p></th><th class="cl-b28099cb"><p class="cl-b2808cdc"><span class="cl-b27f507e">Biased ICC</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b28099d4"><p class="cl-b2808cd2"><span class="cl-b27f507e">ICC1</span></p></td><td class="cl-b28099d5"><p class="cl-b2808cdc"><span class="cl-b27f507e">0.8512574</span></p></td><td class="cl-b28099d5"><p class="cl-b2808cdc"><span class="cl-b27f507e">0.8328336</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b28099d4"><p class="cl-b2808cd2"><span class="cl-b27f507e">ICC2</span></p></td><td class="cl-b28099d5"><p class="cl-b2808cdc"><span class="cl-b27f507e">0.8512574</span></p></td><td class="cl-b28099d5"><p class="cl-b2808cdc"><span class="cl-b27f507e">0.8344281</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-b28099d6"><p class="cl-b2808cd2"><span class="cl-b27f507e">ICC3</span></p></td><td class="cl-b28099de"><p class="cl-b2808cdc"><span class="cl-b27f507e">0.8512574</span></p></td><td class="cl-b28099de"><p class="cl-b2808cdc"><span class="cl-b27f507e">0.8506562</span></p></td></tr></tbody></table></div>
 <p>The <strong>left column</strong> shows that the ICCs are identical for the <strong>unbiased case</strong>.
 Specifically, ICC2 (=<span class="math inline">\(ICC_{agreement}\)</span> in the book) and
 ICC3 (<span class="math inline">\(ICC_{consistency}\)</span> in the book) are based on the same model which explicitely
@@ -1518,55 +1518,55 @@ detected, even if no real change has occurred.</li>
 <p>The code can be found <a href="https://github.com/jdegenfellner/ICC_MCID/blob/main/ICC_MCID.R">here</a>
 and in the github repo of the script. In the code, the sources for the ICC and MCID are
 cited.</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="reliability-and-validity.html#cb378-1" tabindex="-1"></a><span class="co"># ICC and Test-Retest-Reliability</span></span>
-<span id="cb378-2"><a href="reliability-and-validity.html#cb378-2" tabindex="-1"></a></span>
-<span id="cb378-3"><a href="reliability-and-validity.html#cb378-3" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
-<span id="cb378-4"><a href="reliability-and-validity.html#cb378-4" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, lme4, conflicted, psych, MASS)</span>
-<span id="cb378-5"><a href="reliability-and-validity.html#cb378-5" tabindex="-1"></a></span>
-<span id="cb378-6"><a href="reliability-and-validity.html#cb378-6" tabindex="-1"></a><span class="co"># MCID Minimal Clinically Important Difference---------</span></span>
-<span id="cb378-7"><a href="reliability-and-validity.html#cb378-7" tabindex="-1"></a></span>
-<span id="cb378-8"><a href="reliability-and-validity.html#cb378-8" tabindex="-1"></a><span class="co"># HADS score---------</span></span>
-<span id="cb378-9"><a href="reliability-and-validity.html#cb378-9" tabindex="-1"></a><span class="co"># The Hospital Anxiety and Depression Scale </span></span>
-<span id="cb378-10"><a href="reliability-and-validity.html#cb378-10" tabindex="-1"></a></span>
-<span id="cb378-11"><a href="reliability-and-validity.html#cb378-11" tabindex="-1"></a><span class="co"># Test-Retest-Reliability:</span></span>
-<span id="cb378-12"><a href="reliability-and-validity.html#cb378-12" tabindex="-1"></a><span class="co"># https://doi.org/10.1016/S1361-9004(02)00029-8</span></span>
-<span id="cb378-13"><a href="reliability-and-validity.html#cb378-13" tabindex="-1"></a></span>
-<span id="cb378-14"><a href="reliability-and-validity.html#cb378-14" tabindex="-1"></a><span class="co"># Use the numbers from here (Table 1):</span></span>
-<span id="cb378-15"><a href="reliability-and-validity.html#cb378-15" tabindex="-1"></a><span class="co"># https://www.sciencedirect.com/science/article/abs/pii/S1361900402000298</span></span>
-<span id="cb378-16"><a href="reliability-and-validity.html#cb378-16" tabindex="-1"></a><span class="co"># for demonstration purposes.</span></span>
-<span id="cb378-17"><a href="reliability-and-validity.html#cb378-17" tabindex="-1"></a></span>
-<span id="cb378-18"><a href="reliability-and-validity.html#cb378-18" tabindex="-1"></a><span class="co"># Minimal Clinically Important Difference (MCID) for HADS-A:</span></span>
-<span id="cb378-19"><a href="reliability-and-validity.html#cb378-19" tabindex="-1"></a><span class="co"># https://pmc.ncbi.nlm.nih.gov/articles/PMC2459149/</span></span>
-<span id="cb378-20"><a href="reliability-and-validity.html#cb378-20" tabindex="-1"></a><span class="co"># Not exactly the same population as shift workers, but suffices for demonstration purposes.</span></span>
-<span id="cb378-21"><a href="reliability-and-validity.html#cb378-21" tabindex="-1"></a><span class="co"># MCID HADS anxiety score and 1.68 (1.48–1.87)</span></span>
-<span id="cb378-22"><a href="reliability-and-validity.html#cb378-22" tabindex="-1"></a></span>
-<span id="cb378-23"><a href="reliability-and-validity.html#cb378-23" tabindex="-1"></a><span class="co"># Simplification: Score is deemed to be continuous.</span></span>
-<span id="cb378-24"><a href="reliability-and-validity.html#cb378-24" tabindex="-1"></a></span>
-<span id="cb378-25"><a href="reliability-and-validity.html#cb378-25" tabindex="-1"></a><span class="co"># Create 2 correlated measurements:</span></span>
-<span id="cb378-26"><a href="reliability-and-validity.html#cb378-26" tabindex="-1"></a><span class="co"># Use HADS-A Anxiety subscale</span></span>
-<span id="cb378-27"><a href="reliability-and-validity.html#cb378-27" tabindex="-1"></a><span class="co"># Use n=100, instead of n=24 for more stability</span></span>
-<span id="cb378-28"><a href="reliability-and-validity.html#cb378-28" tabindex="-1"></a></span>
-<span id="cb378-29"><a href="reliability-and-validity.html#cb378-29" tabindex="-1"></a>sigma1 <span class="ot">&lt;-</span> <span class="fl">3.93</span>  <span class="co"># Standard deviation of variable 1</span></span>
-<span id="cb378-30"><a href="reliability-and-validity.html#cb378-30" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">3.52</span>  <span class="co"># Standard deviation of variable 2</span></span>
-<span id="cb378-31"><a href="reliability-and-validity.html#cb378-31" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fl">0.82</span>    <span class="co"># Correlation</span></span>
-<span id="cb378-32"><a href="reliability-and-validity.html#cb378-32" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma1<span class="sc">^</span><span class="dv">2</span>, rho <span class="sc">*</span> sigma1 <span class="sc">*</span> sigma2,</span>
-<span id="cb378-33"><a href="reliability-and-validity.html#cb378-33" tabindex="-1"></a>                       rho <span class="sc">*</span> sigma1 <span class="sc">*</span> sigma2, sigma2<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb378-34"><a href="reliability-and-validity.html#cb378-34" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb378-35"><a href="reliability-and-validity.html#cb378-35" tabindex="-1"></a></span>
-<span id="cb378-36"><a href="reliability-and-validity.html#cb378-36" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">188</span>)  <span class="co"># For reproducibility</span></span>
-<span id="cb378-37"><a href="reliability-and-validity.html#cb378-37" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu =</span> <span class="fu">c</span>(<span class="fl">7.92</span>, <span class="fl">7.83</span>), <span class="at">Sigma =</span> cov_matrix)</span>
-<span id="cb378-38"><a href="reliability-and-validity.html#cb378-38" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(samples)</span>
-<span id="cb378-39"><a href="reliability-and-validity.html#cb378-39" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TP1&quot;</span>, <span class="st">&quot;TP2&quot;</span>)</span>
-<span id="cb378-40"><a href="reliability-and-validity.html#cb378-40" tabindex="-1"></a></span>
-<span id="cb378-41"><a href="reliability-and-validity.html#cb378-41" tabindex="-1"></a><span class="fu">plot</span>(df, <span class="at">main =</span> <span class="st">&quot;Scatterplot of Multivariate Normal Samples&quot;</span>,</span>
-<span id="cb378-42"><a href="reliability-and-validity.html#cb378-42" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;TP1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;TP2&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="reliability-and-validity.html#cb377-1" tabindex="-1"></a><span class="co"># ICC and Test-Retest-Reliability</span></span>
+<span id="cb377-2"><a href="reliability-and-validity.html#cb377-2" tabindex="-1"></a></span>
+<span id="cb377-3"><a href="reliability-and-validity.html#cb377-3" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb377-4"><a href="reliability-and-validity.html#cb377-4" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, lme4, conflicted, psych, MASS)</span>
+<span id="cb377-5"><a href="reliability-and-validity.html#cb377-5" tabindex="-1"></a></span>
+<span id="cb377-6"><a href="reliability-and-validity.html#cb377-6" tabindex="-1"></a><span class="co"># MCID Minimal Clinically Important Difference---------</span></span>
+<span id="cb377-7"><a href="reliability-and-validity.html#cb377-7" tabindex="-1"></a></span>
+<span id="cb377-8"><a href="reliability-and-validity.html#cb377-8" tabindex="-1"></a><span class="co"># HADS score---------</span></span>
+<span id="cb377-9"><a href="reliability-and-validity.html#cb377-9" tabindex="-1"></a><span class="co"># The Hospital Anxiety and Depression Scale </span></span>
+<span id="cb377-10"><a href="reliability-and-validity.html#cb377-10" tabindex="-1"></a></span>
+<span id="cb377-11"><a href="reliability-and-validity.html#cb377-11" tabindex="-1"></a><span class="co"># Test-Retest-Reliability:</span></span>
+<span id="cb377-12"><a href="reliability-and-validity.html#cb377-12" tabindex="-1"></a><span class="co"># https://doi.org/10.1016/S1361-9004(02)00029-8</span></span>
+<span id="cb377-13"><a href="reliability-and-validity.html#cb377-13" tabindex="-1"></a></span>
+<span id="cb377-14"><a href="reliability-and-validity.html#cb377-14" tabindex="-1"></a><span class="co"># Use the numbers from here (Table 1):</span></span>
+<span id="cb377-15"><a href="reliability-and-validity.html#cb377-15" tabindex="-1"></a><span class="co"># https://www.sciencedirect.com/science/article/abs/pii/S1361900402000298</span></span>
+<span id="cb377-16"><a href="reliability-and-validity.html#cb377-16" tabindex="-1"></a><span class="co"># for demonstration purposes.</span></span>
+<span id="cb377-17"><a href="reliability-and-validity.html#cb377-17" tabindex="-1"></a></span>
+<span id="cb377-18"><a href="reliability-and-validity.html#cb377-18" tabindex="-1"></a><span class="co"># Minimal Clinically Important Difference (MCID) for HADS-A:</span></span>
+<span id="cb377-19"><a href="reliability-and-validity.html#cb377-19" tabindex="-1"></a><span class="co"># https://pmc.ncbi.nlm.nih.gov/articles/PMC2459149/</span></span>
+<span id="cb377-20"><a href="reliability-and-validity.html#cb377-20" tabindex="-1"></a><span class="co"># Not exactly the same population as shift workers, but suffices for demonstration purposes.</span></span>
+<span id="cb377-21"><a href="reliability-and-validity.html#cb377-21" tabindex="-1"></a><span class="co"># MCID HADS anxiety score and 1.68 (1.48–1.87)</span></span>
+<span id="cb377-22"><a href="reliability-and-validity.html#cb377-22" tabindex="-1"></a></span>
+<span id="cb377-23"><a href="reliability-and-validity.html#cb377-23" tabindex="-1"></a><span class="co"># Simplification: Score is deemed to be continuous.</span></span>
+<span id="cb377-24"><a href="reliability-and-validity.html#cb377-24" tabindex="-1"></a></span>
+<span id="cb377-25"><a href="reliability-and-validity.html#cb377-25" tabindex="-1"></a><span class="co"># Create 2 correlated measurements:</span></span>
+<span id="cb377-26"><a href="reliability-and-validity.html#cb377-26" tabindex="-1"></a><span class="co"># Use HADS-A Anxiety subscale</span></span>
+<span id="cb377-27"><a href="reliability-and-validity.html#cb377-27" tabindex="-1"></a><span class="co"># Use n=100, instead of n=24 for more stability</span></span>
+<span id="cb377-28"><a href="reliability-and-validity.html#cb377-28" tabindex="-1"></a></span>
+<span id="cb377-29"><a href="reliability-and-validity.html#cb377-29" tabindex="-1"></a>sigma1 <span class="ot">&lt;-</span> <span class="fl">3.93</span>  <span class="co"># Standard deviation of variable 1</span></span>
+<span id="cb377-30"><a href="reliability-and-validity.html#cb377-30" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">3.52</span>  <span class="co"># Standard deviation of variable 2</span></span>
+<span id="cb377-31"><a href="reliability-and-validity.html#cb377-31" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fl">0.82</span>    <span class="co"># Correlation</span></span>
+<span id="cb377-32"><a href="reliability-and-validity.html#cb377-32" tabindex="-1"></a>cov_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma1<span class="sc">^</span><span class="dv">2</span>, rho <span class="sc">*</span> sigma1 <span class="sc">*</span> sigma2,</span>
+<span id="cb377-33"><a href="reliability-and-validity.html#cb377-33" tabindex="-1"></a>                       rho <span class="sc">*</span> sigma1 <span class="sc">*</span> sigma2, sigma2<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb377-34"><a href="reliability-and-validity.html#cb377-34" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb377-35"><a href="reliability-and-validity.html#cb377-35" tabindex="-1"></a></span>
+<span id="cb377-36"><a href="reliability-and-validity.html#cb377-36" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">188</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb377-37"><a href="reliability-and-validity.html#cb377-37" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n, <span class="at">mu =</span> <span class="fu">c</span>(<span class="fl">7.92</span>, <span class="fl">7.83</span>), <span class="at">Sigma =</span> cov_matrix)</span>
+<span id="cb377-38"><a href="reliability-and-validity.html#cb377-38" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(samples)</span>
+<span id="cb377-39"><a href="reliability-and-validity.html#cb377-39" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;TP1&quot;</span>, <span class="st">&quot;TP2&quot;</span>)</span>
+<span id="cb377-40"><a href="reliability-and-validity.html#cb377-40" tabindex="-1"></a></span>
+<span id="cb377-41"><a href="reliability-and-validity.html#cb377-41" tabindex="-1"></a><span class="fu">plot</span>(df, <span class="at">main =</span> <span class="st">&quot;Scatterplot of Multivariate Normal Samples&quot;</span>,</span>
+<span id="cb377-42"><a href="reliability-and-validity.html#cb377-42" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;TP1&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;TP2&quot;</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>))</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="reliability-and-validity.html#cb379-1" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/Intraclass_correlation#Modern_ICC_definitions:_simpler_formula_but_positive_bias</span></span>
-<span id="cb379-2"><a href="reliability-and-validity.html#cb379-2" tabindex="-1"></a><span class="co"># ICC should be the correlation within the group (i.e. patient)</span></span>
-<span id="cb379-3"><a href="reliability-and-validity.html#cb379-3" tabindex="-1"></a></span>
-<span id="cb379-4"><a href="reliability-and-validity.html#cb379-4" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>TP1, df<span class="sc">$</span>TP2, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>) <span class="co"># ~0.8-0.9</span></span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="reliability-and-validity.html#cb378-1" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/Intraclass_correlation#Modern_ICC_definitions:_simpler_formula_but_positive_bias</span></span>
+<span id="cb378-2"><a href="reliability-and-validity.html#cb378-2" tabindex="-1"></a><span class="co"># ICC should be the correlation within the group (i.e. patient)</span></span>
+<span id="cb378-3"><a href="reliability-and-validity.html#cb378-3" tabindex="-1"></a></span>
+<span id="cb378-4"><a href="reliability-and-validity.html#cb378-4" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>TP1, df<span class="sc">$</span>TP2, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>) <span class="co"># ~0.8-0.9</span></span></code></pre></div>
 <pre><code>## [1] 0.8184881</code></pre>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="reliability-and-validity.html#cb381-1" tabindex="-1"></a><span class="fu">ICC</span>(df) <span class="co"># 0.82</span></span></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="reliability-and-validity.html#cb380-1" tabindex="-1"></a><span class="fu">ICC</span>(df) <span class="co"># 0.82</span></span></code></pre></div>
 <pre><code>## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <pre><code>## Call: ICC(x = df)
 ## 
@@ -1581,37 +1581,37 @@ cited.</p>
 ## 
 ##  Number of subjects = 100     Number of Judges =  2
 ## See the help file for a discussion of the other 4 McGraw and Wong estimates,</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="reliability-and-validity.html#cb384-1" tabindex="-1"></a><span class="co"># check manually</span></span>
-<span id="cb384-2"><a href="reliability-and-validity.html#cb384-2" tabindex="-1"></a>df_mod <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span>n, df<span class="sc">$</span>TP1, df<span class="sc">$</span>TP2)</span>
-<span id="cb384-3"><a href="reliability-and-validity.html#cb384-3" tabindex="-1"></a><span class="fu">names</span>(df_mod) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;TP1&quot;</span>, <span class="st">&quot;TP2&quot;</span>)</span>
-<span id="cb384-4"><a href="reliability-and-validity.html#cb384-4" tabindex="-1"></a>df_mod_long <span class="ot">&lt;-</span> df_mod <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(TP1, TP2), <span class="at">names_to =</span> <span class="st">&quot;time_point&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;score&quot;</span>)</span>
-<span id="cb384-5"><a href="reliability-and-validity.html#cb384-5" tabindex="-1"></a>mod <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(score <span class="sc">~</span> time_point <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>id), <span class="at">data =</span> df_mod_long)</span>
-<span id="cb384-6"><a href="reliability-and-validity.html#cb384-6" tabindex="-1"></a>variance_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(mod)<span class="sc">$</span>varcor)</span>
-<span id="cb384-7"><a href="reliability-and-validity.html#cb384-7" tabindex="-1"></a><span class="co"># ICC=</span></span>
-<span id="cb384-8"><a href="reliability-and-validity.html#cb384-8" tabindex="-1"></a>variance_df<span class="sc">$</span>sdcor[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (variance_df<span class="sc">$</span>sdcor[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> variance_df<span class="sc">$</span>sdcor[<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>) <span class="co"># ~0.9</span></span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="reliability-and-validity.html#cb383-1" tabindex="-1"></a><span class="co"># check manually</span></span>
+<span id="cb383-2"><a href="reliability-and-validity.html#cb383-2" tabindex="-1"></a>df_mod <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span>n, df<span class="sc">$</span>TP1, df<span class="sc">$</span>TP2)</span>
+<span id="cb383-3"><a href="reliability-and-validity.html#cb383-3" tabindex="-1"></a><span class="fu">names</span>(df_mod) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;TP1&quot;</span>, <span class="st">&quot;TP2&quot;</span>)</span>
+<span id="cb383-4"><a href="reliability-and-validity.html#cb383-4" tabindex="-1"></a>df_mod_long <span class="ot">&lt;-</span> df_mod <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(TP1, TP2), <span class="at">names_to =</span> <span class="st">&quot;time_point&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb383-5"><a href="reliability-and-validity.html#cb383-5" tabindex="-1"></a>mod <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(score <span class="sc">~</span> time_point <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>id), <span class="at">data =</span> df_mod_long)</span>
+<span id="cb383-6"><a href="reliability-and-validity.html#cb383-6" tabindex="-1"></a>variance_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">summary</span>(mod)<span class="sc">$</span>varcor)</span>
+<span id="cb383-7"><a href="reliability-and-validity.html#cb383-7" tabindex="-1"></a><span class="co"># ICC=</span></span>
+<span id="cb383-8"><a href="reliability-and-validity.html#cb383-8" tabindex="-1"></a>variance_df<span class="sc">$</span>sdcor[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (variance_df<span class="sc">$</span>sdcor[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> variance_df<span class="sc">$</span>sdcor[<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span>) <span class="co"># ~0.9</span></span></code></pre></div>
 <pre><code>## [1] 0.8170566</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="reliability-and-validity.html#cb386-1" tabindex="-1"></a><span class="co"># cor and ICC are very very similar, should actually be identical.</span></span>
-<span id="cb386-2"><a href="reliability-and-validity.html#cb386-2" tabindex="-1"></a></span>
-<span id="cb386-3"><a href="reliability-and-validity.html#cb386-3" tabindex="-1"></a><span class="co"># check</span></span>
-<span id="cb386-4"><a href="reliability-and-validity.html#cb386-4" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>TP1)</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="reliability-and-validity.html#cb385-1" tabindex="-1"></a><span class="co"># cor and ICC are very very similar, should actually be identical.</span></span>
+<span id="cb385-2"><a href="reliability-and-validity.html#cb385-2" tabindex="-1"></a></span>
+<span id="cb385-3"><a href="reliability-and-validity.html#cb385-3" tabindex="-1"></a><span class="co"># check</span></span>
+<span id="cb385-4"><a href="reliability-and-validity.html#cb385-4" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>TP1)</span></code></pre></div>
 <pre><code>## [1] 7.964553</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="reliability-and-validity.html#cb388-1" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>TP2) </span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="reliability-and-validity.html#cb387-1" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>TP2) </span></code></pre></div>
 <pre><code>## [1] 7.782436</code></pre>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="reliability-and-validity.html#cb390-1" tabindex="-1"></a><span class="co">#data.frame(TP1 = df$TP1, TP2 = df$TP2) %&gt;% </span></span>
-<span id="cb390-2"><a href="reliability-and-validity.html#cb390-2" tabindex="-1"></a><span class="co">#  ggplot(aes(x = TP1, y = TP2)) +</span></span>
-<span id="cb390-3"><a href="reliability-and-validity.html#cb390-3" tabindex="-1"></a><span class="co">#  geom_point() +</span></span>
-<span id="cb390-4"><a href="reliability-and-validity.html#cb390-4" tabindex="-1"></a><span class="co">#  xlab(&quot;Measurement of patients at time point 1&quot;) +</span></span>
-<span id="cb390-5"><a href="reliability-and-validity.html#cb390-5" tabindex="-1"></a><span class="co">#  ylab(&quot;Measurement of the same patients at time point 2&quot;)</span></span>
-<span id="cb390-6"><a href="reliability-and-validity.html#cb390-6" tabindex="-1"></a></span>
-<span id="cb390-7"><a href="reliability-and-validity.html#cb390-7" tabindex="-1"></a><span class="co"># Range for HADS-A should be 0-21 </span></span>
-<span id="cb390-8"><a href="reliability-and-validity.html#cb390-8" tabindex="-1"></a><span class="co"># (according to &quot;The Hospital Anxiety and Depression Scale, Zigmond &amp; Snaith, 1983&quot;)</span></span>
-<span id="cb390-9"><a href="reliability-and-validity.html#cb390-9" tabindex="-1"></a></span>
-<span id="cb390-10"><a href="reliability-and-validity.html#cb390-10" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TP1 =</span> df<span class="sc">$</span>TP1, <span class="at">TP2 =</span> df<span class="sc">$</span>TP2) <span class="sc">%&gt;%</span> </span>
-<span id="cb390-11"><a href="reliability-and-validity.html#cb390-11" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP1 <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb390-12"><a href="reliability-and-validity.html#cb390-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP2 <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="co"># negative not possible</span></span>
-<span id="cb390-13"><a href="reliability-and-validity.html#cb390-13" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP1 <span class="sc">&lt;=</span> <span class="dv">21</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb390-14"><a href="reliability-and-validity.html#cb390-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP2 <span class="sc">&lt;=</span> <span class="dv">21</span>) <span class="co"># max. score is 21</span></span>
-<span id="cb390-15"><a href="reliability-and-validity.html#cb390-15" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="reliability-and-validity.html#cb389-1" tabindex="-1"></a><span class="co">#data.frame(TP1 = df$TP1, TP2 = df$TP2) %&gt;% </span></span>
+<span id="cb389-2"><a href="reliability-and-validity.html#cb389-2" tabindex="-1"></a><span class="co">#  ggplot(aes(x = TP1, y = TP2)) +</span></span>
+<span id="cb389-3"><a href="reliability-and-validity.html#cb389-3" tabindex="-1"></a><span class="co">#  geom_point() +</span></span>
+<span id="cb389-4"><a href="reliability-and-validity.html#cb389-4" tabindex="-1"></a><span class="co">#  xlab(&quot;Measurement of patients at time point 1&quot;) +</span></span>
+<span id="cb389-5"><a href="reliability-and-validity.html#cb389-5" tabindex="-1"></a><span class="co">#  ylab(&quot;Measurement of the same patients at time point 2&quot;)</span></span>
+<span id="cb389-6"><a href="reliability-and-validity.html#cb389-6" tabindex="-1"></a></span>
+<span id="cb389-7"><a href="reliability-and-validity.html#cb389-7" tabindex="-1"></a><span class="co"># Range for HADS-A should be 0-21 </span></span>
+<span id="cb389-8"><a href="reliability-and-validity.html#cb389-8" tabindex="-1"></a><span class="co"># (according to &quot;The Hospital Anxiety and Depression Scale, Zigmond &amp; Snaith, 1983&quot;)</span></span>
+<span id="cb389-9"><a href="reliability-and-validity.html#cb389-9" tabindex="-1"></a></span>
+<span id="cb389-10"><a href="reliability-and-validity.html#cb389-10" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">TP1 =</span> df<span class="sc">$</span>TP1, <span class="at">TP2 =</span> df<span class="sc">$</span>TP2) <span class="sc">%&gt;%</span> </span>
+<span id="cb389-11"><a href="reliability-and-validity.html#cb389-11" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP1 <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb389-12"><a href="reliability-and-validity.html#cb389-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP2 <span class="sc">&gt;=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="co"># negative not possible</span></span>
+<span id="cb389-13"><a href="reliability-and-validity.html#cb389-13" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP1 <span class="sc">&lt;=</span> <span class="dv">21</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb389-14"><a href="reliability-and-validity.html#cb389-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(TP2 <span class="sc">&lt;=</span> <span class="dv">21</span>) <span class="co"># max. score is 21</span></span>
+<span id="cb389-15"><a href="reliability-and-validity.html#cb389-15" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>##          TP1       TP2
 ## 1  13.003089 14.539674
 ## 2   6.980669  9.312346
@@ -1708,11 +1708,11 @@ cited.</p>
 ## 93  9.936188 10.610818
 ## 94  6.590862  3.507825
 ## 95 11.660322 10.722280</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="reliability-and-validity.html#cb392-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(TP2 <span class="sc">~</span> TP1, <span class="at">data =</span> df)</span>
-<span id="cb392-2"><a href="reliability-and-validity.html#cb392-2" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, df, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span>
-<span id="cb392-3"><a href="reliability-and-validity.html#cb392-3" tabindex="-1"></a></span>
-<span id="cb392-4"><a href="reliability-and-validity.html#cb392-4" tabindex="-1"></a><span class="co"># How wide are the prediction intervals for a patient?</span></span>
-<span id="cb392-5"><a href="reliability-and-validity.html#cb392-5" tabindex="-1"></a><span class="fu">as.data.frame</span>(pred) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">width_prediction_interval =</span> upr <span class="sc">-</span> lwr) <span class="co"># width of the prediction interval 8-10 points!</span></span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="reliability-and-validity.html#cb391-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(TP2 <span class="sc">~</span> TP1, <span class="at">data =</span> df)</span>
+<span id="cb391-2"><a href="reliability-and-validity.html#cb391-2" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, df, <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span>
+<span id="cb391-3"><a href="reliability-and-validity.html#cb391-3" tabindex="-1"></a></span>
+<span id="cb391-4"><a href="reliability-and-validity.html#cb391-4" tabindex="-1"></a><span class="co"># How wide are the prediction intervals for a patient?</span></span>
+<span id="cb391-5"><a href="reliability-and-validity.html#cb391-5" tabindex="-1"></a><span class="fu">as.data.frame</span>(pred) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">width_prediction_interval =</span> upr <span class="sc">-</span> lwr) <span class="co"># width of the prediction interval 8-10 points!</span></span></code></pre></div>
 <pre><code>##          fit         lwr       upr width_prediction_interval
 ## 1  11.517789  7.32000445 15.715573                  8.395568
 ## 2   7.260698  3.09356695 11.427829                  8.334262
@@ -1809,43 +1809,43 @@ cited.</p>
 ## 93  9.349877  5.18149616 13.518258                  8.336761
 ## 94  6.985154  2.81619604 11.154112                  8.337916
 ## 95 10.568622  6.38720944 14.750034                  8.362825</code></pre>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="reliability-and-validity.html#cb394-1" tabindex="-1"></a><span class="co"># Example:</span></span>
-<span id="cb394-2"><a href="reliability-and-validity.html#cb394-2" tabindex="-1"></a><span class="fu">predict</span>(mod, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">TP1 =</span> <span class="dv">10</span>), <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>) <span class="co"># 95% prediction interval for a patient with a score of 10 at time point 1.</span></span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="reliability-and-validity.html#cb393-1" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb393-2"><a href="reliability-and-validity.html#cb393-2" tabindex="-1"></a><span class="fu">predict</span>(mod, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">TP1 =</span> <span class="dv">10</span>), <span class="at">interval =</span> <span class="st">&quot;prediction&quot;</span>) <span class="co"># 95% prediction interval for a patient with a score of 10 at time point 1.</span></span></code></pre></div>
 <pre><code>##        fit      lwr      upr
 ## 1 9.394984 5.226282 13.56369</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="reliability-and-validity.html#cb396-1" tabindex="-1"></a>(<span class="fl">13.56369</span> <span class="sc">-</span> <span class="fl">5.226282</span>)<span class="sc">/</span><span class="fl">1.68</span></span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="reliability-and-validity.html#cb395-1" tabindex="-1"></a>(<span class="fl">13.56369</span> <span class="sc">-</span> <span class="fl">5.226282</span>)<span class="sc">/</span><span class="fl">1.68</span></span></code></pre></div>
 <pre><code>## [1] 4.962743</code></pre>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="reliability-and-validity.html#cb398-1" tabindex="-1"></a><span class="co"># Prediction interval width is ~5 times our minimally clinically important </span></span>
-<span id="cb398-2"><a href="reliability-and-validity.html#cb398-2" tabindex="-1"></a><span class="co"># change of 1.68 for HADS-A.</span></span>
-<span id="cb398-3"><a href="reliability-and-validity.html#cb398-3" tabindex="-1"></a></span>
-<span id="cb398-4"><a href="reliability-and-validity.html#cb398-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb398-5"><a href="reliability-and-validity.html#cb398-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> TP1, <span class="at">y =</span> TP2)) <span class="sc">+</span></span>
-<span id="cb398-6"><a href="reliability-and-validity.html#cb398-6" tabindex="-1"></a>  <span class="co"># Color points conditionally</span></span>
-<span id="cb398-7"><a href="reliability-and-validity.html#cb398-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(TP2 <span class="sc">&gt;</span> TP1 <span class="sc">+</span> <span class="fl">1.68</span> <span class="sc">|</span> TP2 <span class="sc">&lt;</span> TP1 <span class="sc">-</span> <span class="fl">1.68</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb398-8"><a href="reliability-and-validity.html#cb398-8" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb398-9"><a href="reliability-and-validity.html#cb398-9" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>], <span class="at">slope =</span> mod<span class="sc">$</span>coefficients[<span class="dv">2</span>]) <span class="sc">+</span></span>
-<span id="cb398-10"><a href="reliability-and-validity.html#cb398-10" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb398-11"><a href="reliability-and-validity.html#cb398-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> pred[,<span class="dv">2</span>], <span class="at">ymax =</span> pred[,<span class="dv">3</span>]), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb398-12"><a href="reliability-and-validity.html#cb398-12" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;HADS-A and 95% Prediction Interval for TP2&quot;</span>) <span class="sc">+</span></span>
-<span id="cb398-13"><a href="reliability-and-validity.html#cb398-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb398-14"><a href="reliability-and-validity.html#cb398-14" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb398-15"><a href="reliability-and-validity.html#cb398-15" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fl">1.68</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb398-16"><a href="reliability-and-validity.html#cb398-16" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="sc">-</span><span class="fl">1.68</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="reliability-and-validity.html#cb397-1" tabindex="-1"></a><span class="co"># Prediction interval width is ~5 times our minimally clinically important </span></span>
+<span id="cb397-2"><a href="reliability-and-validity.html#cb397-2" tabindex="-1"></a><span class="co"># change of 1.68 for HADS-A.</span></span>
+<span id="cb397-3"><a href="reliability-and-validity.html#cb397-3" tabindex="-1"></a></span>
+<span id="cb397-4"><a href="reliability-and-validity.html#cb397-4" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb397-5"><a href="reliability-and-validity.html#cb397-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> TP1, <span class="at">y =</span> TP2)) <span class="sc">+</span></span>
+<span id="cb397-6"><a href="reliability-and-validity.html#cb397-6" tabindex="-1"></a>  <span class="co"># Color points conditionally</span></span>
+<span id="cb397-7"><a href="reliability-and-validity.html#cb397-7" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(TP2 <span class="sc">&gt;</span> TP1 <span class="sc">+</span> <span class="fl">1.68</span> <span class="sc">|</span> TP2 <span class="sc">&lt;</span> TP1 <span class="sc">-</span> <span class="fl">1.68</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb397-8"><a href="reliability-and-validity.html#cb397-8" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb397-9"><a href="reliability-and-validity.html#cb397-9" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> mod<span class="sc">$</span>coefficients[<span class="dv">1</span>], <span class="at">slope =</span> mod<span class="sc">$</span>coefficients[<span class="dv">2</span>]) <span class="sc">+</span></span>
+<span id="cb397-10"><a href="reliability-and-validity.html#cb397-10" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb397-11"><a href="reliability-and-validity.html#cb397-11" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> pred[,<span class="dv">2</span>], <span class="at">ymax =</span> pred[,<span class="dv">3</span>]), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb397-12"><a href="reliability-and-validity.html#cb397-12" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;HADS-A and 95% Prediction Interval for TP2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb397-13"><a href="reliability-and-validity.html#cb397-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb397-14"><a href="reliability-and-validity.html#cb397-14" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;green&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb397-15"><a href="reliability-and-validity.html#cb397-15" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fl">1.68</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb397-16"><a href="reliability-and-validity.html#cb397-16" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="sc">-</span><span class="fl">1.68</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-106-2.png" width="672" /></p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="reliability-and-validity.html#cb400-1" tabindex="-1"></a><span class="co"># How often is TP2 within the MCIC of 1.68 points?---------</span></span>
-<span id="cb400-2"><a href="reliability-and-validity.html#cb400-2" tabindex="-1"></a>df<span class="sc">$</span>abs_diff <span class="ot">&lt;-</span> <span class="fu">abs</span>(df<span class="sc">$</span>TP1 <span class="sc">-</span> df<span class="sc">$</span>TP2)</span>
-<span id="cb400-3"><a href="reliability-and-validity.html#cb400-3" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>abs_diff)</span>
-<span id="cb400-4"><a href="reliability-and-validity.html#cb400-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">1.68</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="reliability-and-validity.html#cb399-1" tabindex="-1"></a><span class="co"># How often is TP2 within the MCIC of 1.68 points?---------</span></span>
+<span id="cb399-2"><a href="reliability-and-validity.html#cb399-2" tabindex="-1"></a>df<span class="sc">$</span>abs_diff <span class="ot">&lt;-</span> <span class="fu">abs</span>(df<span class="sc">$</span>TP1 <span class="sc">-</span> df<span class="sc">$</span>TP2)</span>
+<span id="cb399-3"><a href="reliability-and-validity.html#cb399-3" tabindex="-1"></a><span class="fu">hist</span>(df<span class="sc">$</span>abs_diff)</span>
+<span id="cb399-4"><a href="reliability-and-validity.html#cb399-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">1.68</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-106-3.png" width="672" /></p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="reliability-and-validity.html#cb401-1" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>abs_diff <span class="sc">&gt;</span> <span class="fl">1.68</span>)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">table</span>(df<span class="sc">$</span>abs_diff <span class="sc">&gt;</span> <span class="fl">1.68</span>)) <span class="co"># </span></span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="reliability-and-validity.html#cb400-1" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>abs_diff <span class="sc">&gt;</span> <span class="fl">1.68</span>)<span class="sc">/</span><span class="fu">sum</span>(<span class="fu">table</span>(df<span class="sc">$</span>abs_diff <span class="sc">&gt;</span> <span class="fl">1.68</span>)) <span class="co"># </span></span></code></pre></div>
 <pre><code>## 
 ##     FALSE      TRUE 
 ## 0.5368421 0.4631579</code></pre>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="reliability-and-validity.html#cb403-1" tabindex="-1"></a><span class="co"># -&gt; in ~46% of cases we detect a minimally clinically important change of 1.68 points.</span></span>
-<span id="cb403-2"><a href="reliability-and-validity.html#cb403-2" tabindex="-1"></a><span class="co"># even though the underlying truth did not change.</span></span>
-<span id="cb403-3"><a href="reliability-and-validity.html#cb403-3" tabindex="-1"></a></span>
-<span id="cb403-4"><a href="reliability-and-validity.html#cb403-4" tabindex="-1"></a><span class="co"># This result is near random guessing</span></span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="reliability-and-validity.html#cb402-1" tabindex="-1"></a><span class="co"># -&gt; in ~46% of cases we detect a minimally clinically important change of 1.68 points.</span></span>
+<span id="cb402-2"><a href="reliability-and-validity.html#cb402-2" tabindex="-1"></a><span class="co"># even though the underlying truth did not change.</span></span>
+<span id="cb402-3"><a href="reliability-and-validity.html#cb402-3" tabindex="-1"></a></span>
+<span id="cb402-4"><a href="reliability-and-validity.html#cb402-4" tabindex="-1"></a><span class="co"># This result is near random guessing</span></span></code></pre></div>
 <p>The example shows that for the given value of ICC (<span class="math inline">\(&gt;0.8\)</span>) and MCID, the test retest reliability
 is near random guessing with respect to detecting a change, since the second prediction is
 very often outside the MCID (red dashed lines). Or in short: Even if Mary measures twice
@@ -1883,17 +1883,17 @@ the standard deviation of the differences between the two measurements
 of Peter and Mary:</p>
 <p>We verify this immediately:</p>
 <p><span class="math display">\[SEM_{consistency} = \frac{SD_{difference}}{\sqrt{2}}\]</span></p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="reliability-and-validity.html#cb404-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span> <span class="sc">|</span> ID) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Rater), <span class="at">data =</span> df_long_bias)</span>
-<span id="cb404-2"><a href="reliability-and-validity.html#cb404-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">VarCorr</span>(mod))</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="reliability-and-validity.html#cb403-1" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lmer</span>(ROM <span class="sc">~</span> (<span class="dv">1</span> <span class="sc">|</span> ID) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Rater), <span class="at">data =</span> df_long_bias)</span>
+<span id="cb403-2"><a href="reliability-and-validity.html#cb403-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">VarCorr</span>(mod))</span></code></pre></div>
 <pre><code>##  Groups   Name        Std.Dev.
 ##  ID       (Intercept) 16.4585 
 ##  Rater    (Intercept)  2.4886 
 ##  Residual              6.8961</code></pre>
 <p><span class="math display">\[SEM_{consistency} = \sigma_{residual} = 6.8961\]</span></p>
 <p>Let’s calculate the SEM from the differences between the two measurements:</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="reliability-and-validity.html#cb406-1" tabindex="-1"></a><span class="co"># SEM from differences</span></span>
-<span id="cb406-2"><a href="reliability-and-validity.html#cb406-2" tabindex="-1"></a><span class="fu">sd</span>(df_long_bias<span class="sc">$</span>ROM[df_long_bias<span class="sc">$</span>Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>] <span class="sc">-</span></span>
-<span id="cb406-3"><a href="reliability-and-validity.html#cb406-3" tabindex="-1"></a>   df_long_bias<span class="sc">$</span>ROM[df_long_bias<span class="sc">$</span>Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Peter&quot;</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="reliability-and-validity.html#cb405-1" tabindex="-1"></a><span class="co"># SEM from differences</span></span>
+<span id="cb405-2"><a href="reliability-and-validity.html#cb405-2" tabindex="-1"></a><span class="fu">sd</span>(df_long_bias<span class="sc">$</span>ROM[df_long_bias<span class="sc">$</span>Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>] <span class="sc">-</span></span>
+<span id="cb405-3"><a href="reliability-and-validity.html#cb405-3" tabindex="-1"></a>   df_long_bias<span class="sc">$</span>ROM[df_long_bias<span class="sc">$</span>Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Peter&quot;</span>]) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 6.896154</code></pre>
 <p>This is a perfect match!</p>
 </div>
@@ -1906,15 +1906,15 @@ and on the y axis the difference between the two measurements. So, we could
 for instance see larger variability in points with higher average values,
 indicating that Peter and Mary disagree more for higher values.</p>
 <p>Let’s quickly draw one and explain it:</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="reliability-and-validity.html#cb408-1" tabindex="-1"></a><span class="fu">library</span>(BlandAltmanLeh)</span>
-<span id="cb408-2"><a href="reliability-and-validity.html#cb408-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb408-3"><a href="reliability-and-validity.html#cb408-3" tabindex="-1"></a>df_long_bias <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(df_long_bias)</span>
-<span id="cb408-4"><a href="reliability-and-validity.html#cb408-4" tabindex="-1"></a><span class="co"># https://cran.r-project.org/web/packages/BlandAltmanLeh/BlandAltmanLeh.pdf</span></span>
-<span id="cb408-5"><a href="reliability-and-validity.html#cb408-5" tabindex="-1"></a><span class="fu">bland.altman.plot</span>(df_long_bias[Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>, ]<span class="sc">$</span>ROM,</span>
-<span id="cb408-6"><a href="reliability-and-validity.html#cb408-6" tabindex="-1"></a>                  df_long_bias[Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Peter&quot;</span>, ]<span class="sc">$</span>ROM,</span>
-<span id="cb408-7"><a href="reliability-and-validity.html#cb408-7" tabindex="-1"></a>                  <span class="at">two =</span> <span class="fl">1.96</span>,</span>
-<span id="cb408-8"><a href="reliability-and-validity.html#cb408-8" tabindex="-1"></a>                  <span class="at">mode =</span> <span class="dv">1</span>,</span>
-<span id="cb408-9"><a href="reliability-and-validity.html#cb408-9" tabindex="-1"></a>                  <span class="at">conf.int =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="reliability-and-validity.html#cb407-1" tabindex="-1"></a><span class="fu">library</span>(BlandAltmanLeh)</span>
+<span id="cb407-2"><a href="reliability-and-validity.html#cb407-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb407-3"><a href="reliability-and-validity.html#cb407-3" tabindex="-1"></a>df_long_bias <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(df_long_bias)</span>
+<span id="cb407-4"><a href="reliability-and-validity.html#cb407-4" tabindex="-1"></a><span class="co"># https://cran.r-project.org/web/packages/BlandAltmanLeh/BlandAltmanLeh.pdf</span></span>
+<span id="cb407-5"><a href="reliability-and-validity.html#cb407-5" tabindex="-1"></a><span class="fu">bland.altman.plot</span>(df_long_bias[Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Mary&quot;</span>, ]<span class="sc">$</span>ROM,</span>
+<span id="cb407-6"><a href="reliability-and-validity.html#cb407-6" tabindex="-1"></a>                  df_long_bias[Rater <span class="sc">==</span> <span class="st">&quot;ROMas.Peter&quot;</span>, ]<span class="sc">$</span>ROM,</span>
+<span id="cb407-7"><a href="reliability-and-validity.html#cb407-7" tabindex="-1"></a>                  <span class="at">two =</span> <span class="fl">1.96</span>,</span>
+<span id="cb407-8"><a href="reliability-and-validity.html#cb407-8" tabindex="-1"></a>                  <span class="at">mode =</span> <span class="dv">1</span>,</span>
+<span id="cb407-9"><a href="reliability-and-validity.html#cb407-9" tabindex="-1"></a>                  <span class="at">conf.int =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <pre><code>## NULL</code></pre>
 <p>… describe.. LOA … and so on.</p>

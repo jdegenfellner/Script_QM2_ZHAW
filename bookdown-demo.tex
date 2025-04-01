@@ -137,7 +137,7 @@
 
 \title{Quantitative Methods 2, ZHAW}
 \author{Jürgen Degenfellner}
-\date{2025-03-06}
+\date{2025-04-01}
 
 \begin{document}
 \maketitle
@@ -660,8 +660,8 @@ The \texttt{precis}function displays concise parameter estimate information
 
 \begin{verbatim}
 ##            mean        sd       5.5%      94.5%
-## mu    154.60410 0.4119941 153.945649 155.262542
-## sigma   7.73133 0.2913857   7.265639   8.197021
+## mu    154.60428 0.4119542 153.945895 155.262659
+## sigma   7.73058 0.2913150   7.265002   8.196157
 \end{verbatim}
 
 Above, we see the mean of the posterior for \(\mu\) \textbf{and} \(\sigma\);
@@ -681,12 +681,12 @@ deviation (\(\sigma\)) separately by drawing from the posterior distribution.
 
 \begin{verbatim}
 ##         mu    sigma
-## 1 154.2579 7.381593
-## 2 154.0421 7.989726
-## 3 154.5825 7.778683
-## 4 154.2573 7.218041
-## 5 154.6450 7.620418
-## 6 154.9074 7.259602
+## 1 154.4851 7.621488
+## 2 154.8941 7.509069
+## 3 155.2922 7.798934
+## 4 155.0404 7.766668
+## 5 154.8106 7.722835
+## 6 154.2306 7.365780
 \end{verbatim}
 
 \begin{Shaded}
@@ -725,9 +725,9 @@ Let's verify that \(\mu\) and \(\sigma\) are uncorrelated:
 \end{Shaded}
 
 \begin{verbatim}
-##                mu       sigma
-## mu    0.169739162 0.000153736
-## sigma 0.000153736 0.084905616
+##                 mu        sigma
+## mu    0.1697062649 0.0001576757
+## sigma 0.0001576757 0.0848644238
 \end{verbatim}
 
 gives you the variance-covariance matrix of the parameters of the posterior
@@ -741,7 +741,7 @@ distribution. In the diagonal you see the variance of the parameters.
 
 \begin{verbatim}
 ##         mu      sigma 
-## 0.16973916 0.08490562
+## 0.16970626 0.08486442
 \end{verbatim}
 
 And we can compute the correlation matrix easily:
@@ -754,8 +754,8 @@ And we can compute the correlation matrix easily:
 
 \begin{verbatim}
 ##                mu       sigma
-## mu    1.000000000 0.001280608
-## sigma 0.001280608 1.000000000
+## mu    1.000000000 0.001313872
+## sigma 0.001313872 1.000000000
 \end{verbatim}
 
 Let's plot the posterior in 3D, because we \textbf{can}:
@@ -1363,7 +1363,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 Visualization of the \textbf{model structure}:
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b4150f6ac/widgetc67b2a72b7b4.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/file17ac110a202c5/widget17ac17c63dc0a.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-22-1.pdf}}
@@ -2049,7 +2049,7 @@ the results from the \texttt{lm} function. The dot in red marks the spot
 \end{verbatim}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b690fce72/widgetc67bcbad441.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/file17ac15327855b/widget17ac147a44403.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-36-1.pdf}}
@@ -3683,7 +3683,7 @@ Now lets's draw 100 points from this model, fit the model and add the plane:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b1ca7ecc0/widgetc67b54a83ff2.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/file17ac12b452d31/widget17ac14a9a0228.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-66-1.pdf}}
@@ -3884,7 +3884,7 @@ Let's draw 100 points from this model, fit the model and add the plane (see also
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b22217ab1/widgetc67b43fe0bf8.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/file17ac17f4e827d/widget17ac17b591dd6.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-68-1.pdf}}
@@ -4783,7 +4783,7 @@ Let's look at a 3D plot:
 \end{Shaded}
 
 \begin{verbatim}
-## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/filec67b5ccae773/widgetc67bd215e9d.html screenshot completed
+## file:////private/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/file17ac162ed00fa/widget17ac135db4fd3.html screenshot completed
 \end{verbatim}
 
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-82-1.pdf}}
@@ -5125,7 +5125,7 @@ We should probably check them to see how this is done:
 
 First, we need to test, if age and BMI are independent,
 \emph{if} we condition on gender and physical activity;
-i.e., just add the to the regression model.
+i.e., just add them to the regression model.
 This is the case:
 
 \begin{Shaded}
@@ -5186,7 +5186,7 @@ variable (physical activity yes/no).
 Surprise, surprise, we could try a \textbf{multiple linear regression model} here.
 
 As a first approximation, let's assume \emph{BPSysAve} is (sufficiently) normally distributed,
-which can be critized. Let's quickly visualize the distribution of\emph{BPSysAve} and overlay
+which can be critized. Let's quickly visualize the distribution of \emph{BPSysAve} and overlay
 a normal density with paramaters estimated from the data (\(\mu\) sample mean of \emph{BPSysAve},
 \(\sigma\) sample standard deviation of \emph{BPSysAve}):
 
@@ -5241,7 +5241,7 @@ We center age again, which makes the interpretation of the intercept easier.
   \(\beta_1 \sim \text{Normal}(0, 50)\). With 95\% probability, the effect of
   physical activity on \emph{BPSysAve} is between -100 and 100.
 \item
-  \(beta_2\): The expected change in \emph{BPSysAve} for a one-year increase in age
+  \(\beta_2\): The expected change in \emph{BPSysAve} for a one-year increase in age
   (above the mean age), holding all other predictors constant.
   \(\beta_2 \sim \text{Normal}(0, 10)\). This effect should be comparatively small,
   since we are dealing with a one-year increase in age. We could further
@@ -5251,6 +5251,9 @@ We center age again, which makes the interpretation of the intercept easier.
   \(\sigma\): The standard deviation of the residuals.
   \(\sigma \sim \text{Uniform}(0, 50)\). We use a vague prior.
   95\% of the residuals are between -100 and 100. This seems plausible enough.
+  We use a constant standard deviation along the expectation.
+  This could be false (systolic blood pressure could scatter much more around
+  the mean for higher age for instance), but one can start with that.
 \end{itemize}
 
 \begin{eqnarray*}
@@ -5345,7 +5348,7 @@ This is the result:
 \pandocbounded{\includegraphics[keepaspectratio]{bookdown-demo_files/figure-latex/unnamed-chunk-90-1.pdf}}
 
 Looks decent. Not quite there yet.
-The blood pressure values have a smaller variances and are skewed.
+The blood pressure values have smaller variances and are skewed.
 Let's nevertheless fit the model.
 
 \subsubsection{Fit and check model}\label{fit-and-check-model}
@@ -5730,7 +5733,7 @@ to be log-normally distributed.
 containing \(0\) as a credible effect. The model is pretty sure, that the effect
 is practically zero.
 
-Let's vizualize the posterior predictive distributions of 100 samples:
+Let's visualize the posterior predictive distributions of 100 samples:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6031,6 +6034,79 @@ Go back to the NHANES example \hyperref[example_nhanes]{above}.
   analysis.
 \item
   What do you observe?
+\end{itemize}
+
+\section{eLearning 2}\label{elearning-2}
+
+\subsection{Part 1}\label{part-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Repeat the entire content we have covered in this lecture so far.
+  Try to grasp the big-picture view of what we want to achieve.
+  We have started out with the simplest statistical model possible (mean model),
+  then added one predictor (simple linear regression), and we are now in the process
+  of adding more predictors (multiple regression).
+\item
+  Read chapters in the books from Westfall and McElreath to deepen your understanding.
+\item
+  Try to understand chapter 4 (above) as well. We will go through all the details
+  on our last lecture day of course.
+\item
+  Read \href{https://www.sciencedirect.com/science/article/pii/S1836955314000083}{this paper}
+  from the Journal of Physiotherapy.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Did they apply \(p\)-value correction for multiple testing?
+  \item
+    Did they work with a strict \(p\)-value cutoff?
+  \item
+    In the methods section they state ``Variables with non-normally distributed residuals were logarithmically
+    transformed prior to performing linear regression analyses,\ldots{}''. Is it irrelevant if the residuals/variables
+    are left- or right-skewed? Simulate data from a strongly left- and right-skewed distribution,
+    draw the histogram and also draw the histogram of the log-transformed data. What do you see?
+  \item
+    They use linear regression analysis (see ``Data analysis''). Write down the model they use in Frequentist terms
+    (since they worked with that).
+  \item
+    Would you expect the main statement of the paper to change if they had used a larger sample size?
+  \end{itemize}
+\end{itemize}
+
+\subsection{Part 2}\label{part-2}
+
+\begin{itemize}
+\item
+  Read \href{https://www.sciencedirect.com/science/article/abs/pii/S0037196308000620}{this paper}
+  about misconceptions about \(p\)-values.
+\item
+  Consider \href{https://www.neurology.org/doi/pdfdirect/10.1212/WNL.0000000000206830?casa_token=3gmqaV-EM0sAAAAA:u8Aju7H7UUNxxFpDD_8WKXAo3uGxc3ZYVI-mFh1ILiEpN2YEVAn14V8xJVbIlX8-mResXuNZFOfAIdE}{the article about respiratory strength in ALS}
+  which was sent during eLearning 1:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Which (if any) mistakes according to the paper about misconceptions about \(p\)-values
+    did the authors make?
+  \item
+    Which statements about finding a ``(non-)significant'' effect would (probably) change if we doubled
+    the sample size?
+  \item
+    Is the data of the trial available?
+  \item
+    Is the code for the analysis available?
+  \item
+    Write down the linear regression model(s) mentioned in the text: ``Linear
+    regression models were used to assess group diﬀerences in
+    pre-to-post change for the primary outcomes of interest
+    (MEP, MIP). These models included post-test scores as the
+    outcome with group status and pre-test scores as predictors.''
+  \end{itemize}
+\item
+  Read and study sections 9.2 to 9.3 (pages 205 to 213) in Westfalls book.
 \end{itemize}
 
 \chapter{Reliability and Validity}\label{reliability-and-validity}
@@ -6600,7 +6676,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac15a95015c.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6635,7 +6711,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac15a95015c.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6682,7 +6758,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac15a95015c.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6721,7 +6797,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac15a95015c.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6756,7 +6832,7 @@ distribution of the parameters.
 \end{verbatim}
 
 \begin{verbatim}
-## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b77605fbc.stan', line 17, column 4 to column 34)
+## Chain 6 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac15a95015c.stan', line 17, column 4 to column 34)
 \end{verbatim}
 
 \begin{verbatim}
@@ -6803,7 +6879,7 @@ distribution of the parameters.
 ## 
 ## All 8 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.7 seconds.
+## Total execution time: 1.0 seconds.
 \end{verbatim}
 
 \begin{Shaded}
@@ -6813,7 +6889,7 @@ distribution of the parameters.
 \end{Shaded}
 
 \begin{verbatim}
-## 8.093 sec elapsed
+## 8.966 sec elapsed
 \end{verbatim}
 
 \begin{Shaded}
@@ -7151,13 +7227,12 @@ Draw model structure \ldots{} exercise..
 ## Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling)
+## Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
+## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac11c4e8914.stan', line 21, column 4 to column 45)
 ## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 1
@@ -7171,7 +7246,7 @@ Draw model structure \ldots{} exercise..
 
 \begin{verbatim}
 ## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
+## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac11c4e8914.stan', line 21, column 4 to column 45)
 ## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 2
@@ -7183,18 +7258,20 @@ Draw model structure \ldots{} exercise..
 ## Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
 ## Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup)
+## Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
+## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
+## Chain 4 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac11c4e8914.stan', line 21, column 4 to column 45)
 ## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 4
 \end{verbatim}
 
 \begin{verbatim}
+## Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
@@ -7216,7 +7293,6 @@ Draw model structure \ldots{} exercise..
 ## Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
 ## Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
 ## Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
 ## Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
@@ -7238,14 +7314,12 @@ Draw model structure \ldots{} exercise..
 ## Chain 5 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 5 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 5 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling)
+## Chain 5 Iteration: 800 / 1000 [ 80%]  (Sampling)
 \end{verbatim}
 
 \begin{verbatim}
 ## Chain 5 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
+## Chain 5 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac11c4e8914.stan', line 21, column 4 to column 45)
 ## Chain 5 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 5 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 5
@@ -7261,7 +7335,6 @@ Draw model structure \ldots{} exercise..
 ## Chain 6 Iteration: 501 / 1000 [ 50%]  (Sampling) 
 ## Chain 6 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 6 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 7 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 7 Iteration: 100 / 1000 [ 10%]  (Warmup) 
 ## Chain 7 Iteration: 200 / 1000 [ 20%]  (Warmup) 
@@ -7273,7 +7346,7 @@ Draw model structure \ldots{} exercise..
 
 \begin{verbatim}
 ## Chain 7 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:
-## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp5MvfLu/model-c67b50b25911.stan', line 21, column 4 to column 45)
+## Chain 7 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in '/var/folders/pm/jd6n6gj10371_bml1gh8sc5w0000gn/T/Rtmp1faT4U/model-17ac11c4e8914.stan', line 21, column 4 to column 45)
 ## Chain 7 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,
 ## Chain 7 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.
 ## Chain 7
@@ -7282,10 +7355,12 @@ Draw model structure \ldots{} exercise..
 \begin{verbatim}
 ## Chain 8 Iteration:   1 / 1000 [  0%]  (Warmup) 
 ## Chain 8 Iteration: 100 / 1000 [ 10%]  (Warmup) 
+## Chain 5 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 5 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 5 finished in 0.2 seconds.
+## Chain 6 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 6 Iteration: 900 / 1000 [ 90%]  (Sampling) 
 ## Chain 6 Iteration: 1000 / 1000 [100%]  (Sampling) 
-## Chain 6 finished in 0.2 seconds.
 ## Chain 7 Iteration: 600 / 1000 [ 60%]  (Sampling) 
 ## Chain 7 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 7 Iteration: 800 / 1000 [ 80%]  (Sampling) 
@@ -7300,6 +7375,7 @@ Draw model structure \ldots{} exercise..
 ## Chain 8 Iteration: 700 / 1000 [ 70%]  (Sampling) 
 ## Chain 8 Iteration: 800 / 1000 [ 80%]  (Sampling) 
 ## Chain 8 Iteration: 900 / 1000 [ 90%]  (Sampling) 
+## Chain 6 finished in 0.2 seconds.
 ## Chain 7 finished in 0.2 seconds.
 ## Chain 8 Iteration: 1000 / 1000 [100%]  (Sampling) 
 ## Chain 8 finished in 0.2 seconds.

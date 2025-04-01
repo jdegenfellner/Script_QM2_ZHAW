@@ -1405,7 +1405,7 @@ variable (physical activity yes/no).
 Surprise, surprise, we could try a **multiple linear regression model** here.
 
 As a first approximation, let's assume *BPSysAve* is (sufficiently) normally distributed,
-which can be critized. Let's quickly visualize the distribution of*BPSysAve* and overlay
+which can be critized. Let's quickly visualize the distribution of *BPSysAve* and overlay
 a normal density with paramaters estimated from the data ($\mu$ sample mean of *BPSysAve*, 
 $\sigma$ sample standard deviation of *BPSysAve*):
 
@@ -1482,6 +1482,8 @@ Note that age and gender are not influenced by each other.
 
 #### Prior Predictive Checks {#prior_predictive_checks_NHANES}
 Now we simply draw from the priors and thereby generate systolic blood pressure values.
+Note that we implicitely assumed below that $PhysActive=1$ (person is physically active);
+$Age_{centered}=1 (1 years above average) and $Gender = 1$ (could mean female). 
 
 ```{r}
 # Prior predictive checks
@@ -1495,24 +1497,32 @@ sigma_vec <- runif(n_sims, 0, 50)
 BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
 ```
 
-This yields also negative values (please verify) for *BPSysAve*, which is not plausible.
+This yields also negative values (please verify) for *BPSysAve*, which is biologically not plausible.
 
 In [exercise 15](#exercise15_multiple_regression) we will play around with the priors 
 until the prior predictive check producues plausible values. 
+
 **Admitted**, one should probably not look at the distribution of data while doing this.
 On the other hand, we could have just Googled the distribution of blood pressure values.
 This is the result:
 
 ```{r}
+# Prior predictive checks
 set.seed(123)
-n_sims <- dim(df_age)[1] # 7235
-beta_0_vec <- rnorm(n_sims, 120, 7)
-beta_1_vec <- rnorm(n_sims, 0, 10)
-beta_2_vec <- rnorm(n_sims, 5, 10)
-beta_3_vec <- rnorm(n_sims, 0, 10)
+n_sims <- dim(df_age)[1] # 7235 participants
+beta_0_vec <- rnorm(n_sims, 120, 2)
+beta_1_vec <- rnorm(n_sims, 0, 5)
+beta_2_vec <- rnorm(n_sims, 0.5, 1)
+beta_3_vec <- rnorm(n_sims, 0, 5)
 sigma_vec <- runif(n_sims, 0, 20)
-BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec, sigma_vec)
-length(BPSysAve_sim) # 7235
+age_vec <- sample(df_age$Age-mean(df_age$Age), n_sims, replace = TRUE)
+phys_act <- as.numeric(sample(df_age$PhysActive, n_sims, replace = TRUE))-1
+gender_vec <- as.numeric(sample(df_age$Gender, n_sims, replace = TRUE))-1
+BPSysAve_sim <- rnorm(n_sims, beta_0_vec + 
+                        beta_1_vec*phys_act + 
+                        beta_2_vec*age_vec + 
+                        beta_3_vec*gender_vec, sigma_vec)
+hist(BPSysAve_sim, breaks = 50, main = "Prior predictive checks for BPSysAve")
 
 df_sim_vs_obs <- data.frame(
   BPSysAve_sim = BPSysAve_sim,
@@ -1522,9 +1532,9 @@ df_sim_vs_obs <- data.frame(
 # Combine observed and simulated values into one long-format data frame
 df_long <- df_sim_vs_obs %>%
   tidyr::pivot_longer(cols = everything(), 
-  names_to = "Type", values_to = "BPSysAve") %>%
+                      names_to = "Type", values_to = "BPSysAve") %>%
   mutate(Type = factor(Type, levels = c("BPSysAve_obs", "BPSysAve_sim"), 
-  labels = c("Observed", "Simulated")))
+                       labels = c("Observed", "Simulated")))
 
 # Plot densities of both observed and simulated values
 ggplot(df_long, aes(x = BPSysAve, fill = Type)) +
@@ -1537,6 +1547,7 @@ ggplot(df_long, aes(x = BPSysAve, fill = Type)) +
   scale_fill_manual(values = c("Observed" = "blue", "Simulated" = "red")) + 
   theme_minimal() + 
   theme(plot.title = element_text(hjust = 0.5))
+
 ```
 
 Looks decent. Not quite there yet. 
