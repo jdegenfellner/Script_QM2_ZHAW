@@ -43,7 +43,7 @@ set.seed(123)
 n <- 100
 X1 <- rnorm(n, 0, 5)
 X2 <- rnorm(n, 0, 5)
-Y <- 10 + 0.5 * X1 + 1 * X2 + 0.1 * X1 * X2 + rnorm(n, 0, 5)
+Y <- 10 + 0.5 * X1 + 1 * X2 + 0.005 * X1 * X2 + rnorm(n, 0, 5)
 d <- data.frame(X1 = X1, X2 = X2,
                 X1_st, X2_st, Y = Y)
 m4.4 <- lm(Y ~ X1 * X2, data = d)
