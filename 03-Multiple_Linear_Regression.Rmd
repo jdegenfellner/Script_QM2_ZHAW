@@ -1814,7 +1814,7 @@ with 4 rows and 4 columns.
 Go back to the [section about the interaction term](#interaction_term) in the linear model.
 
 - Use the code provided.
-- Standardise the predictors. How are the $\beta$s changing and what is their interpration now?
+- Standardise the predictors. How are the $\beta$s changing and what is their interpretation now?
 - Change the relative sizes of the true but usually unknown $\beta$s. 
   What happens to the estimates and the graph?
 - What happens if you change the error term and increase or decrease its variance?
