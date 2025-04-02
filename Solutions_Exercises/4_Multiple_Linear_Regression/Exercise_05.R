@@ -1,6 +1,3 @@
-# 3) What happens if you change the error term and increase ---------
-# or decrease its variance?
-
 set.seed(123)
 n <- 100
 X1 <- rnorm(n, 0, 5)
@@ -52,4 +49,16 @@ plot_ly() %>%
     title = "Interactive 3D Scatterplot with Fitted Plane"
   )
 
+# Create categorical variables based on quartiles
+d$X2_cat <- cut(d$X2, 
+                breaks = quantile(d$X2, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE), 
+                include.lowest = TRUE, 
+                labels = c("Q1", "Q2", "Q3", "Q4"))
 
+d$X1_cat <- cut(d$X1, 
+                breaks = quantile(d$X1, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE), 
+                include.lowest = TRUE, 
+                labels = c("Q1", "Q2", "Q3", "Q4"))
+
+# Create the interaction plot
+interaction.plot(d$X2_cat, d$X1_cat, d$Y)

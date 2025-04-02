@@ -1879,7 +1879,7 @@ from McElreath 6.1.
 
 ### [M] Exercise 12 {#exercise12_multiple_regression}
 
-Go backt to the interpretation of the intercept in the quadratic height model [above](#interpretation_output_freq_quadratic).
+Go back to the interpretation of the intercept in the quadratic height model [above](#interpretation_output_freq_quadratic).
 
 - Why is the intercept not equal to the sample mean of the heights?
 
