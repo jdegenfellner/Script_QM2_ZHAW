@@ -1031,6 +1031,13 @@ bland.altman.plot(df_long_bias[Rater == "ROMas.Mary", ]$ROM,
                   two = 1.96,
                   mode = 1,
                   conf.int = 0.95)
+# "two": Lines are drawn "two" standard deviations from mean differences. 
+# This defaults to 1.96 for proper 95 percent confidence interval 
+# estimation but can be set to 2.0 for better agreement with e. g. 
+# the Bland Altman publication. 
+
+# "mode": if 1 then difference group1 minus group2 is used,
+# if 2 then group2 minus group1 is used. Defaults to 1.
 ```
 
 ... describe.. LOA ... and so on.
