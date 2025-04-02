@@ -1801,9 +1801,9 @@ weight and height:
 
 ### [H] Exercise 3 {#exercise3_multiple_regression}
 
-Invent a data set (or use the first 3 lines of a previous data set) 
-with 3 observations of $Y$ and $X_1, X_2$ and $X_3$. You have a data frame
-with 3 rows and 4 columns. 
+Invent a data set (or use the first 4 lines of a previous data set) 
+with 4 observations of $Y$ and $X_1, X_2$ and $X_3$. You have a data frame
+with 4 rows and 4 columns. 
 
 - Fit a model with $Y$ as the dependent variable and $X_1, X_2, X_3$ as predictors.
 - How big is $R^2$?
