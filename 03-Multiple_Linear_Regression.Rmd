@@ -1109,7 +1109,7 @@ plot(precis(m4.6))
 ```
 
 With the given regression model, one asks the question: "What is the value of knowing each leg's length, after 
-already knowing the other leg's length?" The answer is: "Not much.", since they are highly correlated.
+already knowing the other leg's length, with respect to height?" The answer is: "Not much.", since they are highly correlated.
 Both coefficients are not around the expected $\beta$ and the credible intervals are wide and include the 
 credible value $0$.
 
@@ -1119,14 +1119,14 @@ plot( bl ~ br, post, col=col.alpha(rangi2,0.1), pch = 16 )
 ```
 
 Since the two coefficients are almost perfectly multicollinear 
-(`cor(d$leg_left, d$leg_right)=0.9997458`), knowing one leg's length does not 
-give us any additional information about the other leg's length.
+(`cor(d$leg_left, d$leg_right)=0.9997458`), already knowing the left leg's 
+length, knowing the right leg's length does not give us any additional information about height.
 Leaving out the right leg length would give the correct result ([exercise 11](#exercise11_multiple_regression)).
 
 
 #### Example from Westfall 8.4
 
-In the example below, the second prector $X2$ is a perfect linear function of the first predictor $X1$.
+In the example below, the second prector $X_2$ is a perfect linear function of the first predictor $X_1$.
 
 ```{r}
 # Westfall 8.4.

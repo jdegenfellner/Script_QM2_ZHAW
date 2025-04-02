@@ -29,6 +29,7 @@ print(cor_full)
 
 cat("\nCorrelation among admitted students (Berkson's Paradox):\n")
 print(cor_admitted)
+# -> seems to be true for 3 variables as well
 
 ggplot(df, aes(x = X, y = Y, color = as.factor(admitted))) +
   geom_point(alpha = 0.5) +  # Scatterplot
