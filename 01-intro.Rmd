@@ -905,13 +905,13 @@ Looks good.
 Welche der folgenden Aussage(n) hinsichtlich *Predcition* und *Explanation* im
 Kontext statistischer Modellierung ist/sind korrekt?
 
-- *Prediction models* die gut funktionieren lassen im Allgemeinen 
+- *Prediction models*, die gut funktionieren, lassen im Allgemeinen 
   auch Rückschlüsse auf die zugrunde liegenden kausalen Zusammenhänge zu.
 - *Prediction models* fokussieren sich auf die Güte der Prognose 
   für neue Daten, nicht auf das Verständnis kausaler Beziehungen. 
 - *Explanatory models* benötigen eine gute theoretische 
   Fundierung, um kausale Zusammenhänge zwischen Variablen testen zu können.
-- Ein Beispiel für ein *Expanatory model* ist die Klassifikation von Bildern
+- Ein Beispiel für ein *Explanatory model* ist die Klassifikation von Bildern
   mittels neuronaler Netzwerke.
 
 ### Question 2

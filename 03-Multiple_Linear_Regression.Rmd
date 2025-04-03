@@ -1991,12 +1991,12 @@ Welche(s) Regressionsmodell(e) ist/sind *linear*?
 Welche Aussage(n) ist/sind hinsichtlich des Interaktionseffekts (Formel unten)
 korrekt?
 
-$$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} X_{2i}$$
+$$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} \cdot X_{2i}$$
 
 - Interaktionsterme können nur zwischen kategorialen Variablen verwendet werden. 
-- Der Effekt von X_1 auf Y hängt davon ab, welchen Wert X_2 hat. 
-- Das Modell ist nicht mehr linear, weil der Interaktionsterm X_1 \cdot X_2 enthalten ist. 
-- Der Effekt von X_2 auf Y hängt davon ab, welchen Wert X_1 hat.
+- Der Effekt von $X_1$ auf $Y$ hängt davon ab, welchen Wert $X_2$ hat. 
+- Das Modell ist nicht mehr linear, weil der Interaktionsterm $X_1 \cdot X_2$ enthalten ist. 
+- Der Effekt von $X_2$ auf $Y$ hängt davon ab, welchen Wert $X_1$ hat.
 
 ### Question 3
 
