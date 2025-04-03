@@ -1978,13 +1978,13 @@ Go back to the NHANES example [above](#example_nhanes).
 
 Welche(s) Regressionsmodell(e) ist/sind *linear*?
 
-- $y_i = \beta_0 + \beta_1 x_i^4 + \beta_2 x_i^6$
+- $Y_i = \beta_0 + \beta_1 X_i^4 + \beta_2 X_i^6$
 
-- $y_i = \beta_0 + \beta_1 \log(x_i)$
+- $Y_i = \beta_0 + \beta_1 \log(X_i)$
 
-- $y_i = \beta_0 + \beta_1^{x_i}$
+- $Y_i = \beta_0 + \beta_1^{X_i}$
 
-- $y_i = \beta_0 + \sin(\beta_1 x_i) \cdot cos(\beta_2)$
+- $Y_i = \beta_0 + \sin(\beta_1 X_i) \cdot cos(\beta_2)$
 
 ### Question 2 
 
@@ -2025,12 +2025,11 @@ for (i in 1:1000) {
 }
 
 mean(sim_cor)
-#  -0.003870287
 ```
 
 Welche Aussage(n) ist/sind korrekt?
 
 - Wenn man den Wert von Z kennt, trägt X nichts zur Erklärung von Y bei.
-- Der Code simuliert einen sog. *Pipe*
+- Der Code simuliert einen sog. *Pipe*.
 - Der zugehörige DAG ist $X \rightarrow Z \rightarrow Y$.
 - $cor(X, Y) \ne 0$.
