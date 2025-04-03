@@ -928,7 +928,28 @@ Welche Aussage(n) bezüglich Bayes'scher statistischer Modellierung ist/sind kor
 
 ### Question 3
 
-Wir gehen von einem Modell für Körpergrößen aus. 
-Dieses mal spielt auch die geographische Region (*region*) eine Rolle.
+Wir gehen (wie in der Vorlesung) von einem simplen Mittelwert-Modell für Körpergrößen aus. 
 
-- ...
+```{r, echo=FALSE, , message=FALSE, warning=FALSE}
+library(DiagrammeR)
+grViz("
+digraph BayesianModel {
+  graph [layout = dot]
+  
+  h_i [label = 'h[i]\\n~ Normal(μ, σ)', shape = oval]
+  μ [label = 'μ\\n~ Normal(171.1, 20)', shape = oval]
+  σ [label = 'σ\\n~ Uniform(0, 50)', shape = oval]
+
+  μ -> h_i
+  σ -> h_i
+}
+")
+```
+Welche der folgenden Aussage(n) ist/sind korrekt?
+
+- Die posterioren Verteilungen von $\mu$ und $\sigma$ sind stochastisch unabhängig.
+- Man ist sich a priori zu (ca.) 95% sicher, dass $\mu$ im Bereich $[171.1-20, 171.1+20]$ liegt.
+- Gäbe es noch eine dritte Variable - z.B. *geographische Region* - die sowohl $\mu$ als auch
+  $\sigma$ beeinflusst, so wäre die Verteilung von $\mu$ und $\sigma$ nicht mehr stochastisch unabhängig.
+- Je größer die sample size, desto weniger spielen die Priors eine Rolle und desto ähnlicher sind sich
+  die Resultate der Bayes'schen und Frequentistischen Modellierung.
