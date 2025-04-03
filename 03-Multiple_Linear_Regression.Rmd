@@ -1971,3 +1971,17 @@ Go back to the NHANES example [above](#example_nhanes).
     outcome with group status and pre-test scores as predictors." 
 
 - Read and study sections 9.2 to 9.3 (pages 205 to 213) in Westfalls book.
+
+## Sample exam questions for this chapter (in German since exam is in German)
+
+### Question 1
+
+Welche(s) Regressionsmodell(e) ist/sind *linear*?
+
+- $y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2$
+
+- $y_i = \beta_0 + \beta_1 \log(x_i)$
+
+- $y_i = \beta_0 + \beta_1^{x_i}$
+
+- $y_i = \beta_0 + \sin(\beta_1 x_i) \cdot cos(\beta_2)$

@@ -1807,3 +1807,54 @@ eLearning Assignments:
   We have already searched for journals relevant to your field in QM1. 
   If you send me one of these studies in advance, we could also discuss the 
   applied methods in more detail during the practice sessions.
+
+
+## Sample exam questions for this chapter (in German since exam is in German)
+
+### Question 1
+
+Wir betrachten das Modell für die Einfachregression von Körpergrößen ($h_i$) auf Körpergewicht ($x_i$): 
+
+\begin{eqnarray*}
+h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
+\mu_i &\sim& \alpha + \beta (x_i - \bar{x})\\
+\alpha &\sim& \text{Normal}(171.1, 20)\\
+\beta &\sim& \text{Normal}(0, 10)\\
+\sigma &\sim& \text{Uniform}(0, 50)
+\end{eqnarray*}
+
+Welche der folgenden Aussage(n) ist/sind richtig?
+
+- Der Intercept $\alpha$ ist die Körpergröße einer Person mit einem Gewicht von 0 kg.
+- Erhöht sich das Gewicht um 1 kg, so erhöht/verringert sich die Körpergröße um (durchschnittlich) $\beta$ cm.
+- Das Modell nimmt heteroskedastische Residuen an.
+- Die A-Priori-Verteilung für $\beta$ drückt unsere Überzeugung aus, dass $\beta$ zwischen
+  $0$ und $10$ liegt.
+
+### Question 2
+
+Wir erinnern uns an die *conditional distribution* Definition der Regression (Frequentistische Sicht):
+
+$$Y|X = x \sim p(y|x)$$
+
+Welche der folgenden Aussage(n) ist/sind richtig?
+
+- $p$ in obiger Formel entspricht dem $p$-Wert der Frequentistischen Statistik 
+  (wie groß die bedingte Wahrscheinlichkeit für $y|x$ oder noch extremere Werte ist).
+- Der realisierte Wert $x$ hat eine Wahrscheinlichkeitsverteilung $p(y|x)$.
+- $p$ steht immer für eine Normalverteilung.
+- Im Falle der linearen Einfachregression sind folgende Aussagen äquivalent:
+  - $Y|X = x \sim p(y|x)$
+  - $Y \sim p(y)$
+
+### Question 3
+
+Welche Voraussetzung(en) gilt/gelten im klassichen linearen Regressionsmodell?
+
+- Die erklärenden Variablen (Prädiktoren) müssen normalverteilt sein. 
+- Die Fehler $\varepsilon_i$ sind unabhängig.
+- Die abhängige Variable $y_i$ muss normalverteilt sein.
+- Zwischen allen Prädiktoren muss ein linearer Zusammenhang bestehen. 
+
+ 
+

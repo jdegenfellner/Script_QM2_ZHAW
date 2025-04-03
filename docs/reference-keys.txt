@@ -69,6 +69,10 @@ exercise12_simpl_lin_reg
 exercise13_simpl_lin_reg
 exercise14_simpl_lin_reg
 elearning-1
+sample-exam-questions-for-this-chapter-in-german-since-exam-is-in-german-1
+question-1-1
+question-2-1
+question-3-1
 multiple-linear-regression
 linear-regression-with-2-predictors-in-the-bayesian-framework
 meaning-of-linear
@@ -127,6 +131,8 @@ exercise18_multiple_regression
 elearning-2
 part-1
 part-2
+sample-exam-questions-for-this-chapter-in-german-since-exam-is-in-german-2
+question-1-2
 reliability-and-validity
 reliability
 peter-and-marys-rom-measurements
