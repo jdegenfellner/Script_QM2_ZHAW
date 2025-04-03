@@ -1978,10 +1978,59 @@ Go back to the NHANES example [above](#example_nhanes).
 
 Welche(s) Regressionsmodell(e) ist/sind *linear*?
 
-- $y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2$
+- $y_i = \beta_0 + \beta_1 x_i^4 + \beta_2 x_i^6$
 
 - $y_i = \beta_0 + \beta_1 \log(x_i)$
 
 - $y_i = \beta_0 + \beta_1^{x_i}$
 
 - $y_i = \beta_0 + \sin(\beta_1 x_i) \cdot cos(\beta_2)$
+
+### Question 2 
+
+Welche Aussage(n) ist/sind hinsichtlich des Interaktionseffekts (Formel unten)
+korrekt?
+
+$$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{1i} X_{2i}$$
+
+- Interaktionsterme können nur zwischen kategorialen Variablen verwendet werden. 
+- Der Effekt von X_1 auf Y hängt davon ab, welchen Wert X_2 hat. 
+- Das Modell ist nicht mehr linear, weil der Interaktionsterm X_1 \cdot X_2 enthalten ist. 
+- Der Effekt von X_2 auf Y hängt davon ab, welchen Wert X_1 hat.
+
+### Question 3
+
+Es sei der folgende R-Code gegeben:
+
+```{r}
+set.seed(42)
+N <- 1000
+
+sim_cor <- numeric(1000)
+for (i in 1:1000) {
+  # Simulate data
+  # X: Income (in 1000s), right-skewed
+  X <- rgamma(N, shape = 2, rate = 0.1)
+  
+  # Z: Stress events per day ~ Poisson, depends on income
+  lambda_Z <- exp(3 - 0.05 * X)
+  Z <- rpois(N, lambda = lambda_Z)
+  
+  # Y: Sleep quality (1 = poor sleep), depends on stress level
+  p_Y <- plogis(-2 + 0.5 * Z)
+  Y <- rbinom(N, size = 1, prob = p_Y)
+  
+  # Calculate cond correlation between X and Y
+  sim_cor[i] <- cor(X[Z == 3], Y[Z == 3])  # Correlation when Z = 3
+}
+
+mean(sim_cor)
+#  -0.003870287
+```
+
+Welche Aussage(n) ist/sind korrekt?
+
+- Wenn man den Wert von Z kennt, trägt X nichts zur Erklärung von Y bei.
+- Der Code simuliert einen sog. *Pipe*
+- Der zugehörige DAG ist $X \rightarrow Z \rightarrow Y$.
+- $cor(X, Y) \ne 0$.

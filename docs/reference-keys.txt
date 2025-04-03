@@ -1,4 +1,4 @@
-tab:unnamed-chunk-105
+tab:unnamed-chunk-106
 intro0
 books-we-will-heavily-borrow-from-are
 if-you-need-a-good-reason-to-buy-great-books
@@ -133,6 +133,8 @@ part-1
 part-2
 sample-exam-questions-for-this-chapter-in-german-since-exam-is-in-german-2
 question-1-2
+question-2-2
+question-3-2
 reliability-and-validity
 reliability
 peter-and-marys-rom-measurements
