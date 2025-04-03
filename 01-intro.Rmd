@@ -125,7 +125,9 @@ they very often better than experts. If you are interested and want to
 boost your confidence in the predictive ability of statistical models,
 I recommend reading chapter 21 ("Intuitions vs. Formulas") of Daniel Kahneman's book 
 ["Thinking, Fast and Slow"](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow) 
-(available in the ZHAW library).
+(available in the ZHAW library). Of course, you should 
+[check](https://replicationindex.com/2020/12/30/a-meta-scientific-perspective-on-thinking-fast-and-slow/) if the studies
+mentioned in the book were replicated and if the results are still valid.
 
 ### Practical Use of Statistical Models
 
@@ -896,11 +898,11 @@ inside_square / n_sim
 
 Looks good.
 
-# Sample exam questions for this chapter (in German since exam is in German)
+## Sample exam questions for this chapter (in German since exam is in German)
 
-## Question 1
+### Question 1
 
-Welche der folgenden Aussagen hinsichtlich *Predcition* und *Explanation* im
+Welche der folgenden Aussage(n) hinsichtlich *Predcition* und *Explanation* im
 Kontext statistischer Modellierung ist/sind korrekt?
 
 - *Prediction models* die gut funktionieren lassen im Allgemeinen 
@@ -911,3 +913,22 @@ Kontext statistischer Modellierung ist/sind korrekt?
   Fundierung, um kausale Zusammenhänge zwischen Variablen testen zu können.
 - Ein Beispiel für ein *Expanatory model* ist die Klassifikation von Bildern
   mittels neuronaler Netzwerke.
+
+### Question 2
+
+Welche Aussage(n) bezüglich Bayes'scher statistischer Modellierung ist/sind korrekt?
+
+- Bayes’sche Modelle sind nur für kleine Stichproben geeignet, 
+  da sie bei großen Datenmengen instabil werden. 
+- Die Prior-Verteilungen der Parameter beeinflussen die Posterior-Verteilungen 
+  der Parameter in der Regel kaum.
+- Aus Bayes Modellierung erhält man in erster Linie Punktschätzungen der Parameter.
+- Ist der $p$-Wert bei einer Hypothese $H_0$ kleiner als $0.05$, 
+  so ist die Hypothese $H_0$ falsch.
+
+### Question 3
+
+Wir gehen von einem Modell für Körpergrößen aus. 
+Dieses mal spielt auch die geographische Region (*region*) eine Rolle.
+
+- ...

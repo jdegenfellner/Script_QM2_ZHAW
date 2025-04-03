@@ -20,6 +20,10 @@ exercise6_Intro
 exercise7_Intro
 addendum
 bivariate_normal
+sample-exam-questions-for-this-chapter-in-german-since-exam-is-in-german
+question-1
+question-2
+question-3
 simple-linear-regression
 simple_lin_reg_bayes
 model-definition
