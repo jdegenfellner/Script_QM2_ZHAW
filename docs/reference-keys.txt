@@ -1,4 +1,3 @@
-tab:unnamed-chunk-106
 intro0
 books-we-will-heavily-borrow-from-are
 if-you-need-a-good-reason-to-buy-great-books
@@ -135,15 +134,3 @@ sample-exam-questions-for-this-chapter-in-german-since-exam-is-in-german-2
 question-1-2
 question-2-2
 question-3-2
-reliability-and-validity
-reliability
-peter-and-marys-rom-measurements
-intraclass-correlation-coefficient-icc
-explanation-of-iccs-in-the-psych-output
-summary-peter-and-mary-with-and-without-bias
-difference-between-correlation-and-icc
-bad-news-about-the-icc
-standard-error-of-measurement-sem
-bland-altman-plot
-validity
-todos
