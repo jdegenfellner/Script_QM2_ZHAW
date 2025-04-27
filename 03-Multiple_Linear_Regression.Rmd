@@ -84,7 +84,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma) \\
 \mu_i &=& \alpha + \beta_1 x_i + \beta_2 x_i^2 \\
 \alpha &\sim& \text{Normal}(178, 20) \\
 \beta_1 &\sim& \text{Log-Normal}(0, 1) \\
-\beta_2 &\sim& \text{Normal}(0, 1) \\
+\beta_2 &\sim& \text{Normal}(0, 10) \\
 \sigma &\sim& \text{Uniform}(0, 50)
 \end{eqnarray*}
 
@@ -121,7 +121,7 @@ m4.1 <- quap(
     height ~ dnorm(mu, sigma),
     mu <- a + b1*weight_s + b2*weight_s^2,
     a ~ dnorm(178, 20),
-    b1 ~ dnorm(0, 10),
+    b1 ~ dlnorm(0, 1),
     b2 ~ dnorm(0, 10),
     sigma ~ dunif(0, 50)
   ), data = d)

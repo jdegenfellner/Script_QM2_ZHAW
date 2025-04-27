@@ -220,8 +220,8 @@ mod <- quap(
     alist(
         height ~ dnorm(mu, sigma),
         mu <- a + b * (weight - xbar),
-        a ~ dnorm(171.1, 100),
-        b ~ dnorm(0, 10),
+        a ~ dnorm(171.1, 20),
+        b ~ dlnorm(0, 1),
         sigma ~ dunif(0, 50)
     ) ,
 data = d2)
