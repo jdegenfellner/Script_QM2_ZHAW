@@ -1337,7 +1337,7 @@ without any restrictions or even a registration. For convenience, Randall Pruim
 created an [R package](https://cran.r-project.org/web/packages/NHANES/NHANES.pdf) 
 called `NHANES` that contains a cleaned-up version of the
 NHANES data from 2009-2012. We will use this and ignore the complex sampling
-design for now. 
+design and missing values for now. 
 
 ```{r}
 #install.packages("NHANES")
@@ -1547,7 +1547,7 @@ Note that age and gender are not influenced by each other.
 #### Prior Predictive Checks {#prior_predictive_checks_NHANES}
 Now we simply draw from the priors and thereby generate systolic blood pressure values.
 Note that we implicitely assumed below that $PhysActive=1$ (person is physically active);
-$Age_{centered}=1 (1 years above average) and $Gender = 1$ (could mean female). 
+$Age_{centered}=1$ (1 years above average) and $Gender = 1$ (could mean female). 
 
 ```{r}
 # Prior predictive checks
@@ -1683,6 +1683,7 @@ mod <- lm(BPSysAve ~ PhysActive + Age_center + Gender, data = df)
 summary(mod)
 check_model(mod)
 qqPlot(mod) # bad
+check_model(mod, check = "linearity") # only linearity
 ```
 
 The results are similar to the Bayesian approach.
@@ -1698,9 +1699,10 @@ There also seems to be some heteroscadasticity and the residuals are not normall
 Let's see if this approach changes the results:
 
 ```{r}
+library(performance)
 mod <- lm(BPSysAve ~ PhysActive + Age + Gender  + BMI, data = df) # add BMI
 summary(mod)
-check_model(mod)
+check_model(mod) # show all plots
 qqPlot(mod) 
 ```
 
@@ -1721,7 +1723,10 @@ It seems that the blood pressure values are right-skewed.
 Let's try a log-normal distribution for the outcome variable, which only 
 takes positive values and is skewed. 
 
-We would **further** try to model $\sigma$ as a linear function of $\mu$.
+(Note: it is surprisingly hard to include a left-skewed distribution in `rethinking`.
+Currently trying to resolve this issue.)
+
+**Second**, we further try to model $\sigma$ as a linear function of $\mu$.
 For higher expected values of *BPSysAve*, we would expect higher variability.
 Hence, we try to **explicitely model heteroscadasticity**.
 
