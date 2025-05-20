@@ -1630,7 +1630,7 @@ It's always a good idea to double-check.
 Model fit could be better, the model thinks the blood pressure is normally distributed.
 There also seems to be some heteroscadasticity and the residuals are not normally distributed.
 
-**By the way, usually**, one would fit this model by throwing in all variables into the model, including BMI.
+**By the way, usually**, one would fit this model by throwing in all variables into the model, **including BMI**.
 Let's see if this approach changes the results:
 
 ```{r}
@@ -1916,7 +1916,6 @@ Go back to the improved model fit of our NHANES example [above](#improve_model_N
 
 - Draw observed vs. model-predicted blood pressure values.
 - add the $y=x$ line to the plot.
-- Is the fit better compared to the first model?
 
 ### [H] Exercise 18 {#exercise18_multiple_regression}
 
