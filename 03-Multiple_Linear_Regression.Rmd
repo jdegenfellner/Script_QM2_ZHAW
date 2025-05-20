@@ -565,9 +565,8 @@ We could repeat this simulation to get a feeling for the variability.
 The posterior predictive checks look nice. In this case, we *know* that the model is true.
 
 #### Adding variables to the model and why
-
-This is a very complex question. We will go into it in later chapters and the next course (Methodenvertiefung).
-At this point we can say this:
+ 
+This is a very complex question. At this point we can say this:
 We add variables to the model (and probably use 
 other models apart from linear regression) *depending* on the goal at hand (prediction or explanation).
 
@@ -1083,6 +1082,7 @@ $\frac{10}{0.45 \cdot 10} \sim 2.2$.
 
 ```{r}
 library(rethinking)
+library(patchwork)
 
 N <- 100
 set.seed(909)
@@ -1094,6 +1094,65 @@ leg_right <- leg_prop * height + rnorm(N, 0, 0.02)
 d <- data.frame(height = height, leg_left = leg_left, leg_right = leg_right)
 cor(d$leg_left, d$leg_right)
 
+# Vizualize the data:
+
+# Fit simple linear regression models
+mod1 <- lm(leg_right ~ leg_left, data = d)
+mod2 <- lm(height ~ leg_left, data = d)
+mod3 <- lm(height ~ leg_right, data = d)
+
+# Function to create the regression equation text
+reg_eq <- function(model, xvar = "x", yvar = "y") {
+  coef <- coef(model)
+  paste0(yvar, " = ",
+         round(coef[1], 2), " + ",
+         round(coef[2], 2), " × ", xvar)
+}
+
+# Plot 1: Leg Left vs Leg Right
+p1 <- ggplot(d, aes(x = leg_left, y = leg_right)) +
+  geom_point(color = "blue") +  # scatter points
+  geom_smooth(method = "lm", se = FALSE, color = "black") +  # regression line
+  annotate("text",
+           x = min(d$leg_left, na.rm = TRUE),
+           y = max(d$leg_right, na.rm = TRUE),
+           label = reg_eq(mod1, "Leg Left", "Leg Right"),
+           hjust = 0, vjust = 1, size = 3.5) +
+  labs(x = "Leg Left", y = "Leg Right") +
+  ggtitle("Leg Left vs Right") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Plot 2: Leg Left vs Height
+p2 <- ggplot(d, aes(x = leg_left, y = height)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  annotate("text",
+           x = min(d$leg_left, na.rm = TRUE),
+           y = max(d$height, na.rm = TRUE),
+           label = reg_eq(mod2, "Leg Left", "Height"),
+           hjust = 0, vjust = 1, size = 3.5) +
+  labs(x = "Leg Left", y = "Height") +
+  ggtitle("Leg Left vs Height") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Plot 3: Leg Right vs Height
+p3 <- ggplot(d, aes(x = leg_right, y = height)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  annotate("text",
+           x = min(d$leg_right, na.rm = TRUE),
+           y = max(d$height, na.rm = TRUE),
+           label = reg_eq(mod3, "Leg Right", "Height"),
+           hjust = 0, vjust = 1, size = 3.5) +
+  labs(x = "Leg Right", y = "Height") +
+  ggtitle("Leg Right vs Height") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Combine the three plots in a single row using patchwork
+(p1 | p2 | p3)
+
+
+# Fit the model with both leg lengths
 m4.6 <- quap(
   alist(
     height ~ dnorm(mu, sigma),
@@ -1108,8 +1167,12 @@ precis(m4.6)
 plot(precis(m4.6))
 ```
 
-With the given regression model, one asks the question: "What is the value of knowing each leg's length, after 
-already knowing the other leg's length, with respect to height?" The answer is: "Not much.", since they are highly correlated.
+**With the given regression model, one asks the question**: 
+"What is the value of knowing each leg's length, after 
+already knowing the other leg's length, with respect to height?" 
+
+The answer is: "Not much.", since they are highly correlated, which - in this case - means
+that if I know one I know the other.
 Both coefficients are not around the expected $\beta$ and the credible intervals are wide and include the 
 credible value $0$.
 
@@ -1126,7 +1189,8 @@ Leaving out the right leg length would give the correct result ([exercise 11](#e
 
 #### Example from Westfall 8.4
 
-In the example below, the second prector $X_2$ is a perfect linear function of the first predictor $X_1$.
+In the example below, the second prector $X_2$ is a *perfect* linear 
+function of the first predictor $X_1$.
 
 ```{r}
 # Westfall 8.4.
