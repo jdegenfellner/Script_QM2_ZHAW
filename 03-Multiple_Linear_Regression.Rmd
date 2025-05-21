@@ -2043,7 +2043,7 @@ Consider the example from the book on page 189 McElreath: 6M3.
 - For each of the four DAGs below, state which variables, if any, you multiples
   adjust for (condition on) to estimate the total causal effect of $X$ on $Y$.
 
-![](images/DAGS_6M3_McElreath.png)
+![](images/DAGS_6M3_McEleath.png){ width=80% }
 
 ## eLearning 2
 
