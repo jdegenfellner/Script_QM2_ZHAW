@@ -1709,6 +1709,10 @@ qqPlot(mod)
 **This changed the results notably**. Before, the effect of physical activity was $-0.73693$
 with a rather small $p$-value,
 now it is $-0.22870$ with a $p$-value ten times as large.
+Since $BMI$ is on a pipe from *PhysActive* to *BPSysAve*, it makes sense,
+that the effect of *PhysActive* is smaller when we include $BMI$ in the model.
+We ask: "What is the (additional) effect of physical activity on blood pressure, 
+given $BMI$?".
 
 **Remember this**: The interpretation of a whole paper could change by falsely including
 an additional variable (in this case BMI).
@@ -1723,15 +1727,21 @@ It seems that the blood pressure values are right-skewed.
 Let's try a log-normal distribution for the outcome variable, which only 
 takes positive values and is skewed. 
 
-(Note: it is surprisingly hard to include a left-skewed distribution in `rethinking`.
+(Note: It is surprisingly hard to include a left-skewed distribution in `rethinking`.
 Currently trying to resolve this issue.)
 
-**Second**, we further try to model $\sigma$ as a linear function of $\mu$.
+**Second**, we further try to model $\sigma$ as a function of $\mu$.
 For higher expected values of *BPSysAve*, we would expect higher variability.
 Hence, we try to **explicitely model heteroscadasticity**.
+One could argue that the exponential function is not the best choice due 
+to numerical problems. 
 
 Note, that we have no problem with adding parameters to the model 
 because of the large sample size.
+
+The prior for $\beta_0$ is now $5$ (not $140$) since we have a 
+log-normal distribution. In the R code, I have calibrated this graphically.
+Also: $log(140) \approx 5$
 
 See [exercise 16](#exercise16_multiple_regression).
 
@@ -1739,7 +1749,7 @@ See [exercise 16](#exercise16_multiple_regression).
 BPSysAve_i &\sim& \text{Log-Normal}(\mu_i, \sigma_i)\\
 \sigma_i &=& \text{exp}(\beta_4 + \beta_5 \cdot \mu_i)\\
 \mu_i &=& \beta_0 + \beta_1 \cdot PhysActive + \beta_2 \cdot Age_{centered} + \beta_3 \cdot Gender\\
-\beta_0 &\sim& \text{Normal}(140, 20)\\
+\beta_0 &\sim& \text{Normal}(5, 20)\\
 \beta_1 &\sim& \text{Normal}(0, 50)\\
 \beta_2 &\sim& \text{Normal}(0, 10)\\
 \beta_3 &\sim& \text{Normal}(0, 10)\\
@@ -1757,40 +1767,71 @@ to be log-normally distributed.
 ```{r}
 sum(is.na(df)) # 0
 set.seed(122)
+
+# calibrate parameters for priors.
+hist(rlnorm(10000, meanlog = 5, sdlog = 0.5))
+# -> meanlog shuold be around 5!, not 140!
+
 m_NHANES_lnorm <- quap(
   alist(
-    BPSysAve ~ dlnorm(lmu, lsd), 
+    BPSysAve ~ dlnorm(lmu, lsd),
     lsd <- exp(beta_4 + beta_5 * lmu),
     lmu <- beta_0 + beta_1[PhysActive] + beta_2 * (Age - Age_mean) + beta_3[Gender],
-    beta_0 ~ dnorm(140, 10),  # 
-    beta_1[PhysActive] ~ dnorm(0, 10),  # 
+    beta_0 ~ dnorm(5, 10),
+    beta_1[PhysActive] ~ dnorm(0, 10),
     beta_2 ~ dnorm(0, 10),
-    beta_3[Gender] ~ dnorm(0, 10),  # 
-    beta_4 ~ dnorm(0, 10),  # 
-    beta_5 ~ dnorm(0, 10)  #
+    beta_3[Gender] ~ dnorm(0, 10),
+    beta_4 ~ dnorm(0, 10),
+    beta_5 ~ dnorm(0, 10)
   ),
   data = df,
-  start = list(beta_0 = 140, beta_1 = c(0.5, 0), beta_2 = 0, beta_3 = c(0.5, 0), beta_4 = 1, beta_5 = 0)
+  start = list(beta_0 = 4, beta_1 = c(0.5, 0), 
+  beta_2 = 0, beta_3 = c(0.5, 0), beta_4 = 1, beta_5 = 0)
 )
 
-#precis(m_NHANES_lnorm, depth = 2)
-nhanes_summary <- as.data.frame(precis(m_NHANES_lnorm, depth = 2))  # Convert to dataframe
-nhanes_summary[, -which(names(nhanes_summary) == "histogram")]  # Remove histogram column
+precis(m_NHANES_lnorm, depth = 2)
 
-# difference in levels of PhysActive and Gender (catorical variables):
-post_lnorm <- extract.samples(m_NHANES_lnorm)
-post_lnorm$diff_PhysActive <- post_lnorm$beta_1[,2] - post_lnorm$beta_1[,1]
-post_lnorm$diff_G <- post_lnorm$beta_3[,2] - post_lnorm$beta_3[,1]
-#precis(post_lnorm, depth = 2)
-post_lnorm_summary <- as.data.frame(precis(post_lnorm, depth = 2))  # Convert to dataframe
-post_lnorm_summary[, -which(names(post_lnorm_summary) == "histogram")]  # Remove histogram column
+# Expected difference in blood pressure (mmHg):
+set.seed(122)
+samples <- extract.samples(m_NHANES_lnorm)
+
+mu_active  <- samples$beta_0 + samples$beta_1[, 2]
+mu_inactive <- samples$beta_0 + samples$beta_1[, 1]
+
+# otherwise we get numerical explosions...
+clip <- function(x, lower = -100, upper = 100) pmin(pmax(x, lower), upper)
+
+sigma_active <- exp(clip(samples$beta_4 + samples$beta_5 * mu_active))
+sigma_inactive <- exp(clip(samples$beta_4 + samples$beta_5 * mu_inactive))
+
+# Expected values on BPSysAve scale
+E_active <- exp(clip(mu_active + 0.5 * sigma_active^2))
+E_inactive <- exp(clip(mu_inactive + 0.5 * sigma_inactive^2))
+
+# (distribution of) Expected difference in blood pressure (mmHg)
+diff_expected_BP <- E_active - E_inactive
+
+# Clean
+diff_expected_BP_clean <- diff_expected_BP[is.finite(diff_expected_BP) & 
+                                          abs(diff_expected_BP) < 20]
+
+precis(data.frame(diff_expected_BP_clean))
+length(diff_expected_BP_clean) 
 ```
 
-`diff_PhysActive` is now  $-0.003350291$ with a very tight credible interval
-containing $0$ as a credible effect. The model is pretty sure, that the effect
-is practically zero.
+To get the expected difference in blood pressure (in mmHg) between
+active and inactive people, we first need to calculate the difference in the
+*parameters* of the log-normal distribution.
+After that, we use the parameters to calculate the difference
+in exptected values of the log-normal distribution.
+$$ \mu_{LogNormal} = \exp(\mu + \frac{\sigma^2}{2})$$
+This way, we get the desired result.
+$9485$ samples from $10000$ remain after cutting off the extreme values.
+The mean expected difference in blood pressure is $-0.17$ mmHg with a 89%
+credible interval of approximately $(-0.5, 0)$ mmHg, which is not 
+very different from our first model.
 
-Let's visualize the posterior predictive distributions of 100 samples:
+**Next**, let's visualize the posterior predictive distributions of 100 samples:
 
 ```{r}
 # posterior predictive checks
