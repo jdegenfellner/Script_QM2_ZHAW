@@ -127,6 +127,7 @@ exercise15_multiple_regression
 exercise16_multiple_regression
 exercise17_multiple_regression
 exercise18_multiple_regression
+exercise19_multiple_regression
 elearning-2
 part-1
 part-2

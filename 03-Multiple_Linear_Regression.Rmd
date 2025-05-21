@@ -2036,6 +2036,15 @@ Go back to the NHANES example [above](#example_nhanes).
   analysis.
 - What do you observe?
 
+### [M] Exercise 19 {#exercise19_multiple_regression}
+
+Consider the example from the book on page 189 McElreath: 6M3.
+
+- For each of the four DAGs below, state which variables, if any, you multiples
+  adjust for (condition on) to estimate the total causal effect of $X$ on $Y$.
+
+![](images/DAGS_6M3_McElreath.png)
+
 ## eLearning 2
 
 ### Part 1
