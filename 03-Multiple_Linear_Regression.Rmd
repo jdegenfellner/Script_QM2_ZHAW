@@ -2040,7 +2040,7 @@ Go back to the NHANES example [above](#example_nhanes).
 
 Consider the example from the book on page 189 McElreath: 6M3.
 
-- For each of the four DAGs below, state which variables, if any, you multiples
+- For each of the four DAGs below, state which variables, if any, you must
   adjust for (condition on) to estimate the total causal effect of $X$ on $Y$.
 - Section 6.4 in the book explains how to do this.
 - Verify your answer with dagitty.net
