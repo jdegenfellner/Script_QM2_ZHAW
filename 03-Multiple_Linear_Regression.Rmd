@@ -2047,6 +2047,16 @@ Consider the example from the book on page 189 McElreath: 6M3.
 
 ![](images/DAGS_6M3_McEleath.png){ width=80% }
 
+### [M] Exercise 20 {#exercise20_multiple_regression}
+
+Consider the DAG in McElreath page 187 where one wants to determine
+the total causal effect of *Number of waffle  houses* (W) on 
+*divorce rate* (D).
+
+- Simulate data for the DAG.
+- Verify that that both adjustment sets   $\{A, M\} \text{ and } \{S\}$ 
+  yield the same result.
+
 ## eLearning 2
 
 ### Part 1
