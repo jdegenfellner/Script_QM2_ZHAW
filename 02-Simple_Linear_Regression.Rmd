@@ -1122,7 +1122,7 @@ They can all be true or false or some can be true and some false
 Chapter 4 in the book is dedicated to this topic. It is important to know
 that the assumptions are usually not met exactly. The question is *how badly* they are violated,
 not *if* they are violated.
-Furthermore, the asssumptions refer to the data generating process, not the data itself.
+Furthermore, the assumptions refer to the data generating process, not the data itself.
 Thus, the evaluation of the assumptions should involve subject matter knowledge.
 
 $p$-values to evaluate model assumptions are not a good idea. To [quote](https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108#d1e949) the 
@@ -1798,14 +1798,14 @@ we only get a different amount of data points agross the range of $x$.
 
 eLearning Assignments:
 
--	Review all content from the script, up to and including section 3.1.
-- Reading assignment on frequentist statistics (exam-relevant!): 
+-	Review all content from the script, up to and including section 3.2.
+- Reading assignment on Frequentist statistics (exam-relevant!): 
   Chapter 1 (Introduction to Regression Models) from the book 
   Understanding Regression Analysis - A Conditional Distribution Approach.
 - Research task: Find at least two scientific articles in your field that apply 
   regression (either simple regression with one predictor or multiple regression). 
-  We have already searched for journals relevant to your field in QM1. 
-  If you send me one of these studies in advance, we could also discuss the 
+  The article should not be too technical.
+  If you send me one of these studies in advance, we will discuss the 
   applied methods in more detail during the practice sessions.
 
 
