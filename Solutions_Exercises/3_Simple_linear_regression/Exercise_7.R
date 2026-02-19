@@ -5,11 +5,11 @@ data(Howell1)
 d <- Howell1
 d2 <- d[ d$age >= 18 , ]
 
-# simulate data from model-----------
+# Simulate data from model-----------
 # We assume THIS is the data generating mechanism!
-weight <- numeric(352)
-height <- numeric(352)
-for (i in 1:352) {
+weight <- numeric(25)
+height <- numeric(25)
+for (i in 1:25) {
   weight[i] <- rnorm(1, 45, 6.45) # draw new weights
   height[i] <- 113.87939 + 0.90574 * weight[i] + rnorm(1, 0, 5.086 ) # draw new heights from the model
 }
@@ -21,6 +21,7 @@ m7.1 <- lm( height ~ weight , data = data.frame(height = height,
 # 1) Draw y hat, ei plot:
 plot( residuals(m7.1) ~ predict(m7.1) , data = data.frame(height = height, 
                                           weight = weight) )
+shapiro.test(residuals(m7.1)) # check normality of residuals
 # -> mark this line up to "simulate model" and run it over and over again
 #    to get a feeling for the variability of the plot which is based 
 #    on data produced by the model

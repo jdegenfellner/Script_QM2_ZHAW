@@ -31,7 +31,7 @@ hist(lognormal_sample,
      border = "black",
      probability = TRUE)
 
-# maybe a lognormal distribution is fiting to describe the chicken weights.
+# maybe a lognormal distribution is fitting to describe the chicken weights.
 
 # Priors for parameters lognormal distribution:---------
 # mu_prior ~ N(4.5, 2)
@@ -64,6 +64,8 @@ plot(m_weights)
 # Posterior predictive checks:---------
 posterior_h <- extract.samples(m_weights, n = 1e4) # create new observations based on model
 head(posterior_h)
+dens(posterior_h$mu)
+dens(posterior_h$sigma)
 cor(posterior_h$mu, posterior_h$sigma) # check!!!
 
 # create chicken weights:

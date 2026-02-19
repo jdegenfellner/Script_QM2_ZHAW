@@ -40,7 +40,8 @@ ggplot(density_df, aes(x = x, y = y)) +
   geom_line() +  # Density line
   geom_area(data = subset(density_df, x >= ci_lower & x <= ci_upper), 
             aes(x = x, y = y), fill = "blue", alpha = 0.4) +  # Shaded 99% interval
-  geom_vline(xintercept = c(ci_lower, ci_upper), color = "red", linetype = "dashed") + 
+  geom_vline(xintercept = c(ci_lower, ci_upper), 
+             color = "red", linetype = "dashed") + 
   theme_minimal() + 
   labs(title = "Density of a with 99% Credible Interval", x = "a", y = "Density") + 
   theme(plot.title = element_text(hjust = 0.5))
@@ -64,6 +65,8 @@ ggplot(density_df, aes(x = x, y = y)) +
   theme_minimal() + 
   labs(title = "Density of b with 99% Credible Interval", x = "b", y = "Density") + 
   theme(plot.title = element_text(hjust = 0.5))
+
+sum(post$b > 0)/10000
 
 # density of sigma using ggplot and 99% credible interval:-----
 # Compute the 99% credible interval

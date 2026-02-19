@@ -23,7 +23,7 @@ summary(mod)
 # beta_1 = 0.90574
 
 # produce a single new height in cm for a person of 67 kg:
-113.87939 + 0.90574*45 + rnorm(1, 0, 5.086)
+113.87939 + 0.90574*67 + rnorm(1, 0, 5.086)
 
 dim(d2) # 352 people in the sample
 

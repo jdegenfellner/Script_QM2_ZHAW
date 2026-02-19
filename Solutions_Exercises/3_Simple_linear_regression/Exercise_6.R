@@ -25,10 +25,7 @@ abline(linear_model, col = "green", lwd = 2)
 res <- residuals(linear_model)
 hist(res)
 
-# Extract residuals
-res <- residuals(linear_model) # difference between red points and green line
-
 # Autocorrelation function (ACF) plot
 acf(res, main = "Autocorrelation of Residuals", col = "blue", lwd = 2)
 # -> residuals are not uncorrelated with their neighbors -> they cannot
-# be stochatically independent! 
+# be statistically independent! 

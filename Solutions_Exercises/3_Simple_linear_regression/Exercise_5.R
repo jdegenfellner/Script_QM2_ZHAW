@@ -7,9 +7,9 @@ mod <- lm(height ~ weight, data = d2)
 # Extract 10% and 90% quantiles of weight
 x_low_high <- quantile(d2$weight, probs = c(0.1, 0.9))
 
-# Scenario 1: Original Slope
-mean1 <- 113.8793936 + 0.9050291 * x_low_high[1]
-mean2 <- 113.8793936 + 0.9050291 * x_low_high[2]
+# Scenario 1: Original Slope-----------
+(mean1 <- 113.8793936 + 0.9050291 * x_low_high[1])
+(mean2 <- 113.8793936 + 0.9050291 * x_low_high[2])
 sd <- 5.086  # Standard deviation remains the same
 
 # Generate density data
@@ -19,17 +19,19 @@ data <- data.frame(
   density = c(dnorm(x_seq, mean = mean1, sd = sd),
               dnorm(x_seq, mean = mean2, sd = sd)),
   group = rep(c(paste0("x_low = ", round(x_low_high[1], 2)),
-                paste0("x_high = ", round(x_low_high[2], 2))), each = length(x_seq))
+                paste0("x_high = ", round(x_low_high[2], 2))), 
+              each = length(x_seq))
 )
 dim(data)
 
-# Scenario 2: Increased Slope to 3
+# Scenario 2: Increased Slope to 3------------
 set.seed(123)
-true_slope <- 0.5  # Increasing the slope for better separation
+true_slope <- 3  # Increasing the slope for better separation
 data_more_slope <- data.frame(
   weight = rnorm(352, mean = 45, sd = 6.45)
 )
-data_more_slope$height <- 113.87939 + true_slope * data_more_slope$weight + rnorm(352, mean = 0, sd = sd)
+data_more_slope$height <- 113.87939 + true_slope * data_more_slope$weight + 
+  rnorm(352, mean = 0, sd = sd)
 
 # Compute means with the new slope
 mean1_slope <- 113.87939 + true_slope * x_low_high[1]
@@ -42,7 +44,8 @@ data_slope <- data.frame(
   density = c(dnorm(x_seq_slope, mean = mean1_slope, sd = sd),
               dnorm(x_seq_slope, mean = mean2_slope, sd = sd)),
   group = rep(c(paste0("x_low = ", round(x_low_high[1], 2)),
-                paste0("x_high = ", round(x_low_high[2], 2))), each = length(x_seq_slope))
+                paste0("x_high = ", round(x_low_high[2], 2))), 
+              each = length(x_seq_slope))
 )
 
 # Plot for Scenario 1 (Original Slope)

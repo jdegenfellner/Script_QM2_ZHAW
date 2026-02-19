@@ -4,7 +4,8 @@ data(Howell1)
 d <- Howell1
 d2 <- d[d$age >= 18, ]
 
-plot(d2$weight, d2$height, pch = 19, col = "blue", xlab = "Weight", ylab = "Height")
+plot(d2$weight, d2$height, pch = 19, col = "blue", 
+     xlab = "Weight", ylab = "Height")
 
 # 1) Regress height on weight----------
 mod_hw <- lm(height ~ weight, data = d2)
