@@ -1668,7 +1668,8 @@ post_summary[, -which(names(post_summary) == "histogram")]  # Remove histogram c
 
 The summary tells us that `diff_PhysActive` is $-0.74$ with a large proportion
 of the posterior $<0$. Please research if this is a clinically relevant difference.
-My guess is: no.
+My guess is: no. A first glance into the [literature](https://journals.sagepub.com/doi/10.1177/00368504221101636) 
+mentions an MCID of 2 mmHG for resting systolic blood pressure.
 
 #### Fit model using `lm` (Frequentist approach)
 
