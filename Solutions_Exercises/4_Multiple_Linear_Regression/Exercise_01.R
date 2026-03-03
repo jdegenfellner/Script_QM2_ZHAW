@@ -4,7 +4,7 @@ library(rethinking)
 library(tidyverse)
 data(Howell1)
 d <- Howell1
-dim(d)
+dim(d) # 544! 
 
 # Standardize weight
 d$weight_s <- (d$weight - mean(d$weight)) / sd(d$weight)
@@ -43,17 +43,18 @@ weight_seq <- seq(min(d$weight_s), max(d$weight_s), length.out = 200)
 # Calculate the fitted values using the quadratic equation
 height_fitted <- a + b1 * weight_seq + b2 * weight_seq^2 + b3 * weight_seq^3
 
-# Plot the scatterplot
 plot(d$weight_s, d$height, pch = 16, col = "blue",
      xlab = "Standardized Weight", ylab = "Height (cm)",
      main = "Scatterplot with Fitted Curve (Standardized Weight)")
 
-# Add the fitted curve
 lines(weight_seq, height_fitted, col = "red", lwd = 2)
 
-# Add a legend
-legend("topright", legend = c("Observed data", "Fitted curve"),
-       col = c("blue", "red"), pch = c(16, NA), lty = c(NA, 1), lwd = 2)
+legend("bottomright",
+       legend = c("Observed data", "Fitted curve"),
+       col = c("blue", "red"),
+       pch = c(16, NA),
+       lty = c(NA, 1),
+       bty = "n")
 
 
 # add prediction bands---------
@@ -68,7 +69,7 @@ pred_data <- tibble(weight_s = weight_seq,
 
 # Simulate posterior predictive heights
 sim_heights <- sim(m4.2, data = pred_data, n = 1000)
-dim(sim_heights)
+dim(sim_heights) # 1000 simulated heights for each of the 200 weight values 
 
 # Compute the mean, 89% interval, and 95% interval for predictions
 height_mean <- apply(sim_heights, 2, mean)
@@ -76,22 +77,20 @@ height_PI_89 <- apply(sim_heights, 2, PI, prob = 0.89)
 height_PI_95 <- apply(sim_heights, 2, PI, prob = 0.95)
 height_PI_99 <- apply(sim_heights, 2, PI, prob = 0.99)
 
-# Plot
 plot(d$weight_s, d$height, pch = 16, col = alpha("blue", 0.5),
      xlab = "Standardized Weight", ylab = "Height (cm)",
      main = "Scatterplot with Fitted Curve & Prediction Intervals")
 
-# Add the 89% prediction interval using shade()
 shade(height_PI_89, weight_seq, col = alpha("gray", 0.5))
 
 # Add the 99% prediction interval using shade()
 shade(height_PI_99, weight_seq, col = alpha("darkgray", 0.5))
-
+# -> really nice!!!
 
 
 # lets overdo it----------
 
-# add polynomial smmoothing line to ggplot:
+# add polynomial smoothing line to ggplot:
 ggplot(d, aes(x = weight_s, y = height)) +
   geom_point() +
   geom_smooth(method = "lm", formula = y ~ poly(x, 23), se = FALSE) +

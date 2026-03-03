@@ -29,7 +29,7 @@ initial_params <- c(a = a_start, b1 = b1_start, b2 = b2_start)
 # Constrain b1 and b2 to be negative
 optim_results <- optim(
   par = initial_params,
-  fn = sse_function,
+  fn = sse_function, # apply sum of squared errors as loss function
   data = d,
   method = "L-BFGS-B",
   lower = c(-Inf, -200, -1),   # b1 and b2 must be negative
