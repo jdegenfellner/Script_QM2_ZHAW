@@ -1,12 +1,14 @@
-set.seed(123)
-n <- 100
+library(tidyverse)
+library(plotly)
+
+#set.seed(123)
+n <- 1000
 X1 <- rnorm(n, 0, 5)
 X2 <- rnorm(n, 0, 5)
 
-Y <- 10 + 0.5 * X1 + 1 * X2 + 0 * X1 * X2 + rnorm(n, 0, 5) # change sigma
+Y <- 10 + 0.5 * X1 + 1 * X2 + 0 * X1 * X2 + rnorm(n, 0, 0.2) # change sigma
 
-d <- data.frame(X1 = X1, X2 = X2,
-                X1_st, X2_st, Y = Y)
+d <- data.frame(X1 = X1, X2 = X2,Y = Y)
 
 # Fit the model (not standardized)
 m4.4 <- lm(Y ~ X1 * X2, data = d)
@@ -51,14 +53,28 @@ plot_ly() %>%
 
 # Create categorical variables based on quartiles
 d$X2_cat <- cut(d$X2, 
-                breaks = quantile(d$X2, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE), 
+                breaks = quantile(d$X2, probs = c(0, 0.25, 0.5, 0.75, 1), 
+                                  na.rm = TRUE), 
                 include.lowest = TRUE, 
                 labels = c("Q1", "Q2", "Q3", "Q4"))
 
 d$X1_cat <- cut(d$X1, 
-                breaks = quantile(d$X1, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE), 
+                breaks = quantile(d$X1, probs = c(0, 0.25, 0.5, 0.75, 1), 
+                                  na.rm = TRUE), 
                 include.lowest = TRUE, 
                 labels = c("Q1", "Q2", "Q3", "Q4"))
 
 # Create the interaction plot
 interaction.plot(d$X2_cat, d$X1_cat, d$Y)
+
+#Verify individual points in interaction plots:
+# example: X2 in Q1 and X1 in Q3 should be around 5:
+d %>%
+  dplyr::filter(X2_cat == "Q1", X1_cat == "Q3") %>%
+  dplyr::summarise(mean_Y = mean(Y), sd_Y = sd(Y), n = n())
+# 4.942545 5.412585 8
+
+# What do we see?
+# Still much variation and not parallel lines.
+# -> change sigma
+# -> change n

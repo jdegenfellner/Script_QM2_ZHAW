@@ -1,4 +1,4 @@
-set.seed(1)
+#set.seed(1)
 
 n <- 4
 
@@ -13,6 +13,9 @@ df
 
 m <- lm(Y ~ X1 + X2 + X3, data = df)
 summary(m)
+
+# sum of residual squares (SSR)
+sum(resid(m)^2) # 0
 
 summary(m)$r.squared
 summary(m)$sigma

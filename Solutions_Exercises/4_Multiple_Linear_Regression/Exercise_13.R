@@ -1,5 +1,6 @@
 library(ggdag)
 library(dagitty)
+library(tidyverse)
 
 # Define the DAG
 dag <- dagitty("dag {
@@ -8,7 +9,6 @@ dag <- dagitty("dag {
   Lighter -> LungCancer
 }")
 
-# Plot the DAG
 ggdag(dag, layout = "circle") +
   geom_dag_point(size = 20, color = "black") +
   geom_dag_text(size = 2.5, color = "white") +

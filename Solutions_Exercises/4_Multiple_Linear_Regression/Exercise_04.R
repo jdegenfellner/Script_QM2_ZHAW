@@ -7,7 +7,7 @@ library(tidyverse)
 set.seed(123)
 n <- 100
 X1 <- rnorm(n, 0, 5)
-X2 <- rnorm(n, 0, 5)
+X2 <- rnorm(n, 0, 5) # independent covariates (not realistic)
 
 # 1) Standardize (in this case, since we know the true model, -------
 # we could just use rnorm(n, 0, 1) instead of standardizing)
@@ -43,7 +43,7 @@ set.seed(123)
 n <- 100
 X1 <- rnorm(n, 0, 5)
 X2 <- rnorm(n, 0, 5)
-Y <- 10 + 0.5 * X1 + 1 * X2 + 0.00005 * X1 * X2 + rnorm(n, 0, 5)
+Y <- 10 + 0.5 * X1 + 1 * X2 + 0.0005 * X1 * X2 + rnorm(n, 0, 5)
 d <- data.frame(X1 = X1, X2 = X2,
                 X1_st, X2_st, Y = Y)
 m4.4 <- lm(Y ~ X1 * X2, data = d)

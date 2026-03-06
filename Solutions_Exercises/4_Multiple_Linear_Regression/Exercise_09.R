@@ -24,7 +24,9 @@ a_start <- 120  # Intercept around average height
 b1_start <- -50  # Negative to avoid unrealistic growth
 b2_start <- -0.05  # Negative to ensure decay
 
-initial_params <- c(a = a_start, b1 = b1_start, b2 = b2_start)
+initial_params <- c(a = a_start, 
+                    b1 = b1_start, 
+                    b2 = b2_start)
 
 # Constrain b1 and b2 to be negative
 optim_results <- optim(

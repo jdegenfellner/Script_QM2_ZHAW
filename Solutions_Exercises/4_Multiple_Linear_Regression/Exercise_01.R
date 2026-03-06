@@ -99,3 +99,4 @@ ggplot(d, aes(x = weight_s, y = height)) +
        x = "Standardized weight",
        y = "Height") +
   theme(plot.title = element_text(hjust = 0.5))
+
