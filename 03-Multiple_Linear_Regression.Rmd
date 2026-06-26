@@ -35,11 +35,11 @@ the predictor ($\beta_i$).
 ### Adding a transformed predictor to the model {#adding_transformed_predictor_bayes}
 
 Around 4.5. in the book [Statistical Rethinking](https://civil.colorado.edu/~balajir/CVEN6833/bayes-resources/RM-StatRethink-Bayes.pdf)
-there is are lineare regression using a quadratic term for weight. 
+there is a linear regression using a quadratic term for weight. 
 It is a principle, called the "**variable inclusion principle**", that we always include the lower order terms when fitting a model
 with higher order terms. See [Westfall](https://vdoc.pub/documents/understanding-regression-analysis-a-conditional-distribution-approach-84oqjr8sqva0), 
 p. 213. If we do not include the lower order terms, the coefficient does not measure what
-we want it to meausure (curvature in our case). For instance, if we want to model a quadratic relationship (parabola) between
+we want it to measure (curvature in our case). For instance, if we want to model a quadratic relationship (parabola) between
 weight and height, we also have to include the linear term for weight ($x_i$).
 Since we do not assume the relationship between weight and height to be linear but
 quadratic (which is a polynomial of degree 2), we call this a 
@@ -66,8 +66,8 @@ d %>% ggplot(aes(x = weight, y = height)) +
 ```
 
 It would not be a good idea to fit a linear trend through this data,
-because we would not caupture the relationship adequately. 
-The red line is a [loess smothing](https://en.wikipedia.org/wiki/Local_regression) line
+because we would not capture the relationship adequately. 
+The red line is a [loess smoothing](https://en.wikipedia.org/wiki/Local_regression) line
 which is often used to capture non-linear relationships.
 The blue line is the usual line from classic linear regression (from the previous chapter).
 Which one describes the data more accurately? 
@@ -89,7 +89,7 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma) \\
 \end{eqnarray*}
 
 The prior for $\beta_1$ is log-normal, because we can reasonably assume
-the the overall linear trend is positive. 
+the overall linear trend is positive. 
 The prior for $\beta_2$ is normal, because
 we are not so sure about the sign yet. If we thought back to our school days to the topic of 
 "curve discussion" or parabolas, we could probably also assume that $\beta_2$ is negative.
@@ -216,9 +216,9 @@ Since the !Kung San data set has already such a high $R^2$ ($=0.95$!) with the q
 [below](#adding_predictor_freq) in the frequentist setting
 to estimate the coefficients of the model with two predictors here as well.
 We *have* the true but (usually) unknown data generating 
-mechnisms (for didactic reasons).
+mechanisms (for didactic reasons).
 
-We use rather uniformative priors and fit the model using `quap`:
+We use rather uninformative priors and fit the model using `quap`:
 
 
 ```{r}
@@ -258,7 +258,7 @@ For further, more detailed information on model checking, refer to chapter 6 of
 Anyhow, we plot two posterior predictive checks here.
 We test the model within the same data set. 
 In order to do this, we create new observations
-by drawing from the posterior distribution and compare these with the acutally 
+by drawing from the posterior distribution and compare these with the actually 
 observed values. This is called **posterior predictive checks**.
 
 **First, we plot the observed $Y$ values against the predicted $Y$ values ($=\hat{Y}$)** 
@@ -268,12 +268,12 @@ close to it. We could also compare these two plots with the mean-model (see [exe
 
 ```{r}
 # 1) Posterior predictive checks Y vs Y_hat
-# see Statstical Rethinking p 138.
+# see Statistical Rethinking p 138.
 # call link without specifying new data
 # so it uses the original data
 mu <- link(m4.2)
 
-# summarize samples accross cases
+# summarize samples across cases
 mu_mean <- apply(mu, 2, mean)
 mu_PI <- apply(mu, 2, PI, prob = 0.89)
 
@@ -341,7 +341,7 @@ you will probably see a discrepancy between the observed and predicted values in
 What could you do? You could use a two step process (model the probability that a person is pain-free 
 and then model the pain intensity for the people who have pain) or use a different model (like a zero-inflated model).
 
-Note that we did not explicitely assume normally distributed errors in the model definition above,
+Note that we did not explicitly assume normally distributed errors in the model definition above,
 so we won't check this here but in the Frequentist framework below.
 
 ## Linear regression with 2 predictors in the Frequentist Framework 
@@ -363,7 +363,7 @@ estimators (OLS) are the best (smallest variance) linear unbiased (on average co
 
 ### Adding a transformed predictor to the model {#adding_transformed_predictor_freq}
 
-No, let's fit the same model as [above](#adding_transformed_predictor_bayes) in the Bayesian framework.
+Now, let's fit the same model as [above](#adding_transformed_predictor_bayes) in the Bayesian framework.
 
 The model is:
 
@@ -436,10 +436,10 @@ We could also create a new variable as before. Whatever you prefer.
   trend line with positive slope going through the data, and $\beta_2$ is non-zero
   since there is clearly (non-trivial) curvature in the scatterplot.
 - The $R^2$ is a whopping $0.96$ which could be a sign of overfitting, but
-  in this case we conclude that the true relationship is caputured rather well.
+  in this case we conclude that the true relationship is captured rather well.
   [Overfitting](https://en.wikipedia.org/wiki/Overfitting) would occur if 
   our curve would rather fit the noise in the data than
-  the underying trend.
+  the underlying trend.
 
 #### Checking model assumptions
 
@@ -551,7 +551,7 @@ plot_ly() %>%
 ```
 
 This is, of course, a very idealized situation. There is no curvature in the plane,
-no interaction, no outliers, no heteroscadasticity. It's the simplest case of multiple regression
+no interaction, no outliers, no heteroscedasticity. It's the simplest case of multiple regression
 with 2 predictors. Reality is - usually - more complicated.
 
 Let's look at the summary output and check model assumptions:
@@ -573,8 +573,8 @@ other models apart from linear regression) *depending* on the goal at hand (pred
 - **Prediction** (i.e. guessing the outcome as good as possible) seems to be easier 
   than explanation. For instance, within linear models and 
   just a handful of predictors, one can even brute force the problem by searching through
-  all subsets of predictors. If that is not possible, one could use clever algortithms, like 
-  [best subest selection](https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/). 
+  all subsets of predictors. If that is not possible, one could use clever algorithms, like 
+  [best subset selection](https://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/). 
 
 - **Explanation** (looking for causal relationships between variables) is more difficult.
   - What is **not** a good idea if you want to find *causal* relationships,
@@ -695,7 +695,7 @@ $$ F = \frac{\left(RSS_{\text{Model 1}} - RSS_{\text{Model 2}}\right) / \left(df
 where $RSS$ is the residual sum of squares, 
 $df$ are the degrees of freedom of the residual sum of squares for both models.
 
-The output of the `anova` command shows us the residual degress of freedom (`Res.Df`)
+The output of the `anova` command shows us the residual degrees of freedom (`Res.Df`)
 of both models, the residual sum of squares errors of both models (`RSS`), 
 the sum of squared errors between model 1 and model 2 (`Sum of Sq`), the value of the 
 F-statistic and the $p$-value for the hypothesis, that the coefficient for
@@ -740,7 +740,7 @@ there are no $p$-values at all. I like that.
 If you again look at the comparison of the RSS between the two models, you would 
 immediately see that the model with the interaction term is better (at least with respect to this metric). 
 The difference is huge. We have already mentioned in the context of $R^2$ not to overinterpret 
-such metric, because RSS is monotonically descreasing with number of variables added and reaches
+such metric, because RSS is monotonically decreasing with number of variables added and reaches
 zero when the number of variables equals the number of data points (see [exercise 3](#exercise3_multiple_regression)).
 
 ### Using an interaction plot to suspect a potential interaction {#interaction_plot}
@@ -952,7 +952,7 @@ summary(lm(Y ~ X + Z))# Step 3
 Both coefficients for $X$ are "significant" in steps 1 and 2.
 The coefficients for $Z$ in step 3 is "significant" and the coefficient for
 $X$ is smaller compared to step 1. And not to forget: the very small $p$-values are strongly
-related to the very large smaple size and a strict cutoff ($\alpha = 0.05$) makes no sense.
+related to the very large sample size and a strict cutoff ($\alpha = 0.05$) makes no sense.
 
 **Example**: *Hours of studying* is associated with *exam performance*.
 This observation makes sense. A mediator in this context: *understanding/knowledge*.
@@ -1007,9 +1007,9 @@ weren't it for $Z$.
 
 **Example**: *Carrying lighters* is (spuriously) associated with *lung cancer*. Obviously, *carrying a lighter*
 does *not* cause lung cancer. *Carrying a lighter* is associated with *smoking*, since smokers need to light their
-cigarrettes and how often do non-smokers carry a lighter just for fun? 
+cigarettes and how often do non-smokers carry a lighter just for fun? 
 *Smoking* is (causally) associated with *lung cancer*. If you just look at the association between
-*carrying a ligher* and *lung cancer*, you would find an association. But if you condition on *smoking*, the association
+*carrying a lighter* and *lung cancer*, you would find an association. But if you condition on *smoking*, the association
 disappears. See [exercise 13](#exercise13_multiple_regression).
 
 ### Collider {#collider}
@@ -1094,7 +1094,7 @@ leg_right <- leg_prop * height + rnorm(N, 0, 0.02)
 d <- data.frame(height = height, leg_left = leg_left, leg_right = leg_right)
 cor(d$leg_left, d$leg_right)
 
-# Vizualize the data:
+# Visualize the data:
 
 # Fit simple linear regression models
 mod1 <- lm(leg_right ~ leg_left, data = d)
@@ -1189,7 +1189,7 @@ Leaving out the right leg length would give the correct result ([exercise 11](#e
 
 #### Example from Westfall 8.4
 
-In the example below, the second prector $X_2$ is a *perfect* linear 
+In the example below, the second predictor $X_2$ is a *perfect* linear 
 function of the first predictor $X_1$.
 
 ```{r}
@@ -1287,7 +1287,7 @@ in Chapter 5 in the Statistical Rethinking book.
   - Think about the data generating process. How did the data come about?
   - There is no shame in fitting exploratory models too.
 
-- **Draw a DAG** (directed acyclic graph) of the hypthesized relationships between 
+- **Draw a DAG** (directed acyclic graph) of the hypothesized relationships between 
   the variables, even though we will not do formal 
   [causal inference](https://miguelhernan.org/whatifbook) in this lecture yet
   (hopefully in the next).
@@ -1439,7 +1439,7 @@ i.e., just add them to the regression model.
 This is the case:
 
 ```{r}
-# Age _||_ BMI | Gnder, PhyA
+# Age _||_ BMI | Gender, PhyA
 summary(lm(Age ~ BMI + Gender + PhysActive, data = df %>% dplyr::filter(Age >= 20)))
 ```
 
@@ -1469,8 +1469,8 @@ variable (physical activity yes/no).
 Surprise, surprise, we could try a **multiple linear regression model** here.
 
 As a first approximation, let's assume *BPSysAve* is (sufficiently) normally distributed,
-which can be critized. Let's quickly visualize the distribution of *BPSysAve* and overlay
-a normal density with paramaters estimated from the data ($\mu$ sample mean of *BPSysAve*, 
+which can be criticized. Let's quickly visualize the distribution of *BPSysAve* and overlay
+a normal density with parameters estimated from the data ($\mu$ sample mean of *BPSysAve*, 
 $\sigma$ sample standard deviation of *BPSysAve*):
 
 ```{r, warning=FALSE}
@@ -1546,7 +1546,7 @@ Note that age and gender are not influenced by each other.
 
 #### Prior Predictive Checks {#prior_predictive_checks_NHANES}
 Now we simply draw from the priors and thereby generate systolic blood pressure values.
-Note that we implicitely assumed below that $PhysActive=1$ (person is physically active);
+Note that we implicitly assumed below that $PhysActive=1$ (person is physically active);
 $Age_{centered}=1$ (1 years above average) and $Gender = 1$ (could mean female). 
 
 ```{r}
@@ -1564,7 +1564,7 @@ BPSysAve_sim <- rnorm(n_sims, beta_0_vec + beta_1_vec + beta_2_vec + beta_3_vec,
 This yields also negative values (please verify) for *BPSysAve*, which is biologically not plausible.
 
 In [exercise 15](#exercise15_multiple_regression) we will play around with the priors 
-until the prior predictive check producues plausible values. 
+until the prior predictive check produces plausible values. 
 
 **Admitted**, one should probably not look at the distribution of data while doing this.
 On the other hand, we could have just Googled the distribution of blood pressure values.
@@ -1694,7 +1694,7 @@ for $p$-values. The other coefficients including the estimate for $\sigma$ are a
 It's always a good idea to double-check. 
 
 Model fit could be better, the model thinks the blood pressure is normally distributed.
-There also seems to be some heteroscadasticity and the residuals are not normally distributed.
+There also seems to be some heteroscedasticity and the residuals are not normally distributed.
 
 **By the way, usually**, one would fit this model by throwing in all variables into the model, **including BMI**.
 Let's see if this approach changes the results:
@@ -1733,7 +1733,7 @@ Currently trying to resolve this issue.)
 
 **Second**, we further try to model $\sigma$ as a function of $\mu$.
 For higher expected values of *BPSysAve*, we would expect higher variability.
-Hence, we try to **explicitely model heteroscadasticity**.
+Hence, we try to **explicitly model heteroscedasticity**.
 One could argue that the exponential function is not the best choice due 
 to numerical problems. 
 
@@ -1771,7 +1771,7 @@ set.seed(122)
 
 # calibrate parameters for priors.
 hist(rlnorm(10000, meanlog = 5, sdlog = 0.5))
-# -> meanlog shuold be around 5!, not 140!
+# -> meanlog should be around 5!, not 140!
 
 m_NHANES_lnorm <- quap(
   alist(
@@ -1824,7 +1824,7 @@ To get the expected difference in blood pressure (in mmHg) between
 active and inactive people, we first need to calculate the difference in the
 *parameters* of the log-normal distribution.
 After that, we use the parameters to calculate the difference
-in exptected values of the log-normal distribution.
+in expected values of the log-normal distribution.
 $$ \mu_{LogNormal} = \exp(\mu + \frac{\sigma^2}{2})$$
 This way, we get the desired result.
 $9485$ samples from $10000$ remain after cutting off the extreme values.
@@ -1865,7 +1865,7 @@ See [exercise 17](#exercise17_multiple_regression).
 Summarizing the results, we find the expected direction of association in our first model.
 The effect of physical activity on blood pressure was negative. 
 After improving the model fit, we concluded that the small but clinically irrelevant effect
-from the first model dissapeared.
+from the first model disappeared.
 It would be interesting to see how other variables containing more information 
 influence blood pressure, like *PhysActiveDays* (Number of days in a typical week 
 that participant does moderate or vigorous intensity activity).
@@ -1918,7 +1918,7 @@ with 4 rows and 4 columns.
 
 - Fit a model with $Y$ as the dependent variable and $X_1, X_2, X_3$ as predictors.
 - How big is $R^2$?
-- Could you have calulated this without `lm`and R?
+- Could you have calculated this without `lm`and R?
 
 ### [E] Exercise 4 {#exercise4_multiple_regression}
 
@@ -1978,7 +1978,7 @@ Let's try to verify if Berkson's paradox (which we have mentioned in the
 - All three scores are individually normally distributed with mean 100 and standard deviation 15.
 - Calculate the correlation matrix `cor()` of all students and the admitted students.
 - Are any of the three variables correlated?
-- Plot a scatterplot of the math score and the verbal score und color the points according 
+- Plot a scatterplot of the math score and the verbal score and color the points according 
   to being admitted or not. You can add trendlines for the two groups.
 
 ### [E] Exercise 11 {#exercise11_multiple_regression}
@@ -2055,7 +2055,7 @@ the total causal effect of *Number of waffle  houses* (W) on
 *divorce rate* (D).
 
 - Simulate data for the DAG.
-- Verify that that both adjustment sets   $\{A, M\} \text{ and } \{S\}$ 
+- Verify that both adjustment sets   $\{A, M\} \text{ and } \{S\}$ 
   yield the same result.
 
 ## eLearning 2
@@ -2079,7 +2079,7 @@ the total causal effect of *Number of waffle  houses* (W) on
 
 - Read [this paper](https://www.sciencedirect.com/science/article/pii/S1836955314000083) 
   from the Journal of Physiotherapy.
-  - Try to critisize the paper with respect to the content we have covered so far.
+  - Try to criticize the paper with respect to the content we have covered so far.
   - Did they apply $p$-value correction for multiple testing?
   - Did they work with a strict $p$-value cutoff?
   - Is the data of the trial available?

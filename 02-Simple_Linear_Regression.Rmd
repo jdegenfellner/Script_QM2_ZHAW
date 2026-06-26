@@ -35,7 +35,7 @@ The word "predictor" is important here. It is a technical term
 and describes a variable that we know (in our case weight) and with 
 which we want to "guess as good as possible" the value of the 
 dependent variable (in our case height). "As good as possible"
-means that we put a penalty on an error. The farer our prediction
+means that we put a penalty on an error. The farther our prediction
 is away from the true value ($y_i$), the higher the penalty.
 And not only that, but if you are twice as far away from the true value,
 you should be penalized four times as much. This is the idea behind
@@ -61,12 +61,12 @@ It's not often that you see such a clean plot.
 The scatterplot indicates a linear relationship between the two variables.
 The higher the weight, the higher the height; with some deviations of course and
 we decide that normally distributed errors are a good idea.
-This relationsip is neither causal, nor deterministic.
+This relationship is neither causal, nor deterministic.
 
 - It is not causal since an increase in weight does not 
   necessarily lead to an increase in height, especially in grown-ups.
 - It is not deterministic since there are deviations from the line. 
-  It if was deterministic, we would not need statistical modeling. 
+  If it was deterministic, we would not need statistical modeling. 
 
 For simpler notation, we will call `d2$weight` $x$. $\bar{x}$
 is the mean of $x$.
@@ -177,7 +177,7 @@ for the prior of $\beta$ which can only take non-negative values.
 
 $$\beta \sim \text{Log-Normal}(0, 1)$$
 
-Lets plot the priors again.
+Let's plot the priors again.
 
 ```{r}
 set.seed(2971)
@@ -236,8 +236,8 @@ plot(mod)
 ```
 
 Note, that the credible intervals in the plot of the coefficients are 
-hardly noticable. The reason is that the intercept $a$ is rather large,
-whereas $b$ and sigma are comparativly small. The plot is scaled to the
+hardly noticeable. The reason is that the intercept $a$ is rather large,
+whereas $b$ and sigma are comparatively small. The plot is scaled to the
 largest parameter.
 
 We can improve this by centering the height variable as well. Or,
@@ -260,7 +260,7 @@ positive (of course we designed it that way too via the prior).
 It might also be interesting to inspect the **variance-covariance matrix**, 
 respectively the correlation between the parameters as we did before
 in the intercept model. Remember, these are the correlations of
-parameters in the multivariate (because three paremeters simulatenously) 
+parameters in the multivariate (because three parameters simultaneously) 
 posterior distribution.
 
 ```{r}
@@ -283,7 +283,7 @@ post <- extract.samples(mod)
 dens(post$a, col = rangi2)
 dens(post$b, col = rangi2)
 
-# both posteror plots seem symmetric
+# both posterior plots seem symmetric
 # we use the mean as point estimate
 # for a and b.
 a_quap <- mean(post$a)
@@ -342,7 +342,7 @@ shade(mu.PI, weight.seq)
 
 The function `PI` from the `rethinking` package calculates the 89% percentile interval 
 for the mean of the height at a certain weight. The `apply` function 
-apples this function to each columns (hence the `2`) of the matrix `mu`.
+applies this function to each columns (hence the `2`) of the matrix `mu`.
 
 As we can see, we are pretty sure about the mean of height which 
 we wanted to model in the first place.
@@ -384,7 +384,7 @@ percentile interval for each weight.
 The lighter and wider shaded region is where the model expects to find 89%
 of the heights of a person with a certain weight. 
 
-This part is **sometimes a bit desillusioning** when seen for the first time:
+This part is **sometimes a bit disillusioning** when seen for the first time:
 Draw a horizontal line at 150 cm and see how many weights (according to 
 the individual prediction) are compatible with this height. Weights 
 from 30 to 50 kg are compatible with this height according to the 
@@ -589,7 +589,7 @@ for $i = 1, \dots, n$.
 Interpretation of this formula:
 
 The outcome variables $Y_i$ are independently (from each other, 
-since the errors are indepentent from each other) conditionally normally distributed
+since the errors are independent from each other) conditionally normally distributed
 (conditioned on $X_i=x_i$) with a mean that is linearly depending on
 true but unknown parameters $\beta_0, \beta_1, \dots, \beta_k$ and a 
 constant variance $\sigma^2$.
@@ -739,7 +739,7 @@ be in the interval in 96% of the cases.**
 
 We can also use the simple [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)). 
 The advantage of this technique is that we can basically always use it,
-no matter how compliated the estimator is. We do not need formulae.
+no matter how complicated the estimator is. We do not need formulae.
 We simply
 
 - create 1000 bootstrap samples, 
@@ -762,7 +762,7 @@ t(apply(boot_coefs, 2, quantile, c(0.02, 0.98)))
 ```
 The CIs are quite similar to the ones from the `confint` function.
 
-In the Bayesian setting, we used the centered weight variable. Let's to this here too for 
+In the Bayesian setting, we used the centered weight variable. Let's do this here too for 
 comparison and use 89% coverage probability.
 
 ```{r}
@@ -925,12 +925,12 @@ If you have as many explanatory variables as data points, you can get an $R^2$ o
 [overfitting](https://en.wikipedia.org/wiki/Overfitting) at its "best" (which we want to avoid). 
 You would just get a value for each data point by setting all other $\beta_i$ to zero and 
 $\beta_i = \frac{y_i}{x_i}$. 
-Since we want to find the unterlying process, we want to avoid this.
+Since we want to find the underlying process, we want to avoid this.
 
 Although not perfect, one way to mitigate the influence of "too many" variables
-on $R^2$ is to use the adjusted $R^2$, which an also be found in the R output (`Adjusted R-squared`).
+on $R^2$ is to use the adjusted $R^2$, which can also be found in the R output (`Adjusted R-squared`).
 
-#### Seperating property of regression due to $R^2$: {#seperating_property}
+#### Separating property of regression due to $R^2$: {#seperating_property}
 [Peter Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4)
 explains (in Figure 8.1 of the book) how $R^2$ influences the separation of distributions in our simple regression model.
 
@@ -966,7 +966,7 @@ x_low_high <- quantile(d2$weight, probs = c(0.1, 0.9))
 #coef(mod)
 # Conditional distribution of height is: N(113.8793936  + 0.9050291 *weight, 5.086)
 
-# Draw to distributions for weights = x_low_high into one diagram
+# Draw two distributions for weights = x_low_high into one diagram
 # 1) N(113.8793936  + 0.9050291 *x_low_high[1], 5.086)
 # 2) N(113.8793936  + 0.9050291 *x_low_high[2], 5.086)
 
@@ -1065,9 +1065,9 @@ combined_plot <- combined_plot +
 combined_plot
 ```
 
-In the left plot, given $X = x_{low}$ gives a a rather strongly shifted normal distribution of
+In the left plot, given $X = x_{low}$ gives a rather strongly shifted normal distribution of
 potentially observable heights for this weight compared to $X=x_{high}$.
-We would have a lower missclassification error when trying to distinguish heights
+We would have a lower misclassification error when trying to distinguish heights
 of very light and very heavy people in the sample just by seeing the height. 
 You can think of an even more extreme separation of these distributions,
 which would happen, when $R^2$ is very high or the true slope is much higher.
@@ -1114,11 +1114,11 @@ is taller than a person in the 10% quantile of the weight given this data set.
 See also [exercise 11](#exercise11_simpl_lin_reg).
 
 ### Check regression assumptions
-Everytime we fit a model, we should check the assumptions [above](#_model_assumptions).
+Every time we fit a model, we should check the assumptions [above](#_model_assumptions).
 We do this for different reasons (which will become clearer over the course). 
 The assumptions are independent of each other.
 They can all be true or false or some can be true and some false 
-([Wesftall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), p.21).
+([Westfall](https://www.routledge.com/Understanding-Regression-Analysis-A-Conditional-Distribution-Approach/Westfall-Arias/p/book/9780367493516?srsltid=AfmBOore3O_Ciecl0TTkr9AjPIY1d6OmbQa7o7IAdKpTSkD8s9HkwzD4), p.21).
 Chapter 4 in the book is dedicated to this topic. It is important to know
 that the assumptions are usually not met exactly. The question is *how badly* they are violated,
 not *if* they are violated.
@@ -1237,7 +1237,7 @@ ggplot(d2, aes(x = predicted_height, y = abs(residuals))) +
 
 This will probably not be a perfectly horizontal line, since
 there are less points at the end of the range of the predictor.
-For instance, There are less people with extreme weights in the data set.
+For instance, there are less people with extreme weights in the data set.
 
 #### Independence, uncorrelated errors
 
@@ -1274,7 +1274,7 @@ cat("cor=",cor(residuals, residuals_lagged, use = "pairwise.complete.obs"))
 plot(residuals, residuals_lagged)
 ```
 
-At least with a lag of $1$, there so no large correlation between the residuals.
+At least with a lag of $1$, there is no large correlation between the residuals.
 
 #### Normality {#normality_assumption}
 
@@ -1283,7 +1283,7 @@ is a normal distribution. We do not look at the normality of $Y$ itself,
 since it is not a formal requirement, that $Y$ is normally distributed.
 It might well occur that the conditional distributions are all normal,
 but the variance is not constant. Then we would have heteroskedasticity,
-but the assumption of normality would be fullfilled.
+but the assumption of normality would be fulfilled.
 
 We need to assess the normality of the residuals $e_i = y_i - \hat{y}_i$
 I like doing this with a [Q-Q plot](https://jdegenfellner.github.io/Script_QM1_ZHAW/descriptive_stats.html#q-q-plots) 
@@ -1312,7 +1312,7 @@ library(performance)
 check_model(mod)
 ```
 
-In this case, everything looks fine. Let`s go through the plots and explain them one by one:
+In this case, everything looks fine. Let's go through the plots and explain them one by one:
 
 ##### Posterior predictive check (upper left)
 
@@ -1333,7 +1333,7 @@ The blue lines in the graph (output from `check_model`) are density
 estimations of model predicted heights, the green line is the density estimate of the
 observed heights. 
 
-Let`s try to replicate this plot.
+Let's try to replicate this plot.
 First, we want to simulate new data from the model.
 A scatter plot is another nice way to check if model predictions
 are in line with the observed data. One could repeat this process
@@ -1392,7 +1392,7 @@ legend("topright", legend = c("Observed", "Simulated"),
 
 As you can see, the densities of the observed and simulated data are broadly similar.
 One could argue that heights in the range of 150-160 cm are a bit overestimated by the model.
-Depending on the context, this might be a problem or not. Let`s accept the model for now.
+Depending on the context, this might be a problem or not. Let's accept the model for now.
 
 ##### Linear fit (upper right)
 This is the same plot as [above](#linearity): $(\hat{y}_i, e_i)$.
@@ -1414,10 +1414,10 @@ The contours (dotted green lines) are the Cook's distance, in this
 case at a Cook's distance of 0.5.
 There is a [formula](https://en.wikipedia.org/wiki/Cook%27s_distance#Relationship_to_other_influence_measures_(and_interpretation))
 that relates the leverage ($h_{ii}$), the Cook's distance
-and the residuals. Holding Cook`s distant constant at 0.5, 
+and the residuals. Holding Cook's distance constant at 0.5, 
 gives you the green dotted line in the plot.
 
-Let`s create a nasty outlier and see what happens:
+Let's create a nasty outlier and see what happens:
 
 ```{r, echo=FALSE}
 library(rethinking)
@@ -1427,7 +1427,7 @@ d <- Howell1
 d2 <- d[d$age >= 18, ] # only adults
 mod <- lm(height ~ weight, data = d2)
 
-# Lets's create an outlier and see what happens,
+# Let's create an outlier and see what happens,
 # maybe an outlier in x and y
 
 # maybe 3 sd above the mean of weight
@@ -1500,7 +1500,7 @@ ggplot(data = df, mapping = aes(sample = residuals)) +
 ```
 
 The normality assumption seems to hold. Note that in the above QQ plot, 
-we detrended the residuals and used a bootrap confidence band. Depending 
+we detrended the residuals and used a bootstrap confidence band. Depending 
 on the band type, the confidence band can be wider or narrower and include
 or exclude points.
 
@@ -1513,7 +1513,7 @@ for the effect sizes ($\beta$s) using `confint()` (p. 74 in Westfall).
 ### Bootstrap fit
 In order to get a feeling for the variability of the model with regards to the predictors as well, 
 we can bootstrap the whole data set, fit the model and draw regression lines.
-We create $100$ bootrap replicates of our data set `d2` by drawing with 
+We create $100$ bootstrap replicates of our data set `d2` by drawing with 
 repetition. For every bootstrap replicate, we fit the model and draw the regression line.
 
 ```{r, echo=FALSE, warning=FALSE}
@@ -1641,7 +1641,7 @@ See [exercise 8](#exercise8_simpl_lin_reg).
 A detail that is not mentioned often in introductory statistics courses
 is the question of whether the predictor variable $X$ is random or fixed.
 In our case, we did not specify the weights of the people in the !Kung San data set.
-*Obervational* data was collected and we have no control over the weights.
+*Observational* data was collected and we have no control over the weights.
 In an *experimental* setting, we could have controlled the weights of the people.
 We could have for instance only included people with weights at certain steps (50 kg, 60 kg, 70 kg).
 In the latter case, we could consider X as fixed. In the former case, we consider X as random.
@@ -1672,12 +1672,12 @@ h_i &\sim& \text{Normal}(\mu_i, \sigma)\\
 \sigma &\sim& \text{Uniform}(0, 50)
 \end{eqnarray*}
 
-- What ist the expected height when $x_i = \bar{x}$?
+- What is the expected height when $x_i = \bar{x}$?
 - What is the expected height when $x_i$ changes by 1 unit?
 
 ### [E] Exercise 2 {#exercise2_simpl_lin_reg}
 
-Look at the marginal distrubutions of the parameters in the Bayesian model.
+Look at the marginal distributions of the parameters in the Bayesian model.
 
 - Plot the posterior distribution of all 3 parameters.
 - Include in the plot a 99% credible interval (HDI).
@@ -1734,7 +1734,7 @@ Go to the model assumptions in the classical regression model ([Model Assumption
 
 Go to the residuals [above](#normality_assumption) where we tested the normality assumption.
 
-- Calcuate mean and standard deviation from the residuals of the model
+- Calculate mean and standard deviation from the residuals of the model
   that regresses height on weight.
 - Simulate from a normal distribution using these parameters.
 - Get a feeling how the QQ plot changes by drawing the QQ plot repeatedly.
@@ -1789,7 +1789,7 @@ that the true value of the coefficient (intercept and slope) lies in the CI in X
   lies in the CI.
 
 Changing the distribution of the covariate $x$ should not change the results, since
-we only get a different amount of data points agross the range of $x$.
+we only get a different amount of data points across the range of $x$.
 
 - Verify this statement by changing the distribution of $x$.
 
@@ -1849,7 +1849,7 @@ Welche der folgenden Aussage(n) ist/sind richtig?
 
 ### Question 3
 
-Welche Voraussetzung(en) gilt/gelten im klassichen linearen Regressionsmodell?
+Welche Voraussetzung(en) gilt/gelten im klassischen linearen Regressionsmodell?
 
 - Die erklärenden Variablen (Prädiktoren) müssen normalverteilt sein. 
 - Die Fehler $\varepsilon_i$ sind unabhängig.

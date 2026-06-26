@@ -14,10 +14,10 @@ in order to make it better
 Underlying our models, there are theories which should be [falsifiable](https://en.wikipedia.org/wiki/Falsifiability)
 and testable.
 For instance, I would be really surprised if I pull up my multimeter and measure the voltage (V) and
-electric current (I) at a resistence (R) in a circuit and find that [Ohm's law](https://en.wikipedia.org/wiki/Ohm%27s_law) $V = IR$ is not true. 
+electric current (I) at a resistance (R) in a circuit and find that [Ohm's law](https://en.wikipedia.org/wiki/Ohm%27s_law) $V = IR$ is not true. 
 This [**law**](https://en.wikipedia.org/wiki/Scientific_law)
 can be tested over and over again and if one would find a single valid counterexample, 
-the law would be falsified. It is also true that the law is probably not 100% accularate,
+the law would be falsified. It is also true that the law is probably not 100% accurate,
 but an extremely precise approximation of reality. Real-world measurements carry 
 measurement errors and when plotting the data, one would see that the data points
 might not lie exactly on a straight line. This is not a problem.
@@ -34,7 +34,7 @@ You can watch [this](https://www.youtube.com/watch?v=3d5ivs_8amQ&ab_channel=Very
 In [QM1](https://jdegenfellner.github.io/Script_QM1_ZHAW/probs.html) we have already 
 made testable predictions with respect to the probability of an event. 
 In our 1000-researcher experiment we stated for instance, that the probability of
-obeserving $66$ or more findings would be very unlikely. If such an event would 
+observing $66$ or more findings would be very unlikely. If such an event would 
 occur (while not repeating the experiment many times), we would reconsider our model.
 Inexactly, we could have stated something like: "We will not see more than 100 findings by chance."
 With respect to our multiple choice test at the end of QM1 we could predict:
@@ -61,7 +61,7 @@ Or to quote [George Box](https://www.tandfonline.com/doi/abs/10.1080/01621459.19
 In my opinion, statistical modeling is an art form: difficult and beautiful.
 
 **One goal of this course** is to improve interpretation and limitations of statistical models.
-They are not magical tools turning data into truth. Firstly, the rule gargabe in, garbage out (GABA) applies.
+They are not magical tools turning data into truth. Firstly, the rule garbage in, garbage out (GABA) applies.
 Secondly, statistical models are based on data and their variability and have inherent limitations
 one cannot overcome even with the most sophisticated models. This is expressed for instance 
 in the so-called [bias-variance trade-off](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff).
@@ -100,7 +100,7 @@ These models aim to answer **"what will happen?"** For instance:
 
 Predictive models are **data-driven**, often using complex algorithms to achieve high accuracy. 
 Their success is measured using metrics like [Root Means Square Error](https://computersciencewiki.org/index.php/Root-mean-square_error_(RMSE)) 
-(RMSE), [Area Unter the Curve](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#:~:text=The%20area%20under%20the%20curve,ranks%20higher%20than%20'negative') 
+(RMSE), [Area Under the Curve](https://en.wikipedia.org/wiki/Receiver_operating_characteristic#:~:text=The%20area%20under%20the%20curve,ranks%20higher%20than%20'negative') 
 (AUC), or **prediction error on new, unseen data**.
 Any amount of model complexity is allowed. One could for instance estimate a 
 [neural network](https://en.wikipedia.org/wiki/Neural_network_(machine_learning)) ("just" another statistical model) 
@@ -131,7 +131,7 @@ mentioned in the book were replicated and if the results are still valid.
 
 ### Practical Use of Statistical Models
 
-In my optinion, we should never be afraid to test our statistical models (as honestly as possible) against reality.
+In my opinion, we should never be afraid to test our statistical models (as honestly as possible) against reality.
 We could for instance ask ourselves: 
 
 - "How much better does this model estimate an outcome than the arithmetic mean? 
@@ -144,10 +144,10 @@ We could for instance ask ourselves:
 In some cases, these questions can be answered straightforwardly. 
 
 - In advertising (Google, Facebook, ...), a couple of percentage points in prediction quality might make a difference of millions 
-of dollars in revenue offsetting the statistitians salary by a large margin. 
+of dollars in revenue offsetting the statisticians salary by a large margin. 
 
 - Improved forecasts of a few percentage points in the stock market or just being [slightly better](https://en.wikipedia.org/wiki/Jim_Simons) 
-than the average, will make you faboulously rich.
+than the average, will make you fabulously rich.
 
 - Improved cancer forecasting might save lives, money and pain and is of course 
   not only measured in financial gains.
@@ -158,7 +158,7 @@ What do we actually want to do in general? Very broadly speaking we want to:
 **describe** the association of variables to each other that carry variability. 
 Hence, the relationship is not deterministic like $$y = 2x + 3$$ but rather we need
 to "loosen up" the relationship to account for variability (in $x$ and $y$).
-So, $y$ and $x$ are not fixed but aflicted with uncertainty.
+So, $y$ and $x$ are not fixed but afflicted with uncertainty.
 Depending on your philosophical view, you might say you want to find
 the "true" but unknown relationship (here, $2$ and $3$ are the true coefficients) between variables.
 This is what we do in simulation studies all the time: We know the true relationship, 
@@ -217,7 +217,7 @@ d <- Howell1
 str(d)
 d2 <- d[d$age >= 18, ] # only adults
 ```
-We want to model the adult height of the !Kun San people 
+We want to model the adult height of the !Kung San people 
 using prior knowledge (about the Swiss population) and data.
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
@@ -226,7 +226,7 @@ d2 %>% ggplot(aes(x = height)) + geom_histogram()
 ```
 
 Since we already have domain knowledge in this area, we can say that heights are usually normally distributed,
-or at least a mixture of normal distrubutions (female/male).
+or at least a mixture of normal distributions (female/male).
 We assume the following model:
 $$h_i \sim \text{Normal}(\mu, \sigma)$$
 
@@ -258,14 +258,14 @@ h_i \sim \text{Normal}(\mu, \sigma)
 standard deviation. As our current knowledge about the mean height, we use 
 a prior distribution for the mean (we do not know but want to estimate) by 
 assuming the mean of a population we know and a standard deviation of $20$ cm which
-allows are rather large range of possible values for $\mu$ 
+allows a rather large range of possible values for $\mu$ 
 (the unobserved population mean of the !Kung San people).
-$\sigma$ (the unobserved standard deviation of the population of !Kun San people) 
+$\sigma$ (the unobserved standard deviation of the population of !Kung San people) 
 is also unknown and a priori we restrict ourselves to values 
 between $0$ and $50$ cm, whereas we assign equal plausibility to all 
 values in this range (which can and should be critically discussed).
 
-**Vizualisation of the model structure**:
+**Visualisation of the model structure**:
 ```{r, echo=FALSE, , message=FALSE, warning=FALSE}
 library(DiagrammeR)
 grViz("
@@ -293,14 +293,14 @@ but let's do it anyways for demonstration purposes.
 We are not completely uninformed about body heights and express our 
 knowledge with the prior for $\mu$.
 The $20$ in the prior for the mean expresses our range of possible true 
-mean values and aknowledge
+mean values and acknowledge
 that there are a variety of different subpopulations with different means.
 
 Using the Swiss data in the [link](https://www.bfs.admin.ch/asset/de/30305714) 
 one could estimate that the standard deviation of the heights 
-from $21,873$ Swiss people is around is $25.67$ cm ([Exercise 1](#exercise1_Intro)).
+from $21,873$ Swiss people is around $25.67$ cm ([Exercise 1](#exercise1_Intro)).
 
-Remember, in the Baysian world, there is no **fixed but unknown**
+Remember, in the Bayesian world, there is no **fixed but unknown**
 parameter, but instead we define a distribution over the unobserved parameter.
 
 We **visualize the prior for $\mu$**:
@@ -309,7 +309,7 @@ We **visualize the prior for $\mu$**:
 curve(dnorm(x, 171.1, 20), from = 100, to = 250)
 ```
 
-A wide range of population means is possible. Once could discuss this distribution 
+A wide range of population means is possible. One could discuss this distribution 
 and maybe further restrict it.
 
 The **prior for $\sigma$** is uniform between $0$ and $50$ cm. This is a very wide prior and
@@ -333,7 +333,7 @@ predicts impossible values, we should reconsider our priors and/or model.
 So, we simply draw $\mu$ and $\sigma$ from the priors and then draw heights 
 from the normal distribution using the drawn parameters.
 
-**Vizualisation of the prior for heights**:
+**Visualisation of the prior for heights**:
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 sample_mu <- rnorm(10^4, 171.1, 20)
@@ -352,7 +352,7 @@ We first drew $\mu$ and $\sigma$ independently
 Then we drew heights from the normal distribution using the drawn parameters.
 You just follow the model structure.
 
-Now, there are a couple of different ways to estimtate the model incorporating 
+Now, there are a couple of different ways to estimate the model incorporating 
 the new data. For didactic reasons, grid approximation is often used (as in the books).
 For many parameters, this approach becomes more and more infeasible (due to combinatorial explosion). 
 
@@ -418,7 +418,7 @@ In our case, we approximated the **joint** posterior distribution of $\mu$ *and*
 They are not necessarily independent from each other, but in this case they are (see [exercise 6](#exercise6_Intro)).
 We know this from the prior definition above. $\mu$ and $\sigma$ are both
 defined as normal respectively uniform distributions and by definition do not
-influence each other. This is also visible in the vizualisation of the model structure: 
+influence each other. This is also visible in the visualisation of the model structure: 
 There is no confounding variable or connection between those priors. One could
 think of a common variable $Z$ that influences both $\mu$ and $\sigma$. This could
 be genetic similarity which could influence both $\mu$ and $\sigma$.
@@ -470,7 +470,7 @@ plot_ly(
   )
 ```
 
-**How beautiful ist that?**
+**How beautiful is that?**
 
 This shows how credible each combination of $\mu$ and $\sigma$ is based on our priors and the data observed.
 The higher the mountain for a certain parameter combination, the more credible this combination is.
@@ -491,7 +491,7 @@ We have seen, how we could use prior knowledge to fit a very simple model
 for body heights of a population (!Kung San) in the Bayesian framework.
 
 Now, let's start at the same point in the classical framework.
-Here, we do not use any prior knowledge, at least not that explicitely.
+Here, we do not use any prior knowledge, at least not that explicitly.
 
 The classical approach to fit a regression line is the so-called 
 **[least squares method](https://en.wikipedia.org/wiki/Least_squares)**.
@@ -532,7 +532,7 @@ equally weighted. The larger the deviation the (quadratically) larger the penalt
 are correct, the least squares
 estimator is a really good estimator. How good? Later...
 
-We want to miminize the following function:
+We want to minimize the following function:
 
 $$ SSE \text{ (Sum of Squared Errors) }(c) = (height_1 - c)^2 + (height_2 - c)^2 + 
 \ldots + (height_n - c)^2 =$$
@@ -557,7 +557,7 @@ $$ \hat{c} = \frac{1}{n} \sum_{i=1}^{n} height_i = \overline{height_i}$$
 
 The hat over the $c$ indicates that this is the estimated value of the 
 true but unknown $c$.
-Everytime we estimate a parameter, we put a hat over it.
+Every time we estimate a parameter, we put a hat over it.
 
 And voilà, we have estimated the parameter $c$ of the model, which is just the 
 sample mean of all the heights. In contrast to before, we did not put 
@@ -725,7 +725,7 @@ Repeat the Bayesian and Frequentist estimation of the simple model using a diffe
 which is included in R.
 
 - Set useful priors for the mean and standard deviation of the model 
-  for the Baysian and the frequentist version considering 
+  for the Bayesian and the frequentist version considering 
   your a priori knowledge about chicken weights.
 
 ### [M] Exercise 5 {#exercise5_Intro}
@@ -749,7 +749,7 @@ A correlation of zero does not necessarily imply independence.
   $\mathit{X}$ and $\mathit{Y}$ are perfectly dependent, but their correlation is zero. 
 
 ### [H] Exercise 7 {#exercise7_Intro}
-Go to the [section](#bivariate_normal) aobut the bivariate normal distribution below.
+Go to the [section](#bivariate_normal) about the bivariate normal distribution below.
 
 - How do you get the correlation matrix from the covariance matrix ($\Sigma$)?
   $$
@@ -837,11 +837,11 @@ correlation between $X$ and $Y$ ($\rho = \frac{2}{3}$). This means that if $X$ i
 above its mean, $Y$ is also more likely to be above its mean.
 The variances of $X$ and $Y$ are both $1$. That means, that if you cut
 through the plot in $X=0$ or $Y=0$, you see the same form of normal distribution.
-If you look at if from above, we have hihglighted the section on the surface
+If you look at it from above, we have highlighted the section on the surface
 over the area $X \in [0.5, 2]$ and $Y \in [0.5, 2]$. The volume over this area
 under the density curve is the probability of this area: $P(X \in [0.5, 2] \text{ and } Y \in [0.5, 2])$
 
-Calculate with R this probability with R:
+Calculate this probability with R:
 
 ```{r, echo=TRUE, , message=FALSE, warning=FALSE}
 # Load the mvtnorm package
@@ -902,7 +902,7 @@ Looks good.
 
 ### Question 1
 
-Welche der folgenden Aussage(n) hinsichtlich *Predcition* und *Explanation* im
+Welche der folgenden Aussage(n) hinsichtlich *Prediction* und *Explanation* im
 Kontext statistischer Modellierung ist/sind korrekt?
 
 - *Prediction models*, die gut funktionieren, lassen im Allgemeinen 
